@@ -1,106 +1,149 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cybrdelic :: Alejandro Figueroa</title>
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/styles/main.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cybrdelic :: Alejandro Figueroa</title>
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles/main.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <div class="glitch-container">
+  <div class="glitch-container">
+    <div class="scan-line"></div>
+    <header class="site-header">
+      <nav>
+        <a href="#" class="logo">[cybrdelic~]</a>
+        <div class="nav-links">
+          <a href="#projects">/projects</a>
+          <a href="#about">/about</a>
+          <a href="#contact">/contact</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section id="hero" class="hero">
+        <!-- Animated grid overlay -->
+        <div class="grid-overlay"></div>
+
+        <!-- Animated scan line effect -->
         <div class="scan-line"></div>
-        <header class="site-header">
-            <nav>
-                <a href="#" class="logo">[cybrdelic~]</a>
-                <div class="nav-links">
-                    <a href="#projects">/projects</a>
-                    <a href="#about">/about</a>
-                    <a href="#contact">/contact</a>
-                </div>
-            </nav>
-        </header>
 
-        <main>
-            <section id="hero" class="hero">
-                <div class="terminal-window">
-                    <div class="terminal-header">
-                        <span class="terminal-title">cybrdelic@mainframe:~$</span>
-                    </div>
-                    <div class="terminal-content">
-                        <div class="type-animation">
-                            <span class="prompt">$</span> whoami<br>
-                            <span class="response">Alejandro Figueroa</span><br>
-                            <span class="prompt">$</span> cat description.txt<br>
-                            <span class="response">Full-stack developer specializing in autonomous systems and AI integration.</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        <!-- Decorative circuit lines -->
+        <svg class="circuit-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <path class="circuit-path" d="M0,50 L100,50" />
+          <path class="circuit-path" d="M50,0 L50,100" />
+          <circle class="circuit-node" cx="50" cy="50" r="2" />
+        </svg>
 
-            <section id="projects" class="projects">
-                <h2>&lt;Projects /&gt;</h2>
-                <div class="project-grid" hx-get="/api/projects" hx-trigger="revealed">
-                    <div class="loading">Initializing project matrix...</div>
-                </div>
-            </section>
+        <div class="hero-content">
+          <h1 class="glitch-text main-title" data-text="[cybrdelic]">
+            [cybrdelic]
+          </h1>
 
-            <section id="about" class="about">
-                <h2>&lt;About /&gt;</h2>
-                <div class="about-content terminal-style">
-                    <p>Building autonomous networks of CLI-driven systems is my core mission. My work focuses on creating tools that enhance developer productivity through AI integration and automation.</p>
-                    <div class="skills">
-                        <div class="skill-category">
-                            <h3>// Languages</h3>
-                            <ul>
-                                <li>Rust</li>
-                                <li>Go</li>
-                                <li>Python</li>
-                                <li>Lua</li>
-                            </ul>
-                        </div>
-                        <div class="skill-category">
-                            <h3>// Technologies</h3>
-                            <ul>
-                                <li>AI Integration</li>
-                                <li>CLI Development</li>
-                                <li>Automation</li>
-                                <li>System Design</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
+          <div class="main-terminal">
+            <div class="terminal-header">
+              <div class="terminal-controls">
+                <span class="control close"></span>
+                <span class="control minimize"></span>
+                <span class="control maximize"></span>
+              </div>
+              <span class="terminal-title">cybrdelic@mainframe:~$</span>
+            </div>
 
-            <section id="contact" class="contact">
-                <h2>&lt;Contact /&gt;</h2>
-                <div class="contact-form terminal-style">
-                    <form hx-post="/api/contact" hx-swap="outerHTML">
-                        <div class="form-group">
-                            <label for="name">> name:</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">> email:</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">> message:</label>
-                            <textarea id="message" name="message" required></textarea>
-                        </div>
-                        <button type="submit" class="cyber-button">transmit_message()</button>
-                    </form>
-                </div>
-            </section>
-        </main>
+            <div class="terminal-content">
+              <div id="terminal-text"></div>
+              <div class="command-line">
+                <span class="prompt">$</span><span class="cursor">▋</span>
+              </div>
+            </div>
+          </div>
 
-        <footer class="site-footer">
-            <p>© 2024 cybrdelic :: all rights reserved :: system time: <span id="timestamp"></span></p>
-        </footer>
-    </div>
-    <script src="/static/js/main.js"></script>
+          <div class="hero-actions">
+            <a href="#projects" class="cyber-button">View Projects</a>
+            <a href="#contact" class="cyber-button">Initialize Contact</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" class="projects">
+        <h2>&lt;Projects /&gt;</h2>
+        <div class="project-grid" hx-get="/api/projects" hx-trigger="revealed">
+          <div class="loading">Initializing project matrix...</div>
+        </div>
+      </section>
+
+      <section id="about" class="about">
+        <h2>&lt;About /&gt;</h2>
+        <div class="about-content terminal-style">
+          <p>
+            Building autonomous networks of CLI-driven systems is my core
+            mission. My work focuses on creating tools that enhance developer
+            productivity through AI integration and automation.
+          </p>
+          <div class="skills">
+            <div class="skill-category">
+              <h3>// Languages</h3>
+              <ul>
+                <li>Rust</li>
+                <li>Go</li>
+                <li>Python</li>
+                <li>Lua</li>
+              </ul>
+            </div>
+            <div class="skill-category">
+              <h3>// Technologies</h3>
+              <ul>
+                <li>AI Integration</li>
+                <li>CLI Development</li>
+                <li>Automation</li>
+                <li>System Design</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="contact">
+        <h2>&lt;Contact /&gt;</h2>
+        <div class="contact-form terminal-style">
+          <form hx-post="/api/contact" hx-swap="outerHTML">
+            <div class="form-group">
+              <label for="name">> name:</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">> email:</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+              <label for="message">> message:</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="cyber-button">
+              transmit_message()
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        © 2024 cybrdelic :: all rights reserved :: system time:
+        <span id="timestamp"></span>
+      </p>
+    </footer>
+  </div>
+  <script src="/static/js/main.js"></script>
 </body>
+
 </html>

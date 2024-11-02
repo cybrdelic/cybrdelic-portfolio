@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}} :: cybrdelic</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/styles/main.css" />
+  </head>
+  <body>
+    <div class="glitch-container">
+      <div class="scan-line"></div>
+      <header class="site-header">
+        <nav>
+          <a href="/" class="logo">[cybrdelic~]</a>
+          <div class="nav-links">
+            <a href="/#projects">/projects</a>
+            <a href="/#about">/about</a>
+            <a href="/#contact">/contact</a>
+          </div>
+        </nav>
+      </header>
+
+      <main class="project-detail">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <span class="terminal-title">project::{{id}} » details</span>
+          </div>
+          <div class="terminal-content">
+            <div class="project-header">
+              <h1 class="glitch-text">{{title}}</h1>
+              <div class="project-links">
+                <a href="{{github_url}}" class="cyber-button" target="_blank"
+                  >» view_source()</a
+                >
+              </div>
+            </div>
+
+            <div class="terminal-section">
+              <span class="prompt">$</span> cat description.md
+              <div class="section-content">{{long_description}}</div>
+            </div>
+
+            <div class="terminal-section">
+              <span class="prompt">$</span> ls features/
+              <div class="section-content feature-list">{{features}}</div>
+            </div>
+
+            <div class="terminal-section">
+              <span class="prompt">$</span> cat tech_stack.txt
+              <div class="section-content tech-stack">
+                <div class="tech-tags">{{technologies}}</div>
+                <div class="tech-details">{{tech_stack_details}}</div>
+              </div>
+            </div>
+
+            <div class="terminal-section">
+              <span class="prompt">$</span> git log --oneline
+              <div class="section-content timeline">{{timeline}}</div>
+            </div>
+
+            <div class="terminal-section">
+              <span class="prompt">$</span> cat impact.txt
+              <div class="section-content">{{impact}}</div>
+            </div>
+
+            <div class="terminal-section">
+              <span class="prompt">$</span> cat challenges.md
+              <div class="section-content">{{challenges}}</div>
+            </div>
+
+            <div class="terminal-section">
+              <span class="prompt">$</span> cat roadmap.txt
+              <div class="section-content">{{future_plans}}</div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <p>
+          © 2024 cybrdelic :: <a href="/">cd ~</a> :: system time:
+          <span id="timestamp"></span>
+        </p>
+      </footer>
+    </div>
+    <script src="/static/js/main.js"></script>
+  </body>
+</html>
