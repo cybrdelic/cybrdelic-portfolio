@@ -1,12 +1,12 @@
 use axum::{
-    routing::{get, post},
-    Router,
-    response::Html,
     http::StatusCode,
-    Json,
+    response::Html,
+    routing::{get, post},
+    Json, Router,
 };
-use tower_http::services::ServeDir;
 use serde::Serialize;
+use std::net::SocketAddr;
+use tower_http::services::ServeDir;
 
 #[derive(Serialize)]
 struct Project {
@@ -27,11 +27,16 @@ async fn main() {
         .route("/api/contact", post(handle_contact))
         .nest_service("/static", ServeDir::new("static"));
 
+    // Build our application with a single route
+    let addr = SocketAddr::from(([0, 0, 0, 0], 3000));
     println!("Server running on http://localhost:3000");
-    axum::Server::bind(&"0.0.0.0:3000".parse().unwrap())
-        .serve(app.into_make_service())
-        .await
-        .unwrap();
+
+    axum::serve(
+        tokio::net::TcpListener::bind(addr).await.unwrap(),
+        app.into_make_service(),
+    )
+    .await
+    .unwrap();
 }
 
 async fn serve_index() -> Html<&'static str> {
@@ -49,7 +54,11 @@ async fn get_projects() -> Json<Vec<Project>> {
         Project {
             title: "Sagacity".to_string(),
             description: "Codebase exploration tool powered by Claude AI".to_string(),
-            technologies: vec!["Rust".to_string(), "Claude AI".to_string(), "CLI".to_string()],
+            technologies: vec![
+                "Rust".to_string(),
+                "Claude AI".to_string(),
+                "CLI".to_string(),
+            ],
             github_url: "https://github.com/cybrdelic/sagacity".to_string(),
         },
     ];
