@@ -235,20 +235,116 @@ nav {
 }
 
 /* ==========================================================================
-   Hero Section
+   Combined Hero and Projects Section
    ========================================================================== */
-.hero {
-  min-height: 90vh;
-  padding: var(--space-3xl) var(--container-padding);
-  margin-top: var(--header-height);
+.hero-projects {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-wrap: wrap;
+  min-height: 100vh;
+  padding: var(--space-3xl);
+  gap: var(--space-3xl);
+  box-sizing: border-box;
 }
 
+.hero-content,
+.projects-content {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.projects-content {
+  /* Optional: Add any specific styles for the projects side */
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min-width), 1fr));
+  gap: var(--grid-gap);
+  padding: var(--space-md);
+  margin-top: var(--space-xl);
+}
+
+/* ==========================================================================
+   Responsive Adjustments for Combined Section
+   ========================================================================== */
+@media (max-width: 1200px) {
+  .hero-projects {
+    flex-direction: column;
+    padding: var(--space-2xl);
+    gap: var(--space-2xl);
+  }
+
+  .hero-content,
+  .projects-content {
+    flex: 1 1 100%;
+  }
+
+  .project-grid {
+    margin-top: var(--space-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-projects {
+    padding: var(--space-xl);
+    gap: var(--space-xl);
+  }
+
+  .hero-content,
+  .projects-content {
+    flex: 1 1 100%;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Ensure padding remains consistent on all sides */
+.hero-projects {
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+/* Adjust header and main padding if necessary */
+main {
+  padding-top: var(--header-height);
+}
+
+/* ==========================================================================
+   Optional: Styling Adjustments for Hero and Projects
+   ========================================================================== */
+
+/* Align items to start on Hero side */
 .hero-content {
-  max-width: 50rem;
+  align-items: flex-start;
+}
+
+/* Align items to start on Projects side */
+.projects-content {
+  align-items: flex-start;
+}
+
+/* Ensure the loading indicator is styled appropriately */
+.projects-content .loading {
+  font-size: var(--font-size-base);
+  color: var(--color-primary);
   text-align: center;
+  padding: var(--space-md);
+}
+
+/* Adjust project cards to fit within the new layout */
+.project-card {
+  height: 100%;
+}
+
+/* Additional spacing adjustments */
+.hero-content,
+.projects-content {
+  padding: var(--space-md);
 }
 
 /* ==========================================================================
@@ -301,7 +397,7 @@ nav {
   grid-template-columns: repeat(auto-fit, minmax(var(--grid-min-width), 1fr));
   gap: var(--grid-gap);
   padding: var(--space-md);
-  margin-top: var(--space-2xl);
+  margin-top: var(--space-xl);
 }
 
 .project-card {
@@ -345,6 +441,16 @@ nav {
   transition: all var(--transition-fast);
 }
 
+.tech-tag:hover {
+  background: var(--overlay-medium);
+  transform: translateY(-1px);
+}
+
+.separator {
+  color: var(--color-primary);
+  opacity: 0.5;
+}
+
 /* ==========================================================================
    Form Elements
    ========================================================================== */
@@ -376,6 +482,14 @@ textarea {
   resize: vertical;
 }
 
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-glow);
+  background: var(--overlay-medium);
+}
+
 /* ==========================================================================
    Buttons
    ========================================================================== */
@@ -394,6 +508,14 @@ textarea {
   text-decoration: none;
   cursor: pointer;
   transition: all var(--transition-base);
+}
+
+.cyber-button:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-bg);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ==========================================================================
@@ -462,25 +584,12 @@ textarea {
   box-shadow: var(--shadow-lg);
 }
 
-.tech-tag:hover {
-  background: var(--overlay-medium);
-  transform: translateY(-1px);
-}
-
 .cyber-button:hover {
   background: var(--color-primary);
   border-color: var(--color-primary);
   color: var(--color-bg);
   transform: translateY(-2px);
   box-shadow: var(--shadow-sm);
-}
-
-input:focus,
-textarea:focus {
-  outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px var(--color-primary-glow);
-  background: var(--overlay-medium);
 }
 
 /* ==========================================================================
@@ -526,12 +635,20 @@ textarea:focus {
   }
 
   /* Layout Adjustments */
-  .hero {
-    padding: var(--space-2xl) var(--space-md);
+  .hero-projects {
+    padding: var(--space-2xl);
+    gap: var(--space-2xl);
+  }
+
+  .hero-content,
+  .projects-content {
+    flex: 1 1 100%;
+    padding: var(--space-md);
   }
 
   .project-grid {
     grid-template-columns: 1fr;
+    margin-top: var(--space-md);
   }
 
   .terminal-content {
@@ -842,7 +959,9 @@ textarea:focus {
   box-shadow: 0 4px 20px rgba(0, 255, 159, 0.2);
 }
 
-/* Glitch Effect */
+/* ==========================================================================
+   Glitch Effect
+   ========================================================================== */
 .glitch-text {
   position: relative;
 }
@@ -922,30 +1041,2439 @@ textarea:focus {
   }
 }
 
-/* Responsive Adjustments */
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
 @media (max-width: 768px) {
-  .hero-content {
-    gap: 1.5rem;
+  .hero-projects {
+    padding: var(--space-2xl);
+    gap: var(--space-2xl);
   }
 
-  .hero-descriptor {
-    margin-top: -0.5rem;
+  .hero-content,
+  .projects-content {
+    flex: 1 1 100%;
+    padding: var(--space-md);
   }
 
-  .hero-actions {
-    flex-direction: column;
-  }
-
-  .cta-button {
-    width: 100%;
-    justify-content: center;
+  .project-grid {
+    grid-template-columns: 1fr;
+    margin-top: var(--space-md);
   }
 }
 
-/* Grid Overlay Enhancement */
+/* ==========================================================================
+   Grid Overlay Enhancement
+   ========================================================================== */
 .grid-overlay {
   mask-image: linear-gradient(to bottom,
       rgba(0, 0, 0, 1) 0%,
       rgba(0, 0, 0, 0.7) 50%,
       rgba(0, 0, 0, 0) 100%);
+}
+
+/* ==========================================================================
+   Additional Styles from Previous Sections
+   ========================================================================== */
+
+/* Hero Section */
+.hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  margin-top: var(--header-height);
+}
+
+.hero-content {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Title */
+.hero-title {
+  font-size: clamp(4rem, 15vw, 8rem);
+  line-height: 1;
+  margin: 0;
+  color: var(--color-text);
+  font-weight: 600;
+  letter-spacing: -2px;
+}
+
+/* Descriptor */
+.hero-descriptor {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: -1rem;
+}
+
+.pill {
+  align-self: flex-start;
+  background: var(--color-primary-glow);
+  color: var(--color-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+}
+
+.descriptor-text {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.3;
+}
+
+.primary-text {
+  color: var(--color-primary);
+}
+
+/* Tags */
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.tag {
+  font-size: 1rem;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.tag:hover {
+  color: var(--color-primary);
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.separator {
+  color: var(--color-primary);
+  opacity: 0.5;
+}
+
+/* CTA Buttons */
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cta-button.primary {
+  background: var(--color-primary);
+  color: var(--color-bg);
+}
+
+.cta-button.secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 255, 159, 0.2);
+}
+
+/* ==========================================================================
+   Glitch Effect
+   ========================================================================== */
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip: rect(0, 900px, 0, 0);
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--color-primary);
+  animation: glitch-1 2s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: 2px 0 var(--color-accent);
+  animation: glitch-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-1 {
+  0% {
+    clip: rect(20px, 900px, 28px, 0);
+  }
+
+  20% {
+    clip: rect(54px, 900px, 65px, 0);
+  }
+
+  40% {
+    clip: rect(33px, 900px, 42px, 0);
+  }
+
+  60% {
+    clip: rect(68px, 900px, 75px, 0);
+  }
+
+  80% {
+    clip: rect(12px, 900px, 18px, 0);
+  }
+
+  100% {
+    clip: rect(47px, 900px, 52px, 0);
+  }
+}
+
+@keyframes glitch-2 {
+  0% {
+    clip: rect(42px, 900px, 50px, 0);
+  }
+
+  20% {
+    clip: rect(12px, 900px, 18px, 0);
+  }
+
+  40% {
+    clip: rect(64px, 900px, 72px, 0);
+  }
+
+  60% {
+    clip: rect(23px, 900px, 32px, 0);
+  }
+
+  80% {
+    clip: rect(55px, 900px, 63px, 0);
+  }
+
+  100% {
+    clip: rect(31px, 900px, 38px, 0);
+  }
+}
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+@media (max-width: 1200px) {
+  .hero-projects {
+    flex-direction: column;
+    padding: var(--space-2xl);
+    gap: var(--space-2xl);
+  }
+
+  .hero-content,
+  .projects-content {
+    flex: 1 1 100%;
+  }
+
+  .project-grid {
+    margin-top: var(--space-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-projects {
+    padding: var(--space-xl);
+    gap: var(--space-xl);
+  }
+
+  .hero-content,
+  .projects-content {
+    flex: 1 1 100%;
+    padding: var(--space-md);
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+    margin-top: var(--space-md);
+  }
+
+  .terminal-content {
+    padding: var(--space-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    /* Further spacing adjustments for smaller devices */
+    --container-padding: var(--space-sm);
+    --card-padding: var(--space-md);
+  }
+
+  /* Stack nav links on smallest screens */
+  .nav-links {
+    display: none;
+    /* Consider adding a mobile menu */
+  }
+
+  .terminal-controls {
+    display: none;
+    /* Hide terminal controls on mobile */
+  }
+
+  .tech-tags {
+    gap: var(--space-2xs);
+  }
+
+  .cyber-button {
+    width: 100%;
+    /* Full width buttons on mobile */
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   Grid Overlay Enhancement
+   ========================================================================== */
+.grid-overlay {
+  mask-image: linear-gradient(to bottom,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.7) 50%,
+      rgba(0, 0, 0, 0) 100%);
+}
+
+/* ==========================================================================
+   Loading States
+   ========================================================================== */
+.loading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  opacity: 0.7;
+}
+
+.loading::after {
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--overlay-medium);
+  border-radius: 50%;
+  border-top-color: var(--color-primary);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   Progress Bars
+   ========================================================================== */
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--overlay-light);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--color-primary);
+  transition: width var(--transition-base);
+}
+
+/* ==========================================================================
+   Badge
+   ========================================================================== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2xs) var(--space-xs);
+  background: var(--overlay-light);
+  border-radius: calc(var(--card-radius) / 4);
+  font-size: var(--font-size-xs);
+  line-height: 1;
+}
+
+/* ==========================================================================
+   Tooltips
+   ========================================================================== */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--surface-0);
+  border: 1px solid var(--overlay-medium);
+  border-radius: calc(var(--card-radius) / 2);
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--transition-base);
+}
+
+[data-tooltip]:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-8px);
+}
+
+/* ==========================================================================
+   Code Blocks
+   ========================================================================== */
+.code-block {
+  padding: var(--space-md);
+  background: var(--surface-0);
+  border: 1px solid var(--overlay-medium);
+  border-radius: var(--card-radius);
+  overflow-x: auto;
+}
+
+.code-block code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg,
+      var(--color-primary),
+      var(--color-secondary));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.blur-backdrop {
+  backdrop-filter: blur(var(--blur-md));
+  -webkit-backdrop-filter: blur(var(--blur-md));
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+@media print {
+  :root {
+    --color-bg: #ffffff;
+    --color-text: #000000;
+    --overlay-light: rgba(0, 0, 0, 0.05);
+    --overlay-medium: rgba(0, 0, 0, 0.1);
+  }
+
+  .site-header,
+  .ambient-background,
+  .grid-overlay {
+    display: none;
+  }
+
+  .project-card,
+  .main-terminal {
+    break-inside: avoid;
+    border: 1px solid #000;
+  }
+
+  .cyber-button {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   CSS Custom Properties Inspector
+   For development use - remove in production
+   ========================================================================== */
+/* Page Container */
+.page-container {
+  width: min(1200px, 100% - 3rem);
+  margin-inline: auto;
+  padding: 0 1.5rem;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  margin-top: var(--header-height);
+}
+
+.hero-content {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Title */
+.hero-title {
+  font-size: clamp(4rem, 15vw, 8rem);
+  line-height: 1;
+  margin: 0;
+  color: var(--color-text);
+  font-weight: 600;
+  letter-spacing: -2px;
+}
+
+/* Descriptor */
+.hero-descriptor {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: -1rem;
+}
+
+.pill {
+  align-self: flex-start;
+  background: var(--color-primary-glow);
+  color: var(--color-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+}
+
+.descriptor-text {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.3;
+}
+
+.primary-text {
+  color: var(--color-primary);
+}
+
+/* Tags */
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.tag {
+  font-size: 1rem;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.tag:hover {
+  color: var(--color-primary);
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.separator {
+  color: var(--color-primary);
+  opacity: 0.5;
+}
+
+/* CTA Buttons */
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cta-button.primary {
+  background: var(--color-primary);
+  color: var(--color-bg);
+}
+
+.cta-button.secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 255, 159, 0.2);
+}
+
+/* ==========================================================================
+   Glitch Effect
+   ========================================================================== */
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip: rect(0, 900px, 0, 0);
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--color-primary);
+  animation: glitch-1 2s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: 2px 0 var(--color-accent);
+  animation: glitch-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-1 {
+  0% {
+    clip: rect(20px, 900px, 28px, 0);
+  }
+
+  20% {
+    clip: rect(54px, 900px, 65px, 0);
+  }
+
+  40% {
+    clip: rect(33px, 900px, 42px, 0);
+  }
+
+  60% {
+    clip: rect(68px, 900px, 75px, 0);
+  }
+
+  80% {
+    clip: rect(12px, 900px, 18px, 0);
+  }
+
+  100% {
+    clip: rect(47px, 900px, 52px, 0);
+  }
+}
+
+@keyframes glitch-2 {
+  0% {
+    clip: rect(42px, 900px, 50px, 0);
+  }
+
+  20% {
+    clip: rect(12px, 900px, 18px, 0);
+  }
+
+  40% {
+    clip: rect(64px, 900px, 72px, 0);
+  }
+
+  60% {
+    clip: rect(23px, 900px, 32px, 0);
+  }
+
+  80% {
+    clip: rect(55px, 900px, 63px, 0);
+  }
+
+  100% {
+    clip: rect(31px, 900px, 38px, 0);
+  }
+}
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+@media (max-width: 768px) {
+  .hero-projects {
+    flex-direction: column;
+    padding: var(--space-2xl);
+    gap: var(--space-2xl);
+  }
+
+  .hero-content,
+  .projects-content {
+    flex: 1 1 100%;
+    padding: var(--space-md);
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+    margin-top: var(--space-md);
+  }
+
+  .terminal-content {
+    padding: var(--space-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    /* Further spacing adjustments for smaller devices */
+    --container-padding: var(--space-sm);
+    --card-padding: var(--space-md);
+  }
+
+  /* Stack nav links on smallest screens */
+  .nav-links {
+    display: none;
+    /* Consider adding a mobile menu */
+  }
+
+  .terminal-controls {
+    display: none;
+    /* Hide terminal controls on mobile */
+  }
+
+  .tech-tags {
+    gap: var(--space-2xs);
+  }
+
+  .cyber-button {
+    width: 100%;
+    /* Full width buttons on mobile */
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   Grid Overlay Enhancement
+   ========================================================================== */
+.grid-overlay {
+  mask-image: linear-gradient(to bottom,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.7) 50%,
+      rgba(0, 0, 0, 0) 100%);
+}
+
+/* ==========================================================================
+   Additional Styles from Previous Sections
+   ========================================================================== */
+
+/* Hero Section */
+.hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  margin-top: var(--header-height);
+}
+
+.hero-content {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Title */
+.hero-title {
+  font-size: clamp(4rem, 15vw, 8rem);
+  line-height: 1;
+  margin: 0;
+  color: var(--color-text);
+  font-weight: 600;
+  letter-spacing: -2px;
+}
+
+/* Descriptor */
+.hero-descriptor {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: -1rem;
+}
+
+.pill {
+  align-self: flex-start;
+  background: var(--color-primary-glow);
+  color: var(--color-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+}
+
+.descriptor-text {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.3;
+}
+
+.primary-text {
+  color: var(--color-primary);
+}
+
+/* Tags */
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.tag {
+  font-size: 1rem;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.tag:hover {
+  color: var(--color-primary);
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.separator {
+  color: var(--color-primary);
+  opacity: 0.5;
+}
+
+/* CTA Buttons */
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cta-button.primary {
+  background: var(--color-primary);
+  color: var(--color-bg);
+}
+
+.cta-button.secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 255, 159, 0.2);
+}
+
+/* ==========================================================================
+   Glitch Effect
+   ========================================================================== */
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip: rect(0, 900px, 0, 0);
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--color-primary);
+  animation: glitch-1 2s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: 2px 0 var(--color-accent);
+  animation: glitch-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-1 {
+  0% {
+    clip: rect(20px, 900px, 28px, 0);
+  }
+
+  20% {
+    clip: rect(54px, 900px, 65px, 0);
+  }
+
+  40% {
+    clip: rect(33px, 900px, 42px, 0);
+  }
+
+  60% {
+    clip: rect(68px, 900px, 75px, 0);
+  }
+
+  80% {
+    clip: rect(12px, 900px, 18px, 0);
+  }
+
+  100% {
+    clip: rect(47px, 900px, 52px, 0);
+  }
+}
+
+@keyframes glitch-2 {
+  0% {
+    clip: rect(42px, 900px, 50px, 0);
+  }
+
+  20% {
+    clip: rect(12px, 900px, 18px, 0);
+  }
+
+  40% {
+    clip: rect(64px, 900px, 72px, 0);
+  }
+
+  60% {
+    clip: rect(23px, 900px, 32px, 0);
+  }
+
+  80% {
+    clip: rect(55px, 900px, 63px, 0);
+  }
+
+  100% {
+    clip: rect(31px, 900px, 38px, 0);
+  }
+}
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+@media (max-width: 1200px) {
+  .hero-projects {
+    flex-direction: column;
+    padding: var(--space-2xl);
+    gap: var(--space-2xl);
+  }
+
+  .hero-content,
+  .projects-content {
+    flex: 1 1 100%;
+  }
+
+  .project-grid {
+    margin-top: var(--space-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-projects {
+    padding: var(--space-xl);
+    gap: var(--space-xl);
+  }
+
+  .hero-content,
+  .projects-content {
+    flex: 1 1 100%;
+    padding: var(--space-md);
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+    margin-top: var(--space-md);
+  }
+
+  .terminal-content {
+    padding: var(--space-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    /* Further spacing adjustments for smaller devices */
+    --container-padding: var(--space-sm);
+    --card-padding: var(--space-md);
+  }
+
+  /* Stack nav links on smallest screens */
+  .nav-links {
+    display: none;
+    /* Consider adding a mobile menu */
+  }
+
+  .terminal-controls {
+    display: none;
+    /* Hide terminal controls on mobile */
+  }
+
+  .tech-tags {
+    gap: var(--space-2xs);
+  }
+
+  .cyber-button {
+    width: 100%;
+    /* Full width buttons on mobile */
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   Grid Overlay Enhancement
+   ========================================================================== */
+.grid-overlay {
+  mask-image: linear-gradient(to bottom,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.7) 50%,
+      rgba(0, 0, 0, 0) 100%);
+}
+
+/* ==========================================================================
+   Loading States
+   ========================================================================== */
+.loading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  opacity: 0.7;
+}
+
+.loading::after {
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--overlay-medium);
+  border-radius: 50%;
+  border-top-color: var(--color-primary);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   Progress Bars
+   ========================================================================== */
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--overlay-light);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--color-primary);
+  transition: width var(--transition-base);
+}
+
+/* ==========================================================================
+   Badge
+   ========================================================================== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2xs) var(--space-xs);
+  background: var(--overlay-light);
+  border-radius: calc(var(--card-radius) / 4);
+  font-size: var(--font-size-xs);
+  line-height: 1;
+}
+
+/* ==========================================================================
+   Tooltips
+   ========================================================================== */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--surface-0);
+  border: 1px solid var(--overlay-medium);
+  border-radius: calc(var(--card-radius) / 2);
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--transition-base);
+}
+
+[data-tooltip]:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-8px);
+}
+
+/* ==========================================================================
+   Code Blocks
+   ========================================================================== */
+.code-block {
+  padding: var(--space-md);
+  background: var(--surface-0);
+  border: 1px solid var(--overlay-medium);
+  border-radius: var(--card-radius);
+  overflow-x: auto;
+}
+
+.code-block code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg,
+      var(--color-primary),
+      var(--color-secondary));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.blur-backdrop {
+  backdrop-filter: blur(var(--blur-md));
+  -webkit-backdrop-filter: blur(var(--blur-md));
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+@media print {
+  :root {
+    --color-bg: #ffffff;
+    --color-text: #000000;
+    --overlay-light: rgba(0, 0, 0, 0.05);
+    --overlay-medium: rgba(0, 0, 0, 0.1);
+  }
+
+  .site-header,
+  .ambient-background,
+  .grid-overlay {
+    display: none;
+  }
+
+  .project-card,
+  .main-terminal {
+    break-inside: avoid;
+    border: 1px solid #000;
+  }
+
+  .cyber-button {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   CSS Custom Properties Inspector
+   For development use - remove in production
+   ========================================================================== */
+/* Page Container */
+.page-container {
+  width: min(1200px, 100% - 3rem);
+  margin-inline: auto;
+  padding: 0 1.5rem;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  margin-top: var(--header-height);
+}
+
+.hero-content {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Title */
+.hero-title {
+  font-size: clamp(4rem, 15vw, 8rem);
+  line-height: 1;
+  margin: 0;
+  color: var(--color-text);
+  font-weight: 600;
+  letter-spacing: -2px;
+}
+
+/* Descriptor */
+.hero-descriptor {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: -1rem;
+}
+
+.pill {
+  align-self: flex-start;
+  background: var(--color-primary-glow);
+  color: var(--color-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+}
+
+.descriptor-text {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.3;
+}
+
+.primary-text {
+  color: var(--color-primary);
+}
+
+/* Tags */
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.tag {
+  font-size: 1rem;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.tag:hover {
+  color: var(--color-primary);
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.separator {
+  color: var(--color-primary);
+  opacity: 0.5;
+}
+
+/* CTA Buttons */
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cta-button.primary {
+  background: var(--color-primary);
+  color: var(--color-bg);
+}
+
+.cta-button.secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 255, 159, 0.2);
+}
+
+/* ==========================================================================
+   Glitch Effect
+   ========================================================================== */
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip: rect(0, 900px, 0, 0);
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--color-primary);
+  animation: glitch-1 2s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: 2px 0 var(--color-accent);
+  animation: glitch-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-1 {
+  0% {
+    clip: rect(20px, 900px, 28px, 0);
+  }
+
+  20% {
+    clip: rect(54px, 900px, 65px, 0);
+  }
+
+  40% {
+    clip: rect(33px, 900px, 42px, 0);
+  }
+
+  60% {
+    clip: rect(68px, 900px, 75px, 0);
+  }
+
+  80% {
+    clip: rect(12px, 900px, 18px, 0);
+  }
+
+  100% {
+    clip: rect(47px, 900px, 52px, 0);
+  }
+}
+
+@keyframes glitch-2 {
+  0% {
+    clip: rect(42px, 900px, 50px, 0);
+  }
+
+  20% {
+    clip: rect(12px, 900px, 18px, 0);
+  }
+
+  40% {
+    clip: rect(64px, 900px, 72px, 0);
+  }
+
+  60% {
+    clip: rect(23px, 900px, 32px, 0);
+  }
+
+  80% {
+    clip: rect(55px, 900px, 63px, 0);
+  }
+
+  100% {
+    clip: rect(31px, 900px, 38px, 0);
+  }
+}
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+@media (max-width: 768px) {
+  .hero-projects {
+    flex-direction: column;
+    padding: var(--space-2xl);
+    gap: var(--space-2xl);
+  }
+
+  .hero-content,
+  .projects-content {
+    flex: 1 1 100%;
+    padding: var(--space-md);
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+    margin-top: var(--space-md);
+  }
+
+  .terminal-content {
+    padding: var(--space-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    /* Further spacing adjustments for smaller devices */
+    --container-padding: var(--space-sm);
+    --card-padding: var(--space-md);
+  }
+
+  /* Stack nav links on smallest screens */
+  .nav-links {
+    display: none;
+    /* Consider adding a mobile menu */
+  }
+
+  .terminal-controls {
+    display: none;
+    /* Hide terminal controls on mobile */
+  }
+
+  .tech-tags {
+    gap: var(--space-2xs);
+  }
+
+  .cyber-button {
+    width: 100%;
+    /* Full width buttons on mobile */
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   Grid Overlay Enhancement
+   ========================================================================== */
+.grid-overlay {
+  mask-image: linear-gradient(to bottom,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.7) 50%,
+      rgba(0, 0, 0, 0) 100%);
+}
+
+/* ==========================================================================
+   Loading States
+   ========================================================================== */
+.loading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  opacity: 0.7;
+}
+
+.loading::after {
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--overlay-medium);
+  border-radius: 50%;
+  border-top-color: var(--color-primary);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   Progress Bars
+   ========================================================================== */
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--overlay-light);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--color-primary);
+  transition: width var(--transition-base);
+}
+
+/* ==========================================================================
+   Badge
+   ========================================================================== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2xs) var(--space-xs);
+  background: var(--overlay-light);
+  border-radius: calc(var(--card-radius) / 4);
+  font-size: var(--font-size-xs);
+  line-height: 1;
+}
+
+/* ==========================================================================
+   Tooltips
+   ========================================================================== */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--surface-0);
+  border: 1px solid var(--overlay-medium);
+  border-radius: calc(var(--card-radius) / 2);
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--transition-base);
+}
+
+[data-tooltip]:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-8px);
+}
+
+/* ==========================================================================
+   Code Blocks
+   ========================================================================== */
+.code-block {
+  padding: var(--space-md);
+  background: var(--surface-0);
+  border: 1px solid var(--overlay-medium);
+  border-radius: var(--card-radius);
+  overflow-x: auto;
+}
+
+.code-block code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg,
+      var(--color-primary),
+      var(--color-secondary));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.blur-backdrop {
+  backdrop-filter: blur(var(--blur-md));
+  -webkit-backdrop-filter: blur(var(--blur-md));
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+@media print {
+  :root {
+    --color-bg: #ffffff;
+    --color-text: #000000;
+    --overlay-light: rgba(0, 0, 0, 0.05);
+    --overlay-medium: rgba(0, 0, 0, 0.1);
+  }
+
+  .site-header,
+  .ambient-background,
+  .grid-overlay {
+    display: none;
+  }
+
+  .project-card,
+  .main-terminal {
+    break-inside: avoid;
+    border: 1px solid #000;
+  }
+
+  .cyber-button {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   CSS Custom Properties Inspector
+   For development use - remove in production
+   ========================================================================== */
+/* Page Container */
+.page-container {
+  width: min(1200px, 100% - 3rem);
+  margin-inline: auto;
+  padding: 0 1.5rem;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  margin-top: var(--header-height);
+}
+
+.hero-content {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Title */
+.hero-title {
+  font-size: clamp(4rem, 15vw, 8rem);
+  line-height: 1;
+  margin: 0;
+  color: var(--color-text);
+  font-weight: 600;
+  letter-spacing: -2px;
+}
+
+/* Descriptor */
+.hero-descriptor {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: -1rem;
+}
+
+.pill {
+  align-self: flex-start;
+  background: var(--color-primary-glow);
+  color: var(--color-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+}
+
+.descriptor-text {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.3;
+}
+
+.primary-text {
+  color: var(--color-primary);
+}
+
+/* Tags */
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.tag {
+  font-size: 1rem;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.tag:hover {
+  color: var(--color-primary);
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.separator {
+  color: var(--color-primary);
+  opacity: 0.5;
+}
+
+/* CTA Buttons */
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cta-button.primary {
+  background: var(--color-primary);
+  color: var(--color-bg);
+}
+
+.cta-button.secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 255, 159, 0.2);
+}
+
+/* ==========================================================================
+   Glitch Effect
+   ========================================================================== */
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip: rect(0, 900px, 0, 0);
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--color-primary);
+  animation: glitch-1 2s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: 2px 0 var(--color-accent);
+  animation: glitch-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-1 {
+  0% {
+    clip: rect(20px, 900px, 28px, 0);
+  }
+
+  20% {
+    clip: rect(54px, 900px, 65px, 0);
+  }
+
+  40% {
+    clip: rect(33px, 900px, 42px, 0);
+  }
+
+  60% {
+    clip: rect(68px, 900px, 75px, 0);
+  }
+
+  80% {
+    clip: rect(12px, 900px, 18px, 0);
+  }
+
+  100% {
+    clip: rect(47px, 900px, 52px, 0);
+  }
+}
+
+@keyframes glitch-2 {
+  0% {
+    clip: rect(42px, 900px, 50px, 0);
+  }
+
+  20% {
+    clip: rect(12px, 900px, 18px, 0);
+  }
+
+  40% {
+    clip: rect(64px, 900px, 72px, 0);
+  }
+
+  60% {
+    clip: rect(23px, 900px, 32px, 0);
+  }
+
+  80% {
+    clip: rect(55px, 900px, 63px, 0);
+  }
+
+  100% {
+    clip: rect(31px, 900px, 38px, 0);
+  }
+}
+
+/* ==========================================================================
+   Responsive Adjustments for Combined Section
+   ========================================================================== */
+@media (max-width: 1200px) {
+  .hero-projects {
+    flex-direction: column;
+    padding: var(--space-2xl);
+    gap: var(--space-2xl);
+  }
+
+  .hero-content,
+  .projects-content {
+    flex: 1 1 100%;
+  }
+
+  .project-grid {
+    margin-top: var(--space-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-projects {
+    padding: var(--space-xl);
+    gap: var(--space-xl);
+  }
+
+  .hero-content,
+  .projects-content {
+    flex: 1 1 100%;
+    padding: var(--space-md);
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+    margin-top: var(--space-md);
+  }
+
+  .terminal-content {
+    padding: var(--space-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    /* Further spacing adjustments for smaller devices */
+    --container-padding: var(--space-sm);
+    --card-padding: var(--space-md);
+  }
+
+  /* Stack nav links on smallest screens */
+  .nav-links {
+    display: none;
+    /* Consider adding a mobile menu */
+  }
+
+  .terminal-controls {
+    display: none;
+    /* Hide terminal controls on mobile */
+  }
+
+  .tech-tags {
+    gap: var(--space-2xs);
+  }
+
+  .cyber-button {
+    width: 100%;
+    /* Full width buttons on mobile */
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   Grid Overlay Enhancement
+   ========================================================================== */
+.grid-overlay {
+  mask-image: linear-gradient(to bottom,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.7) 50%,
+      rgba(0, 0, 0, 0) 100%);
+}
+
+/* ==========================================================================
+   Additional Styles from Previous Sections
+   ========================================================================== */
+
+/* Hero Section */
+.hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  margin-top: var(--header-height);
+}
+
+.hero-content {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Title */
+.hero-title {
+  font-size: clamp(4rem, 15vw, 8rem);
+  line-height: 1;
+  margin: 0;
+  color: var(--color-text);
+  font-weight: 600;
+  letter-spacing: -2px;
+}
+
+/* Descriptor */
+.hero-descriptor {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: -1rem;
+}
+
+.pill {
+  align-self: flex-start;
+  background: var(--color-primary-glow);
+  color: var(--color-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+}
+
+.descriptor-text {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.3;
+}
+
+.primary-text {
+  color: var(--color-primary);
+}
+
+/* Tags */
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.tag {
+  font-size: 1rem;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.tag:hover {
+  color: var(--color-primary);
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.separator {
+  color: var(--color-primary);
+  opacity: 0.5;
+}
+
+/* CTA Buttons */
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cta-button.primary {
+  background: var(--color-primary);
+  color: var(--color-bg);
+}
+
+.cta-button.secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 255, 159, 0.2);
+}
+
+/* ==========================================================================
+   Glitch Effect
+   ========================================================================== */
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip: rect(0, 900px, 0, 0);
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--color-primary);
+  animation: glitch-1 2s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: 2px 0 var(--color-accent);
+  animation: glitch-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-1 {
+  0% {
+    clip: rect(20px, 900px, 28px, 0);
+  }
+
+  20% {
+    clip: rect(54px, 900px, 65px, 0);
+  }
+
+  40% {
+    clip: rect(33px, 900px, 42px, 0);
+  }
+
+  60% {
+    clip: rect(68px, 900px, 75px, 0);
+  }
+
+  80% {
+    clip: rect(12px, 900px, 18px, 0);
+  }
+
+  100% {
+    clip: rect(47px, 900px, 52px, 0);
+  }
+}
+
+@keyframes glitch-2 {
+  0% {
+    clip: rect(42px, 900px, 50px, 0);
+  }
+
+  20% {
+    clip: rect(12px, 900px, 18px, 0);
+  }
+
+  40% {
+    clip: rect(64px, 900px, 72px, 0);
+  }
+
+  60% {
+    clip: rect(23px, 900px, 32px, 0);
+  }
+
+  80% {
+    clip: rect(55px, 900px, 63px, 0);
+  }
+
+  100% {
+    clip: rect(31px, 900px, 38px, 0);
+  }
+}
+
+/* ==========================================================================
+   Responsive Adjustments for Combined Section
+   ========================================================================== */
+@media (max-width: 1200px) {
+  .hero-projects {
+    flex-direction: column;
+    padding: var(--space-2xl);
+    gap: var(--space-2xl);
+  }
+
+  .hero-content,
+  .projects-content {
+    flex: 1 1 100%;
+  }
+
+  .project-grid {
+    margin-top: var(--space-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-projects {
+    padding: var(--space-xl);
+    gap: var(--space-xl);
+  }
+
+  .hero-content,
+  .projects-content {
+    flex: 1 1 100%;
+    padding: var(--space-md);
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+    margin-top: var(--space-md);
+  }
+
+  .terminal-content {
+    padding: var(--space-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    /* Further spacing adjustments for smaller devices */
+    --container-padding: var(--space-sm);
+    --card-padding: var(--space-md);
+  }
+
+  /* Stack nav links on smallest screens */
+  .nav-links {
+    display: none;
+    /* Consider adding a mobile menu */
+  }
+
+  .terminal-controls {
+    display: none;
+    /* Hide terminal controls on mobile */
+  }
+
+  .tech-tags {
+    gap: var(--space-2xs);
+  }
+
+  .cyber-button {
+    width: 100%;
+    /* Full width buttons on mobile */
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   Grid Overlay Enhancement
+   ========================================================================== */
+.grid-overlay {
+  mask-image: linear-gradient(to bottom,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.7) 50%,
+      rgba(0, 0, 0, 0) 100%);
+}
+
+/* ==========================================================================
+   Loading States
+   ========================================================================== */
+.loading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  opacity: 0.7;
+}
+
+.loading::after {
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--overlay-medium);
+  border-radius: 50%;
+  border-top-color: var(--color-primary);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   Progress Bars
+   ========================================================================== */
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--overlay-light);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--color-primary);
+  transition: width var(--transition-base);
+}
+
+/* ==========================================================================
+   Badge
+   ========================================================================== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2xs) var(--space-xs);
+  background: var(--overlay-light);
+  border-radius: calc(var(--card-radius) / 4);
+  font-size: var(--font-size-xs);
+  line-height: 1;
+}
+
+/* ==========================================================================
+   Tooltips
+   ========================================================================== */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--surface-0);
+  border: 1px solid var(--overlay-medium);
+  border-radius: calc(var(--card-radius) / 2);
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--transition-base);
+}
+
+[data-tooltip]:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-8px);
+}
+
+/* ==========================================================================
+   Code Blocks
+   ========================================================================== */
+.code-block {
+  padding: var(--space-md);
+  background: var(--surface-0);
+  border: 1px solid var(--overlay-medium);
+  border-radius: var(--card-radius);
+  overflow-x: auto;
+}
+
+.code-block code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg,
+      var(--color-primary),
+      var(--color-secondary));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.blur-backdrop {
+  backdrop-filter: blur(var(--blur-md));
+  -webkit-backdrop-filter: blur(var(--blur-md));
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+@media print {
+  :root {
+    --color-bg: #ffffff;
+    --color-text: #000000;
+    --overlay-light: rgba(0, 0, 0, 0.05);
+    --overlay-medium: rgba(0, 0, 0, 0.1);
+  }
+
+  .site-header,
+  .ambient-background,
+  .grid-overlay {
+    display: none;
+  }
+
+  .project-card,
+  .main-terminal {
+    break-inside: avoid;
+    border: 1px solid #000;
+  }
+
+  .cyber-button {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   CSS Custom Properties Inspector
+   For development use - remove in production
+   ========================================================================== */
+/* Page Container */
+.page-container {
+  width: min(1200px, 100% - 3rem);
+  margin-inline: auto;
+  padding: 0 1.5rem;
+}
+
+/* ==========================================================================
+   Footer Styling
+   ========================================================================== */
+.site-footer {
+  padding: var(--space-lg) var(--container-padding);
+  background: var(--surface-0);
+  backdrop-filter: blur(var(--blur-md));
+  border-top: 1px solid var(--overlay-medium);
+  text-align: center;
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+}
+
+.site-footer a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Glitch Container
+   ========================================================================== */
+.glitch-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-primary);
+  animation: scan 5s linear infinite;
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  50% {
+    transform: translateY(100%);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+/* ==========================================================================
+   Main Glitch Container Adjustments
+   ========================================================================== */
+.glitch-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   Footer Timestamp
+   ========================================================================== */
+#timestamp {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Additional Media Queries
+   ========================================================================== */
+
+/* Adjusting the hero-projects layout on very large screens */
+@media (min-width: 1600px) {
+  .hero-projects {
+    padding: var(--space-4xl);
+    gap: var(--space-4xl);
+  }
+
+  .hero-content,
+  .projects-content {
+    flex: 1 1 40%;
+  }
+
+  .project-grid {
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  }
 }
