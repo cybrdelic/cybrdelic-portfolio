@@ -1,10 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
+  initPageLoader();
   initHeroEffects();
   initGlitchEffects();
   initProjectCardEffects();
   initTimestampUpdates();
   initHtmxHandlers();
 });
+
+// Page Loader Initialization
+function initPageLoader() {
+  const loader = document.getElementById('page-loader');
+  if (loader) {
+    window.addEventListener('load', () => {
+      loader.classList.add('fade-out');
+      setTimeout(() => {
+        loader.style.display = 'none';
+      }, 500); // Match with CSS transition duration
+    });
+  }
+}
 
 // Hero Section
 function initHeroEffects() {
@@ -86,9 +100,9 @@ function initGlitchEffects() {
     setInterval(() => {
       if (Math.random() > 0.95) {
         text.style.textShadow = `
-          ${Math.random() * 3}px 0 var(--color-primary),
-          ${-Math.random() * 3}px 0 var(--color-secondary)
-        `;
+                    ${Math.random() * 3}px 0 var(--color-primary),
+                    ${-Math.random() * 3}px 0 var(--color-secondary)
+                `;
 
         setTimeout(() => {
           text.style.textShadow = "";
@@ -166,7 +180,21 @@ function initHtmxHandlers() {
 
     // Project grid loading state
     if (target.classList.contains('project-grid')) {
-      target.innerHTML = '<div class="loading">Initializing project matrix...</div>';
+      target.innerHTML = `
+                <div class="project-skeleton">
+                    <div class="skeleton skeleton-title"></div>
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+                <div class="project-skeleton">
+                    <div class="skeleton skeleton-title"></div>
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+                <div class="project-skeleton">
+                    <div class="skeleton skeleton-title"></div>
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+                <!-- Add more skeletons as needed -->
+            `;
     }
 
     // Form submission loading state
@@ -189,6 +217,21 @@ function initHtmxHandlers() {
         submitButton.innerHTML = 'transmit_message()';
       }
     }
+  });
+
+  // Add fade-in effect after content is loaded
+  document.addEventListener('htmx:afterSwap', function (event) {
+    const target = event.detail.target;
+
+    // Apply fade-in to project cards
+    if (target.classList.contains('project-grid')) {
+      const projectCards = target.querySelectorAll('.project-card');
+      projectCards.forEach(card => {
+        card.classList.add('fade-in');
+      });
+    }
+
+    // Apply fade-in to other dynamic content if needed
   });
 }
 

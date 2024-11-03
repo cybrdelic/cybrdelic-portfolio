@@ -16,18 +16,13 @@
 </head>
 
 <body>
+    <!-- Page Loader -->
+    <div id="page-loader" class="page-loader">
+        <div class="spinner"></div>
+    </div>
+
     <div class="glitch-container">
         <div class="scan-line"></div>
-        <header class="site-header">
-            <nav>
-                <a href="/" class="logo">[cybrdelic~]</a>
-                <div class="nav-links">
-                    <a href="#projects">/projects</a>
-                    <a href="#about">/about</a>
-                    <a href="#contact">/contact</a>
-                </div>
-            </nav>
-        </header>
 
         <main>
             <!-- Combined Hero and Projects Section -->
@@ -59,7 +54,20 @@
 
                 <div class="projects-content">
                     <div class="project-grid" hx-get="/api/projects" hx-trigger="revealed">
-                        <div class="loading">Initializing project matrix...</div>
+                        <!-- Skeleton Screens as Initial Placeholders -->
+                        <div class="project-skeleton">
+                            <div class="skeleton skeleton-title"></div>
+                            <div class="skeleton skeleton-text"></div>
+                        </div>
+                        <div class="project-skeleton">
+                            <div class="skeleton skeleton-title"></div>
+                            <div class="skeleton skeleton-text"></div>
+                        </div>
+                        <div class="project-skeleton">
+                            <div class="skeleton skeleton-title"></div>
+                            <div class="skeleton skeleton-text"></div>
+                        </div>
+                        <!-- More skeletons can be added as needed -->
                     </div>
                 </div>
             </section>
