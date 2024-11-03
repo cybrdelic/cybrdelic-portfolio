@@ -81,7 +81,7 @@
   --grid-min-width: 20rem;
   /* 320px */
   --grid-size: 4rem;
-  /* 64px - For background grid */
+  /* 64px */
 
   /* Effects */
   --shadow-sm: 0 2px 8px rgba(0, 255, 159, 0.1);
@@ -234,6 +234,10 @@ nav {
   transition: all var(--transition-base);
 }
 
+.nav-links a:hover {
+  opacity: 1;
+}
+
 /* ==========================================================================
    Combined Hero and Projects Section
    ========================================================================== */
@@ -304,10 +308,6 @@ nav {
     margin-top: var(--space-md);
   }
 }
-
-/* ==========================================================================
-   Additional Styles for Loading Animations
-   ========================================================================== */
 
 /* ==========================================================================
    Page Loader Styles
@@ -603,7 +603,9 @@ textarea:focus {
   vertical-align: middle;
 }
 
-/* Grid Background */
+/* ==========================================================================
+   Grid Background
+   ========================================================================== */
 .grid-overlay {
   position: fixed;
   inset: 0;
@@ -615,9 +617,12 @@ textarea:focus {
   mask-image: radial-gradient(ellipse at center,
       black 20%,
       transparent 70%);
+  animation: gridMove 20s linear infinite alternate;
 }
 
-/* Ambient Background */
+/* ==========================================================================
+   Ambient Background
+   ========================================================================== */
 .ambient-background {
   position: fixed;
   inset: 0;
@@ -628,6 +633,34 @@ textarea:focus {
     radial-gradient(circle at 50% 50%, var(--color-accent-glow), transparent 60%);
   filter: blur(120px);
   opacity: 0.6;
+  animation: ambientPulse 10s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   Optional Enhancements
+   ========================================================================== */
+/* Grid Movement Animation */
+@keyframes gridMove {
+  from {
+    transform: translate(0, 0);
+  }
+
+  to {
+    transform: translate(-5px, -5px);
+  }
+}
+
+/* Ambient Background Pulsing Animation */
+@keyframes ambientPulse {
+
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
 }
 
 /* ==========================================================================
@@ -656,9 +689,23 @@ textarea:focus {
 /* ==========================================================================
    Responsive Adjustments
    ========================================================================== */
-/* ==========================================================================
-   Media Queries (continued)
-   ========================================================================== */
+/* Adjusting the hero-projects layout on very large screens */
+@media (min-width: 1600px) {
+  .hero-projects {
+    padding: var(--space-4xl);
+    gap: var(--space-4xl);
+  }
+
+  .hero-content,
+  .projects-content {
+    flex: 1 1 40%;
+  }
+
+  .project-grid {
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
   :root {
     /* Adjust spacing for mobile */
@@ -914,17 +961,17 @@ textarea:focus {
 }
 
 /* ==========================================================================
-   CSS Custom Properties Inspector
-   For development use - remove in production
+   Page Container
    ========================================================================== */
-/* Page Container */
 .page-container {
   width: min(1200px, 100% - 3rem);
   margin-inline: auto;
   padding: 0 1.5rem;
 }
 
-/* Hero Section */
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
 .hero {
   position: relative;
   min-height: 90vh;
@@ -1121,11 +1168,207 @@ textarea:focus {
 }
 
 /* ==========================================================================
-   Additional Existing Styles...
+   Fade-In Animation (Repeated for Clarity)
    ========================================================================== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 0.6s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* ==========================================================================
-   Responsive Adjustments
+   Terminal Component Hover Effect (Repeated for Clarity)
+   ========================================================================== */
+.main-terminal:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ==========================================================================
+   Project Card Hover Effect (Repeated for Clarity)
+   ========================================================================== */
+.project-card:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ==========================================================================
+   Responsive Adjustments for Grid and Ambient Background
+   ========================================================================== */
+@media (max-width: 768px) {
+
+  /* Adjust spacing variables for smaller screens */
+  :root {
+    --container-padding: var(--space-md);
+    --section-spacing: var(--space-2xl);
+    --stack-spacing: var(--space-md);
+    --card-padding: var(--space-lg);
+    --grid-gap: var(--space-md);
+  }
+
+  /* Header Adjustments */
+  .site-header {
+    padding: 0 var(--space-md);
+  }
+
+  .nav-links {
+    gap: var(--space-md);
+  }
+
+  .nav-links a {
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  /* Typography Adjustments */
+  h1 {
+    font-size: var(--font-size-3xl);
+  }
+
+  h2 {
+    font-size: var(--font-size-2xl);
+  }
+
+  h3 {
+    font-size: var(--font-size-xl);
+  }
+
+  /* Layout Adjustments */
+  .hero-projects {
+    padding: var(--space-2xl);
+    gap: var(--space-2xl);
+  }
+
+  .hero-content,
+  .projects-content {
+    flex: 1 1 100%;
+    padding: var(--space-md);
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+    margin-top: var(--space-md);
+  }
+
+  .terminal-content {
+    padding: var(--space-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    /* Further spacing adjustments for smallest devices */
+    --container-padding: var(--space-sm);
+    --card-padding: var(--space-md);
+  }
+
+  /* Stack nav links on smallest screens */
+  .nav-links {
+    display: none;
+    /* Consider adding a mobile menu */
+  }
+
+  .terminal-controls {
+    display: none;
+    /* Hide terminal controls on mobile */
+  }
+
+  .tech-tags {
+    gap: var(--space-2xs);
+  }
+
+  .cyber-button {
+    width: 100%;
+    /* Full width buttons on mobile */
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   Grid Overlay Hidden State
+   ========================================================================== */
+.grid-overlay.hidden {
+  display: none;
+}
+
+/* ==========================================================================
+   Footer Styling
+   ========================================================================== */
+.site-footer {
+  padding: var(--space-lg) var(--container-padding);
+  background: var(--surface-0);
+  backdrop-filter: blur(var(--blur-md));
+  border-top: 1px solid var(--overlay-medium);
+  text-align: center;
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+}
+
+.site-footer a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Glitch Container
+   ========================================================================== */
+.glitch-container {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   Scan Line Animation
+   ========================================================================== */
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-primary);
+  animation: scan 5s linear infinite;
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  50% {
+    transform: translateY(100%);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+/* ==========================================================================
+   Timestamp Styling
+   ========================================================================== */
+#timestamp {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Additional Media Queries
    ========================================================================== */
 @media (max-width: 768px) {
   .hero-projects {
@@ -1175,93 +1418,168 @@ textarea:focus {
 }
 
 /* ==========================================================================
-   Footer Styling
+   Grid Overlay Enhancement (Repeated for Clarity)
    ========================================================================== */
-.site-footer {
-  padding: var(--space-lg) var(--container-padding);
-  background: var(--surface-0);
-  backdrop-filter: blur(var(--blur-md));
-  border-top: 1px solid var(--overlay-medium);
-  text-align: center;
-  color: var(--color-text);
-  font-size: var(--font-size-sm);
-}
-
-.site-footer a {
-  color: var(--color-primary);
-  text-decoration: none;
-}
-
-.site-footer a:hover {
-  text-decoration: underline;
+.grid-overlay {
+  mask-image: linear-gradient(to bottom,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.7) 50%,
+      rgba(0, 0, 0, 0) 100%);
 }
 
 /* ==========================================================================
-   Glitch Container
+   Loading States (Repeated for Clarity)
    ========================================================================== */
-.glitch-container {
-  position: relative;
+.loading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  opacity: 0.7;
+}
+
+.loading::after {
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--overlay-medium);
+  border-radius: 50%;
+  border-top-color: var(--color-primary);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   Progress Bars (Repeated for Clarity)
+   ========================================================================== */
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--overlay-light);
+  border-radius: 2px;
   overflow: hidden;
 }
 
-.scan-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
+.progress-bar-fill {
+  height: 100%;
   background: var(--color-primary);
-  animation: scan 5s linear infinite;
-}
-
-@keyframes scan {
-  0% {
-    transform: translateY(-100%);
-  }
-
-  50% {
-    transform: translateY(100%);
-  }
-
-  100% {
-    transform: translateY(-100%);
-  }
+  transition: width var(--transition-base);
 }
 
 /* ==========================================================================
-   Main Glitch Container Adjustments
+   Badge (Repeated for Clarity)
    ========================================================================== */
-.glitch-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2xs) var(--space-xs);
+  background: var(--overlay-light);
+  border-radius: calc(var(--card-radius) / 4);
+  font-size: var(--font-size-xs);
+  line-height: 1;
 }
 
 /* ==========================================================================
-   Footer Timestamp
+   Tooltips (Repeated for Clarity)
    ========================================================================== */
-#timestamp {
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--surface-0);
+  border: 1px solid var(--overlay-medium);
+  border-radius: calc(var(--card-radius) / 2);
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--transition-base);
+}
+
+[data-tooltip]:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-8px);
+}
+
+/* ==========================================================================
+   Code Blocks (Repeated for Clarity)
+   ========================================================================== */
+.code-block {
+  padding: var(--space-md);
+  background: var(--surface-0);
+  border: 1px solid var(--overlay-medium);
+  border-radius: var(--card-radius);
+  overflow-x: auto;
+}
+
+.code-block code {
   font-family: 'JetBrains Mono', monospace;
-  font-weight: 600;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
 }
 
 /* ==========================================================================
-   Additional Media Queries
+   Utilities (Repeated for Clarity)
    ========================================================================== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
 
-/* Adjusting the hero-projects layout on very large screens */
-@media (min-width: 1600px) {
-  .hero-projects {
-    padding: var(--space-4xl);
-    gap: var(--space-4xl);
+.text-gradient {
+  background: linear-gradient(135deg,
+      var(--color-primary),
+      var(--color-secondary));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.blur-backdrop {
+  backdrop-filter: blur(var(--blur-md));
+  -webkit-backdrop-filter: blur(var(--blur-md));
+}
+
+/* ==========================================================================
+   Print Styles (Repeated for Clarity)
+   ========================================================================== */
+@media print {
+  :root {
+    --color-bg: #ffffff;
+    --color-text: #000000;
+    --overlay-light: rgba(0, 0, 0, 0.05);
+    --overlay-medium: rgba(0, 0, 0, 0.1);
   }
 
-  .hero-content,
-  .projects-content {
-    flex: 1 1 40%;
+  .site-header,
+  .ambient-background,
+  .grid-overlay {
+    display: none;
   }
 
-  .project-grid {
-    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  .project-card,
+  .main-terminal {
+    break-inside: avoid;
+    border: 1px solid #000;
+  }
+
+  .cyber-button {
+    display: none;
   }
 }
