@@ -30,49 +30,37 @@
     </header>
 
     <main>
-      <section id="hero" class="hero">
-        <!-- Animated grid overlay -->
+      <div class="hero">
         <div class="grid-overlay"></div>
-
-        <!-- Animated scan line effect -->
         <div class="scan-line"></div>
 
-        <!-- Decorative circuit lines -->
-        <svg class="circuit-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <path class="circuit-path" d="M0,50 L100,50" />
-          <path class="circuit-path" d="M50,0 L50,100" />
-          <circle class="circuit-node" cx="50" cy="50" r="2" />
-        </svg>
+        <div class="page-container">
+          <div class="hero-content">
+            <h1 class="glitch-text hero-title" data-text="cybrdelic">cybrdelic</h1>
 
-        <div class="hero-content">
-          <h1 class="glitch-text main-title" data-text="[cybrdelic]">
-            [cybrdelic]
-          </h1>
-
-          <div class="main-terminal">
-            <div class="terminal-header">
-              <div class="terminal-controls">
-                <span class="control close"></span>
-                <span class="control minimize"></span>
-                <span class="control maximize"></span>
-              </div>
-              <span class="terminal-title">cybrdelic@mainframe:~$</span>
+            <div class="hero-descriptor">
+              <span class="pill">Systems Architect</span>
+              <span class="descriptor-text">
+                Building intelligent developer tools <span class="primary-text">with AI</span>
+              </span>
             </div>
 
-            <div class="terminal-content">
-              <div id="terminal-text"></div>
-              <div class="command-line">
-                <span class="prompt">$</span><span class="cursor">▋</span>
-              </div>
+            <div class="hero-tags">
+              <div class="tag">Rust</div>
+              <div class="tag">Go</div>
+              <div class="tag">Python</div>
+              <div class="separator">//</div>
+              <div class="tag">CLI Systems</div>
+              <div class="tag">AI Integration</div>
             </div>
-          </div>
 
-          <div class="hero-actions">
-            <a href="#projects" class="cyber-button">View Projects</a>
-            <a href="#contact" class="cyber-button">Initialize Contact</a>
+            <div class="hero-actions">
+              <a href="#projects" class="cta-button primary">View Projects</a>
+              <a href="#contact" class="cta-button secondary">Contact</a>
+            </div>
           </div>
         </div>
-      </section>
+      </div>
 
       <section id="projects" class="projects">
         <h2>&lt;Projects /&gt;</h2>
