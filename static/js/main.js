@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initProjectCardEffects();
   initTimestampUpdates();
   initHtmxHandlers();
+  initScrollIndicator();
 });
 
 // Page Loader Initialization
@@ -171,6 +172,49 @@ function initTimestampUpdates() {
   setInterval(updateTimestamp, 1000);
   updateTimestamp();
 }
+
+
+function initScrollIndicator() {
+  const projectsContent = document.querySelector('.projects-content');
+  const scrollIndicator = document.createElement('div');
+  scrollIndicator.className = 'scroll-indicator';
+  scrollIndicator.innerHTML = `
+    <span class="scroll-indicator-text">Scroll</span>
+    <div class="scroll-indicator-arrow"></div>
+  `;
+
+  document.querySelector('.hero-projects').appendChild(scrollIndicator);
+
+  // Hide scroll indicator when user has scrolled
+  projectsContent.addEventListener('scroll', () => {
+    if (projectsContent.scrollTop > 50) {
+      scrollIndicator.classList.add('hidden');
+    } else {
+      scrollIndicator.classList.remove('hidden');
+    }
+  });
+
+  // Hide scroll indicator if content doesn't overflow
+  function checkOverflow() {
+    if (projectsContent.scrollHeight <= projectsContent.clientHeight) {
+      scrollIndicator.classList.add('hidden');
+    } else {
+      scrollIndicator.classList.remove('hidden');
+    }
+  }
+
+  // Check on load and resize
+  window.addEventListener('load', checkOverflow);
+  window.addEventListener('resize', checkOverflow);
+
+  // Check when projects are loaded via HTMX
+  document.addEventListener('htmx:afterSwap', (event) => {
+    if (event.detail.target.classList.contains('project-grid')) {
+      checkOverflow();
+    }
+  });
+}
+
 
 // HTMX Handlers
 function initHtmxHandlers() {

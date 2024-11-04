@@ -4,79 +4,117 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add SEO meta tags -->
+    <meta name="description"
+        content="Systems Architect building intelligent developer tools with AI using Rust, Go, and Python">
+    <meta name="keywords" content="Rust, Go, Python, CLI Systems, AI Integration">
+    <meta property="og:title" content="cybrdelic :: Alejandro Figueroa">
+    <meta property="og:description" content="Systems Architect building intelligent developer tools with AI">
+    <meta property="og:type" content="website">
+
     <title>cybrdelic :: Alejandro Figueroa</title>
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Add resource hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="/static/js/main.js" as="script">
+    <link rel="preload" href="/static/styles/main.css" as="style">
+
+    <!-- Add critical CSS -->
+    <style>
+        .page-loader {
+            position: fixed;
+            inset: 0;
+            background: var(--color-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .spinner {
+            width: 3rem;
+            height: 3rem;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #00ff9f;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+    </style>
+
+    <!-- Fonts and main CSS -->
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;600&display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/styles/main.css" />
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" media="print"
+        onload="this.media='all'">
+    <link rel="stylesheet" href="/static/styles/main.css">
+
+    <!-- Add HTMX with integrity check -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"
+        integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"
+        defer></script>
 </head>
 
 <body>
+    <!-- Add skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Page Loader -->
-    <div id="page-loader" class="page-loader">
+    <div id="page-loader" class="page-loader" aria-hidden="true">
         <div class="spinner"></div>
     </div>
 
     <div class="glitch-container">
-        <div class="scan-line"></div>
+        <div class="scan-line" aria-hidden="true"></div>
+        <div class="ambient-background" aria-hidden="true"></div>
+        <div class="grid-overlay" aria-hidden="true"></div>
 
-        <!-- Background Overlays -->
-        <div class="ambient-background"></div>
-        <div class="grid-overlay"></div>
-
-        <main>
-            <!-- Combined Hero and Projects Section -->
+        <!-- Main content -->
+        <main id="main-content">
+            <!-- Hero Section -->
             <section class="hero-projects">
                 <div class="hero-content">
-                    <h1 class="glitch-text hero-title" data-text="cybrdelic">cybrdelic</h1>
+                    <h1 class="glitch-text hero-title" data-text="cybrdelic" aria-label="cybrdelic">cybrdelic</h1>
 
                     <div class="hero-descriptor">
-                        <span class="pill">Systems Architect</span>
+                        <span class="pill" role="text">Systems Architect</span>
                         <span class="descriptor-text">
                             Building intelligent developer tools <span class="primary-text">with AI</span>
                         </span>
                     </div>
 
-                    <div class="hero-tags">
-                        <div class="tag">Rust</div>
-                        <div class="tag">Go</div>
-                        <div class="tag">Python</div>
-                        <div class="separator">//</div>
-                        <div class="tag">CLI Systems</div>
-                        <div class="tag">AI Integration</div>
+                    <div class="hero-tags" role="list">
+                        <div class="tag" role="listitem">Rust</div>
+                        <div class="tag" role="listitem">Go</div>
+                        <div class="tag" role="listitem">Python</div>
+                        <div class="separator" aria-hidden="true">//</div>
+                        <div class="tag" role="listitem">CLI Systems</div>
+                        <div class="tag" role="listitem">AI Integration</div>
                     </div>
 
                     <div class="hero-actions">
-                        <a href="#projects" class="cta-button primary">View Projects</a>
-                        <a href="#contact" class="cta-button secondary">Contact</a>
+                        <a href="#projects" class="cta-button primary" role="button">View Projects</a>
+                        <a href="#contact" class="cta-button secondary" role="button">Contact</a>
                     </div>
                 </div>
 
+                <!-- Projects Grid with improved HTMX -->
                 <div class="projects-content">
-                    <div class="project-grid" hx-get="/api/projects" hx-trigger="revealed">
-                        <!-- Skeleton Screens as Initial Placeholders -->
-                        <div class="project-skeleton">
-                            <div class="skeleton skeleton-title"></div>
-                            <div class="skeleton skeleton-text"></div>
-                        </div>
-                        <div class="project-skeleton">
-                            <div class="skeleton skeleton-title"></div>
-                            <div class="skeleton skeleton-text"></div>
-                        </div>
-                        <div class="project-skeleton">
-                            <div class="skeleton skeleton-title"></div>
-                            <div class="skeleton skeleton-text"></div>
-                        </div>
-                        <!-- More skeletons can be added as needed -->
+                    <div class="project-grid" hx-get="/api/projects" hx-trigger="revealed"
+                        hx-indicator=".project-skeleton" hx-swap="innerHTML transition:true">
+                        <!-- Enhanced skeleton loader -->
+                        <template id="skeleton-template">
+                            <div class="project-skeleton" aria-hidden="true">
+                                <div class="skeleton skeleton-title"></div>
+                                <div class="skeleton skeleton-text"></div>
+                            </div>
+                        </template>
                     </div>
                 </div>
             </section>
 
-            <!-- About Section -->
+            <!-- About Section with enhanced semantics -->
             <section id="about" class="about">
                 <h2>&lt;About /&gt;</h2>
                 <div class="about-content terminal-style">
@@ -88,45 +126,50 @@
                     <div class="skills">
                         <div class="skill-category">
                             <h3>// Languages</h3>
-                            <ul>
-                                <li>Rust</li>
-                                <li>Go</li>
-                                <li>Python</li>
-                                <li>Lua</li>
+                            <ul role="list">
+                                <li role="listitem">Rust</li>
+                                <li role="listitem">Go</li>
+                                <li role="listitem">Python</li>
+                                <li role="listitem">Lua</li>
                             </ul>
                         </div>
                         <div class="skill-category">
                             <h3>// Technologies</h3>
-                            <ul>
-                                <li>AI Integration</li>
-                                <li>CLI Development</li>
-                                <li>Automation</li>
-                                <li>System Design</li>
+                            <ul role="list">
+                                <li role="listitem">AI Integration</li>
+                                <li role="listitem">CLI Development</li>
+                                <li role="listitem">Automation</li>
+                                <li role="listitem">System Design</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Contact Section -->
+            <!-- Contact Form with enhanced validation -->
             <section id="contact" class="contact">
                 <h2>&lt;Contact /&gt;</h2>
                 <div class="contact-form terminal-style">
-                    <form hx-post="/api/contact" hx-swap="outerHTML">
+                    <form hx-post="/api/contact" hx-swap="outerHTML" hx-indicator="#submit-indicator">
                         <div class="form-group">
                             <label for="name">> name:</label>
-                            <input type="text" id="name" name="name" required />
+                            <input type="text" id="name" name="name" required minlength="2" pattern="[A-Za-z\s]+"
+                                title="Please enter a valid name" />
                         </div>
                         <div class="form-group">
                             <label for="email">> email:</label>
-                            <input type="email" id="email" name="email" required />
+                            <input type="email" id="email" name="email" required
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" />
                         </div>
                         <div class="form-group">
                             <label for="message">> message:</label>
-                            <textarea id="message" name="message" required></textarea>
+                            <textarea id="message" name="message" required minlength="10" maxlength="1000"></textarea>
                         </div>
-                        <button type="submit" class="cyber-button">
+                        <button type="submit" class="cyber-button" id="submit-btn">
                             transmit_message()
+                            <span id="submit-indicator" class="htmx-indicator">
+                                transmitting...
+                            </span>
                         </button>
                     </form>
                 </div>
@@ -140,7 +183,9 @@
             </p>
         </footer>
     </div>
-    <script src="/static/js/main.js"></script>
+
+    <!-- Add defer to improve loading performance -->
+    <script src="/static/js/main.js" defer></script>
 </body>
 
 </html>
