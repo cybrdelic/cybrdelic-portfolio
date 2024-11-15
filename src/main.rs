@@ -1,9 +1,9 @@
 use axum::{
+    extract::State,
+    http::StatusCode,
+    response::{IntoResponse, Response},
     routing::{get, post},
     Router,
-    extract::State,
-    response::{IntoResponse, Response},
-    http::StatusCode,
 };
 use std::sync::Arc;
 use tera::Tera;
@@ -48,13 +48,14 @@ async fn main() {
 
     let app = Router::new()
         .route("/", get(handlers::home::index))
+        .route("/projects", get(handlers::projects::index)) // Add this line
         .route("/contact", post(handlers::contact::submit))
         .nest_service("/static", ServeDir::new("static"))
         .with_state(state);
 
     println!("🔒 Initializing secure server on http://localhost:3000");
     println!("⚡ System status: ONLINE");
-    
+
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
     axum::serve(listener, app).await.unwrap();
 }

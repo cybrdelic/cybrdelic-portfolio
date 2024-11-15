@@ -1,135 +1,14 @@
+{# index.html - main template that includes others #}
 {% extends "base.html" %}
 
 {% block content %}
-<section class="hero">
-    <pre class="ascii-art">
- ______     __  __     ______     ______     ______     __         __     ______    
-/\  ___\   /\ \_\ \   /\  == \   /\  == \   /\  __ \   /\ \       /\ \   /\  ___\   
-\ \ \____  \ \____ \  \ \  __<   \ \  __<   \ \  __ \  \ \ \____  \ \ \  \ \ \____  
- \ \_____\  \/\_____\  \ \_____\  \ \_\ \_\  \ \_\ \_\  \ \_____\  \ \_\  \ \_____\ 
-  \/_____/   \/_____/   \/_____/   \/_/ /_/   \/_/\/_/   \/_____/   \/_/   \/_____/
-    </pre>
-    <div class="intro">
-        <span class="prompt">$ whoami</span>
-        <h1>Cybrdelic Dev :: Security Researcher | Rust Developer | Digital Artist</h1>
-        <span class="prompt">$ cat /etc/motd</span>
-        <p>Exploring the intersection of systems programming, security, and digital art</p>
+<main class="hero-container">
+    {% include "hero.html" %}
+    {% include "projects.html" %}
+
+    <div class="scroll-indicator fade-in delay-3">
+        <div class="scroll-line"></div>
+        <span>scroll</span>
     </div>
-</section>
-
-<section id="projects">
-    <h2><span class="prompt">$ ls -la ~/projects</span></h2>
-    <div class="project-grid">
-        <article class="project">
-            <header>
-                <h3>kernel_exploits</h3>
-                <div class="tags">
-                    <span>rust</span>
-                    <span>kernel</span>
-                    <span>security</span>
-                </div>
-            </header>
-            <p>Custom Linux kernel module for security research. Implements syscall hooking and memory manipulation techniques.</p>
-            <footer>
-                <a href="#" class="view-source">view_source.rs</a>
-            </footer>
-        </article>
-
-        <article class="project">
-            <header>
-                <h3>quantum_noise</h3>
-                <div class="tags">
-                    <span>rust</span>
-                    <span>webgl</span>
-                    <span>art</span>
-                </div>
-            </header>
-            <p>Real-time WebGL noise visualization using quantum randomness. GPU-accelerated shader effects.</p>
-            <footer>
-                <a href="#" class="view-source">view_source.rs</a>
-            </footer>
-        </article>
-
-        <article class="project">
-            <header>
-                <h3>neural_decrypt</h3>
-                <div class="tags">
-                    <span>rust</span>
-                    <span>ml</span>
-                    <span>crypto</span>
-                </div>
-            </header>
-            <p>Neural network-based cryptanalysis tool. Trained on various encryption patterns to detect vulnerabilities.</p>
-            <footer>
-                <a href="#" class="view-source">view_source.rs</a>
-            </footer>
-        </article>
-
-        <article class="project">
-            <header>
-                <h3>axum_fuzz</h3>
-                <div class="tags">
-                    <span>rust</span>
-                    <span>web</span>
-                    <span>security</span>
-                </div>
-            </header>
-            <p>Automated fuzzing framework for Axum web applications. Identifies security vulnerabilities in request handling.</p>
-            <footer>
-                <a href="#" class="view-source">view_source.rs</a>
-            </footer>
-        </article>
-    </div>
-</section>
-
-<section id="exploits">
-    <h2><span class="prompt">$ cat exploits.txt</span></h2>
-    <div class="terminal-window">
-        <div class="expertise">
-            <div class="category">
-                <h3>> Systems Programming</h3>
-                <ul>
-                    <li>Kernel module development</li>
-                    <li>Memory management</li>
-                    <li>System calls</li>
-                </ul>
-            </div>
-            <div class="category">
-                <h3>> Security Research</h3>
-                <ul>
-                    <li>Vulnerability analysis</li>
-                    <li>Exploit development</li>
-                    <li>Reverse engineering</li>
-                </ul>
-            </div>
-            <div class="category">
-                <h3>> Creative Coding</h3>
-                <ul>
-                    <li>Generative art</li>
-                    <li>Shader programming</li>
-                    <li>Audio visualization</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="contact">
-    <h2><span class="prompt">$ ./contact --init</span></h2>
-    <form action="/contact" method="POST" class="contact-form">
-        <div class="form-group">
-            <label><span class="prompt">username:</span></label>
-            <input type="text" name="name" required>
-        </div>
-        <div class="form-group">
-            <label><span class="prompt">email:</span></label>
-            <input type="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label><span class="prompt">message:</span></label>
-            <textarea name="message" required></textarea>
-        </div>
-        <button type="submit">./send.sh</button>
-    </form>
-</section>
+</main>
 {% endblock %}

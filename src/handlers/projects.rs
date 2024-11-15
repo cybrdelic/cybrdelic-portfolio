@@ -1,33 +1,13 @@
-use axum::{
-    extract::{State, Path},
-    response::{Html, Json},
-};
-use crate::{AppState, AppError};
-use crate::config::get_project_by_slug;
+use axum::extract::State;
+use axum::response::{IntoResponse, Response};
 
-pub async fn show(
-    State(state): State<AppState>,
-    Path(slug): Path<String>,
-) -> Result<Html<String>, AppError> {
-    let project = get_project_by_slug(&slug)
-        .ok_or(AppError::ProjectNotFound)?;
+use crate::{AppError, AppState};
 
-    let mut context = tera::Context::new();
-    context.insert("content", &state.content);
-    context.insert("project", &project);
-    context.insert("current_page", "project");
-    
-    state.tera
-        .render("pages/project.html", &context)
-        .map(Html)
-        .map_err(AppError::Template)
-}
+pub async fn index(State(state): State<AppState>) -> Result<Response, AppError> {
+    let mut ctx = tera::Context::new();
 
-pub async fn show_json(
-    Path(slug): Path<String>,
-) -> Result<Json<config::ProjectDetail>, AppError> {
-    let project = get_project_by_slug(&slug)
-        .ok_or(AppError::ProjectNotFound)?;
-    
-    Ok(Json(project))
+    match state.tera.render("projects.html", &ctx) {
+        Ok(html) => Ok(html.into_response()),
+        Err(err) => Err(AppError::Template(err)),
+    }
 }

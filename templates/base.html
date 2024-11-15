@@ -1,19 +1,26 @@
+{# base.html - stays the same #}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Cybrdelic{% endblock %}</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Cybrdelic</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/hero.css">
+    <link rel="stylesheet" href="/static/css/projects.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap">
+    <script src="/static/js/animations.js"></script>
 </head>
+
 <body>
     <div id="noise"></div>
     <div id="terminal">
         <nav class="nav">
+            <a href="/" class="home-link">
+                <div class="logo">cybrdelic</div>
+            </a>
             <div class="nav-left">
-                <span class="prompt">~/cybrdelic $</span>
-                <a href="/" class="cmd">cd /home</a>
                 <a href="#projects" class="cmd">ls projects/</a>
                 <a href="#exploits" class="cmd">cat exploits.txt</a>
                 <a href="#contact" class="cmd">./contact</a>
@@ -26,4 +33,5 @@
     </div>
     <script src="/static/js/glitch.js"></script>
 </body>
+
 </html>
