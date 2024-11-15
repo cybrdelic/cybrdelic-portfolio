@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article class="project-detail">
+    <header class="project-header">
+        <a href="/" class="back-link" data-transition>cd ..</a>
+        <h1>{{ project.name }}</h1>
+        <div class="tags">
+            {% for tag in project.tags %}
+            <span>{{ tag }}</span>
+            {% endfor %}
+        </div>
+    </header>
+
+    <div class="project-content">
+        <div class="project-description">
+            {{ project.long_description | safe }}
+        </div>
+
+        <div class="project-gallery">
+            {% for image in project.gallery %}
+            <div class="gallery-item">
+                <img src="/static/images/{{ image }}" alt="Project visualization">
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="project-sections">
+            <section class="tech-stack">
+                <h2>> Tech Stack</h2>
+                <ul>
+                    {% for tech in project.tech_stack %}
+                    <li>{{ tech }}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section class="features">
+                <h2>> Features</h2>
+                <ul>
+                    {% for feature in project.features %}
+                    <li>{{ feature }}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section class="challenges">
+                <h2>> Technical Challenges</h2>
+                <ul>
+                    {% for challenge in project.challenges %}
+                    <li>{{ challenge }}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section class="next-steps">
+                <h2>> Next Steps</h2>
+                <ul>
+                    {% for step in project.next_steps %}
+                    <li>{{ step }}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </div>
+
+        <footer class="project-links">
+            <a href="{{ project.source_url }}" class="button" target="_blank">View Source</a>
+            {% if project.live_url %}
+            <a href="{{ project.live_url }}" class="button" target="_blank">Live Demo</a>
+            {% endif %}
+        </footer>
+    </div>
+</article>
+{% endblock %}

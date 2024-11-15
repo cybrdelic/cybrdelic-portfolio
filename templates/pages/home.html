@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <pre class="ascii-art">{{ content.hero.ascii_art }}</pre>
+    <div class="intro">
+        <span class="prompt">{{ content.hero.subtitle }}</span>
+        <h1>{{ content.hero.title }}</h1>
+        <span class="prompt">$ cat /etc/motd</span>
+        <p>{{ content.hero.description }}</p>
+    </div>
+</section>
+
+<section id="projects">
+    <h2><span class="prompt">{{ content.projects.title }}</span></h2>
+    <div class="project-grid">
+        {% for project in content.projects.projects %}
+        <article class="project" data-project="{{ project.slug }}">
+            <header>
+                <h3>{{ project.name }}</h3>
+                <div class="tags">
+                    {% for tag in project.tags %}
+                    <span>{{ tag }}</span>
+                    {% endfor %}
+                </div>
+            </header>
+            <p>{{ project.description }}</p>
+            <footer>
+                <a href="/projects/{{ project.slug }}" class="view-source" data-transition>view_source.rs</a>
+            </footer>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+{% include "partials/skills.html" %}
+{% include "partials/contact.html" %}
+{% endblock %}

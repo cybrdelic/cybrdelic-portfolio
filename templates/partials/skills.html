@@ -1,0 +1,17 @@
+<section id="exploits">
+    <h2><span class="prompt">{{ content.skills.title }}</span></h2>
+    <div class="terminal-window">
+        <div class="expertise">
+            {% for category in content.skills.categories %}
+            <div class="category">
+                <h3>> {{ category.title }}</h3>
+                <ul>
+                    {% for skill in category.skills %}
+                    <li>{{ skill }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
