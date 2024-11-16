@@ -156,7 +156,7 @@ pub fn get_all_projects() -> Vec<Project> {
             "Sagacity",
             "Rust / Claude API",
             "Intelligent codebase exploration tool using natural language interaction. Features novel summarizational indexing system and persistent context memory.",
-            "/images/sagacity-demo.gif",
+            "/static/images/sagacity.jpg",
             "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z",
             vec!["Rust", "Claude API", "NLP", "Git"],
             vec![

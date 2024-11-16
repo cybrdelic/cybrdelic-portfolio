@@ -74,7 +74,6 @@ async fn main() {
         .route("/", get(handlers::home::index))
         .route("/projects", get(handlers::projects::index))
         .route("/projects/:id", get(handlers::projects::project_detail))
-        .route("/contact", post(handlers::contact::submit))
         .nest_service("/static", ServeDir::new("static"))
         .with_state(state);
 

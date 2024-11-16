@@ -54,6 +54,10 @@
 
 
             </div>
+
+        </section>
+        <section class="user-flows">
+            <h3 class="vertical-section-name">User Flows</h3>
             <!-- User Flow Section -->
             <div class="user-flow-accordion">
                 {% for flow in project.user_flows %}
@@ -113,7 +117,7 @@
 
         <!-- Technical details section -->
         <section class="project-technical">
-            <h2 class="section-title">Technical Overview</h2>
+            <h2 class="vertical-section-name">Technical Overview</h2>
             <div class="tech-details-grid">
                 <div class="tech-detail-card">
                     <h3>Architecture</h3>
@@ -132,7 +136,7 @@
 
         <!-- Related projects -->
         <section class="related-projects">
-            <h2 class="section-title">Related Projects</h2>
+            <h2 class="vertical-section-name">Related Projects</h2>
             <div class="related-grid">
                 {% for related in related_projects %}
                 <div class="related-card slide-up">
