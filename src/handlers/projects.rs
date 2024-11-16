@@ -19,6 +19,7 @@ pub struct Project {
     features: Vec<Feature>,
     technical: TechnicalDetails,
     catchphrases: Vec<String>,
+    user_flows: Vec<UserFlow>,
 }
 
 #[derive(Serialize, Clone)]
@@ -41,6 +42,12 @@ pub struct TechnicalDetails {
     challenges: String,
 }
 
+#[derive(Serialize, Clone)]
+pub struct UserFlow {
+    title: String,
+    content: String,
+}
+
 impl Project {
     fn new(
         id: &str,
@@ -54,6 +61,7 @@ impl Project {
         features: Vec<(&str, &str, &str)>,
         technical: (&str, &str, &str),
         catchphrases: Vec<&str>,
+        user_flows: Vec<(&str, &str)>,
     ) -> Self {
         Self {
             id: id.to_string(),
@@ -84,6 +92,13 @@ impl Project {
                 challenges: technical.2.to_string(),
             },
             catchphrases: catchphrases.iter().map(|&s| s.to_string()).collect(),
+            user_flows: user_flows
+                .into_iter()
+                .map(|(title, content)| UserFlow {
+                    title: title.to_string(),
+                    content: content.to_string(),
+                })
+                .collect(),
         }
     }
 }
@@ -97,7 +112,6 @@ pub async fn project_detail(
     let project = get_project_by_id(&project_id)
         .ok_or_else(|| AppError::Internal(format!("Project not found: {}", project_id)))?;
 
-    // Add related projects to the context
     let related_projects = get_related_projects(&project_id);
 
     ctx.insert("project", &project);
@@ -108,13 +122,13 @@ pub async fn project_detail(
         Err(err) => Err(AppError::Template(err)),
     }
 }
-// Also update the projects index handler
+
 pub async fn index(State(state): State<AppState>) -> Result<Response, AppError> {
     let mut ctx = Context::new();
     ctx.insert("projects", &get_all_projects());
 
     match state.tera.render("sections/projects.html", &ctx) {
-        Ok(html) => Ok(Html(html).into_response()), // Use Html type wrapper
+        Ok(html) => Ok(Html(html).into_response()),
         Err(err) => Err(AppError::Template(err)),
     }
 }
@@ -156,6 +170,20 @@ pub fn get_all_projects() -> Vec<Project> {
                 "Optimizing response times while maintaining context. Balancing memory usage with search performance.",
             ),
             vec!["Intelligent Search", "Code Understanding", "Developer Focus", "Efficiency"],
+            vec![
+                (
+                    "Installation",
+                    "1. Install Rust and Cargo\n2. Run `cargo install sagacity`\n3. Configure API keys\n4. Initialize project with `sagacity init`",
+                ),
+                (
+                    "Basic Usage",
+                    "Start exploring your codebase with natural language queries:\n- `sagacity search \"find all error handling patterns\"`\n- `sagacity analyze \"explain the authentication flow\"`\n- `sagacity context \"how does this relate to the user model?\"`",
+                ),
+                (
+                    "Advanced Features",
+                    "Learn about advanced features like custom indexing rules, context persistence, and integration with your development workflow. Includes examples of complex queries and automation scenarios.",
+                ),
+            ],
         ),
         Project::new(
             "commitaura",
@@ -192,6 +220,20 @@ pub fn get_all_projects() -> Vec<Project> {
                 "Handling complex Git histories and merge commits. Ensuring consistent message quality across different types of changes.",
             ),
             vec!["Automated Workflow", "Smart Commits", "Git Integration", "AI-Powered"],
+            vec![
+                (
+                    "Setup & Configuration",
+                    "Quick start guide:\n1. Install with `cargo install commitaura`\n2. Run `commitaura init` in your repository\n3. Configure your preferences in `.commitaura.toml`\n4. Set up Git hooks with `commitaura hooks install`",
+                ),
+                (
+                    "Daily Workflow",
+                    "Integrate Commitaura into your development workflow:\n- Stage your changes as usual\n- Use `commitaura suggest` to generate commit messages\n- Review and edit suggestions\n- Commit with `commitaura commit`",
+                ),
+                (
+                    "Customization",
+                    "Customize Commitaura to match your team's commit style:\n- Define custom commit message templates\n- Set up project-specific rules\n- Configure AI parameters\n- Integrate with CI/CD pipelines",
+                ),
+            ],
         ),
         Project::new(
             "resumatyk",
@@ -228,6 +270,24 @@ pub fn get_all_projects() -> Vec<Project> {
                 "Maintaining consistent formatting across different LaTeX versions. Handling complex document structures.",
             ),
             vec!["Resume Builder", "AI Optimization", "Document Management", "Automation"],
+            vec![
+                (
+                    "Initial Setup",
+                    "Get started with Resumatyk:\n1. Install dependencies: LaTeX, Python 3.8+\n2. Install Resumatyk: `pip install resumatyk`\n3. Initialize workspace: `resumatyk init`\n4. Configure email settings: `resumatyk config email`",
+                ),
+                (
+                    "Creating Your First Resume",
+                    "Build your professional resume:\n1. Choose a template: `resumatyk template list`\n2. Create new resume: `resumatyk new my-resume`\n3. Edit content using your favorite editor\n4. Generate PDF: `resumatyk build my-resume`\n5. Create variants: `resumatyk variant create my-resume --role \"Software Engineer\"",
+                ),
+                (
+                    "Managing Applications",
+                    "Track your job applications:\n1. Add job posting: `resumatyk track add \"Company Name\"`\n2. Link resume variant: `resumatyk track link my-resume-variant1`\n3. Send application: `resumatyk apply --track-id 1`\n4. Check status: `resumatyk track status`\n5. Update application: `resumatyk track update 1 --status \"Interview\"",
+                ),
+                (
+                    "Advanced Features",
+                    "Leverage powerful features:\n- OCR import: `resumatyk import --ocr existing-resume.pdf`\n- AI optimization: `resumatyk optimize my-resume`\n- Bulk operations: `resumatyk batch process`\n- Custom templates: `resumatyk template create`\n- Analytics: `resumatyk stats view`",
+                ),
+            ],
         ),
         Project::new(
             "cybrnvim",
@@ -264,16 +324,40 @@ pub fn get_all_projects() -> Vec<Project> {
                 "Balancing functionality with performance. Managing plugin compatibility and updates.",
             ),
             vec!["IDE Evolution", "AI Enhancement", "Developer Tools", "Productivity"],
+            vec![
+                (
+                    "Installation",
+                    "Setting up Cybrnvim:\n1. Install NeoVim 0.9+\n2. Backup existing config: `mv ~/.config/nvim ~/.config/nvim.bak`\n3. Clone repository: `git clone https://github.com/yourusername/cybrnvim ~/.config/nvim`\n4. Install dependencies: `./install.sh`\n5. Start NeoVim and wait for initial setup",
+                ),
+                (
+                    "Core Features",
+                    "Essential Cybrnvim capabilities:\n- Space as leader key\n- Fuzzy finding: <leader>f\n- File explorer: <leader>e\n- Terminal toggle: <leader>t\n- AI completion: <C-space>\n- Quick commands: <leader>c\n- Project search: <leader>s",
+                ),
+                (
+                 "AI Features",
+                    "Leverage AI capabilities:\n- Code completion\n- Documentation generation\n- Code explanation\n- Refactoring suggestions\n- Bug detection\n- Natural language queries\n\nDetailed usage:\n1. Invoke completion: <C-space>\n2. Generate docs: <leader>ad\n3. Explain code: <leader>ae\n4. Suggest refactor: <leader>ar\n5. Check bugs: <leader>ab\n6. Ask question: <leader>aq",
+                ),
+                (
+                    "Customization",
+                    "Personalize your setup:\n1. Edit `lua/user/options.lua` for basic settings\n2. Modify `lua/user/keymaps.lua` for custom bindings\n3. Adjust `lua/user/plugins.lua` for plugin configuration\n4. Configure AI settings in `lua/user/ai.lua`\n5. Theme customization in `lua/user/colorscheme.lua`\n\nCommon customizations:\n- Adjust completion behavior\n- Configure language servers\n- Modify statusline\n- Set up custom snippets\n- Create project-specific settings",
+                ),
+                (
+                    "Advanced Usage",
+                    "Power user features:\n\nSnippets:\n- Create custom snippets in `lua/user/snippets`\n- Use snippet variables\n- Dynamic snippet expansion\n- Snippet conditions\n\nLSP Configuration:\n- Configure multiple LSPs\n- Custom diagnostics\n- Code actions\n- Symbol management\n\nDebugging:\n- DAP integration\n- Breakpoint management\n- Variable inspection\n- Call stack navigation\n\nGit Integration:\n- Advanced diffing\n- Blame visualization\n- Branch management\n- Interactive rebase\n\nProject Management:\n- Workspace configuration\n- Project-specific settings\n- Task automation\n- Build integration\n\nPerformance Optimization:\n- Plugin lazy loading\n- Startup optimization\n- Memory management\n- Cache configuration",
+                ),
+                (
+                    "Plugin Management",
+                    "Essential plugins and their configurations:\n\nCore Plugins:\n1. telescope.nvim - Fuzzy finder\n2. nvim-treesitter - Syntax highlighting\n3. mason.nvim - LSP installer\n4. nvim-lspconfig - LSP configuration\n5. nvim-cmp - Completion engine\n\nAI Plugins:\n1. copilot.lua - GitHub Copilot integration\n2. codeium.nvim - Codeium AI\n3. neural.nvim - Custom AI integration\n\nGit Plugins:\n1. gitsigns.nvim - Git integration\n2. neogit - Magit for Neovim\n\nUtility Plugins:\n1. which-key.nvim - Keybinding helper\n2. trouble.nvim - Diagnostic viewer\n3. nvim-dap - Debug adapter\n\nConfiguration Tips:\n- Use lazy loading\n- Configure dependencies\n- Manage conflicts\n- Update strategies",
+                ),
+            ],
         ),
     ]
 }
 
-// Get a specific project by ID
 fn get_project_by_id(id: &str) -> Option<Project> {
     get_all_projects().into_iter().find(|p| p.id == id)
 }
 
-// Helper function to get related projects (excluding the current one)
 pub fn get_related_projects(current_id: &str) -> Vec<Project> {
     get_all_projects()
         .into_iter()
