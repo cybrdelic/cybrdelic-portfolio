@@ -482,51 +482,60 @@
 /* User Flow Accordion */
 .user-flow-accordion {
     width: 100%;
+    left: 10rem;
+    right: 10rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    margin-top: 3rem;
+    gap: 1.5rem;
+    margin-top: 4rem;
 }
 
 .accordion-item {
     border: 1px solid rgba(221, 221, 221, 0.3);
-    border-radius: 4px;
+    border-radius: 8px;
     overflow: hidden;
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.3s ease;
+}
+
+.accordion-item:hover {
+    border-color: rgba(221, 221, 221, 0.5);
 }
 
 .accordion-trigger {
     width: 100%;
-    padding: 1.5rem;
+    padding: 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(255, 255, 255, 0.05);
+    background: transparent;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.accordion-trigger:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
 .accordion-header {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 .flow-number {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: #979797;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: 1px solid rgba(221, 221, 221, 0.3);
 }
 
 .flow-title {
     font-family: 'Syne', sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: rgba(17, 17, 17, 0.95);
+    margin: 0;
 }
 
 .accordion-icon {
@@ -535,50 +544,271 @@
     transition: transform 0.3s ease;
 }
 
-.accordion-icon svg {
-    width: 100%;
-    height: 100%;
-}
-
 .accordion-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-out;
-    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .accordion-content-inner {
-    padding: 1.5rem;
-    font-size: 1rem;
+    padding: 0 2rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Flow Description */
+.flow-description {
+    font-size: 1.1rem;
     line-height: 1.6;
+    color: rgba(17, 17, 17, 0.8);
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(221, 221, 221, 0.3);
+}
+
+/* Flow Chart */
+.flow-chart {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(221, 221, 221, 0.3);
+}
+
+/* Commands Section */
+.flow-commands {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.commands-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.25rem;
+    color: rgba(17, 17, 17, 0.95);
+    margin: 0;
+}
+
+.commands-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.command-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(221, 221, 221, 0.3);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.command-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(4px);
+}
+
+.command-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: #979797;
+}
+
+.command-content {
+    flex: 1;
+}
+
+.command-text {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
     color: rgba(17, 17, 17, 0.9);
 }
 
-/* Active states */
-.accordion-item.active .accordion-trigger {
-    background: rgba(255, 255, 255, 0.1);
+.command-description {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: rgba(17, 17, 17, 0.7);
+    margin: 0;
 }
 
+/* Active states */
 .accordion-item.active .accordion-icon {
     transform: rotate(180deg);
 }
 
 .accordion-item.active .accordion-content {
-    max-height: 500px;
-    /* Adjust based on your content */
+    max-height: 2000px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .accordion-trigger {
-        padding: 1rem;
+        padding: 1.5rem;
     }
 
     .flow-title {
-        font-size: 1rem;
+        font-size: 1.25rem;
     }
 
     .accordion-content-inner {
+        padding: 0 1.5rem 1.5rem 1.5rem;
+    }
+
+    .command-card {
         padding: 1rem;
+    }
+
+    .commands-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .flow-chart {
+        padding: 1rem;
+    }
+}
+
+/* Flow Steps */
+.flow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0;
+    margin: 2rem 0;
+}
+
+.flow-step {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    position: relative;
+}
+
+/* Step Number */
+.step-number {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(221, 221, 221, 0.3);
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.5rem;
+    color: #979797;
+}
+
+/* Step Content */
+.step-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 2rem;
+}
+
+/* Step Title and Description */
+.step-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.step-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: rgba(17, 17, 17, 0.95);
+    margin: 0;
+}
+
+.step-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(17, 17, 17, 0.8);
+}
+
+/* Step Command */
+.step-command {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(221, 221, 221, 0.3);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.step-command:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(4px);
+}
+
+.command-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: #979797;
+}
+
+.command-content {
+    flex: 1;
+}
+
+.command-text {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    color: rgba(17, 17, 17, 0.9);
+}
+
+/* Flow line connector */
+.flow-step::after {
+    content: '';
+    position: absolute;
+    left: 40px;
+    top: 80px;
+    width: 1px;
+    height: calc(100% - 80px);
+    background: rgba(221, 221, 221, 0.3);
+    z-index: 0;
+}
+
+.flow-step:last-child::after {
+    display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .flow-step {
+        grid-template-columns: 60px 1fr;
+        gap: 1rem;
+    }
+
+    .step-number {
+        width: 60px;
+        height: 60px;
+        font-size: 1.25rem;
+    }
+
+    .flow-step::after {
+        left: 30px;
+        top: 60px;
+    }
+
+    .step-command {
+        padding: 0.75rem;
     }
 }

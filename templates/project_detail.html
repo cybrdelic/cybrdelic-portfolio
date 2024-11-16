@@ -71,7 +71,37 @@
                     </button>
                     <div class="accordion-content">
                         <div class="accordion-content-inner">
-                            {{ flow.content }}
+                            <!-- Flow Description -->
+                            <div class="flow-description">
+                                <p>{{ flow.description }}</p>
+                            </div>
+
+                            <!-- Flow Steps -->
+                            <div class="flow-steps">
+                                {% for step in flow.steps %}
+                                <div class="flow-step">
+                                    <div class="step-number">{{ loop.index }}</div>
+                                    <div class="step-content">
+                                        <div class="step-header">
+                                            <h4 class="step-title">{{ step.title }}</h4>
+                                            <p class="step-description">{{ step.description }}</p>
+                                        </div>
+                                        <div class="step-command">
+                                            <div class="command-icon">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.5">
+                                                    <path d="{{ step.command.icon_path }}"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="command-content">
+                                                <code class="command-text">{{ step.command.text }}</code>
+                                                <p class="command-description">{{ step.command.description }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>

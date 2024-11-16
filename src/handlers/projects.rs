@@ -7,6 +7,27 @@ use serde::Serialize;
 use tera::Context;
 
 #[derive(Serialize, Clone)]
+pub struct Command {
+    text: String,
+    description: String,
+    icon_path: String,
+}
+
+#[derive(Serialize, Clone)]
+pub struct FlowStep {
+    title: String,
+    description: String,
+    command: Command,
+}
+
+#[derive(Serialize, Clone)]
+pub struct UserFlow {
+    title: String,
+    description: String,
+    steps: Vec<FlowStep>,
+}
+
+#[derive(Serialize, Clone)]
 pub struct Project {
     id: String,
     title: String,
@@ -43,9 +64,10 @@ pub struct TechnicalDetails {
 }
 
 #[derive(Serialize, Clone)]
-pub struct UserFlow {
-    title: String,
-    content: String,
+pub struct UserFlowCommand {
+    text: String,
+    description: String,
+    icon_path: String,
 }
 
 impl Project {
@@ -61,7 +83,7 @@ impl Project {
         features: Vec<(&str, &str, &str)>,
         technical: (&str, &str, &str),
         catchphrases: Vec<&str>,
-        user_flows: Vec<(&str, &str)>,
+        user_flows: Vec<UserFlow>,
     ) -> Self {
         Self {
             id: id.to_string(),
@@ -92,13 +114,7 @@ impl Project {
                 challenges: technical.2.to_string(),
             },
             catchphrases: catchphrases.iter().map(|&s| s.to_string()).collect(),
-            user_flows: user_flows
-                .into_iter()
-                .map(|(title, content)| UserFlow {
-                    title: title.to_string(),
-                    content: content.to_string(),
-                })
-                .collect(),
+            user_flows,
         }
     }
 }
@@ -171,25 +187,78 @@ pub fn get_all_projects() -> Vec<Project> {
             ),
             vec!["Intelligent Search", "Code Understanding", "Developer Focus", "Efficiency"],
             vec![
-                (
-                    "Installation",
-                    "1. Install Rust and Cargo\n2. Run `cargo install sagacity`\n3. Configure API keys\n4. Initialize project with `sagacity init`",
-                ),
-                (
-                    "Basic Usage",
-                    "Start exploring your codebase with natural language queries:\n- `sagacity search \"find all error handling patterns\"`\n- `sagacity analyze \"explain the authentication flow\"`\n- `sagacity context \"how does this relate to the user model?\"`",
-                ),
-                (
-                    "Advanced Features",
-                    "Learn about advanced features like custom indexing rules, context persistence, and integration with your development workflow. Includes examples of complex queries and automation scenarios.",
-                ),
+                UserFlow {
+                    title: "Installation".to_string(),
+                    description: "Getting started with Sagacity involves a few simple steps. Follow this guide to set up the tool in your development environment.".to_string(),
+                    steps: vec![
+                        FlowStep {
+                            title: "Install Rust".to_string(),
+                            description: "Install the Rust programming language and Cargo package manager".to_string(),
+                            command: Command {
+                                text: "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh".to_string(),
+                                description: "Install Rust toolchain".to_string(),
+                                icon_path: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z".to_string(),
+                            },
+                        },
+                        FlowStep {
+                            title: "Install Sagacity".to_string(),
+                            description: "Install Sagacity using Cargo, Rust's package manager".to_string(),
+                            command: Command {
+                                text: "cargo install sagacity".to_string(),
+                                description: "Install Sagacity via Cargo".to_string(),
+                                icon_path: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10".to_string(),
+                            },
+                        },
+                        FlowStep {
+                            title: "Initialize Project".to_string(),
+                            description: "Set up Sagacity in your development environment".to_string(),
+                            command: Command {
+                                text: "sagacity init".to_string(),
+                                description: "Initialize Sagacity in your project".to_string(),
+                                icon_path: "M12 6v6m0 0v6m0-6h6m-6 0H6".to_string(),
+                            },
+                        },
+                    ],
+                },
+                UserFlow {
+                    title: "Basic Usage".to_string(),
+                    description: "Learn how to use Sagacity's core features for exploring and understanding your codebase.".to_string(),
+                    steps: vec![
+                        FlowStep {
+                            title: "Search Codebase".to_string(),
+                            description: "Search through your codebase using natural language queries".to_string(),
+                            command: Command {
+                                text: "sagacity search \"find error handling patterns\"".to_string(),
+                                description: "Search codebase for patterns".to_string(),
+                                icon_path: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z".to_string(),
+                            },
+                        },
+                        FlowStep {
+                            title: "Analyze Code".to_string(),
+                            description: "Get detailed analysis of specific functionality".to_string(),
+                            command: Command {
+                                text: "sagacity analyze \"explain auth flow\"".to_string(),
+                                description: "Analyze specific functionality".to_string(),
+                                icon_path: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2".to_string(),
+                            },
+                        },
+                        FlowStep {
+                            title: "Use Context".to_string(),
+                            description: "Leverage contextual understanding for better insights".to_string(),
+                            command: Command {
+                                text: "sagacity context \"how does this relate to user model?\"".to_string(),
+                                description: "Get contextual information".to_string(),
+                                icon_path: "M13 10V3L4 14h7v7l9-11h-7z".to_string(),
+                            },
+                        },
+                    ],
+                },
             ],
-        ),
-        Project::new(
+        ),Project::new(
             "commitaura",
             "Commitaura",
             "Rust / GPT-4",
-            "Autonomous commit message generator using Git diff analysis and contextual understanding. Available on crates.io with intelligent change detection system.",
+            "Autonomous commit message generator using Git diff analysis and contextual understanding.",
             "/static/images/commitaura.jpg",
             "M6 3v12 M18 6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M6 18a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M18 9a9 9 0 0 1-9 9",
             vec!["Rust", "GPT-4", "Git"],
@@ -221,134 +290,105 @@ pub fn get_all_projects() -> Vec<Project> {
             ),
             vec!["Automated Workflow", "Smart Commits", "Git Integration", "AI-Powered"],
             vec![
-                (
-                    "Setup & Configuration",
-                    "Quick start guide:\n1. Install with `cargo install commitaura`\n2. Run `commitaura init` in your repository\n3. Configure your preferences in `.commitaura.toml`\n4. Set up Git hooks with `commitaura hooks install`",
-                ),
-                (
-                    "Daily Workflow",
-                    "Integrate Commitaura into your development workflow:\n- Stage your changes as usual\n- Use `commitaura suggest` to generate commit messages\n- Review and edit suggestions\n- Commit with `commitaura commit`",
-                ),
-                (
-                    "Customization",
-                    "Customize Commitaura to match your team's commit style:\n- Define custom commit message templates\n- Set up project-specific rules\n- Configure AI parameters\n- Integrate with CI/CD pipelines",
-                ),
-            ],
-        ),
-        Project::new(
-            "resumatyk",
-            "Resumatyk",
-            "LaTeX / Python / Shell",
-            "Powerful CLI tool for managing LaTeX resumes with AI-powered variant generation. Features email integration, OCR support, and intelligent content extraction.",
-            "/images/resumatyk-demo.gif",
-            "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8",
-            vec!["LaTeX", "Python", "Shell", "OCR"],
-            vec![
-                ("source", "https://github.com/yourusername/resumatyk"),
-                ("documentation", "https://docs.resumatyk.dev"),
-            ],
-            vec![
-                (
-                    "AI Variant Generation",
-                    "Creates tailored resume variants using AI understanding",
-                    "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15",
-                ),
-                (
-                    "OCR Integration",
-                    "Extract content from existing resumes and documents",
-                    "M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z",
-                ),
-                (
-                    "Email Management",
-                    "Integrated email tracking and application management",
-                    "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
-                ),
-            ],
-            (
-                "CLI-first design with modular architecture. Integrates LaTeX engine with Python processing.",
-                "Custom LaTeX parser and template system. AI-powered content optimization and formatting.",
-                "Maintaining consistent formatting across different LaTeX versions. Handling complex document structures.",
-            ),
-            vec!["Resume Builder", "AI Optimization", "Document Management", "Automation"],
-            vec![
-                (
-                    "Initial Setup",
-                    "Get started with Resumatyk:\n1. Install dependencies: LaTeX, Python 3.8+\n2. Install Resumatyk: `pip install resumatyk`\n3. Initialize workspace: `resumatyk init`\n4. Configure email settings: `resumatyk config email`",
-                ),
-                (
-                    "Creating Your First Resume",
-                    "Build your professional resume:\n1. Choose a template: `resumatyk template list`\n2. Create new resume: `resumatyk new my-resume`\n3. Edit content using your favorite editor\n4. Generate PDF: `resumatyk build my-resume`\n5. Create variants: `resumatyk variant create my-resume --role \"Software Engineer\"",
-                ),
-                (
-                    "Managing Applications",
-                    "Track your job applications:\n1. Add job posting: `resumatyk track add \"Company Name\"`\n2. Link resume variant: `resumatyk track link my-resume-variant1`\n3. Send application: `resumatyk apply --track-id 1`\n4. Check status: `resumatyk track status`\n5. Update application: `resumatyk track update 1 --status \"Interview\"",
-                ),
-                (
-                    "Advanced Features",
-                    "Leverage powerful features:\n- OCR import: `resumatyk import --ocr existing-resume.pdf`\n- AI optimization: `resumatyk optimize my-resume`\n- Bulk operations: `resumatyk batch process`\n- Custom templates: `resumatyk template create`\n- Analytics: `resumatyk stats view`",
-                ),
-            ],
-        ),
-        Project::new(
-            "cybrnvim",
-            "Cybrnvim",
-            "Lua / Shell",
-            "Custom NeoVim configuration focused on AI-enhanced development workflow. Features integrated tools, optimized keybindings, and efficient plugin management.",
-            "/images/neovim-demo.gif",
-            "M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3",
-            vec!["Lua", "Shell", "NeoVim"],
-            vec![
-                ("source", "https://github.com/yourusername/cybrnvim"),
-                ("documentation", "https://docs.cybrnvim.dev"),
-            ],
-            vec![
-                (
-                    "AI Integration",
-                    "Seamless integration with AI coding assistants",
-                    "M13 10V3L4 14h7v7l9-11h-7z",
-                ),
-                (
-                    "Custom Keymaps",
-                    "Ergonomic keyboard mappings for efficient coding",
-                    "M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z",
-                ),
-                (
-                    "Plugin Management",
-                    "Efficient plugin system with lazy loading",
-                    "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4",
-                ),
-            ],
-            (
-                "Modular configuration system with lazy loading. Integrated with various AI services.",
-                "Custom plugin management system. Optimized startup and runtime performance.",
-                "Balancing functionality with performance. Managing plugin compatibility and updates.",
-            ),
-            vec!["IDE Evolution", "AI Enhancement", "Developer Tools", "Productivity"],
-            vec![
-                (
-                    "Installation",
-                    "Setting up Cybrnvim:\n1. Install NeoVim 0.9+\n2. Backup existing config: `mv ~/.config/nvim ~/.config/nvim.bak`\n3. Clone repository: `git clone https://github.com/yourusername/cybrnvim ~/.config/nvim`\n4. Install dependencies: `./install.sh`\n5. Start NeoVim and wait for initial setup",
-                ),
-                (
-                    "Core Features",
-                    "Essential Cybrnvim capabilities:\n- Space as leader key\n- Fuzzy finding: <leader>f\n- File explorer: <leader>e\n- Terminal toggle: <leader>t\n- AI completion: <C-space>\n- Quick commands: <leader>c\n- Project search: <leader>s",
-                ),
-                (
-                 "AI Features",
-                    "Leverage AI capabilities:\n- Code completion\n- Documentation generation\n- Code explanation\n- Refactoring suggestions\n- Bug detection\n- Natural language queries\n\nDetailed usage:\n1. Invoke completion: <C-space>\n2. Generate docs: <leader>ad\n3. Explain code: <leader>ae\n4. Suggest refactor: <leader>ar\n5. Check bugs: <leader>ab\n6. Ask question: <leader>aq",
-                ),
-                (
-                    "Customization",
-                    "Personalize your setup:\n1. Edit `lua/user/options.lua` for basic settings\n2. Modify `lua/user/keymaps.lua` for custom bindings\n3. Adjust `lua/user/plugins.lua` for plugin configuration\n4. Configure AI settings in `lua/user/ai.lua`\n5. Theme customization in `lua/user/colorscheme.lua`\n\nCommon customizations:\n- Adjust completion behavior\n- Configure language servers\n- Modify statusline\n- Set up custom snippets\n- Create project-specific settings",
-                ),
-                (
-                    "Advanced Usage",
-                    "Power user features:\n\nSnippets:\n- Create custom snippets in `lua/user/snippets`\n- Use snippet variables\n- Dynamic snippet expansion\n- Snippet conditions\n\nLSP Configuration:\n- Configure multiple LSPs\n- Custom diagnostics\n- Code actions\n- Symbol management\n\nDebugging:\n- DAP integration\n- Breakpoint management\n- Variable inspection\n- Call stack navigation\n\nGit Integration:\n- Advanced diffing\n- Blame visualization\n- Branch management\n- Interactive rebase\n\nProject Management:\n- Workspace configuration\n- Project-specific settings\n- Task automation\n- Build integration\n\nPerformance Optimization:\n- Plugin lazy loading\n- Startup optimization\n- Memory management\n- Cache configuration",
-                ),
-                (
-                    "Plugin Management",
-                    "Essential plugins and their configurations:\n\nCore Plugins:\n1. telescope.nvim - Fuzzy finder\n2. nvim-treesitter - Syntax highlighting\n3. mason.nvim - LSP installer\n4. nvim-lspconfig - LSP configuration\n5. nvim-cmp - Completion engine\n\nAI Plugins:\n1. copilot.lua - GitHub Copilot integration\n2. codeium.nvim - Codeium AI\n3. neural.nvim - Custom AI integration\n\nGit Plugins:\n1. gitsigns.nvim - Git integration\n2. neogit - Magit for Neovim\n\nUtility Plugins:\n1. which-key.nvim - Keybinding helper\n2. trouble.nvim - Diagnostic viewer\n3. nvim-dap - Debug adapter\n\nConfiguration Tips:\n- Use lazy loading\n- Configure dependencies\n- Manage conflicts\n- Update strategies",
-                ),
+                UserFlow {
+                    title: "Setup & Configuration".to_string(),
+                    description: "Set up Commitaura in your repository and configure it for your workflow.".to_string(),
+                    steps: vec![
+                        FlowStep {
+                            title: "Install Commitaura".to_string(),
+                            description: "Install the tool globally using Cargo package manager".to_string(),
+                            command: Command {
+                                text: "cargo install commitaura".to_string(),
+                                description: "Install Commitaura globally".to_string(),
+                                icon_path: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10".to_string(),
+                            },
+                        },
+                        FlowStep {
+                            title: "Initialize Repository".to_string(),
+                            description: "Set up Commitaura configuration in your Git repository".to_string(),
+                            command: Command {
+                                text: "commitaura init".to_string(),
+                                description: "Initialize in repository".to_string(),
+                                icon_path: "M12 6v6m0 0v6m0-6h6m-6 0H6".to_string(),
+                            },
+                        },
+                        FlowStep {
+                            title: "Install Git Hooks".to_string(),
+                            description: "Set up Git hooks for automated commit message generation".to_string(),
+                            command: Command {
+                                text: "commitaura hooks install".to_string(),
+                                description: "Install Git hooks".to_string(),
+                                icon_path: "M13 10V3L4 14h7v7l9-11h-7z".to_string(),
+                            },
+                        },
+                    ],
+                },
+                UserFlow {
+                    title: "Daily Workflow".to_string(),
+                    description: "Learn how to use Commitaura in your daily development workflow for generating intelligent commit messages.".to_string(),
+                    steps: vec![
+                        FlowStep {
+                            title: "Stage Changes".to_string(),
+                            description: "Stage your code changes for commit".to_string(),
+                            command: Command {
+                                text: "git add .".to_string(),
+                                description: "Stage your changes".to_string(),
+                                icon_path: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2".to_string(),
+                            },
+                        },
+                        FlowStep {
+                            title: "Generate Message".to_string(),
+                            description: "Generate an AI-powered commit message based on your changes".to_string(),
+                            command: Command {
+                                text: "commitaura suggest".to_string(),
+                                description: "Generate commit message".to_string(),
+                                icon_path: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z".to_string(),
+                            },
+                        },
+                        FlowStep {
+                            title: "Commit Changes".to_string(),
+                            description: "Commit your changes with the generated message".to_string(),
+                            command: Command {
+                                text: "commitaura commit".to_string(),
+                                description: "Commit with generated message".to_string(),
+                                icon_path: "M5 13l4 4L19 7".to_string(),
+                            },
+                        },
+                    ],
+                },
+                UserFlow {
+                    title: "Customization".to_string(),
+                    description: "Customize Commitaura's behavior to match your team's commit style and requirements.".to_string(),
+                    steps: vec![
+                        FlowStep {
+                            title: "Edit Configuration".to_string(),
+                            description: "Modify Commitaura's configuration settings".to_string(),
+                            command: Command {
+                                text: "commitaura config edit".to_string(),
+                                description: "Edit configuration file".to_string(),
+                                icon_path: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z".to_string(),
+                            },
+                        },
+                        FlowStep {
+                            title: "Add Templates".to_string(),
+                            description: "Create custom commit message templates".to_string(),
+                            command: Command {
+                                text: "commitaura template add".to_string(),
+                                description: "Add custom templates".to_string(),
+                                icon_path: "M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z".to_string(),
+                            },
+                        },
+                        FlowStep {
+                            title: "Configure Rules".to_string(),
+                            description: "Set up custom rules for commit message generation".to_string(),
+                            command: Command {
+                                text: "commitaura rules set".to_string(),
+                                description: "Configure commit rules".to_string(),
+                                icon_path: "M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4".to_string(),
+                            },
+                        },
+                    ],
+                },
             ],
         ),
     ]
