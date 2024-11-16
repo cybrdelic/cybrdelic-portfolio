@@ -162,7 +162,7 @@ pub fn get_all_projects() -> Vec<Project> {
             "Commitaura",
             "Rust / GPT-4",
             "Autonomous commit message generator using Git diff analysis and contextual understanding. Available on crates.io with intelligent change detection system.",
-            "/images/commitaura-demo.gif",
+            "/static/images/commitaura.jpg",
             "M6 3v12 M18 6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M6 18a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M18 9a9 9 0 0 1-9 9",
             vec!["Rust", "GPT-4", "Git"],
             vec![

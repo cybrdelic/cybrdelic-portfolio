@@ -6,64 +6,57 @@
     <div class="catchphrase-block slide-in">
         <div class="dynamic-text">
             <span class="text-current">{{ project.title }}</span>
-            <span class="text-next">Innovation</span>
-            <span class="text-next">Excellence</span>
-            <span class="text-next">Craftsmanship</span>
         </div>
         <p class="catchphrase-subtitle">{{ project.subtitle }}</p>
     </div>
 
     <!-- Right-aligned vertical title -->
     <div class="vertical-project-detail-name-block ">
-        <h1 class="vertical-name slide-up">{{ project.title }}</h1>
+        <h1 class="vertical-project-name slide-up">commit fast. commit often. commit without a thought</h1>
         <span class="project-subtitle fade-in">{{ project.subtitle }}</span>
     </div>
 
     <div class="project-detail-content">
         <!-- Hero section -->
+        <!-- Hero section -->
         <section class="project-hero">
+            <!-- Left column: Project preview -->
             <div class="project-preview slide-in">
                 <img src="{{ project.image_url }}" alt="{{ project.title }} preview">
             </div>
-            <div class="project-brief">
-                <div class="project-description">
-                    {{ project.description }}
-                </div>
-                <div class="project-meta">
-                    <div class="project-tech-stack">
-                        <h3>Technologies</h3>
-                        <div class="tech-pills">
-                            {% for tech in project.tech_stack %}
-                            <span class="pill">{{ tech }}</span>
-                            {% endfor %}
-                        </div>
+
+            <!-- Right column: Content -->
+            <div class="project-content">
+                <!-- Project brief -->
+                <div class="project-brief">
+                    <div class="project-description">
+                        {{ project.description }}
                     </div>
-                    <div class="project-links">
-                        {% for link in project.links %}
-                        <a href="{{ link.url }}" class="cmd">{{ link.title }}</a>
+
+                    <!-- Compact features -->
+                    <div class="hero-features">
+                        {% for feature in project.features %}
+                        <div class="hero-feature-card slide-up">
+                            <div class="hero-feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                                    <path d="{{ feature.icon_path }}"></path>
+                                </svg>
+                            </div>
+                            <div class="hero-feature-content">
+                                <h3>{{ feature.title }}</h3>
+                                <p>{{ feature.description }}</p>
+                            </div>
+                        </div>
                         {% endfor %}
                     </div>
+
                 </div>
+
+
             </div>
         </section>
 
-        <!-- Features section -->
-        <section class="project-features">
-            <h2 class="section-title">Key Features</h2>
-            <div class="features-grid">
-                {% for feature in project.features %}
-                <div class="feature-card slide-up">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="{{ feature.icon_path }}"></path>
-                        </svg>
-                    </div>
-                    <h3>{{ feature.title }}</h3>
-                    <p>{{ feature.description }}</p>
-                </div>
-                {% endfor %}
-            </div>
-        </section>
+
 
         <!-- Technical details section -->
         <section class="project-technical">
