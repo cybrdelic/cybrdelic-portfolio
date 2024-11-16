@@ -1,0 +1,36 @@
+<!-- templates/sections/projects.html -->
+<main class="projects-container">
+    <div class="project-hover-image"></div>
+    <section class="projects-main-content">
+        <div class="vertical-name-block">
+            <h1 class="vertical-name slide-up delay-3">PROJECTS</h1>
+        </div>
+
+        <div class="projects-description slide-in delay-2">
+            A curated selection of projects showcasing AI integration, systems architecture, and developer tools.
+        </div>
+
+        <div class="projects-grid">
+            {% for project in projects %}
+            <div class="project-card" onclick="window.location.href='/projects/{{ project.id }}';"
+                style="cursor: pointer;">
+                <div class="project-header">
+                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="{{ project.icon_path }}"></path>
+                    </svg>
+                    <div class="project-meta">
+                        <h3>{{ project.title }}</h3>
+                        <span>{{ project.subtitle }}</span>
+                    </div>
+                </div>
+                <p>{{ project.description }}</p>
+                <div class="project-links">
+                    {% for link in project.links %}
+                    <a href="{{ link.url }}" class="cmd" onclick="event.stopPropagation();">{{ link.title }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</main>

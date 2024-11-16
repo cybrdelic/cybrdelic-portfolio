@@ -1,3 +1,4 @@
+// main.rs
 use axum::{
     extract::State,
     http::StatusCode,
@@ -19,11 +20,20 @@ pub enum AppError {
 
 impl IntoResponse for AppError {
     fn into_response(self) -> Response {
-        let (status, message) = match self {
-            AppError::Template(err) => (StatusCode::INTERNAL_SERVER_ERROR, err.to_string()),
-            AppError::Internal(err) => (StatusCode::INTERNAL_SERVER_ERROR, err),
+        let (status, error_message) = match self {
+            AppError::Template(err) => {
+                eprintln!("Template error: {:?}", err);
+                (
+                    StatusCode::INTERNAL_SERVER_ERROR,
+                    format!("Template error: {}", err),
+                )
+            }
+            AppError::Internal(err) => {
+                eprintln!("Internal error: {}", err);
+                (StatusCode::INTERNAL_SERVER_ERROR, err)
+            }
         };
-        (status, message).into_response()
+        (status, error_message).into_response()
     }
 }
 
@@ -36,19 +46,34 @@ pub struct AppState {
 async fn main() {
     tracing_subscriber::fmt::init();
 
-    let tera = match Tera::new("templates/**/*.html") {
-        Ok(t) => Arc::new(t),
+    let mut tera = match Tera::new("templates/**/*") {
+        Ok(t) => t,
         Err(e) => {
-            eprintln!("Error parsing templates: {}", e);
+            eprintln!("Template parsing error: {}", e);
             std::process::exit(1);
         }
     };
 
-    let state = AppState { tera };
+    // Add debug logging for Tera
+    tera.full_reload().unwrap_or_else(|e| {
+        eprintln!("Error reloading templates: {}", e);
+        std::process::exit(1);
+    });
+
+    // Print all registered templates
+    println!("Registered templates:");
+    for template in tera.get_template_names() {
+        println!("  - {}", template);
+    }
+
+    let state = AppState {
+        tera: Arc::new(tera),
+    };
 
     let app = Router::new()
         .route("/", get(handlers::home::index))
-        .route("/projects", get(handlers::projects::index)) // Add this line
+        .route("/projects", get(handlers::projects::index))
+        .route("/projects/:id", get(handlers::projects::project_detail))
         .route("/contact", post(handlers::contact::submit))
         .nest_service("/static", ServeDir::new("static"))
         .with_state(state);

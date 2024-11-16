@@ -15,12 +15,12 @@
 .vertical-text {
     position: fixed;
     left: 2rem;
-    top: 50%;
+    top: 30%;
     transform: translateY(-50%) rotate(-180deg);
     writing-mode: vertical-rl;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 300;
-    font-size: 0.875rem;
+    font-size: 0.775rem;
     letter-spacing: 0.2em;
     color: #888;
     text-transform: uppercase;
@@ -37,25 +37,112 @@
     gap: 0.5rem;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
-    color: #666;
-    padding: 0.5rem 1rem;
-    border: 1px solid #ddd;
+    color: rgba(60, 60, 60, 0.9);
+    padding: 0.75rem 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 2rem;
+    z-index: 100;
+    color: rgba(0, 0, 0, 1);
+    /* Glass effect */
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.05),
+        0 2px 4px -1px rgba(0, 0, 0, 0.03),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+
+    /* Subtle gradient overlay */
+    background-image: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.2) 0%,
+            rgba(255, 255, 255, 0.05) 100%);
+
+    /* Smooth transitions */
+    transition: all 0.3s ease;
+}
+
+.availability:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+    box-shadow:
+        0 8px 12px -1px rgba(0, 0, 0, 0.06),
+        0 4px 6px -1px rgba(0, 0, 0, 0.04),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+        inset 0 1px 1px rgba(255, 255, 255, 0.25);
 }
 
 .availability-dot {
     width: 8px;
     height: 8px;
-    background: #22c55e;
+    background-color: #22c55e;
     border-radius: 50%;
-    animation: pulse 2s infinite;
+    position: relative;
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+}
+
+/* Pulse animation for the dot */
+.availability-dot::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 12px;
+    height: 12px;
+    background-color: rgba(34, 197, 94, 0.4);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+/* Media query for darker backgrounds */
+@media (prefers-color-scheme: dark) {
+    .availability {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .availability:hover {
+        background: rgba(255, 255, 255, 0.15);
+    }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .availability {
+        top: 2rem;
+        right: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.7rem;
+    }
+}
+
+.availability-text {
+    color: rgba(0, 0, 0, 1)
 }
 
 .main-content {
     position: absolute;
     top: 0;
     right: 0;
-    width: 85%;
+    width: 95%;
     height: 90vh;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -89,6 +176,113 @@
     width: 120%;
     height: 140%;
     z-index: -1;
+}
+
+/* Vertical name block positioning */
+.vertical-name-block {
+    grid-column: 11 / 13;
+    grid-row: 1 / 8;
+    align-self: start;
+    justify-self: end;
+    position: relative;
+    margin-right: 2rem;
+    z-index: 0;
+}
+
+.vertical-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 4.5vw;
+    line-height: 0.9;
+    margin: 0;
+    color: #111;
+    mix-blend-mode: multiply;
+    position: relative;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    white-space: nowrap;
+    text-orientation: mixed;
+}
+
+.vertical-name::before {
+    content: '';
+    position: absolute;
+    left: -20%;
+    top: -10%;
+    width: 140%;
+    height: 120%;
+    z-index: -1;
+    transform: rotate(180deg);
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1024px) {
+    .vertical-name-block {
+        margin-right: 1rem;
+    }
+
+    .vertical-name {
+        font-size: 6vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .vertical-name-block {
+        grid-column: 1 / 13;
+        grid-row: 1 / 3;
+        margin-right: 0;
+        align-self: start;
+        justify-self: start;
+    }
+
+    .vertical-name {
+        writing-mode: horizontal-tb;
+        transform: none;
+        font-size: 8vw;
+    }
+
+    .vertical-name::before {
+        left: -10%;
+        top: -20%;
+        width: 120%;
+        height: 140%;
+        transform: none;
+    }
+}
+
+/* Animation classes if needed */
+.vertical-name-block.slide-up {
+    animation: slideUp 1s ease-out forwards;
+}
+
+.vertical-name.fade-in {
+    animation: fadeIn 1s ease-out forwards;
+}
+
+/* Role text styling for vertical layout */
+.vertical-role {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 2rem;
+    position: absolute;
+    right: -3rem;
+    top: 100%;
+}
+
+@media (max-width: 768px) {
+    .vertical-role {
+        writing-mode: horizontal-tb;
+        transform: none;
+        position: relative;
+        right: 0;
+        top: 0;
+        margin-top: 1rem;
+    }
 }
 
 .role {

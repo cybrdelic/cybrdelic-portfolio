@@ -1,0 +1,215 @@
+/* Project Detail Layout */
+.project-detail-container {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Catchphrase Block */
+.catchphrase-block {
+    top: 4rem;
+    left: 4rem;
+    z-index: 10;
+    min-width: 80vw;
+}
+
+.dynamic-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 8rem;
+    font-weight: 800;
+    color: rgba(17, 17, 17, 0.95);
+    line-height: 1;
+    height: 8rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.text-current,
+.text-next {
+    position: absolute;
+    width: 100%;
+    animation: textSlide 8s infinite;
+    opacity: 0;
+}
+
+.text-current {
+    animation-delay: 0s;
+}
+
+.text-next:nth-child(2) {
+    animation-delay: 2s;
+}
+
+.text-next:nth-child(3) {
+    animation-delay: 4s;
+}
+
+.text-next:nth-child(4) {
+    animation-delay: 6s;
+}
+
+@keyframes textSlide {
+
+    0%,
+    20% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+
+    25%,
+    45% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    50%,
+    100% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+}
+
+.catchphrase-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    color: rgba(102, 102, 102, 0.9);
+    margin-top: 1rem;
+}
+
+/* Vertical Title Block - Now on right */
+.vertical-project-detail-name-block {
+    position: fixed;
+    right: 2rem;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    z-index: 10;
+}
+
+/* Project Content */
+.project-detail-content {
+    margin: 20rem 8rem 4rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8rem;
+}
+
+/* Section Styles */
+.section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    color: rgba(17, 17, 17, 0.95);
+    margin-bottom: 3rem;
+    padding-left: 2rem;
+    border-left: 1px solid rgba(221, 221, 221, 0.5);
+}
+
+/* Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.feature-card {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(221, 221, 221, 0.3);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-4px);
+}
+
+/* Technical Details Grid */
+.tech-details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.tech-detail-card {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(221, 221, 221, 0.3);
+    border-radius: 4px;
+}
+
+/* Related Projects */
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+}
+
+.related-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.related-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    filter: grayscale(0.2);
+    transition: all 0.3s ease;
+}
+
+.related-card:hover {
+    transform: translateY(-4px);
+}
+
+.related-card:hover img {
+    filter: grayscale(0);
+}
+
+/* Responsive Updates */
+@media (max-width: 1280px) {
+    .catchphrase-block {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin: 2rem 0;
+    }
+
+    .dynamic-text {
+        font-size: 4rem;
+        height: 4rem;
+    }
+
+    .project-detail-content {
+        margin: 2rem;
+    }
+
+    .features-grid,
+    .tech-details-grid,
+    .related-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .vertical-name-block {
+        display: none;
+    }
+
+    .features-grid,
+    .tech-details-grid,
+    .related-grid {
+        grid-template-columns: 1fr;
+    }
+}

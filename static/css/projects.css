@@ -1,75 +1,165 @@
-/* Add to your hero.css file */
+/* Main layout */
+.projects-container {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
 
+.projects-main-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 95%;
+    height: 90vh;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    gap: 1rem;
+    padding: 2rem;
+}
+
+/* Description section */
+.projects-description {
+    grid-column: 1 / 12;
+    grid-row: 5 / 7;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: #444;
+    padding-left: 2rem;
+    border-left: 1px solid #ddd;
+    position: relative;
+    margin-bottom: 4rem;
+}
+
+.projects-description::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -1px;
+    width: 1px;
+    height: 0;
+    background: #111;
+    transition: height 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Projects grid */
 .projects-grid {
     grid-column: 1 / 13;
     grid-row: 6 / 10;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
-    margin-top: 2rem;
+    margin: 0 10rem 0 0;
 }
 
+/* Project cards */
 .project-card {
-    border: 1px solid #ddd;
-    padding: 2rem;
-    border-radius: 4px;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
-    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid rgba(221, 221, 221, 0.5);
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    position: relative;
+    z-index: 1;
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
-    border-color: #888;
+    transform: translateY(-5px) scale(1.02);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow:
+        0 8px 32px -1px rgba(0, 0, 0, 0.08),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
+/* Project header */
 .project-header {
     display: flex;
     align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
 }
 
 .project-icon {
-    width: 24px;
-    height: 24px;
-    color: #666;
+    width: 28px;
+    height: 28px;
+    color: rgba(102, 102, 102, 0.8);
     flex-shrink: 0;
+    transition: all 0.3s ease;
 }
 
+.project-card:hover .project-icon {
+    color: rgba(17, 17, 17, 0.9);
+    transform: scale(1.05);
+}
+
+/* Project content */
 .project-meta h3 {
     font-family: 'Syne', sans-serif;
-    font-size: 1.25rem;
-    color: #111;
+    font-size: 1.35rem;
+    color: rgba(17, 17, 17, 0.95);
     margin: 0;
     font-weight: 600;
+    letter-spacing: -0.02em;
 }
 
 .project-meta span {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
-    color: #666;
+    color: rgba(102, 102, 102, 0.9);
+    display: block;
+    margin-top: 0.35rem;
 }
 
 .project-card p {
     font-family: 'Syne', sans-serif;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: #444;
-    margin: 1rem 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(68, 68, 68, 0.95);
+    margin: 1.25rem 0;
 }
 
+/* Project links */
 .project-links {
     display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
+    gap: 1.25rem;
+    margin-top: 2rem;
 }
 
 .project-links .cmd {
+    font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
+    color: rgba(102, 102, 102, 0.9);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.3s ease;
 }
 
+.project-links .cmd::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: rgba(17, 17, 17, 0.9);
+    transition: width 0.3s ease;
+}
+
+.project-links .cmd:hover {
+    color: rgba(17, 17, 17, 0.9);
+}
+
+.project-links .cmd:hover::after {
+    width: 100%;
+}
+
+/* Technology section */
 .tech-label {
     grid-column: 1 / 13;
     grid-row: 11 / 12;
@@ -97,22 +187,93 @@
 .pill {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
-    color: #666;
+    color: rgba(102, 102, 102, 0.9);
     padding: 0.5rem 1rem;
-    border: 1px solid #ddd;
+    border: 1px solid rgba(221, 221, 221, 0.5);
     border-radius: 2rem;
     transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .pill:hover {
-    color: #111;
-    border-color: #111;
+    color: rgba(17, 17, 17, 0.9);
+    border-color: rgba(17, 17, 17, 0.9);
     transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.2);
 }
 
+/* Availability badge */
+.availability {
+    position: fixed;
+    top: 4rem;
+    right: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: rgba(60, 60, 60, 0.9);
+    padding: 0.75rem 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 2rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.availability:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.availability-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #22c55e;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+}
+
+.availability-dot::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 12px;
+    height: 12px;
+    background-color: rgba(34, 197, 94, 0.4);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+/* Responsive styles */
 @media (max-width: 1024px) {
     .projects-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .project-card {
+        padding: 2rem;
     }
 }
 
@@ -123,7 +284,14 @@
     }
 
     .project-card {
-        padding: 1.5rem;
+        padding: 1.75rem;
+    }
+
+    .availability {
+        top: 2rem;
+        right: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.7rem;
     }
 
     .tech-label {
