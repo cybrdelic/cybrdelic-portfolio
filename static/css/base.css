@@ -12,7 +12,7 @@
     --bg-black-05: rgba(0, 0, 0, 0.05);
 
     /* Border colors */
-    --border-light: rgba(225, 225, 225, 0.3);
+    --border-light: rgba(225, 225, 225, 0.651);
 
     /* Shadows */
     --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
@@ -82,7 +82,7 @@
     --font-size-base: 1rem;
     --font-size-lg: 1.25rem;
     --font-size-xl: 2.5rem;
-    --font-size-fluid-sm: 3rem;
+    --font-size-fluid-sm: 3vw;
     --font-size-fluid-base: 4.5vw;
     --font-size-fluid-lg: 6vw;
     --font-size-fluid-xl: 8vw;

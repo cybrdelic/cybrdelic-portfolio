@@ -19,3 +19,21 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const tabs = document.querySelectorAll('.flow-tab');
+    const contents = document.querySelectorAll('.flow-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs and contents
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+
+            // Add active class to clicked tab and corresponding content
+            const tabIndex = tab.dataset.tab;
+            tab.classList.add('active');
+            document.querySelector(`.flow-content[data-content="${tabIndex}"]`).classList.add('active');
+        });
+    });
+});

@@ -1,0 +1,41 @@
+{# project_hero.html #}
+<section class="project-hero">
+    <div class="project-preview slide-in">
+        <img src="{{ project.image_url }}" alt="{{ project.title }} preview" />
+        <div class="feature-highlights">
+            {% for feature in project.features %}
+            <div class="highlight">
+                <svg class="highlight-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="{{ feature.icon_path }}"></path>
+                </svg>
+                <span>{{ feature.title }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        {% if project.links %}
+        <div class="preview-links">
+            {% for link in project.links %}
+            <a href="{{ link.url }}" class="preview-link" onclick="event.stopPropagation();">
+                <span>{{ link.title }}</span>
+            </a>
+            {% endfor %}
+        </div>
+
+        {% endif %}
+    </div>
+    <div class="project-header">
+        <h3 class="project-name">{{ project.title }}</h3>
+        <p class="project-description">{{ project.description }}</p>
+        <div class="project-content">
+            {% if project.tech_stack %}
+            <div class="tech-stack">
+                {% for tech in project.tech_stack %}
+                <span class="tech-tag">{{ tech }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+</section>

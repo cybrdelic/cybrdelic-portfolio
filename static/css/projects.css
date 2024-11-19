@@ -106,7 +106,7 @@
 }
 
 .project-meta span {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: var(--font-display);
     font-size: 0.75rem;
     color: rgba(102, 102, 102, 0.9);
     display: block;

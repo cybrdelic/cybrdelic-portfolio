@@ -2,122 +2,17 @@
 
 {% block content %}
 <main class="project-detail-container">
-    <!-- Dynamic catchphrase section -->
-    <div class="catchphrase-block slide-in">
-        <div class="dynamic-text">
-            <span class="text-current">{{ project.title }}</span>
-        </div>
-        <p class="catchphrase-subtitle">{{ project.subtitle }}</p>
-    </div>
 
-    <!-- Right-aligned vertical title -->
-    <div class="vertical-project-detail-name-block ">
+
+    <div class="vertical-project-detail-name-block">
         <h1 class="vertical-project-name slide-up">commit fast. commit often. commit without a thought</h1>
         <span class="project-subtitle fade-in">{{ project.subtitle }}</span>
     </div>
 
     <div class="project-detail-content">
-        <!-- Hero section -->
-        <!-- Hero section -->
-        <section class="project-hero">
-            <!-- Left column: Project preview -->
-            <div class="project-preview slide-in">
-                <img src="{{ project.image_url }}" alt="{{ project.title }} preview">
-            </div>
+        {% include "sections/project_hero.html" %}
 
-            <!-- Right column: Content -->
-            <div class="project-content">
-                <!-- Project brief -->
-                <div class="project-brief">
-                    <div class="project-description">
-                        {{ project.description }}
-                    </div>
-
-                    <!-- Compact features -->
-                    <div class="hero-features">
-                        {% for feature in project.features %}
-                        <div class="hero-feature-card slide-up">
-                            <div class="hero-feature-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                                    <path d="{{ feature.icon_path }}"></path>
-                                </svg>
-                            </div>
-                            <div class="hero-feature-content">
-                                <h3>{{ feature.title }}</h3>
-                                <p>{{ feature.description }}</p>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-
-                </div>
-
-
-            </div>
-
-        </section>
-        <section class="user-flows">
-            <h3 class="vertical-section-name">User Flows</h3>
-            <!-- User Flow Section -->
-            <div class="user-flow-accordion">
-                {% for flow in project.user_flows %}
-                <div class="accordion-item">
-                    <button class="accordion-trigger">
-                        <div class="accordion-header">
-                            <span class="flow-number">{{ loop.index }}</span>
-                            <h3 class="flow-title">{{ flow.title }}</h3>
-                        </div>
-                        <div class="accordion-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </div>
-                    </button>
-                    <div class="accordion-content">
-                        <div class="accordion-content-inner">
-                            <!-- Flow Description -->
-                            <div class="flow-description">
-                                <p>{{ flow.description }}</p>
-                            </div>
-
-                            <!-- Flow Steps -->
-                            <div class="flow-steps">
-                                {% for step in flow.steps %}
-                                <div class="flow-step">
-                                    <div class="step-number">{{ loop.index }}</div>
-                                    <div class="step-content">
-                                        <div class="step-header">
-                                            <h4 class="step-title">{{ step.title }}</h4>
-                                            <p class="step-description">{{ step.description }}</p>
-                                        </div>
-                                        <div class="step-command">
-                                            <div class="command-icon">
-                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="1.5">
-                                                    <path d="{{ step.command.icon_path }}"></path>
-                                                </svg>
-                                            </div>
-                                            <div class="command-content">
-                                                <code class="command-text">{{ step.command.text }}</code>
-                                                <p class="command-description">{{ step.command.description }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </section>
-
-
-
-        <!-- Technical details section -->
         <section class="project-technical">
-            <h2 class="vertical-section-name">Technical Overview</h2>
             <div class="tech-details-grid">
                 <div class="tech-detail-card">
                     <h3>Architecture</h3>
@@ -131,20 +26,6 @@
                     <h3>Challenges</h3>
                     <p>{{ project.technical.challenges }}</p>
                 </div>
-            </div>
-        </section>
-
-        <!-- Related projects -->
-        <section class="related-projects">
-            <h2 class="vertical-section-name">Related Projects</h2>
-            <div class="related-grid">
-                {% for related in related_projects %}
-                <div class="related-card slide-up">
-                    <img src="{{ related.image_url }}" alt="{{ related.title }}">
-                    <h3>{{ related.title }}</h3>
-                    <a href="/projects/{{ related.id }}" class="cmd">View Project</a>
-                </div>
-                {% endfor %}
             </div>
         </section>
     </div>
