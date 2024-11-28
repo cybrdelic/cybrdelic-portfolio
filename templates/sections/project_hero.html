@@ -79,7 +79,6 @@
     </div>
 </section>
 
-<!-- Documentation -->
 <section class="documentation-section">
     {% if project.user_flows %}
     <div class="documentation-navigation">
@@ -96,50 +95,16 @@
         <div class="content-section {% if loop.first %}active{% endif %}" id="section-{{loop.index}}">
             <div class="section-header">
                 <h2>{{ flow.title }}</h2>
-                <div class="markdown-content">{{ flow.content | safe }}</div>
-            </div>
-
-            <div class="implementation-steps">
-                {% for step in flow.steps %}
-                <div class="implementation-step">
-                    <div class="step-indicator">{{ loop.index }}</div>
-                    <div class="step-details">
-                        <h3>{{ step.title }}</h3>
-                        <div class="markdown-content">{{ step.description | safe }}</div>
-                        <div class="command-window">
-                            <div class="command-header">
-                                <div class="window-controls">
-                                    <span class="window-control close"></span>
-                                    <span class="window-control minimize"></span>
-                                    <span class="window-control maximize"></span>
-                                </div>
-                            </div>
-                            <div class="command-body">
-                                <div class="command-line">
-                                    <span class="terminal-prompt">$</span>
-                                    <span class="terminal-command">{{ step.command.text }}</span>
-                                    <button class="copy-button" onclick="copyStepCommand(this)"
-                                        data-command="{{ step.command.text }}" aria-label="Copy command">
-                                        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2">
-                                            <path
-                                                d="M8 4v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7.242a2 2 0 0 0-.602-1.43L16.083 2.57A2 2 0 0 0 14.685 2H10a2 2 0 0 0-2 2z" />
-                                            <path d="M16 18v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Remove the implementation-steps class since markdown will drive the structure -->
+                <div class="documentation-wrapper markdown-content">
+                    {{ flow.content | safe }}
                 </div>
-                {% endfor %}
             </div>
         </div>
         {% endfor %}
     </div>
     {% endif %}
 </section>
-
 <script>
     // Markdown configuration and parsing
     document.addEventListener('DOMContentLoaded', () => {

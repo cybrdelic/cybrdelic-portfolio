@@ -37,44 +37,11 @@ impl UserFlow {
         path.push("flows");
         path.push(format!("{}.md", flow_name));
 
-        // Load markdown content
         let content = fs::read_to_string(path)?;
-
-        // Pre-process markdown: Convert ATX headings (# style) to Setext headings (underlined style)
-        let content = content
-            .lines()
-            .map(|line| {
-                if line.starts_with("# ") {
-                    // Convert "# Title" to proper heading with h1 tag
-                    format!("<h1>{}</h1>", line.trim_start_matches("# "))
-                } else if line.starts_with("## ") {
-                    // Convert "## Title" to proper heading with h2 tag
-                    format!("<h2>{}</h2>", line.trim_start_matches("## "))
-                } else if line.starts_with("### ") {
-                    // Convert "### Title" to proper heading with h3 tag
-                    format!("<h3>{}</h3>", line.trim_start_matches("### "))
-                } else {
-                    // Wrap other content in paragraphs
-                    if !line.trim().is_empty() {
-                        format!("<p>{}</p>", line)
-                    } else {
-                        line.to_string()
-                    }
-                }
-            })
-            .collect::<Vec<_>>()
-            .join("\n");
-
-        // Process numerical lists
-        let content = content.replace(
-            r"1. ",
-            r#"<div class="step-indicator">1</div><div class="step-content">"#,
-        );
-
-        Ok(content)
+        let processed_content = crate::markdown::preprocess_markdown(content);
+        Ok(crate::markdown::parse_markdown(&processed_content))
     }
 }
-
 #[derive(Serialize, Clone)]
 pub struct Project {
     id: String,

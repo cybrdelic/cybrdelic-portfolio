@@ -11,6 +11,7 @@ use tera::Tera;
 use tower_http::services::ServeDir;
 
 mod handlers;
+mod markdown;
 
 #[derive(Debug)]
 pub enum AppError {

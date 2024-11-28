@@ -13,12 +13,21 @@ The enhanced commit process follows these primary steps:
 1. Development Phase
    - Make your code changes as usual
    - Stage files using standard Git commands
+   ```bash
+   git add .
+   ```
    - Review changes before commitment
+   ```bash
+   git status
+   ```
 
 2. Message Generation
    - Commitaura analyzes staged changes
    - Generates contextually aware commit messages
    - Presents message previews for review
+   ```bash
+   commitaura
+   ```
 
 3. Review and Confirmation
    - Review generated message content
