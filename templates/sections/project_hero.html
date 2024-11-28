@@ -1,15 +1,14 @@
 {# project_hero.html #}
 <section class="project-hero">
-    <!-- Left Column -->
+    <!-- Project Preview Section -->
     <div class="project-preview slide-in">
-        <!-- Modified image section -->
         <div class="image-container">
             <img src="{{ project.image_url }}" alt="{{ project.title }} preview" class="preview-image"
                 onclick="openModal(this)" />
             <div class="image-caption">{{ project.image_caption }}</div>
         </div>
 
-        <!-- Modal -->
+        <!-- Image Modal -->
         <div id="imageModal" class="modal">
             <div class="modal-content">
                 <span class="close-modal">&times;</span>
@@ -18,7 +17,7 @@
             </div>
         </div>
 
-        <!-- Technical Summary -->
+        <!-- Technical Overview -->
         <div class="project-content">
             {% if project.tech_stack %}
             <div class="tech-stack">
@@ -30,23 +29,22 @@
         </div>
     </div>
 
-    <!-- Right Column -->
+    <!-- Project Information -->
     <div class="project-header">
-        <!-- Title Section -->
         <div class="title-section">
-            <h3 class="project-name">{{ project.title }}</h3>
-            <span class="project-subtitle">{{ project.subtitle }}</span>
-            <p class="project-description">{{ project.description }}</p>
+            <h2 class="project-name">{{ project.title }}</h2>
+            <div class="project-subtitle">{{ project.subtitle }}</div>
+            <div class="project-description">{{ project.description }}</div>
         </div>
 
-        <!-- Catchphrases -->
+        <!-- Key Features -->
         <div class="catchphrases">
             {% for phrase in project.catchphrases %}
             <span class="catchphrase">{{ phrase }}</span>
             {% endfor %}
         </div>
 
-        <!-- Terminal Window -->
+        <!-- Installation Command -->
         <div class="terminal-container">
             <div class="terminal-header">
                 <div class="window-controls">
@@ -54,13 +52,13 @@
                     <span class="window-control minimize"></span>
                     <span class="window-control maximize"></span>
                 </div>
-                <div class="terminal-title">Terminal</div>
+                <div class="terminal-title">Installation Command</div>
             </div>
             <div class="terminal-content">
                 <div class="command-line">
                     <span class="terminal-prompt">$</span>
                     <span class="terminal-command">cargo install {{ project.id }}</span>
-                    <button class="copy-button" onclick="copyToClipboard(this)" aria-label="Copy command">
+                    <button class="copy-button" onclick="copyToClipboard(this)" aria-label="Copy installation command">
                         <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path
                                 d="M8 4v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7.242a2 2 0 0 0-.602-1.43L16.083 2.57A2 2 0 0 0 14.685 2H10a2 2 0 0 0-2 2z" />
@@ -71,51 +69,52 @@
             </div>
         </div>
 
-        <!-- Project Links -->
+        <!-- Resource Links -->
         <div class="project-links">
             {% for link in project.links %}
-            <a href="{{ link.url }}" class="cmd" onclick="event.stopPropagation();">{{ link.title }}</a>
+            <a href="{{ link.url }}" class="cmd" onclick="event.stopPropagation();" rel="noopener noreferrer">{{
+                link.title }}</a>
             {% endfor %}
         </div>
     </div>
 </section>
 
-<!-- User Flows Section -->
-<section class="user-flows-section">
+<!-- Documentation -->
+<section class="documentation-section">
     {% if project.user_flows %}
-    <div class="flow-tabs">
+    <div class="documentation-navigation">
         {% for flow in project.user_flows %}
-        <button class="flow-tab {% if loop.first %}active{% endif %}" data-tab="flow-{{loop.index}}"
-            onclick="switchTab(this)">
+        <button class="nav-item {% if loop.first %}active{% endif %}" data-tab="section-{{loop.index}}"
+            onclick="switchSection(this)">
             {{ flow.title }}
         </button>
         {% endfor %}
     </div>
 
-    <div class="flow-contents">
+    <div class="documentation-content">
         {% for flow in project.user_flows %}
-        <div class="flow-content {% if loop.first %}active{% endif %}" id="flow-{{loop.index}}">
-            <div class="flow-header">
-                <h3>{{ flow.title }}</h3>
-                <p>{{ flow.description }}</p>
+        <div class="content-section {% if loop.first %}active{% endif %}" id="section-{{loop.index}}">
+            <div class="section-header">
+                <h2>{{ flow.title }}</h2>
+                <div class="markdown-content">{{ flow.content | safe }}</div>
             </div>
 
-            <div class="flow-steps">
+            <div class="implementation-steps">
                 {% for step in flow.steps %}
-                <div class="flow-step">
-                    <div class="step-number">{{ loop.index }}</div>
-                    <div class="step-content">
-                        <h4>{{ step.title }}</h4>
-                        <p>{{ step.description }}</p>
-                        <div class="terminal-window">
-                            <div class="terminal-header">
+                <div class="implementation-step">
+                    <div class="step-indicator">{{ loop.index }}</div>
+                    <div class="step-details">
+                        <h3>{{ step.title }}</h3>
+                        <div class="markdown-content">{{ step.description | safe }}</div>
+                        <div class="command-window">
+                            <div class="command-header">
                                 <div class="window-controls">
                                     <span class="window-control close"></span>
                                     <span class="window-control minimize"></span>
                                     <span class="window-control maximize"></span>
                                 </div>
                             </div>
-                            <div class="terminal-content">
+                            <div class="command-body">
                                 <div class="command-line">
                                     <span class="terminal-prompt">$</span>
                                     <span class="terminal-command">{{ step.command.text }}</span>
@@ -142,54 +141,80 @@
 </section>
 
 <script>
+    // Markdown configuration and parsing
+    document.addEventListener('DOMContentLoaded', () => {
+        // Configure marked for business documentation
+        marked.setOptions({
+            breaks: true,
+            gfm: true,
+            headerIds: true,
+            headerPrefix: 'doc-',
+            smartLists: true,
+            smartypants: true
+        });
+
+        // Process documentation content
+        document.querySelectorAll('.documentation-body, .step-description').forEach(element => {
+            const content = element.textContent.trim();
+            if (content) {
+                element.innerHTML = marked.parse(content);
+            }
+        });
+
+        // Initialize first section
+        const firstNav = document.querySelector('.nav-item');
+        if (firstNav) switchSection(firstNav);
+    });
+
+    // Command copying functionality
     function copyToClipboard(button) {
         const command = button.closest('.command-line').querySelector('.terminal-command').innerText;
-        navigator.clipboard.writeText(command).then(() => {
-            button.classList.add('copied');
-            const originalHTML = button.innerHTML;
-            button.innerHTML = `<svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20 6L9 17l-5-5"/>
-            </svg>`;
-            setTimeout(() => {
-                button.classList.remove('copied');
-                button.innerHTML = originalHTML;
-            }, 2000);
-        });
+        navigator.clipboard.writeText(command)
+            .then(() => showCopySuccess(button))
+            .catch(() => showCopyError(button));
     }
 
     function copyStepCommand(button) {
         const command = button.dataset.command;
-        navigator.clipboard.writeText(command).then(() => {
-            button.classList.add('copied');
-            const originalHTML = button.innerHTML;
-            button.innerHTML = `<svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20 6L9 17l-5-5"/>
-            </svg>`;
-            setTimeout(() => {
-                button.classList.remove('copied');
-                button.innerHTML = originalHTML;
-            }, 2000);
-        });
+        navigator.clipboard.writeText(command)
+            .then(() => showCopySuccess(button))
+            .catch(() => showCopyError(button));
     }
 
-    function switchTab(selectedTab) {
-        const targetId = selectedTab.getAttribute('data-tab');
-        const tabSection = selectedTab.closest('.user-flows-section');
-        if (!tabSection) return;
+    function showCopySuccess(button) {
+        button.classList.add('copied');
+        const originalHTML = button.innerHTML;
+        button.innerHTML = `<svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 6L9 17l-5-5"/>
+        </svg>`;
+        setTimeout(() => {
+            button.classList.remove('copied');
+            button.innerHTML = originalHTML;
+        }, 2000);
+    }
 
-        // Update tabs
-        tabSection.querySelectorAll('.flow-tab').forEach(tab => tab.classList.remove('active'));
-        selectedTab.classList.add('active');
+    function showCopyError(button) {
+        button.classList.add('error');
+        setTimeout(() => button.classList.remove('error'), 2000);
+    }
 
-        // Update content
-        tabSection.querySelectorAll('.flow-content').forEach(content => content.classList.remove('active'));
-        const targetContent = tabSection.querySelector(`#${targetId}`);
+    // Navigation and modal functionality
+    function switchSection(selectedNav) {
+        const targetId = selectedNav.getAttribute('data-tab');
+        const section = selectedNav.closest('.documentation-section');
+        if (!section) return;
+
+        section.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+        selectedNav.classList.add('active');
+
+        section.querySelectorAll('.content-section').forEach(content => content.classList.remove('active'));
+        const targetContent = section.querySelector(`#${targetId}`);
         if (targetContent) {
             targetContent.classList.add('active');
         }
     }
 
-    // Modal functionality
+    // Image modal handling
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImage');
     const modalCaption = document.getElementById('modalCaption');
@@ -209,21 +234,8 @@
     }
 
     closeBtn.onclick = closeModal;
-    modal.onclick = function (e) {
-        if (e.target === modal) {
-            closeModal();
-        }
-    }
-
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && modal.style.display === "flex") {
-            closeModal();
-        }
-    });
-
-    // Initialize first tab
-    document.addEventListener('DOMContentLoaded', () => {
-        const firstTab = document.querySelector('.flow-tab');
-        if (firstTab) switchTab(firstTab);
+    modal.onclick = e => { if (e.target === modal) closeModal(); };
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && modal.style.display === "flex") closeModal();
     });
 </script>
