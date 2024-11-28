@@ -128,14 +128,16 @@
     margin-top: 2rem;
 }
 
+
 .project-links .cmd {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
-    color: rgba(102, 102, 102, 0.9);
+    color: rgba(221, 221, 221, 0.9);
     text-decoration: none;
     text-transform: uppercase;
+    background: #111;
     letter-spacing: 0.1em;
-    padding: 0.5rem 0;
+    padding: 1rem 0.5rem;
     position: relative;
     transition: color 0.3s ease;
 }

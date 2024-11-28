@@ -161,7 +161,7 @@ pub fn get_all_projects() -> Vec<Project> {
             vec!["Rust", "Claude API", "NLP", "Git"],
             vec![
                 ("crates.io", "https://crates.io/crates/sagacity"),
-                ("github", "https://github.com/yourusername/sagacity"),
+                ("github", "https://github.com/cybrdelic/sagacity"),
             ],
             vec![
                 (
@@ -259,12 +259,12 @@ pub fn get_all_projects() -> Vec<Project> {
             "Commitaura",
             "AI-Powered Commit Message Generator",
             "Autonomously generate commit messages for your staged commits, using diff analysis as contextualization.",
-            "/static/images/commitaura.jpg",
+            "/static/images/commitaura.gif",
             "M6 3v12 M18 6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M6 18a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M18 9a9 9 0 0 1-9 9",
             vec!["Rust", "GPT-4", "Git"],
             vec![
                 ("View Crates.io Package", "https://crates.io/crates/commitaura"),
-                ("View Source Code", "https://github.com/yourusername/commitaura"),
+                ("View Source Code", "https://github.com/cybrdelic/commitaura"),
             ],
             vec![
                 (
@@ -283,7 +283,7 @@ pub fn get_all_projects() -> Vec<Project> {
                 "Implements custom diff parsing and GPT-4 prompt engineering. Features caching and rate limiting.",
                 "Handling complex Git histories and merge commits. Ensuring consistent message quality across different types of changes.",
             ),
-            vec!["Automated Workflow", "Smart Commits", "Git Integration", "AI-Powered"],
+            vec!["CLI Tool", "Written in Rust", "Git Integration", "AI-Powered"],
             vec![
                 UserFlow {
                     title: "Setup & Configuration".to_string(),
