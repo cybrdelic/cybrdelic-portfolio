@@ -257,30 +257,25 @@ pub fn get_all_projects() -> Vec<Project> {
         ),Project::new(
             "commitaura",
             "Commitaura",
-            "Rust / GPT-4",
-            "Autonomous commit message generator using Git diff analysis and contextual understanding.",
+            "AI-Powered Commit Message Generator",
+            "Autonomously generate commit messages for your staged commits, using diff analysis as contextualization.",
             "/static/images/commitaura.jpg",
             "M6 3v12 M18 6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M6 18a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M18 9a9 9 0 0 1-9 9",
             vec!["Rust", "GPT-4", "Git"],
             vec![
-                ("crates.io", "https://crates.io/crates/commitaura"),
-                ("github", "https://github.com/yourusername/commitaura"),
+                ("View Crates.io Package", "https://crates.io/crates/commitaura"),
+                ("View Source Code", "https://github.com/yourusername/commitaura"),
             ],
             vec![
                 (
-                    "Smart Diff Analysis",
-                    "Analyzes git diffs to understand code changes contextually",
+                    "Claude Sonnet Integration",
+                    "Analyzes git diffs using the Claude Sonnet LLM to understand code changes contextually",
                     "M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2",
                 ),
                 (
                     "AI Message Generation",
                     "Generates meaningful commit messages using GPT-4",
                     "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z",
-                ),
-                (
-                    "Change Detection",
-                    "Intelligent system for detecting significant code changes",
-                    "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2",
                 ),
             ],
             (
@@ -304,21 +299,12 @@ pub fn get_all_projects() -> Vec<Project> {
                             },
                         },
                         FlowStep {
-                            title: "Initialize Repository".to_string(),
-                            description: "Set up Commitaura configuration in your Git repository".to_string(),
+                            title: "Add API Key to .zshrc".to_string(),
+                            description: "Add your Anthropic API key to your shell environment".to_string(),
                             command: Command {
-                                text: "commitaura init".to_string(),
-                                description: "Initialize in repository".to_string(),
-                                icon_path: "M12 6v6m0 0v6m0-6h6m-6 0H6".to_string(),
-                            },
-                        },
-                        FlowStep {
-                            title: "Install Git Hooks".to_string(),
-                            description: "Set up Git hooks for automated commit message generation".to_string(),
-                            command: Command {
-                                text: "commitaura hooks install".to_string(),
-                                description: "Install Git hooks".to_string(),
-                                icon_path: "M13 10V3L4 14h7v7l9-11h-7z".to_string(),
+                                text: "echo 'export ANTHROPIC_API_KEY=your-api-key-here' >> ~/.zshrc && source ~/.zshrc".to_string(),
+                                description: "Append API key to .zshrc and reload shell".to_string(),
+                                icon_path: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z".to_string(),
                             },
                         },
                     ],
@@ -340,7 +326,7 @@ pub fn get_all_projects() -> Vec<Project> {
                             title: "Generate Message".to_string(),
                             description: "Generate an AI-powered commit message based on your changes".to_string(),
                             command: Command {
-                                text: "commitaura suggest".to_string(),
+                                text: "commitaura".to_string(),
                                 description: "Generate commit message".to_string(),
                                 icon_path: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z".to_string(),
                             },
@@ -349,46 +335,13 @@ pub fn get_all_projects() -> Vec<Project> {
                             title: "Commit Changes".to_string(),
                             description: "Commit your changes with the generated message".to_string(),
                             command: Command {
-                                text: "commitaura commit".to_string(),
-                                description: "Commit with generated message".to_string(),
+                                text: "y/n".to_string(),
+                                description: "Commit with generated message by pressing y or ENTER".to_string(),
                                 icon_path: "M5 13l4 4L19 7".to_string(),
                             },
                         },
                     ],
-                },
-                UserFlow {
-                    title: "Customization".to_string(),
-                    description: "Customize Commitaura's behavior to match your team's commit style and requirements.".to_string(),
-                    steps: vec![
-                        FlowStep {
-                            title: "Edit Configuration".to_string(),
-                            description: "Modify Commitaura's configuration settings".to_string(),
-                            command: Command {
-                                text: "commitaura config edit".to_string(),
-                                description: "Edit configuration file".to_string(),
-                                icon_path: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z".to_string(),
-                            },
-                        },
-                        FlowStep {
-                            title: "Add Templates".to_string(),
-                            description: "Create custom commit message templates".to_string(),
-                            command: Command {
-                                text: "commitaura template add".to_string(),
-                                description: "Add custom templates".to_string(),
-                                icon_path: "M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z".to_string(),
-                            },
-                        },
-                        FlowStep {
-                            title: "Configure Rules".to_string(),
-                            description: "Set up custom rules for commit message generation".to_string(),
-                            command: Command {
-                                text: "commitaura rules set".to_string(),
-                                description: "Configure commit rules".to_string(),
-                                icon_path: "M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4".to_string(),
-                            },
-                        },
-                    ],
-                },
+                }
             ],
         ),
     ]
