@@ -34,6 +34,7 @@ pub struct Project {
     subtitle: String,
     description: String,
     image_url: String,
+    image_caption: String,
     icon_path: String,
     tech_stack: Vec<String>,
     links: Vec<ProjectLink>,
@@ -63,13 +64,6 @@ pub struct TechnicalDetails {
     challenges: String,
 }
 
-#[derive(Serialize, Clone)]
-pub struct UserFlowCommand {
-    text: String,
-    description: String,
-    icon_path: String,
-}
-
 impl Project {
     fn new(
         id: &str,
@@ -77,6 +71,7 @@ impl Project {
         subtitle: &str,
         description: &str,
         image_url: &str,
+        image_caption: &str,
         icon_path: &str,
         tech_stack: Vec<&str>,
         links: Vec<(&str, &str)>,
@@ -91,6 +86,7 @@ impl Project {
             subtitle: subtitle.to_string(),
             description: description.to_string(),
             image_url: image_url.to_string(),
+            image_caption: image_caption.to_string(),
             icon_path: icon_path.to_string(),
             tech_stack: tech_stack.iter().map(|&s| s.to_string()).collect(),
             links: links
@@ -157,6 +153,7 @@ pub fn get_all_projects() -> Vec<Project> {
             "Rust / Claude API",
             "Intelligent codebase exploration tool using natural language interaction. Features novel summarizational indexing system and persistent context memory.",
             "/static/images/sagacity.jpg",
+            "Intelligent codebase exploration tool powered by Claude API",
             "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z",
             vec!["Rust", "Claude API", "NLP", "Git"],
             vec![
@@ -254,12 +251,14 @@ pub fn get_all_projects() -> Vec<Project> {
                     ],
                 },
             ],
-        ),Project::new(
+        ),
+        Project::new(
             "commitaura",
             "Commitaura",
             "AI-Powered Commit Message Generator",
             "Autonomously generate commit messages for your staged commits, using diff analysis as contextualization.",
             "/static/images/commitaura.gif",
+            "AI-powered commit message generation in action",
             "M6 3v12 M18 6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M6 18a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M18 9a9 9 0 0 1-9 9",
             vec!["Rust", "GPT-4", "Git"],
             vec![
@@ -341,7 +340,7 @@ pub fn get_all_projects() -> Vec<Project> {
                             },
                         },
                     ],
-                }
+                },
             ],
         ),
     ]

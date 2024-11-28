@@ -2,7 +2,21 @@
 <section class="project-hero">
     <!-- Left Column -->
     <div class="project-preview slide-in">
-        <img src="{{ project.image_url }}" alt="{{ project.title }} preview" />
+        <!-- Modified image section -->
+        <div class="image-container">
+            <img src="{{ project.image_url }}" alt="{{ project.title }} preview" class="preview-image"
+                onclick="openModal(this)" />
+            <div class="image-caption">{{ project.image_caption }}</div>
+        </div>
+
+        <!-- Modal -->
+        <div id="imageModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <img id="modalImage" src="" alt="">
+                <p id="modalCaption" class="modal-caption"></p>
+            </div>
+        </div>
 
         <!-- Technical Summary -->
         <div class="project-content">
@@ -174,6 +188,38 @@
             targetContent.classList.add('active');
         }
     }
+
+    // Modal functionality
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const modalCaption = document.getElementById('modalCaption');
+    const closeBtn = document.querySelector('.close-modal');
+
+    function openModal(imgElement) {
+        modal.style.display = "flex";
+        modalImg.src = imgElement.src;
+        const caption = imgElement.closest('.image-container').querySelector('.image-caption');
+        modalCaption.textContent = caption ? caption.textContent : '';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.style.display = "none";
+        document.body.style.overflow = 'auto';
+    }
+
+    closeBtn.onclick = closeModal;
+    modal.onclick = function (e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    }
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.style.display === "flex") {
+            closeModal();
+        }
+    });
 
     // Initialize first tab
     document.addEventListener('DOMContentLoaded', () => {
