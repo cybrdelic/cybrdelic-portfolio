@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="/static/css/base.css">
     <link rel="stylesheet" href="/static/css/hero.css">
     <link rel="stylesheet" href="/static/css/projects.css">
-    <link rel="stylesheet" href="/static/css/project-detail.css">
+    <link rel="stylesheet" href="static/css/career.css" <link rel="stylesheet" href="/static/css/project-detail.css">
     <link rel="stylesheet" href="/static/css/project-hero.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap">
+    <!-- Prism.js or any code highlight library can be linked here if needed -->
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <script src="/static/js/animations.js"></script>
     <script src="/static/js/projects.js"></script>
@@ -23,10 +24,23 @@
                 curve: 'basis'
             }
         });
+
+        // Save and load theme preference
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            }
+        });
     </script>
 </head>
 
 <body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" aria-label="Toggle Dark Mode" title="Toggle Dark Mode">
+        <span class="toggle-icon">🌗</span>
+    </button>
+
     <div id="noise"></div>
     <div id="terminal">
         <nav class="nav">
@@ -42,11 +56,22 @@
                 <a href="https://github.com/cybrdelic" target="_blank" class="cmd">git clone</a>
             </div>
         </nav>
+
         {% block content %}{% endblock %}
     </div>
     <div class="vertical-text fade-in">enthusiastic about building cool shit</div>
 
     <script src="/static/js/glitch.js"></script>
+    <script>
+        // Dark Mode Toggle Script
+        const themeToggle = document.querySelector('.theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    </script>
 </body>
 
 </html>

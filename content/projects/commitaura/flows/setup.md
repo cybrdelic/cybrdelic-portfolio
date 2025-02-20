@@ -1,83 +1,81 @@
-# Setup & Configuration Guide
+# setup & configuration guide
 
-Commitaura offers a streamlined setup process for integrating AI-powered commit message generation into your development workflow. This guide provides comprehensive instructions for installing and configuring the tool.
+commitaura is built to slide into your dev flow with minimal hassle. this guide gets you from zero to ai-powered commits in no time, with clear steps for installation and customization.
 
-## System Requirements
+## system requirements
 
-Before proceeding with installation, ensure your system meets the following requirements:
+check your setup before diving in—this isn’t amateur hour. you’ll need:
+- **git**: v2.24.0+
+- **rust + cargo**: for building commitaura’s backend muscle.
+- **anthropic api key**: your ticket to ai commit wizardry.
+- **terminal**: zsh or bash for max compatibility.
+- **internet**: bc ai needs to phone home sometimes.
 
-For optimal performance, your development environment should have:
-- Git version 2.24.0 or higher
-- Rust toolchain with Cargo package manager
-- An active Anthropic API key
-- Terminal with ZSH or Bash shell
-- Stable internet connection for API communication
+## installation process
 
-## Installation Process
+the setup process is frictionless and does all the heavy lifting for you.
 
-The installation process is designed to be straightforward while ensuring proper integration with your development environment.
+### package installation
 
-### Package Installation
+commitaura is distributed via cargo, so you know it’s legit.
+run this and let it work:
+```bash
+cargo install commitaura
+```
 
-Commitaura is distributed through Cargo, Rust's package manager. The installation process is automated and handles all dependencies. During installation, Commitaura:
-- Downloads and compiles the latest stable release
-- Sets up necessary binary files
-- Creates configuration directories
-- Establishes Git hooks integration
+### git integration
 
-### API Configuration
+this is where the magic happens—commitaura hooks directly into git. the integration:
+- deploys custom git hooks for seamless commit workflows.
+- sets up smart commit message templates.
+- enables advanced diff analysis for context.
+- aligns with your commit signing configs.
 
-Configuring the Anthropic API access is essential for Commitaura's functionality. The setup process includes:
-- Secure storage of your API key
-- Configuration of API endpoints
-- Rate limiting settings
-- Caching preferences
+## configuration options
 
-### Git Integration
+dial in commitaura to match your workflow.
 
-Commitaura seamlessly integrates with Git through custom hooks. The integration process:
-- Creates custom Git hooks
-- Configures commit message templates
-- Sets up diff analysis tools
-- Establishes commit signing preferences
+### message formatting
 
-## Configuration Options
+you can tweak the style of generated messages via the config file:
+- adjust format and structure.
+- reorder sections (subject, body, refs).
+- set char limits to keep messages concise.
+- toggle emoji usage (bc 🔥 or nah).
 
-Commitaura can be customized through various configuration options:
+### performance settings
 
-### Message Formatting
-You can define custom templates for commit messages by modifying the configuration file. Options include:
-- Commit message style and format
-- Section ordering and structure
-- Character length limits
-- Emoji usage preferences
+keep it snappy with these tunables:
+- **cache**: manage size + duration for repeated tasks.
+- **timeouts**: avoid hanging on bad api calls.
+- **concurrency**: control parallel ops for big repos.
+- **rate limits**: throttle as needed for api safety.
 
-### Performance Settings
-Optimize Commitaura's performance with settings for:
-- Cache duration and size
-- API request timeouts
-- Concurrent operation limits
-- Rate limiting thresholds
+### language preferences
 
-### Language Preferences
-Configure language-specific settings including:
-- Output language selection
-- Technical terminology preferences
-- Documentation style guidelines
-- Custom vocabulary inclusion
+get specific about how commitaura talks:
+- output in your preferred language.
+- enforce technical terminology consistency.
+- follow your team’s doc style rules.
+- add custom terms to the lexicon.
 
-## Post-Installation Verification
+## post-installation verification
 
-After completing the setup, verify the installation by:
-1. Checking Commitaura version and installation status
-2. Verifying API connectivity
-3. Testing Git hook integration
-4. Confirming commit message generation
+run these checks to confirm it’s ready to roll:
+1. check the version:
+   ```bash
+   commitaura --version
+   ```
+2. validate api connectivity—it should hum.
+3. test the git hook integration on a dummy repo.
+4. generate a test commit message to flex its skills.
 
-## Next Steps
+## next steps
 
-Proceed to the Daily Workflow guide to learn how to effectively use Commitaura in your development process. The guide covers:
-- Standard commit workflows
-- Message generation and editing
-- Batch processing capabilities
-- Integration with CI/CD pipelines
+once you’re set up, head over to the daily workflow guide. it’s got the full breakdown for:
+- smooth commit workflows.
+- message editing like a boss.
+- handling batch changes.
+- tying it into ci/cd bc automation = life.
+
+get it configured, get it customized, and let it rip.

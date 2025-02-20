@@ -1,20 +1,14 @@
 {# project_hero.html #}
 <section class="project-hero">
+    <!-- Animated gradient backdrop -->
+    <div class="hero-background"></div>
+
     <!-- Project Preview Section -->
     <div class="project-preview slide-in">
         <div class="image-container">
             <img src="{{ project.image_url }}" alt="{{ project.title }} preview" class="preview-image"
                 onclick="openModal(this)" />
             <div class="image-caption">{{ project.image_caption }}</div>
-        </div>
-
-        <!-- Image Modal -->
-        <div id="imageModal" class="modal">
-            <div class="modal-content">
-                <span class="close-modal">&times;</span>
-                <img id="modalImage" src="" alt="">
-                <p id="modalCaption" class="modal-caption"></p>
-            </div>
         </div>
 
         <!-- Technical Overview -->
@@ -32,7 +26,10 @@
     <!-- Project Information -->
     <div class="project-header">
         <div class="title-section">
-            <h2 class="project-name">{{ project.title }}</h2>
+            <!-- Animated gradient text highlight -->
+            <h2 class="project-name">
+                <span class="project-name-inner">{{ project.title }}</span>
+            </h2>
             <div class="project-subtitle">{{ project.subtitle }}</div>
             <div class="project-description">{{ project.description }}</div>
         </div>
@@ -64,6 +61,8 @@
                                 d="M8 4v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7.242a2 2 0 0 0-.602-1.43L16.083 2.57A2 2 0 0 0 14.685 2H10a2 2 0 0 0-2 2z" />
                             <path d="M16 18v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2" />
                         </svg>
+                        <!-- Mini confetti container for success animation -->
+                        <div class="confetti-container"></div>
                     </button>
                 </div>
             </div>
@@ -72,8 +71,9 @@
         <!-- Resource Links -->
         <div class="project-links">
             {% for link in project.links %}
-            <a href="{{ link.url }}" class="cmd" onclick="event.stopPropagation();" rel="noopener noreferrer">{{
-                link.title }}</a>
+            <a href="{{ link.url }}" class="cmd" onclick="event.stopPropagation();" rel="noopener noreferrer">
+                {{ link.title }}
+            </a>
             {% endfor %}
         </div>
     </div>
@@ -85,6 +85,7 @@
         {% for flow in project.user_flows %}
         <button class="nav-item {% if loop.first %}active{% endif %}" data-tab="section-{{loop.index}}"
             onclick="switchSection(this)">
+            <span class="nav-highlight"></span>
             {{ flow.title }}
         </button>
         {% endfor %}
@@ -95,7 +96,6 @@
         <div class="content-section {% if loop.first %}active{% endif %}" id="section-{{loop.index}}">
             <div class="section-header">
                 <h2>{{ flow.title }}</h2>
-                <!-- Remove the implementation-steps class since markdown will drive the structure -->
                 <div class="documentation-wrapper markdown-content">
                     {{ flow.content | safe }}
                 </div>
@@ -105,10 +105,18 @@
     </div>
     {% endif %}
 </section>
+
+<!-- Modal outside the hero section for proper stacking -->
+<div id="imageModal" class="modal" onclick="if(event.target === this) closeModal();">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img id="modalImage" src="" alt="">
+        <p id="modalCaption" class="modal-caption"></p>
+    </div>
+</div>
+
 <script>
-    // Markdown configuration and parsing
     document.addEventListener('DOMContentLoaded', () => {
-        // Configure marked for business documentation
         marked.setOptions({
             breaks: true,
             gfm: true,
@@ -118,7 +126,6 @@
             smartypants: true
         });
 
-        // Process documentation content
         document.querySelectorAll('.documentation-body, .step-description').forEach(element => {
             const content = element.textContent.trim();
             if (content) {
@@ -126,12 +133,10 @@
             }
         });
 
-        // Initialize first section
         const firstNav = document.querySelector('.nav-item');
         if (firstNav) switchSection(firstNav);
     });
 
-    // Command copying functionality
     function copyToClipboard(button) {
         const command = button.closest('.command-line').querySelector('.terminal-command').innerText;
         navigator.clipboard.writeText(command)
@@ -149,9 +154,23 @@
     function showCopySuccess(button) {
         button.classList.add('copied');
         const originalHTML = button.innerHTML;
+
+        // Trigger confetti animation
+        const confettiContainer = button.querySelector('.confetti-container');
+        if (confettiContainer) {
+            confettiContainer.innerHTML = '';
+            for (let i = 0; i < 10; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+                confettiContainer.appendChild(confetti);
+            }
+        }
+
         button.innerHTML = `<svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M20 6L9 17l-5-5"/>
-        </svg>`;
+        </svg><div class="confetti-container"></div>`;
         setTimeout(() => {
             button.classList.remove('copied');
             button.innerHTML = originalHTML;
@@ -163,7 +182,6 @@
         setTimeout(() => button.classList.remove('error'), 2000);
     }
 
-    // Navigation and modal functionality
     function switchSection(selectedNav) {
         const targetId = selectedNav.getAttribute('data-tab');
         const section = selectedNav.closest('.documentation-section');
@@ -179,28 +197,29 @@
         }
     }
 
-    // Image modal handling
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImage');
-    const modalCaption = document.getElementById('modalCaption');
-    const closeBtn = document.querySelector('.close-modal');
-
     function openModal(imgElement) {
-        modal.style.display = "flex";
-        modalImg.src = imgElement.src;
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
         const caption = imgElement.closest('.image-container').querySelector('.image-caption');
+
+        modal.style.display = "flex";
+        modal.classList.add('modal-fade-in');
+        modalImg.src = imgElement.src;
         modalCaption.textContent = caption ? caption.textContent : '';
         document.body.style.overflow = 'hidden';
     }
 
     function closeModal() {
-        modal.style.display = "none";
-        document.body.style.overflow = 'auto';
-    }
+        const modal = document.getElementById('imageModal');
+        modal.classList.remove('modal-fade-in');
+        modal.classList.add('modal-fade-out');
 
-    closeBtn.onclick = closeModal;
-    modal.onclick = e => { if (e.target === modal) closeModal(); };
-    document.addEventListener('keydown', e => {
-        if (e.key === 'Escape' && modal.style.display === "flex") closeModal();
-    });
+        // Wait for fade-out before hiding
+        setTimeout(() => {
+            modal.style.display = "none";
+            modal.classList.remove('modal-fade-out');
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
 </script>

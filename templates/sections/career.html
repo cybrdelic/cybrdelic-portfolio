@@ -1,22 +1,25 @@
-<main class="career-container fade-in delay-1">
-    <!-- optional overlay or shapes if you want the same background style -->
-    <div class="grain-overlay"></div>
+<main class="career-container">
+    <div class="career-hover-image"></div>
 
-    <!-- vertical name block on the right -->
-    <div class="vertical-name-block">
-        <h1 class="vertical-name slide-up delay-3">CAREER</h1>
-    </div>
-
+    <!-- absolute main content, akin to "projects-main-content" -->
     <section class="career-main-content">
-        <!-- short descriptive text, akin to "projects-description" style -->
+        <!-- vertical label (like "PROJECTS" block) -->
+        <div class="vertical-name-block">
+            <h1 class="vertical-name slide-up delay-3">CAREER</h1>
+        </div>
+
+        <!-- descriptive text (similar to your "projects-description") -->
         <div class="career-description slide-in delay-2">
             a timeline of my professional journey, focusing on roles, responsibilities, and topics covered.
         </div>
 
-        <!-- timeline container -->
-        <div class="timeline-grid">
+        <!-- single-row timeline container -->
+        <div class="career-timeline-row">
+            <!-- horizontal line behind the cards -->
+            <div class="career-timeline-line"></div>
+
             {% for event in career_timeline %}
-            <div class="timeline-card" data-role-desc="{{ event.description }}"
+            <div class="career-timeline-card" data-role-desc="{{ event.description }}"
                 data-topics='{{ event.topics | json_encode | safe }}'>
                 <div class="timeline-card-header">
                     <h3 class="timeline-card-title">{{ event.title }}</h3>
@@ -28,9 +31,9 @@
             {% endfor %}
         </div>
 
-        <!-- bottom area: left dynamic description, right topics list -->
-        <div class="career-bottom">
-            <div class="career-description-box" id="careerDescription">
+        <!-- bottom area: left = role desc, right = topics -->
+        <div class="career-bottom-area">
+            <div class="career-role-description" id="careerDescription">
                 {% if career_timeline|length > 0 %}
                 {{ career_timeline[0].description }}
                 {% endif %}
@@ -52,7 +55,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         const careerDescription = document.getElementById('careerDescription');
         const careerTopics = document.getElementById('careerTopics');
-        const timelineCards = document.querySelectorAll('.timeline-card');
+        const timelineCards = document.querySelectorAll('.career-timeline-card');
 
         let currentRoleDesc = careerDescription.textContent;
 

@@ -353,6 +353,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
                 ("installation", sagacity_installation_steps),
                 ("basic-usage", sagacity_usage_steps),
                 ("architecture", sagacity_architecture_steps),
+
             ],
         )?,
         Project::new(

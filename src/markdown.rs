@@ -7,7 +7,9 @@ pub fn parse_markdown(content: &str) -> String {
 
     let parser = Parser::new_ext(content, options);
     let mut step_count = 0;
+    let mut list_depth = 0;
     let mut in_code_block = false;
+    let mut in_ordered_list = false;
     let mut html = String::new();
 
     for event in parser {
@@ -26,25 +28,41 @@ pub fn parse_markdown(content: &str) -> String {
                 let level_num = level as u8 + 1;
                 html.push_str(&format!("</h{}>", level_num));
             }
-            Event::Start(Tag::List { .. }) => {
+            Event::Start(Tag::List(ordered)) => {
+                list_depth += 1;
                 step_count = 0;
-                html.push_str(r#"<div class="implementation-steps">"#);
+                if ordered.is_some() {
+                    in_ordered_list = true;
+                    html.push_str(r#"<ol class="ordered-list">"#);
+                } else {
+                    in_ordered_list = false;
+                    html.push_str(r#"<ul class="unordered-list">"#);
+                }
             }
             Event::End(TagEnd::List(_)) => {
-                html.push_str("</div>");
+                if in_ordered_list {
+                    html.push_str("</ol>");
+                } else {
+                    html.push_str("</ul>");
+                }
+                list_depth -= 1;
                 step_count = 0;
             }
             Event::Start(Tag::Item) => {
                 step_count += 1;
-                html.push_str(&format!(
-                    r#"<div class="implementation-step">
-                        <div class="step-indicator">{}</div>
-                        <div class="step-content">"#,
-                    step_count
-                ));
+                if list_depth == 1 && in_ordered_list {
+                    html.push_str(&format!(
+                        r#"<li class="ordered-step">
+                            <div class="step-indicator">{}</div>
+                            <div class="step-content">"#,
+                        step_count
+                    ));
+                } else {
+                    html.push_str(r#"<li class="nested-item">"#);
+                }
             }
             Event::End(TagEnd::Item) => {
-                html.push_str("</div></div>");
+                html.push_str("</li>");
             }
             Event::Start(Tag::CodeBlock { .. }) => {
                 in_code_block = true;
