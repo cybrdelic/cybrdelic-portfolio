@@ -12,7 +12,11 @@ pub async fn index(State(state): State<AppState>) -> Result<Response, AppError> 
     let projects = crate::handlers::projects::get_all_projects()
         .map_err(|e| AppError::Internal(e.to_string()))?;
 
+    let career_timeline = crate::handlers::career_timeline::get_career_timeline()
+        .map_err(|e| AppError::Internal(e.to_string()))?;
+
     ctx.insert("projects", &projects);
+    ctx.insert("career_timeline", &career_timeline);
 
     match state.tera.render("index.html", &ctx) {
         Ok(html) => Ok(Html(html).into_response()),

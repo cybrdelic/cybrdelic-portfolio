@@ -1,0 +1,204 @@
+/* container: stretch horizontally, no large side padding */
+.career-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: var(--bg-white);
+    padding: 2rem 0;
+    /* minimal top/bottom spacing */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* optional overlay if you want a subtle background */
+.grain-overlay {
+    position: absolute;
+    inset: 0;
+    background: url("data:image/png;base64,...") repeat;
+    /* your grain texture */
+    opacity: 0.05;
+    pointer-events: none;
+}
+
+/* vertical label, pinned to the right (like 'projects' style) */
+.vertical-name-block {
+    position: absolute;
+    top: 50%;
+    right: 2rem;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.vertical-name {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    letter-spacing: 0.1em;
+    opacity: 0.05;
+}
+
+/* main content area: full width, no max-width constraint */
+.career-main-content {
+    width: 100%;
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* short descriptive text, left border (like 'projects-description') */
+.career-description {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    padding-left: 2rem;
+    border-left: 1px solid var(--color-text-tertiary);
+    margin-bottom: 2rem;
+}
+
+/* horizontal timeline: wide, no side margins, horizontally scrollable */
+.timeline-grid {
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    padding: 1rem 2rem;
+    /* optional horizontal padding so items don't butt up to edges */
+}
+
+/* timeline cards: slightly bigger, wide, minimal bounding */
+.timeline-card {
+    flex: 0 0 auto;
+    width: 280px;
+    /* slightly bigger for more text */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px) saturate(180%);
+    transition: transform var(--transition-base), background var(--transition-base);
+    cursor: pointer;
+}
+
+.timeline-card:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.timeline-card-header {
+    margin-bottom: 1rem;
+}
+
+.timeline-card-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+}
+
+.timeline-card-company {
+    font-family: var(--font-primary);
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+}
+
+.timeline-card-dates,
+.timeline-card-location {
+    font-family: var(--font-primary);
+    font-size: 0.875rem;
+    color: var(--color-text-tertiary);
+    margin-bottom: 0.25rem;
+}
+
+/* bottom area: full width, split into 2 columns, minimal border */
+.career-bottom {
+    display: flex;
+    width: 100%;
+    min-height: 40vh;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* left description box */
+.career-description-box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    font-family: var(--font-primary);
+    font-size: 1.2rem;
+    color: var(--color-text-primary);
+    text-align: center;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* right topics list */
+.career-topics-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+    align-items: flex-start;
+    overflow-y: auto;
+}
+
+.career-topic-item {
+    width: 100%;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 0.5rem;
+    transition: transform var(--transition-base), color var(--transition-base);
+    cursor: pointer;
+}
+
+.career-topic-item:hover {
+    color: var(--color-text-secondary);
+    transform: translateX(5px);
+}
+
+/* responsive adjustments */
+@media (max-width: 900px) {
+    .timeline-grid {
+        flex-wrap: wrap;
+        padding: 1rem;
+    }
+
+    .timeline-card {
+        width: 220px;
+        margin-bottom: 1rem;
+    }
+
+    .career-bottom {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .career-description-box {
+        border-right: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    .career-topic-item {
+        font-size: 1.5rem;
+    }
+
+    .vertical-name {
+        font-size: 2rem;
+    }
+}
