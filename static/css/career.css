@@ -1,4 +1,6 @@
-/* container: same style as your "projects-container" */
+/* career.css */
+
+/* container: similar to projects-container */
 .career-container {
     width: 100%;
     height: 100%;
@@ -17,7 +19,7 @@
     z-index: 1;
 }
 
-/* main content: you mentioned 95% width, full height, etc. */
+/* main content area, using grid like projects-main-content */
 .career-main-content {
     position: absolute;
     top: 0;
@@ -51,7 +53,7 @@
     opacity: 0.1;
 }
 
-/* descriptive text: akin to "projects-description" */
+/* descriptive text at top */
 .career-description {
     grid-column: 1 / 12;
     grid-row: 1 / 3;
@@ -64,19 +66,18 @@
     margin-bottom: 2rem;
 }
 
-/* single-row timeline row */
+/* timeline row */
 .career-timeline-row {
     grid-column: 1 / 13;
     grid-row: 3 / 6;
     display: flex;
     justify-content: space-evenly;
-    /* evenly spaced cards */
     align-items: center;
     position: relative;
     margin-bottom: 2rem;
 }
 
-/* horizontal line behind the timeline row */
+/* horizontal line behind timeline */
 .career-timeline-line {
     position: absolute;
     top: 50%;
@@ -88,14 +89,13 @@
     z-index: 1;
 }
 
-/* timeline cards with small circle intersection */
+/* timeline cards */
 .career-timeline-card {
     position: relative;
     z-index: 2;
     width: 220px;
     min-height: 140px;
     background: #fff;
-    /* lighter card for clarity */
     border: 1px solid #ddd;
     border-radius: 4px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
@@ -109,7 +109,6 @@
     position: absolute;
     top: 50%;
     left: 0;
-    /* anchor circle to the left side if you want it near the line */
     transform: translate(-50%, -50%);
     width: 16px;
     height: 16px;
@@ -118,13 +117,12 @@
     box-shadow: 0 0 0 2px #fff;
 }
 
-/* card hover effect */
 .career-timeline-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-/* card text */
+/* timeline card content */
 .timeline-card-header {
     margin-bottom: 0.75rem;
 }
@@ -133,7 +131,6 @@
     font-family: var(--font-display);
     font-size: 1rem;
     font-weight: 700;
-    text-transform: uppercase;
     color: var(--color-text-primary);
     margin-bottom: 0.25rem;
 }
@@ -142,7 +139,6 @@
     font-family: var(--font-primary);
     font-size: 0.75rem;
     color: var(--color-text-secondary);
-    text-transform: uppercase;
 }
 
 .timeline-card-dates,
@@ -153,56 +149,117 @@
     margin-bottom: 0.25rem;
 }
 
-/* bottom area: 2 columns (desc + topics) */
-.career-bottom-area {
+/* active indicator above bottom area */
+.active-indicator {
     grid-column: 1 / 13;
-    grid-row: 6 / 13;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    grid-row: 6 / 7;
+    text-align: center;
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+    z-index: 3;
 }
 
-/* left = role description */
+/* bottom area: 2-column card for role and topic details */
+.career-bottom-area {
+    grid-column: 1 / 13;
+    grid-row: 7 / 13;
+    display: flex;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    padding: 0;
+    margin-right: 144px;
+}
+
+/* bottom columns */
+.bottom-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+}
+
+/* bottom column headings */
+.bottom-column-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.02);
+}
+
+/* left column: role details */
 .career-role-description {
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
-    font-family: var(--font-primary);
-    font-size: 1.25rem;
-    color: var(--color-text-primary);
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     padding: 2rem;
-    background: rgba(255, 255, 255, 0.08);
+    border-right: 1px solid #ddd;
+    font-family: var(--font-primary);
+    font-size: 1.25rem;
+    color: var(--color-text-primary);
 }
 
-/* right = topics list */
+/* right column: topic details */
+.career-topic-description {
+    font-family: var(--font-primary);
+    font-size: 1.25rem;
+    color: var(--color-text-primary);
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
 .career-topics-list {
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    padding: 2rem;
-    align-items: flex-start;
     overflow-y: auto;
-    background: rgba(255, 255, 255, 0.08);
+    padding: 2rem;
 }
 
+/* individual topic items */
 .career-topic-item {
+    width: 100%;
     font-family: var(--font-display);
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 800;
     text-transform: uppercase;
     color: var(--color-text-primary);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid #ddd;
     padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
     transition: transform 0.3s ease, color 0.3s ease;
     cursor: pointer;
-    width: 100%;
 }
 
 .career-topic-item:hover {
     color: var(--color-text-secondary);
     transform: translateX(5px);
+}
+
+/* fade transitions for dynamic text */
+.fade-text {
+    transition: opacity 0.2s ease;
+}
+
+.fade-out {
+    opacity: 0 !important;
+}
+
+.fade-in-text {
+    opacity: 1 !important;
 }
 
 /* responsive adjustments */
@@ -233,21 +290,24 @@
     }
 
     .career-bottom-area {
-        grid-column: 1 / 13;
-        grid-row: auto;
-        display: flex;
         flex-direction: column;
+        padding: 0;
+        margin-right: 0;
     }
 
     .career-role-description {
         border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        border-bottom: 1px solid #ddd;
         padding: 1rem;
         font-size: 1rem;
     }
 
+    .career-topics-list {
+        padding: 1rem;
+    }
+
     .career-topic-item {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
     }
 
     .vertical-name {

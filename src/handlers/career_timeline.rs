@@ -23,12 +23,12 @@ pub struct TimelineEvent {
 pub fn get_career_timeline() -> Result<Vec<TimelineEvent>, io::Error> {
     let timeline = vec![
         TimelineEvent {
-            title: "Junior Developer".to_string(),
-            description: "Role at ABC Corp with emphasis on full stack web development.".to_string(),
-            location: "New York, NY".to_string(),
-            start_date: "January 2021".to_string(),
-            end_date: "December 2021".to_string(),
-            company_name: "ABC Corp".to_string(),
+            title: "Associate Software Developer".to_string(),
+            description: "Remote full-stack web development role at TalentNow with emphasis on Talent Management".to_string(),
+            location: "Remote".to_string(),
+            start_date: "December 2021".to_string(),
+            end_date: "Feb 2025".to_string(),
+            company_name: "TalentNow".to_string(),
             topics: vec![
                 Topic {
                     name: "Full Stack Web Development".to_string(),
@@ -46,11 +46,11 @@ pub fn get_career_timeline() -> Result<Vec<TimelineEvent>, io::Error> {
         },
         TimelineEvent {
             title: "Software Engineer".to_string(),
-            description: "Expanded responsibilities for internal tooling and automation projects at ABC Corp.".to_string(),
-            location: "New York, NY".to_string(),
-            start_date: "January 2022".to_string(),
-            end_date: "December 2022".to_string(),
-            company_name: "ABC Corp".to_string(),
+            description: "Expanded responsibilities for internal tooling and automation projects at TalentNow.".to_string(),
+            location: "Remote".to_string(),
+            start_date: "Feb 2025".to_string(),
+            end_date: "Current".to_string(),
+            company_name: "TalentNow".to_string(),
             topics: vec![
                 Topic {
                     name: "Cross-Service Authentication".to_string(),
