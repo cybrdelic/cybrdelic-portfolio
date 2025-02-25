@@ -1,15 +1,69 @@
 use pulldown_cmark::{Event, HeadingLevel, Options, Parser, Tag, TagEnd};
 
+fn slugify(text: &str) -> String {
+    text.to_lowercase()
+        .replace(|c: char| !c.is_alphanumeric(), "-")
+        .trim_matches('-')
+        .to_string()
+}
+
+fn generate_toc(content: &str) -> String {
+    let mut options = Options::empty();
+    options.insert(Options::ENABLE_TABLES);
+    options.insert(Options::ENABLE_STRIKETHROUGH);
+    let parser = Parser::new_ext(content, options);
+    let mut headings = Vec::new();
+    let mut current_text = String::new();
+    let mut in_heading = false;
+    let mut current_level = 0u8;
+    for event in parser {
+        match event {
+            Event::Start(Tag::Heading { level, .. }) => {
+                in_heading = true;
+                current_level = level as u8;
+                current_text.clear();
+            }
+            Event::Text(text) => {
+                if in_heading {
+                    current_text.push_str(&text);
+                }
+            }
+            Event::End(TagEnd::Heading(_)) => {
+                if in_heading {
+                    let id = slugify(&current_text);
+                    headings.push((current_level, current_text.clone(), id));
+                    in_heading = false;
+                }
+            }
+            _ => {}
+        }
+    }
+    let mut toc = String::from(r##"<nav class="table-of-contents"><ul>"##);
+    for (level, text, id) in headings {
+        toc.push_str(&format!(
+            r##"<li class="toc-item level-{}"><a href="#{}">{}</a></li>"##,
+            level, id, text
+        ));
+    }
+    toc.push_str("</ul></nav>");
+    toc
+}
+
 pub fn parse_markdown(content: &str) -> String {
+    // if content contains [toc] marker, generate toc html
+    let toc_html = if content.contains("[toc]") {
+        generate_toc(content)
+    } else {
+        String::new()
+    };
+
     let mut options = Options::empty();
     options.insert(Options::ENABLE_TABLES);
     options.insert(Options::ENABLE_STRIKETHROUGH);
 
     let parser = Parser::new_ext(content, options);
-    let mut step_count = 0;
-    let mut list_depth = 0;
+    let mut heading_counter = 1;
     let mut in_code_block = false;
-    let mut in_ordered_list = false;
     let mut html = String::new();
 
     for event in parser {
@@ -22,44 +76,33 @@ pub fn parse_markdown(content: &str) -> String {
                     _ => "heading-4",
                 };
                 let level_num = level as u8 + 1;
-                html.push_str(&format!(r#"<h{} class="markdown-{}">"#, level_num, class));
+                let id = format!("heading-{}", heading_counter);
+                heading_counter += 1;
+                html.push_str(&format!(
+                    r#"<h{} id="{}" class="markdown-{}">"#,
+                    level_num, id, class
+                ));
             }
             Event::End(TagEnd::Heading(level)) => {
                 let level_num = level as u8 + 1;
                 html.push_str(&format!("</h{}>", level_num));
             }
             Event::Start(Tag::List(ordered)) => {
-                list_depth += 1;
-                step_count = 0;
-                if ordered.is_some() {
-                    in_ordered_list = true;
-                    html.push_str(r#"<ol class="ordered-list">"#);
+                html.push_str(if ordered.is_some() {
+                    r#"<ol class="ordered-list">"#
                 } else {
-                    in_ordered_list = false;
-                    html.push_str(r#"<ul class="unordered-list">"#);
-                }
+                    r#"<ul class="unordered-list">"#
+                });
             }
             Event::End(TagEnd::List(_)) => {
-                if in_ordered_list {
-                    html.push_str("</ol>");
+                html.push_str(if html.ends_with("</li>") {
+                    "</ol>"
                 } else {
-                    html.push_str("</ul>");
-                }
-                list_depth -= 1;
-                step_count = 0;
+                    "</ul>"
+                });
             }
             Event::Start(Tag::Item) => {
-                step_count += 1;
-                if list_depth == 1 && in_ordered_list {
-                    html.push_str(&format!(
-                        r#"<li class="ordered-step">
-                            <div class="step-indicator">{}</div>
-                            <div class="step-content">"#,
-                        step_count
-                    ));
-                } else {
-                    html.push_str(r#"<li class="nested-item">"#);
-                }
+                html.push_str(r#"<li class="list-item">"#);
             }
             Event::End(TagEnd::Item) => {
                 html.push_str("</li>");
@@ -68,17 +111,17 @@ pub fn parse_markdown(content: &str) -> String {
                 in_code_block = true;
                 html.push_str(
                     r#"<div class="command-window">
-                        <div class="command-header">
-                            <div class="window-controls">
-                                <span class="window-control close"></span>
-                                <span class="window-control minimize"></span>
-                                <span class="window-control maximize"></span>
-                            </div>
-                        </div>
-                        <div class="command-body">
-                            <div class="command-line">
-                                <span class="terminal-prompt">$</span>
-                                <span class="terminal-command">"#,
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">"#,
                 );
             }
             Event::End(TagEnd::CodeBlock) => {
@@ -118,7 +161,7 @@ pub fn parse_markdown(content: &str) -> String {
                 if in_code_block {
                     html.push_str(&text);
                 } else {
-                    html.push_str(&text.replace('<', "&lt;").replace('>', "&gt;"));
+                    html.push_str(&process_text(&text));
                 }
             }
             Event::SoftBreak | Event::HardBreak => {
@@ -128,7 +171,30 @@ pub fn parse_markdown(content: &str) -> String {
         }
     }
 
-    html
+    // replace [toc] marker with generated toc if present
+    html.replace("[toc]", &toc_html)
+}
+
+fn process_text(text: &str) -> String {
+    let replaced = text.replace("\t", "    ");
+    let lines: Vec<String> = replaced
+        .split('\n')
+        .map(|line| {
+            let mut result = String::new();
+            let mut chars = line.chars();
+            while let Some(c) = chars.next() {
+                if c == ' ' {
+                    result.push_str("&nbsp;");
+                } else {
+                    result.push(c);
+                    result.push_str(chars.as_str());
+                    break;
+                }
+            }
+            result
+        })
+        .collect();
+    lines.join("<br>")
 }
 
 pub fn preprocess_markdown(content: String) -> String {
