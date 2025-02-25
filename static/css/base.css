@@ -20,8 +20,8 @@
     /* typography */
     --font-primary: 'IBM Plex Mono', monospace;
     --font-display: 'Syne', sans-serif;
-    --font-size-xs: 13px;
-    --font-size-sm: 14px;
+    --font-size-xs: 16px;
+    --font-size-sm: 18px;
     --line-height-base: 1.4;
     --letter-spacing-tight: -0.3px;
 
@@ -79,15 +79,15 @@
 
     /* typography extended */
     --font-size-2xs: 0.7rem;
-    --font-size-xs: 0.75rem;
-    --font-size-sm: 0.875rem;
-    --font-size-base: 1rem;
-    --font-size-lg: 1.25rem;
-    --font-size-xl: 2.5rem;
-    --font-size-fluid-sm: 3vw;
-    --font-size-fluid-base: 4.5vw;
-    --font-size-fluid-lg: 6vw;
-    --font-size-fluid-xl: 8vw;
+    --font-size-xs: 1rem;
+    --font-size-sm: 1.125rem;
+    --font-size-base: 1.25rem;
+    --font-size-lg: 1.5rem;
+    --font-size-xl: 3rem;
+    --font-size-fluid-sm: 4vw;
+    --font-size-fluid-base: 4vw;
+    --font-size-fluid-lg: 7.5vw;
+    --font-size-fluid-xl: 10vw;
 
     /* letter spacing */
     --letter-spacing-wide: 0.1em;
@@ -406,105 +406,7 @@ h3 {
     outline-offset: 2px;
 }
 
-/* ---------- markdown styles ---------- */
-.markdown-1,
-.markdown-heading-1 {
-    font-size: 2rem;
-    font-weight: bold;
-    margin: 1.5rem 0 1rem;
+/* Basic styles for hidden class */
+.hidden {
+    display: none !important;
 }
-
-.markdown-2,
-.markdown-heading-2 {
-    font-size: 1.75rem;
-    font-weight: bold;
-    margin: 1.4rem 0 0.9rem;
-}
-
-.markdown-3,
-.markdown-heading-3 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 1.3rem 0 0.8rem;
-}
-
-.markdown-4,
-.markdown-heading-4 {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin: 1.2rem 0 0.7rem;
-}
-
-.markdown-paragraph {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin: 1rem 0;
-    white-space: pre-wrap;
-
-}
-
-.markdown-emphasis {
-    font-style: italic;
-}
-
-.markdown-strong {
-    font-weight: bold;
-}
-
-.markdown-link {
-    color: var(--color-accent);
-    text-decoration: underline;
-}
-
-/* code block styles */
-.command-window {
-    background: var(--bg-code-block, #2b2b2b);
-    border-radius: var(--border-radius);
-    margin: 1rem 0;
-    overflow: hidden;
-}
-
-.command-header {
-    background: var(--bg-black-05);
-    padding: var(--space-xs);
-}
-
-.command-body {
-    padding: var(--space-sm);
-    font-family: var(--font-primary);
-    font-size: var(--font-size-sm);
-    color: var(--color-white);
-}
-
-/* table of contents styling */
-.table-of-contents {
-    border: 1px solid var(--border-light);
-    padding: var(--space-md);
-    margin: var(--space-xl) 0;
-    background: var(--bg-white-30);
-}
-
-.table-of-contents ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.toc-item {
-    margin-bottom: var(--space-xs);
-}
-
-.toc-item a {
-    color: var(--color-accent);
-    text-decoration: none;
-}
-
-.toc-item a:hover {
-    text-decoration: underline;
-}
-
-ul ul {
-    margin-left: 1.5rem;
-    /* or 2rem or whatever you prefer */
-}
-
-/* ---------- end markdown styles ---------- */

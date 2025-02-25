@@ -1,4 +1,4 @@
-use pulldown_cmark::{Event, HeadingLevel, Options, Parser, Tag, TagEnd};
+use pulldown_cmark::{CowStr, Event, HeadingLevel, Options, Parser, Tag, TagEnd};
 use regex::Regex;
 
 fn slugify(text: &str) -> String {
@@ -39,8 +39,9 @@ fn generate_toc(content: &str) -> String {
             _ => {}
         }
     }
-    let mut toc = String::from(r##"<nav class="table-of-contents"><ul>"##);
-    for (level, text, id) in headings {
+    // Generate the TOC HTML
+    let mut toc = String::from(r##"<nav class="table-of-contents"><h4>Contents</h4><ul>"##);
+    for (level, text, id) in headings.iter() {
         toc.push_str(&format!(
             r##"<li class="toc-item level-{}"><a href="#{}">{}</a></li>"##,
             level, id, text
@@ -50,8 +51,25 @@ fn generate_toc(content: &str) -> String {
     toc
 }
 
+fn process_text(text: &str) -> String {
+    let re = Regex::new(r"(\b\d+\b)").unwrap();
+    let replaced = re.replace_all(
+        text,
+        r#"<span class="count-up" data-final-value="$1">0</span>"#,
+    );
+    replaced.split('\n').collect::<Vec<_>>().join("<br>")
+}
+
+fn generate_heading_id(text: &str, counter: usize) -> String {
+    let slug = slugify(text);
+    if !slug.is_empty() {
+        slug
+    } else {
+        format!("heading-{}", counter)
+    }
+}
+
 pub fn parse_markdown(content: &str) -> String {
-    // if content contains [toc] marker, generate toc html
     let toc_html = if content.contains("[toc]") {
         generate_toc(content)
     } else {
@@ -66,41 +84,81 @@ pub fn parse_markdown(content: &str) -> String {
     let mut heading_counter = 1;
     let mut in_code_block = false;
     let mut html = String::new();
+    let mut list_stack: Vec<bool> = Vec::new();
+    let mut current_heading_text = String::new();
+    let mut in_heading = false;
 
     for event in parser {
         match event {
             Event::Start(Tag::Heading { level, .. }) => {
+                in_heading = true;
+                current_heading_text.clear();
+
                 let class = match level {
                     HeadingLevel::H1 => "heading-1",
                     HeadingLevel::H2 => "heading-2",
                     HeadingLevel::H3 => "heading-3",
                     _ => "heading-4",
                 };
+
                 let level_num = level as u8 + 1;
-                let id = format!("heading-{}", heading_counter);
-                heading_counter += 1;
                 html.push_str(&format!(
-                    r#"<h{} id="{}" class="markdown-{}">"#,
-                    level_num, id, class
+                    r#"<h{} class="markdown-{} markdown-heading" "#,
+                    level_num, class
                 ));
             }
             Event::End(TagEnd::Heading(level)) => {
-                let level_num = level as u8 + 1;
-                html.push_str(&format!("</h{}>", level_num));
+                if in_heading {
+                    let id = generate_heading_id(&current_heading_text, heading_counter);
+                    heading_counter += 1;
+                    let level_num = level as u8 + 1;
+                    let class_name = match level {
+                        HeadingLevel::H1 => "heading-1",
+                        HeadingLevel::H2 => "heading-2",
+                        HeadingLevel::H3 => "heading-3",
+                        _ => "heading-4",
+                    };
+
+                    let old_tag = format!(
+                        r#"<h{} class="markdown-{} markdown-heading" "#,
+                        level_num, class_name
+                    );
+
+                    let new_tag = format!(
+                        r#"<h{} id="{}" class="markdown-{} markdown-heading">"#,
+                        level_num, id, class_name
+                    );
+
+                    html = html.replace(&old_tag, &new_tag);
+
+                    // Use a raw string with two hashes to avoid conflicts with inner quotes
+                    html.push_str(&format!(
+                        r##"<a class="heading-anchor" href="#{}">&#xB6;</a></h{}>"##,
+                        id, level_num
+                    ));
+                    in_heading = false;
+                } else {
+                    let level_num = level as u8 + 1;
+                    html.push_str(&format!("</h{}>", level_num));
+                }
             }
             Event::Start(Tag::List(ordered)) => {
-                html.push_str(if ordered.is_some() {
-                    r#"<ol class="ordered-list">"#
+                let is_ordered = ordered.is_some();
+                list_stack.push(is_ordered);
+                if is_ordered {
+                    html.push_str(r#"<ol class="ordered-list">"#);
                 } else {
-                    r#"<ul class="unordered-list">"#
-                });
+                    html.push_str(r#"<ul class="unordered-list">"#);
+                }
             }
             Event::End(TagEnd::List(_)) => {
-                html.push_str(if html.ends_with("</li>") {
-                    "</ol>"
-                } else {
-                    "</ul>"
-                });
+                if let Some(is_ordered) = list_stack.pop() {
+                    if is_ordered {
+                        html.push_str("</ol>");
+                    } else {
+                        html.push_str("</ul>");
+                    }
+                }
             }
             Event::Start(Tag::Item) => {
                 html.push_str(r#"<li class="list-item">"#);
@@ -150,15 +208,23 @@ pub fn parse_markdown(content: &str) -> String {
             Event::Start(Tag::Link {
                 dest_url, title, ..
             }) => {
+                let title_attr = if title.is_empty() {
+                    String::new()
+                } else {
+                    format!(" title=\"{}\"", title)
+                };
                 html.push_str(&format!(
-                    r#"<a href="{}" class="markdown-link" title="{}">"#,
-                    dest_url, title
+                    r#"<a href="{}" class="markdown-link"{}>"#,
+                    dest_url, title_attr
                 ));
             }
             Event::End(TagEnd::Link) => {
                 html.push_str("</a>");
             }
             Event::Text(text) => {
+                if in_heading {
+                    current_heading_text.push_str(&text);
+                }
                 if in_code_block {
                     html.push_str(&text);
                 } else {
@@ -172,19 +238,7 @@ pub fn parse_markdown(content: &str) -> String {
         }
     }
 
-    // replace [toc] marker with generated toc if present
     html.replace("[toc]", &toc_html)
-}
-
-fn process_text(text: &str) -> String {
-    // use regex to find isolated numbers and wrap them
-    let re = Regex::new(r"(\b\d+\b)").unwrap();
-    let replaced = re.replace_all(
-        text,
-        r#"<span class="count-up" data-final-value="$1">0</span>"#,
-    );
-    // preserve newlines with <br>
-    replaced.split('\n').collect::<Vec<&str>>().join("<br>")
 }
 
 pub fn preprocess_markdown(content: String) -> String {

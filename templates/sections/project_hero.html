@@ -83,8 +83,7 @@
     {% if project.user_flows %}
     <div class="documentation-navigation">
         {% for flow in project.user_flows %}
-        <button class="nav-item {% if loop.first %}active{% endif %}" data-tab="section-{{loop.index}}"
-            onclick="switchSection(this)">
+        <button class="nav-item {% if loop.first %}active{% endif %}" data-tab="section-{{loop.index}}">
             <span class="nav-highlight"></span>
             {{ flow.title }}
         </button>
@@ -93,9 +92,8 @@
 
     <div class="documentation-content">
         {% for flow in project.user_flows %}
-        <div class="content-section {% if loop.first %}active{% endif %}" id="section-{{loop.index}}">
+        <div class="content-section {% if loop.first %}active{% else %}hidden{% endif %}" id="section-{{loop.index}}">
             <div class="section-header">
-                <h2>{{ flow.title }}</h2>
                 <div class="documentation-wrapper markdown-content">
                     {{ flow.content | safe }}
                 </div>
@@ -105,7 +103,6 @@
     </div>
     {% endif %}
 </section>
-
 <!-- Modal outside the hero section for proper stacking -->
 <div id="imageModal" class="modal" onclick="if(event.target === this) closeModal();">
     <div class="modal-content">
@@ -181,21 +178,32 @@
         button.classList.add('error');
         setTimeout(() => button.classList.remove('error'), 2000);
     }
+    function switchSection(selectedTab) {
+        // Get the target id from data-tab
+        const targetId = selectedTab.getAttribute('data-tab');
+        // Find the closest user flows container
+        const container = selectedTab.closest('.user-flows');
+        if (!container) return;
 
-    function switchSection(selectedNav) {
-        const targetId = selectedNav.getAttribute('data-tab');
-        const section = selectedNav.closest('.documentation-section');
-        if (!section) return;
+        // Remove active from all tabs in this container
+        container.querySelectorAll('.flow-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        // Add active class to the clicked tab
+        selectedTab.classList.add('active');
 
-        section.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-        selectedNav.classList.add('active');
+        // Hide all flow content sections
+        container.querySelectorAll('.flow-content').forEach(content => {
+            content.classList.remove('active');
+        });
 
-        section.querySelectorAll('.content-section').forEach(content => content.classList.remove('active'));
-        const targetContent = section.querySelector(`#${targetId}`);
+        // Show the selected content section (using the matching id)
+        const targetContent = container.querySelector(`#${targetId}`);
         if (targetContent) {
             targetContent.classList.add('active');
         }
     }
+
 
     function openModal(imgElement) {
         const modal = document.getElementById('imageModal');
@@ -222,4 +230,75 @@
             document.body.style.overflow = 'auto';
         }, 300);
     }
+    // Fix for project_hero.html
+    // Replace the existing switchSection function with this one
+    function switchSection(selectedTab) {
+        // Get the target id from data-tab
+        const targetId = selectedTab.getAttribute('data-tab');
+
+        // Find all nav items and remove active class
+        document.querySelectorAll('.nav-item').forEach(tab => {
+            tab.classList.remove('active');
+        });
+
+        // Add active class to the clicked tab
+        selectedTab.classList.add('active');
+
+        // Hide all content sections
+        document.querySelectorAll('.content-section').forEach(content => {
+            content.classList.remove('active');
+            content.classList.add('hidden');
+        });
+
+        // Show the selected content section
+        const targetContent = document.getElementById(targetId);
+        if (targetContent) {
+            targetContent.classList.add('active');
+            targetContent.classList.remove('hidden');
+        }
+    }
+
+    // Add this function to ensure tabs are initialized correctly on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initialize tabs - make sure first tab is active
+        const firstTab = document.querySelector('.nav-item');
+        if (firstTab) {
+            switchSection(firstTab);
+        }
+
+        // Add click handlers to all tabs
+        document.querySelectorAll('.nav-item').forEach(tab => {
+            tab.addEventListener('click', () => {
+                switchSection(tab);
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Function to handle sticky navigation
+        function handleStickyNavigation() {
+            const nav = document.querySelector('.documentation-navigation');
+            if (!nav) return;
+
+            const navTop = nav.getBoundingClientRect().top;
+            const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height'));
+
+            // Add/remove the sticky class based on scroll position
+            if (navTop <= headerHeight) {
+                nav.classList.add('is-sticky');
+            } else {
+                nav.classList.remove('is-sticky');
+            }
+        }
+
+        // Set up the scroll event listener
+        window.addEventListener('scroll', handleStickyNavigation);
+
+        // Initialize on load
+        handleStickyNavigation();
+
+        // Also handle window resize events
+        window.addEventListener('resize', handleStickyNavigation);
+    });
+
 </script>

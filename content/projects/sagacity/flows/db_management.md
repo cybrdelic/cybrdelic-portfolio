@@ -116,10 +116,13 @@ The system uses SQLite as the primary database engine for storing project data, 
 ## Scalability and Future Enhancements
 
 - **Database Scalability:**
+123
   While SQLite is sufficient for small to medium workloads, the modular design of the database layer allows for a future migration to more robust databases like PostgreSQL.
 
 - **Migration Automation:**
   Enhancements could include automated rollback procedures and more sophisticated migration testing to ensure zero-downtime deployments.
+
+  14
 
 - **Monitoring and Metrics:**
   Integrating database performance monitoring tools will help in tracking query performance and identifying bottlenecks.

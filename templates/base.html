@@ -8,12 +8,15 @@
     <link rel="stylesheet" href="/static/css/base.css">
     <link rel="stylesheet" href="/static/css/hero.css">
     <link rel="stylesheet" href="/static/css/projects.css">
-    <link rel="stylesheet" href="static/css/career.css" <link rel="stylesheet" href="/static/css/project-detail.css">
+    <link rel="stylesheet" href="static/css/career.css">
+    <link rel="stylesheet" href="/static/css/project-detail.css">
     <link rel="stylesheet" href="/static/css/project-hero.css">
+    <link rel="stylesheet" href="/static/css/documentation.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap">
     <!-- Prism.js or any code highlight library can be linked here if needed -->
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <script src="/static/js/animations.js"></script>
+    <script src="/static/js/documentation.js"></script>
     <script src="/static/js/projects.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.3.0/mermaid.min.js"></script>
     <script>
@@ -62,53 +65,7 @@
     <div class="vertical-text fade-in">enthusiastic about building cool shit</div>
 
     <script src="/static/js/glitch.js"></script>
-    <script>
-        // Dark Mode Toggle Script
-        const themeToggle = document.querySelector('.theme-toggle');
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const statsObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    const el = entry.target;
-                    const finalValue = parseInt(el.dataset.finalValue, 10) || 0;
-                    if (entry.isIntersecting) {
-                        animateCount(el, 0, finalValue, 1200);
-                    } else {
-                        const currentVal = parseInt(el.textContent, 10) || 0;
-                        animateCount(el, currentVal, 0, 1200);
-                    }
-                });
-            }, { threshold: 0.5 });
 
-            document.querySelectorAll('.count-up').forEach(el => {
-                el.textContent = "0";
-                statsObserver.observe(el);
-            });
-        });
-
-        function animateCount(el, startVal, endVal, durationMs) {
-            let startTime = null;
-            function step(timestamp) {
-                if (!startTime) startTime = timestamp;
-                const elapsed = timestamp - startTime;
-                const fraction = Math.min(elapsed / durationMs, 1);
-                const currentVal = Math.round(startVal + (endVal - startVal) * fraction);
-                el.textContent = currentVal.toString();
-                if (fraction < 1) {
-                    requestAnimationFrame(step);
-                }
-            }
-            requestAnimationFrame(step);
-        }
-
-    </script>
 </body>
 
 </html>
