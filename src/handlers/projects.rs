@@ -42,6 +42,7 @@ impl UserFlow {
         Ok(crate::markdown::parse_markdown(&processed_content))
     }
 }
+
 #[derive(Serialize, Clone)]
 pub struct Project {
     id: String,
@@ -79,6 +80,7 @@ pub struct TechnicalDetails {
     challenges: String,
 }
 
+// updated Project::new to take autonomous flow configs as a Vec<(String, Vec<FlowStep>)>
 impl Project {
     fn new(
         id: &str,
@@ -93,14 +95,14 @@ impl Project {
         features: Vec<(&str, &str, &str)>,
         technical: (&str, &str, &str),
         catchphrases: Vec<&str>,
-        flow_configs: Vec<(&str, Vec<FlowStep>)>,
+        flow_configs: Vec<(String, Vec<FlowStep>)>,
     ) -> Result<Self, std::io::Error> {
         let user_flows = flow_configs
             .into_iter()
             .map(|(flow_name, steps)| {
-                let content = UserFlow::load_from_markdown(id, flow_name)?;
+                let content = UserFlow::load_from_markdown(id, &flow_name)?;
                 Ok(UserFlow {
-                    title: flow_name.to_string(),
+                    title: flow_name,
                     content,
                     steps,
                 })
@@ -142,6 +144,30 @@ impl Project {
     }
 }
 
+// new function to autonomously scan the flows directory and build a vector of (flow_name, empty steps)
+pub fn scan_flow_configs(project_id: &str) -> Result<Vec<(String, Vec<FlowStep>)>, std::io::Error> {
+    let mut configs = Vec::new();
+    let dir_path = PathBuf::from("content")
+        .join("projects")
+        .join(project_id)
+        .join("flows");
+    for entry in fs::read_dir(dir_path)? {
+        let entry = entry?;
+        let path = entry.path();
+        if path.is_file() {
+            if let Some(ext) = path.extension() {
+                if ext == "md" {
+                    if let Some(stem) = path.file_stem() {
+                        let flow_name = stem.to_string_lossy().into_owned();
+                        configs.push((flow_name, Vec::new()));
+                    }
+                }
+            }
+        }
+    }
+    Ok(configs)
+}
+
 pub async fn project_detail(
     State(state): State<AppState>,
     Path(project_id): Path<String>,
@@ -165,7 +191,6 @@ pub async fn project_detail(
 pub async fn index(State(state): State<AppState>) -> Result<Response, AppError> {
     let mut ctx = Context::new();
 
-    // Handle the Result before inserting into context
     match get_all_projects() {
         Ok(projects) => {
             ctx.insert("projects", &projects);
@@ -177,9 +202,12 @@ pub async fn index(State(state): State<AppState>) -> Result<Response, AppError> 
         Err(e) => Err(AppError::Internal(e.to_string())),
     }
 }
+
 pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
+    let sagacity_flow_configs = scan_flow_configs("sagacity")?;
+
     let sagacity_installation_steps = vec![
-        FlowStep {
+    FlowStep {
             title: "Install Rust".to_string(),
             description: "Install the Rust programming language and Cargo package manager".to_string(),
             command: Command {
@@ -335,7 +363,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
                 (
                     "Context Memory",
                     "Maintains conversation context for more intelligent interactions",
-                    "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253",
+                    "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253",
                 ),
                 (
                     "AI-Powered Indexing",
@@ -349,12 +377,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
                 "Optimizing response times while maintaining context. Balancing memory usage with search performance.",
             ),
             vec!["Intelligent Search", "Code Understanding", "Developer Focus", "Efficiency"],
-            vec![
-                ("installation", sagacity_installation_steps),
-                ("basic-usage", sagacity_usage_steps),
-                ("architecture", sagacity_architecture_steps),
-
-            ],
+            sagacity_flow_configs,
         )?,
         Project::new(
             "commitaura",
@@ -373,7 +396,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
                 (
                     "Claude Integration",
                     "Analyzes git diffs using the Claude API to understand code changes contextually",
-                    "M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2",
+                    "M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2",
                 ),
                 (
                     "Smart Commit Messages",
@@ -388,8 +411,8 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             ),
             vec!["Git Integration", "AI-Powered", "Developer Workflow", "Productivity"],
             vec![
-                ("setup", commitaura_setup_steps),
-                ("workflow", commitaura_workflow_steps),
+                ("setup".to_string(), commitaura_setup_steps),
+                ("workflow".to_string(), commitaura_workflow_steps),
             ],
         )?,
     ])
