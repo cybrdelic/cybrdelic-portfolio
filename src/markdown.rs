@@ -1,4 +1,5 @@
 use pulldown_cmark::{Event, HeadingLevel, Options, Parser, Tag, TagEnd};
+use regex::Regex;
 
 fn slugify(text: &str) -> String {
     text.to_lowercase()
@@ -176,25 +177,14 @@ pub fn parse_markdown(content: &str) -> String {
 }
 
 fn process_text(text: &str) -> String {
-    let replaced = text.replace("\t", "    ");
-    let lines: Vec<String> = replaced
-        .split('\n')
-        .map(|line| {
-            let mut result = String::new();
-            let mut chars = line.chars();
-            while let Some(c) = chars.next() {
-                if c == ' ' {
-                    result.push_str("&nbsp;");
-                } else {
-                    result.push(c);
-                    result.push_str(chars.as_str());
-                    break;
-                }
-            }
-            result
-        })
-        .collect();
-    lines.join("<br>")
+    // use regex to find isolated numbers and wrap them
+    let re = Regex::new(r"(\b\d+\b)").unwrap();
+    let replaced = re.replace_all(
+        text,
+        r#"<span class="count-up" data-final-value="$1">0</span>"#,
+    );
+    // preserve newlines with <br>
+    replaced.split('\n').collect::<Vec<&str>>().join("<br>")
 }
 
 pub fn preprocess_markdown(content: String) -> String {
