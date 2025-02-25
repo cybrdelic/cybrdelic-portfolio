@@ -185,7 +185,7 @@
 
 /* bottom column headings */
 .bottom-column-title {
-    font-family: var(--font-display);
+    font-family: var(--font-primary);
     font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
