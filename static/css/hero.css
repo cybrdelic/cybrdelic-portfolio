@@ -4,10 +4,9 @@
 .hero-container {
     height: var(--height-hero);
     width: auto;
-    margin-right: 5%;
-    margin-left: 5%;
+    padding-right: 5%;
+    padding-left: 5%;
     margin-top: 5vh;
-    padding: 0;
     position: relative;
     overflow-x: hidden;
 }
@@ -133,34 +132,6 @@
     z-index: 0;
 }
 
-.vertical-name {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: var(--font-size-fluid-base);
-    line-height: var(--line-height-tight);
-    margin: 0;
-    top: 25%;
-    bottom: 25%;
-    color: var(--color-text-secondary);
-    mix-blend-mode: multiply;
-    position: absolute;
-    writing-mode: vertical-rl;
-    white-space: nowrap;
-    text-orientation: mixed;
-    right: 1%;
-}
-
-
-.vertical-name::before {
-    content: '';
-    position: absolute;
-    left: -20%;
-    top: -10%;
-    width: 140%;
-    height: 120%;
-    z-index: -1;
-    transform: var(--rotate-180);
-}
 
 .vertical-role {
     writing-mode: vertical-rl;

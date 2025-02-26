@@ -1,69 +1,169 @@
-<!DOCTYPE html>
-<section>
+<section id="CAREER">
     <div class="container">
-        <div class="timeline">
-            {% for event in career_timeline %}
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-
-                <div class="timeline-content">
+        <div class="timeline-container">
+            <!-- Left side - Timeline -->
+            <div class="timeline">
+                {% for event in career_timeline %}
+                <div class="timeline-item" data-id="{{ loop.index }}">
+                    <div class="timeline-dot"></div>
                     <div class="timeline-header">
                         <div class="company">{{ event.company_name }}</div>
                         <h2 class="position">{{ event.title }}</h2>
                         <div class="meta">
                             <div class="date">{{ event.start_date }} — {{ event.end_date }}</div>
-                            <div class="location">{{ event.location }}</div>
-                        </div>
-                    </div>
-
-                    <div class="timeline-body">
-                        <p class="description">{{ event.description }}</p>
-
-                        <div class="topic-grid">
-                            {% for topic in event.topics %}
-                            <div class="topic-card" tabindex="0">
-                                <h3 class="topic-name">{{ topic.name }}</h3>
-                                <div class="topic-details">
-                                    <p>{{ topic.description }}</p>
-                                </div>
-                            </div>
-                            {% endfor %}
+                            {% if event.location %}
+                            <div class="location">• {{ event.location }}</div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+
+            <!-- Right side - Details Panel -->
+            <div class="detail-panel">
+                <div class="detail-content" id="detail-content">
+                    <!-- Default content - will be replaced by job details -->
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Hidden templates for each job's details -->
+    {% for event in career_timeline %}
+    <template id="job-details-{{ loop.index }}">
+        <div class="timeline-content">
+            <div class="timeline-flexbox">
+                <div class="job-meta-header">
+                    <div>
+                        <div class="company">{{ event.company_name }}</div>
+                        <h2 class="job-title">{{ event.title }}</h2>
+                        <div class="job-meta">
+                            <div class="job-date">{{ event.start_date }} — {{ event.end_date }}</div>
+                            {% if event.location %}
+                            <div class="job-location">• {{ event.location }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="job-description">
+
+                    <p>{{ event.description }}</p>
+                    <div class="job-badge">
+                        {% if event.is_current %}
+                        <span class="current-badge">Current</span>
+                        {% endif %}
+                        {% if event.is_remote %}
+                        <span class="remote-badge">Remote</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            {% if event.topics and event.topics|length > 0 %}
+            <h3 class="topics-heading">Key Topics</h3>
+            <div class="topic-grid">
+                {% for topic in event.topics %}
+                <div class="topic-card" tabindex="0">
+                    <h3 class="topic-name">{{ topic.name }}</h3>
+                    <div class="topic-details">
+                        <p>{{ topic.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </template>
+    {% endfor %}
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Reveal items on scroll
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
+            const timelineItems = document.querySelectorAll('#CAREER .timeline-item');
+            const detailPanel = document.querySelector('#CAREER .detail-panel');
+            const detailContent = document.getElementById('detail-content');
 
-            document.querySelectorAll('.timeline-item').forEach(item => {
-                observer.observe(item);
-            });
-
-            // Topic card expansion
-            document.querySelectorAll('.topic-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    card.classList.toggle('expanded');
+            // Function to set active timeline item
+            function setActiveItem(item) {
+                // Remove active class from all items
+                timelineItems.forEach(item => {
+                    item.classList.remove('active');
                 });
 
-                card.addEventListener('keydown', (e) => {
+                // Add active class to current item
+                item.classList.add('active');
+
+                // Get the data index from the item
+                const dataId = item.getAttribute('data-id');
+
+                // Get the template for this job
+                const template = document.getElementById(`job-details-${dataId}`);
+
+                if (template) {
+                    // Clone the template content
+                    const content = template.content.cloneNode(true);
+
+                    // Clear and append to the detail panel
+                    detailContent.innerHTML = '';
+                    detailContent.appendChild(content);
+
+                    // Add animation class to trigger fade-in
+                    detailContent.classList.add('content-fade-in');
+
+                    // Remove the animation class after animation completes
+                    setTimeout(() => {
+                        detailContent.classList.remove('content-fade-in');
+                    }, 500);
+
+                    // Initialize topic cards
+                    initializeTopicCards();
+                }
+            }
+
+            // Add event listeners to timeline items
+            timelineItems.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    setActiveItem(item);
+                });
+
+                item.addEventListener('click', () => {
+                    setActiveItem(item);
+                });
+
+                // Add keyboard navigation support
+                item.setAttribute('tabindex', '0');
+                item.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
-                        card.classList.toggle('expanded');
+                        setActiveItem(item);
                     }
                 });
             });
+
+            // Set the first item as active by default
+            if (timelineItems.length > 0) {
+                setTimeout(() => {
+                    setActiveItem(timelineItems[0]);
+                }, 100);
+            }
+
+            // Function to initialize topic card interactions
+            function initializeTopicCards() {
+                document.querySelectorAll('#CAREER .topic-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        card.classList.toggle('expanded');
+                    });
+
+                    card.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            card.classList.toggle('expanded');
+                        }
+                    });
+                });
+            }
         });
     </script>
-    <section>
+</section>

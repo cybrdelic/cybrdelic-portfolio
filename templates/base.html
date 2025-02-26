@@ -2,19 +2,19 @@
 <html lang="en" data-theme="light">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>cybrdelic</title>
-    <link rel="stylesheet" href="/static/css/base.css">
-    <link rel="stylesheet" href="/static/css/hero.css">
-    <link rel="stylesheet" href="/static/css/projects.css">
-    <link rel="stylesheet" href="/static/css/career.css">
-    <link rel="stylesheet" href="/static/css/project-detail.css">
-    <link rel="stylesheet" href="/static/css/project-hero.css">
-    <link rel="stylesheet" href="/static/css/documentation.css">
+    <link rel="stylesheet" href="/static/css/base.css" />
+    <link rel="stylesheet" href="/static/css/hero.css" />
+    <link rel="stylesheet" href="/static/css/projects.css" />
+    <link rel="stylesheet" href="/static/css/career.css" />
+    <link rel="stylesheet" href="/static/css/project-detail.css" />
+    <link rel="stylesheet" href="/static/css/project-hero.css" />
+    <link rel="stylesheet" href="/static/css/documentation.css" />
     <!-- our scroll snapping overrides -->
-    <link rel="stylesheet" href="/static/css/scroll-snap.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ibm+plex+mono:wght@400;600&display=swap">
+    <link rel="stylesheet" href="/static/css/scroll-snap.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ibm+plex+mono:wght@400;600&display=swap" />
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <script src="/static/js/animations.js"></script>
     <script src="/static/js/documentation.js"></script>
@@ -33,6 +33,22 @@
             }
         });
     </script>
+    <style>
+        .vertical-name {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: var(--font-size-fluid-base);
+            position: absolute;
+            top: 50%;
+            right: 1%;
+            transform: translateY(-50%);
+            writing-mode: vertical-rl;
+            white-space: nowrap;
+            text-orientation: mixed;
+            overflow: hidden;
+            opacity: 20%;
+        }
+    </style>
 </head>
 
 <body>
@@ -50,13 +66,123 @@
                 <a href="https://github.com/cybrdelic" target="_blank" class="cmd">git clone</a>
             </div>
         </nav>
-
         {% block content %}{% endblock %}
-        <div class="vertical-name">
-            Projects
-        </div>
+        <!-- initial text so something shows up -->
+        <div class="vertical-name"></div>
     </div>
     <script src="/static/js/glitch.js"></script>
 </body>
+<script>
+    // scrambleText animates a scramble effect that resolves to newText over duration ms
+    function scrambleText(element, newText, duration = 1000) {
+        const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        const oldText = element.textContent;
+        const maxLength = Math.max(oldText.length, newText.length);
+        const startTime = performance.now();
+
+        function update() {
+            const now = performance.now();
+            const progress = Math.min((now - startTime) / duration, 1);
+            let output = "";
+            for (let i = 0; i < maxLength; i++) {
+                // if progress for letter i has passed threshold, show final letter; else random
+                if (i < newText.length && progress > i / maxLength) {
+                    output += newText[i];
+                } else {
+                    output += letters[Math.floor(Math.random() * letters.length)];
+                }
+            }
+            element.textContent = output;
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            } else {
+                element.textContent = newText;
+            }
+        }
+        update();
+    }
+
+    // morphVerticalName triggers the scramble animation if text changes
+    function morphVerticalName(newText) {
+        const vn = document.querySelector('.vertical-name');
+        if (vn.textContent !== newText) {
+            scrambleText(vn, newText, 200);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        // use <main> as observer root if available; otherwise, viewport
+        const mainContainer = document.querySelector("main") || null;
+        const verticalName = document.querySelector(".vertical-name");
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && verticalName.textContent !== entry.target.id) {
+                    morphVerticalName(entry.target.id);
+                }
+            });
+        }, { root: mainContainer, rootMargin: "-50% 0px -50% 0px", threshold: 0 });
+
+        function observeSections() {
+            const sections = document.querySelectorAll("section");
+            sections.forEach(section => observer.observe(section));
+        }
+
+        observeSections();
+
+        document.body.addEventListener("htmx:afterSwap", () => {
+            observeSections();
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const mainContainer = document.querySelector('main');
+        if (!mainContainer) return;
+
+        // Track scroll position and velocity
+        let lastScrollTop = 0;
+        let scrollVelocity = 0;
+        let scrollTimeout;
+
+        mainContainer.addEventListener('scroll', () => {
+            // Clear any pending timeout
+            clearTimeout(scrollTimeout);
+
+            const currentScrollTop = mainContainer.scrollTop;
+            scrollVelocity = currentScrollTop - lastScrollTop;
+            lastScrollTop = currentScrollTop;
+
+            // Set a timeout to detect when scrolling has stopped
+            scrollTimeout = setTimeout(() => {
+                // Only apply snapping behavior if scrolling has almost stopped
+                // and we're not in the middle of a section
+                if (Math.abs(scrollVelocity) < 5) {
+                    const sections = document.querySelectorAll('section');
+
+                    // Find the current section and its boundaries
+                    let currentSection = null;
+                    let closestDistance = Infinity;
+
+                    sections.forEach(section => {
+                        const rect = section.getBoundingClientRect();
+                        const distance = Math.abs(rect.top);
+
+                        if (distance < closestDistance) {
+                            closestDistance = distance;
+                            currentSection = section;
+                        }
+                    });
+
+                    // If we're very close to the start of a section, snap to it
+                    if (currentSection && closestDistance < 50) {
+                        currentSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            }, 150); // Wait for scrolling to finish
+        });
+    });
+</script>
 
 </html>
