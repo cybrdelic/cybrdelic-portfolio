@@ -1,137 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<section>
+    <div class="container">
+        <div class="timeline">
+            {% for event in career_timeline %}
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Career Timeline</title>
-    <link rel="stylesheet" href="/static/css/career.css">
-</head>
-
-<body>
-    <main class="career-container">
-        <div class="career-hover-image"></div>
-
-        <!-- main content area -->
-        <section class="career-main-content">
-            <!-- vertical label on the right -->
-            <div class="vertical-name-block">
-                <h1 class="vertical-name slide-up delay-3">CAREER</h1>
-            </div>
-
-            <!-- descriptive text at top -->
-            <div class="career-description fade-in delay-2">
-                <h2 class="career-page-title">professional experience</h2>
-                <p>
-                    a timeline of my career, outlining key roles and topics.
-                    <br>
-                    <em>hover a role for details, then a topic for more info.</em>
-                </p>
-            </div>
-
-            <!-- timeline row -->
-            <div class="career-timeline-row">
-                <div class="career-timeline-line"></div>
-                {% for event in career_timeline %}
-                <div class="career-timeline-card" data-role-desc="{{ event.description }}"
-                    data-topics='{{ event.topics | json_encode | safe }}'>
-                    <div class="timeline-card-header">
-                        <h3 class="timeline-card-title">{{ event.title }}</h3>
-                        <span class="timeline-card-company">{{ event.company_name }}</span>
-                    </div>
-                    <p class="timeline-card-dates">{{ event.start_date }} - {{ event.end_date }}</p>
-                    <p class="timeline-card-location">{{ event.location }}</p>
-                </div>
-                {% endfor %}
-            </div>
-
-            <!-- active mode indicator -->
-            <div class="active-indicator" id="activeIndicator">active: role details</div>
-
-            <!-- bottom area: two-column card -->
-            <div class="career-bottom-area">
-                <div class="bottom-column">
-                    <h3 class="bottom-column-title">role details</h3>
-                    <div class="career-role-description fade-text" id="roleDescription">
-                        {% if career_timeline|length > 0 %}
-                        {{ career_timeline[0].description }}
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="bottom-column">
-                    <h3 class="bottom-column-title">topic details</h3>
-                    <div class="career-topic-description fade-text" id="topicDescription">
-                        <p>hover on a topic for details</p>
-                    </div>
-                    <div class="career-topics-list" id="careerTopics">
-                        {% if career_timeline|length > 0 %}
-                        {% for topic in career_timeline[0].topics %}
-                        <div class="career-topic-item" data-topic-desc="{{ topic.description }}">
-                            {{ topic.name }}
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div class="company">{{ event.company_name }}</div>
+                        <h2 class="position">{{ event.title }}</h2>
+                        <div class="meta">
+                            <div class="date">{{ event.start_date }} — {{ event.end_date }}</div>
+                            <div class="location">{{ event.location }}</div>
                         </div>
-                        {% endfor %}
-                        {% endif %}
+                    </div>
+
+                    <div class="timeline-body">
+                        <p class="description">{{ event.description }}</p>
+
+                        <div class="topic-grid">
+                            {% for topic in event.topics %}
+                            <div class="topic-card" tabindex="0">
+                                <h3 class="topic-name">{{ topic.name }}</h3>
+                                <div class="topic-details">
+                                    <p>{{ topic.description }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+            {% endfor %}
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const roleDescription = document.getElementById('roleDescription');
-            const topicDescription = document.getElementById('topicDescription');
-            const careerTopics = document.getElementById('careerTopics');
-            const activeIndicator = document.getElementById('activeIndicator');
-            const timelineCards = document.querySelectorAll('.career-timeline-card');
-
-            let currentRoleDesc = roleDescription.textContent;
-            const defaultTopicText = "hover on a topic for details";
-
-            function fadeOutIn(element, newText) {
-                element.classList.add('fade-out');
-                setTimeout(() => {
-                    element.textContent = newText;
-                    element.classList.remove('fade-out');
-                    element.classList.add('fade-in-text');
-                    setTimeout(() => {
-                        element.classList.remove('fade-in-text');
-                    }, 200);
-                }, 200);
-            }
-
-            function updateTopics(topics) {
-                careerTopics.innerHTML = '';
-                topics.forEach(topic => {
-                    const div = document.createElement('div');
-                    div.classList.add('career-topic-item');
-                    div.dataset.topicDesc = topic.description;
-                    div.textContent = topic.name;
-
-                    div.addEventListener('mouseenter', () => {
-                        fadeOutIn(topicDescription, topic.description);
-                        activeIndicator.textContent = "active: topic details";
-                    });
-                    div.addEventListener('mouseleave', () => {
-                        fadeOutIn(topicDescription, defaultTopicText);
-                        activeIndicator.textContent = "active: role details";
-                    });
-
-                    careerTopics.appendChild(div);
+            // Reveal items on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
                 });
-            }
+            }, { threshold: 0.1 });
 
-            timelineCards.forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    currentRoleDesc = card.dataset.roleDesc;
-                    fadeOutIn(roleDescription, currentRoleDesc);
-                    fadeOutIn(topicDescription, defaultTopicText);
-                    activeIndicator.textContent = "active: role details";
-                    const topics = JSON.parse(card.dataset.topics);
-                    updateTopics(topics);
+            document.querySelectorAll('.timeline-item').forEach(item => {
+                observer.observe(item);
+            });
+
+            // Topic card expansion
+            document.querySelectorAll('.topic-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.toggle('expanded');
+                });
+
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        card.classList.toggle('expanded');
+                    }
                 });
             });
         });
     </script>
-</body>
-
-</html>
+    <section>

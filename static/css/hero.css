@@ -3,8 +3,10 @@
 
 .hero-container {
     height: var(--height-hero);
-    width: 100%;
-    margin: 0;
+    width: auto;
+    margin-right: 5%;
+    margin-left: 5%;
+    margin-top: 5vh;
     padding: 0;
     position: relative;
     overflow-x: hidden;
@@ -137,14 +139,17 @@
     font-size: var(--font-size-fluid-base);
     line-height: var(--line-height-tight);
     margin: 0;
-    color: var(--color-text-primary);
+    top: 25%;
+    bottom: 25%;
+    color: var(--color-text-secondary);
     mix-blend-mode: multiply;
-    position: relative;
+    position: absolute;
     writing-mode: vertical-rl;
-    transform: var(--rotate-180);
     white-space: nowrap;
     text-orientation: mixed;
+    right: 1%;
 }
+
 
 .vertical-name::before {
     content: '';
@@ -300,7 +305,7 @@
 .scroll-indicator {
     position: fixed;
     right: var(--space-2xl);
-    bottom: 8rem;
+    bottom: 2rem;
     display: flex;
     align-items: center;
     gap: var(--space-xs);

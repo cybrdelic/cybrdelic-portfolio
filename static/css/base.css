@@ -137,15 +137,35 @@
     padding: 0;
 }
 
+/* scroll-snap.css */
+html,
 body {
-    font-family: var(--font-primary);
-    color: var(--color-black);
-    line-height: var(--line-height-base);
-    min-height: 100vh;
-    position: relative;
-    overflow-x: hidden;
-    background: var(--color-white);
-    transition: background 0.3s, color 0.3s;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    /* prevent double scrollbars on html/body */
+}
+
+main {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
+main section {
+    height: 100vh;
+    /* each section exactly fills the viewport */
+    scroll-snap-align: start;
+    margin: 0;
+    /* remove margins for snapping to work precisely */
+    padding: 2rem;
+    /* keep desired inner spacing */
+    box-sizing: border-box;
+}
+
+/* subtle target animation */
+section:target {
+    transform: scale(1.02);
 }
 
 h1,
@@ -155,18 +175,20 @@ h3 {
     font-weight: 800;
 }
 
-#noise {
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQhxq8AAAACHRSTlMzMzMzMzMzM85JBgUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAwSURBVDjLY2AYBaNgFIyCUTAKRsEoGAWjYBSMglEwCkbBKBgFo2AUjIJRMApGwaAEAMV4UCYBhyWkAAAAAElFTkSuQmCC");
-    opacity: 0.08;
-    pointer-events: none;
-    z-index: var(--z-noise);
-    mix-blend-mode: overlay;
-    filter: var(--contrast-noise);
-    animation: noiseAnimation var(--transition-base) infinite;
-    will-change: transform;
+/* vertical sticky section title on right */
+.vertical-section-title {
+    position: sticky;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%) rotate(-90deg);
+    font-family: 'ibm plex mono', monospace;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-left: 2px solid #333;
+    z-index: 900;
 }
+
 
 @keyframes noiseAnimation {
     0% {
