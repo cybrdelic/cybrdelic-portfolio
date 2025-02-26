@@ -45,11 +45,9 @@
                             {% endif %}
                         </div>
                     </div>
-
                 </div>
 
                 <div class="job-description">
-
                     <p>{{ event.description }}</p>
                     <div class="job-badge">
                         {% if event.is_current %}
@@ -62,14 +60,29 @@
                 </div>
             </div>
 
+            <!-- Key Topics section -->
             {% if event.topics and event.topics|length > 0 %}
             <h3 class="topics-heading">Key Topics</h3>
             <div class="topic-grid">
                 {% for topic in event.topics %}
                 <div class="topic-card" tabindex="0">
-                    <h3 class="topic-name">{{ topic.name }}</h3>
+                    <div class="topic-header">
+                        <h3 class="topic-name">{{ topic.name }}</h3>
+                        <svg class="topic-icon" xmlns="http://www.w3.org/2000/svg" width="10" height="10"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
                     <div class="topic-details">
                         <p>{{ topic.description }}</p>
+                        {% if topic.tags and topic.tags|length > 0 %}
+                        <div class="topic-tags">
+                            {% for tag in topic.tags %}
+                            <span class="topic-tag">{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}
@@ -84,9 +97,221 @@
             const timelineItems = document.querySelectorAll('#CAREER .timeline-item');
             const detailPanel = document.querySelector('#CAREER .detail-panel');
             const detailContent = document.getElementById('detail-content');
+            const timeline = document.querySelector('#CAREER .timeline');
 
-            // Function to set active timeline item
-            function setActiveItem(item) {
+            // Add CSS variables for animations
+            document.documentElement.style.setProperty('--topic-cards-count',
+                document.querySelectorAll('#CAREER .topic-card').length);
+
+            // Add styles for microinteractions
+            document.head.insertAdjacentHTML('beforeend', `
+            <style>
+            /* Microinteraction animations */
+            #CAREER .timeline {
+                --active-line-height: 0px;
+            }
+
+            #CAREER .timeline::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 15px;
+                width: 2px;
+                height: var(--active-line-height);
+                background-color: var(--color-text-secondary);
+                z-index: 2;
+                transition: height 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            }
+
+            #CAREER .timeline-enter {
+                animation: slideInLeft 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            }
+
+            @keyframes slideInLeft {
+                from {
+                    opacity: 0;
+                    transform: translateX(-30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+
+            #CAREER .item-enter {
+                animation: fadeInItem 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            }
+
+            @keyframes fadeInItem {
+                from {
+                    opacity: 0;
+                    transform: translateX(-20px);
+                }
+                to {
+                    opacity: 0.7;
+                    transform: translateX(0);
+                }
+            }
+
+            #CAREER .timeline-item.active .timeline-dot::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                background-color: rgba(255, 255, 255, 0.4);
+                animation: pulse 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+                z-index: -1;
+            }
+
+            @keyframes pulse {
+                0% {
+                    transform: scale(1);
+                    opacity: 0.8;
+                }
+                70% {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+                100% {
+                    transform: scale(2.5);
+                    opacity: 0;
+                }
+            }
+
+            #CAREER .topic-card.animate-in {
+                animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            @keyframes popIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.9);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            #CAREER .ripple-effect {
+                position: absolute;
+                border-radius: 50%;
+                background-color: rgba(255, 255, 255, 0.3);
+                width: 10px;
+                height: 10px;
+                left: 15px;
+                top: 10px;
+                transform: translate(-50%, -50%) scale(0);
+                animation: ripple 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+                pointer-events: none;
+            }
+
+            @keyframes ripple {
+                0% {
+                    transform: translate(-50%, -50%) scale(0);
+                    opacity: 0.8;
+                }
+                100% {
+                    transform: translate(-50%, -50%) scale(20);
+                    opacity: 0;
+                }
+            }
+
+            #CAREER .job-meta-header {
+                animation: slideInRight 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            }
+
+            @keyframes slideInRight {
+                from {
+                    opacity: 0;
+                    transform: translateX(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+
+            #CAREER .job-title {
+                animation: fadeUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+                animation-delay: 0.1s;
+                animation-fill-mode: both;
+            }
+
+            #CAREER .job-meta {
+                animation: fadeUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+                animation-delay: 0.2s;
+                animation-fill-mode: both;
+            }
+
+            #CAREER .job-description {
+                animation: fadeUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+                animation-delay: 0.3s;
+                animation-fill-mode: both;
+            }
+
+            #CAREER .topics-heading {
+                animation: fadeUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+                animation-delay: 0.4s;
+                animation-fill-mode: both;
+            }
+
+            @keyframes fadeUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            #CAREER .topic-details p {
+                transform: translateY(10px);
+                transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+                opacity: 0;
+            }
+
+            #CAREER .topic-card:hover .topic-details p {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            #CAREER .topic-tags {
+                opacity: 0;
+                transform: translateY(10px);
+                transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+                transition-delay: 0.1s;
+            }
+
+            #CAREER .topic-card:hover .topic-tags {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            #CAREER .topic-name {
+                transition: transform 0.3s ease;
+            }
+
+            #CAREER .topic-card:hover .topic-name {
+                transform: translateX(3px);
+            }
+
+            #CAREER .topic-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
+            </style>
+            `);
+
+            // Function to set active timeline item with enhanced interactions
+            function setActiveItem(item, animate = true) {
                 // Remove active class from all items
                 timelineItems.forEach(item => {
                     item.classList.remove('active');
@@ -101,6 +326,9 @@
                 // Get the template for this job
                 const template = document.getElementById(`job-details-${dataId}`);
 
+                // Update the active line height
+                updateActiveLine(item);
+
                 if (template) {
                     // Clone the template content
                     const content = template.content.cloneNode(true);
@@ -110,16 +338,49 @@
                     detailContent.appendChild(content);
 
                     // Add animation class to trigger fade-in
-                    detailContent.classList.add('content-fade-in');
+                    if (animate) {
+                        detailContent.classList.add('content-fade-in');
 
-                    // Remove the animation class after animation completes
-                    setTimeout(() => {
-                        detailContent.classList.remove('content-fade-in');
-                    }, 500);
+                        // Remove the animation class after animation completes
+                        setTimeout(() => {
+                            detailContent.classList.remove('content-fade-in');
+                        }, 600);
+                    }
 
-                    // Initialize topic cards
-                    initializeTopicCards();
+                    // Add staggered animation to topic cards
+                    animateTopicCards();
                 }
+            }
+
+            // Function to update the active line height based on active item position
+            function updateActiveLine(activeItem) {
+                // Get position of the active dot
+                const dotPosition = activeItem.querySelector('.timeline-dot').getBoundingClientRect();
+                const timelinePosition = timeline.getBoundingClientRect();
+
+                // Calculate height from top of timeline to the active dot
+                const lineHeight = (dotPosition.top - timelinePosition.top) + (dotPosition.height / 2);
+
+                // Update the CSS variable for the active line height
+                timeline.style.setProperty('--active-line-height', `${lineHeight}px`);
+            }
+
+            // Function to animate topic cards with staggered effect
+            function animateTopicCards() {
+                const topicCards = document.querySelectorAll('#CAREER .topic-card');
+
+                // Reset animations by removing and adding classes
+                topicCards.forEach((card, index) => {
+                    card.classList.remove('animate-in');
+
+                    // Trigger reflow
+                    void card.offsetWidth;
+
+                    // Add animation class with delay
+                    setTimeout(() => {
+                        card.classList.add('animate-in');
+                    }, index * 100);
+                });
             }
 
             // Add event listeners to timeline items
@@ -130,6 +391,16 @@
 
                 item.addEventListener('click', () => {
                     setActiveItem(item);
+
+                    // Add special click effect
+                    const ripple = document.createElement('div');
+                    ripple.classList.add('ripple-effect');
+                    item.appendChild(ripple);
+
+                    // Remove ripple after animation completes
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 1000);
                 });
 
                 // Add keyboard navigation support
@@ -142,27 +413,21 @@
                 });
             });
 
-            // Set the first item as active by default
+            // Initialize with first item active
             if (timelineItems.length > 0) {
                 setTimeout(() => {
-                    setActiveItem(timelineItems[0]);
-                }, 100);
-            }
+                    setActiveItem(timelineItems[0], false);
 
-            // Function to initialize topic card interactions
-            function initializeTopicCards() {
-                document.querySelectorAll('#CAREER .topic-card').forEach(card => {
-                    card.addEventListener('click', () => {
-                        card.classList.toggle('expanded');
-                    });
+                    // Add entrance animation for the timeline
+                    timeline.classList.add('timeline-enter');
 
-                    card.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            card.classList.toggle('expanded');
-                        }
+                    // Animate each timeline item in sequence
+                    timelineItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.classList.add('item-enter');
+                        }, 300 + (index * 150));
                     });
-                });
+                }, 300);
             }
         });
     </script>
