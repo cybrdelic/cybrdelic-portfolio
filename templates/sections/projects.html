@@ -15,20 +15,9 @@
                     <div class="project-content">
                         <h3 class="project-title">{{ project.title }}</h3>
                         <!-- Subtitle is now the main bold font -->
-                        <div class="project-type">{{ project.subtitle }}</div>
-                    </div>
-
-                    <div class="project-footer">
-                        <div class="project-links">
-                            {% if project.github_url %}
-                            <a href="{{ project.github_url }}" class="project-link">GitHub</a>
-                            {% endif %}
-                            {% if project.demo_url %}
-                            <a href="{{ project.demo_url }}" class="project-link">Demo</a>
-                            {% endif %}
-                        </div>
-                        <div class="project-more">
-                            <span class="more-icon">→</span>
+                        <div class="project-type">{{ project.subtitle }}<div class="project-more">
+                                <span class="more-icon">→</span>
+                            </div>
                         </div>
                     </div>
                 </div>

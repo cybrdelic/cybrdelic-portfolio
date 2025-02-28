@@ -30,7 +30,7 @@
     font-size: var(--font-size-xs);
     color: var(--color-text-secondary);
     align-self: flex-start;
-    width: 250px;
+    width: 400px;
     min-height: 150px;
     background-color: rgba(255, 255, 255, 0.03);
     border-left: 2px solid var(--color-border);
@@ -48,7 +48,6 @@
     flex-direction: column;
     gap: var(--space-xl);
     width: 100%;
-    max-width: 800px;
 }
 
 /* Project card - no background */
@@ -84,6 +83,11 @@
 .project-card:hover {
     transform: translateY(-2px);
     border-bottom-color: var(--color-text-primary);
+    mix-blend-mode: difference;
+    background-color: white;
+    /* Change to white for true inversion */
+    transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    /* Ensure smooth transition */
 }
 
 .project-card:focus {
@@ -103,8 +107,9 @@
     font-size: var(--font-size-xl);
     color: var(--color-text-primary);
     line-height: var(--line-height-tight);
-    font-weight: 900;
+    font-weight: 600;
     letter-spacing: 0px;
+    text-transform: capitalize;
     display: block;
     transition: all 0.3s ease;
     transform-origin: left;
@@ -119,11 +124,13 @@
     font-size: var(--font-size-xs);
     font-weight: 500;
     margin-bottom: var(--space-sm);
-    color: var(--color-text-secondary);
+    color: var(--color-text-tertiary);
     font-family: var(--font-display);
     transition: transform 0.3s ease;
     position: relative;
     order: -1;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
 .project-card:hover .project-title {
@@ -185,11 +192,16 @@
     font-family: var(--font-mono);
     opacity: 0.5;
     transition: all 0.3s ease;
+    right: 0;
 }
 
 .project-card:hover .project-more {
     opacity: 1;
     transform: translateX(var(--space-xs));
+}
+
+.project-card:hover .project-title {
+    color: var(--color-text-primary);
 }
 
 .more-icon {
@@ -203,7 +215,7 @@
 }
 
 /* List item bullet */
-.project-card::before {
+.project-title::before {
     content: '•';
     position: absolute;
     left: calc(-1 * var(--space-lg));

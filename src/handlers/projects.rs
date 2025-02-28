@@ -206,78 +206,116 @@ pub async fn index(State(state): State<AppState>) -> Result<Response, AppError> 
 pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
     let sagacity_flow_configs = scan_flow_configs("sagacity")?;
     let commitaura_flow_configs = scan_flow_configs("commitaura")?;
-
+    let cybrdelic_flow_configs = scan_flow_configs("cybrdelic-portfolio")?;
     Ok(vec![
         Project::new(
             "sagacity",
-            "Sagacity",
-            "Rust / Claude API",
-            "Intelligent codebase exploration tool using natural language interaction. Features novel summarizational indexing system and persistent context memory.",
+            "sagacity",
+            "intelligent software copilot",
+            "intelligent codebase exploration tool using natural language interaction. features novel summarizational indexing system and persistent context memory.",
             "/static/images/sagacity.jpg",
-            "Intelligent codebase exploration tool powered by Claude API",
-            "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z",
-            vec!["Rust", "Claude API", "NLP", "Git"],
+            "intelligent codebase exploration tool powered by claude api",
+            "m20 21v-2a4 4 0 0 0-4-4h8a4 4 0 0 0-4 4v2 m12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z",
+            vec!["rust", "claude api", "nlp", "git"],
             vec![
                 ("crates.io", "https://crates.io/crates/sagacity"),
                 ("github", "https://github.com/cybrdelic/sagacity"),
             ],
             vec![
                 (
-                    "Natural Language Search",
-                    "Query your codebase using natural language and get contextually relevant results",
-                    "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
+                    "natural language search",
+                    "query your codebase using natural language and get contextually relevant results",
+                    "m21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 ),
                 (
-                    "Context Memory",
-                    "Maintains conversation context for more intelligent interactions",
-                    "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253",
+                    "context memory",
+                    "maintains conversation context for more intelligent interactions",
+                    "m12 6.253v13m0-13c10.832 5.477 9.246 5 7.5 5s4.168 5.477 3 6.253v13c4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253"
                 ),
                 (
-                    "AI-Powered Indexing",
-                    "Smart indexing system that understands code semantics",
-                    "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z",
+                    "ai-powered indexing",
+                    "smart indexing system that understands code semantics",
+                    "m9 12h6m-6 4h6m2 5h7a2 2 0 01-2-2v5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707v19a2 2 0 01-2 2z"
                 ),
             ],
             (
-                "Built with a microservices architecture using Rust for performance and reliability. Integrates with Claude API for intelligent processing.",
-                "Uses advanced NLP techniques and custom indexing algorithms. Implements persistent storage with SQLite.",
-                "Optimizing response times while maintaining context. Balancing memory usage with search performance.",
+                "built with a microservices architecture using rust for performance and reliability. integrates with claude api for intelligent processing.",
+                "uses advanced nlp techniques and custom indexing algorithms. implements persistent storage with sqlite.",
+                "optimizing response times while maintaining context. balancing memory usage with search performance."
             ),
-            vec!["Intelligent Search", "Code Understanding", "Developer Focus", "Efficiency"],
+            vec!["intelligent search", "code understanding", "developer focus", "efficiency"],
             sagacity_flow_configs,
         )?,
         Project::new(
             "commitaura",
-            "Commitaura",
-            "AI-Powered Commit Message Generator",
-            "Autonomously generate commit messages for your staged commits, using diff analysis as contextualization.",
+            "commitaura",
+            "ai-powered commit message generator",
+            "autonomously generate commit messages for your staged commits, using diff analysis as contextualization.",
             "/static/images/commitaura.gif",
-            "AI-powered commit message generation in action",
-            "M6 3v12 M18 6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M6 18a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M18 9a9 9 0 0 1-9 9",
-            vec!["Rust", "Claude API", "Git"],
+            "ai-powered commit message generation in action",
+            "m6 3v12 m18 6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z m6 18a3 3 0 1 0 0-6 3 3 0 0 0 0 6z m18 9a9 9 0 0 1-9 9",
+            vec!["rust", "claude api", "git"],
             vec![
-                ("View Documentation", "https://docs.commitaura.dev"),
-                ("View Source", "https://github.com/cybrdelic/commitaura"),
+                ("view documentation", "https://docs.commitaura.dev"),
+                ("view source", "https://github.com/cybrdelic/commitaura"),
             ],
             vec![
                 (
-                    "Claude Integration",
-                    "Analyzes git diffs using the Claude API to understand code changes contextually",
-                    "M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2",
+                    "claude integration",
+                    "analyzes git diffs using the claude api to understand code changes contextually",
+                    "m8 7v8a2 2 0 002 2h6m8 7v5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707v15a2 2 0 01-2 2h-2"
                 ),
                 (
-                    "Smart Commit Messages",
-                    "Generates meaningful commit messages using context-aware analysis",
-                    "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z",
+                    "smart commit messages",
+                    "generates meaningful commit messages using context-aware analysis",
+                    "m8 12h.01m12 12h.01m16 12h.01m21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949l3 20l1.395-3.72c3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                 ),
             ],
             (
-                "Event-driven architecture with Git hook integration. Uses Rust async runtime for performance.",
-                "Implements custom diff parsing and Claude prompt engineering. Features caching and rate limiting.",
-                "Handling complex Git histories and merge commits. Ensuring consistent message quality.",
+                "event-driven architecture with git hook integration. uses rust async runtime for performance.",
+                "implements custom diff parsing and claude prompt engineering. features caching and rate limiting.",
+                "handling complex git histories and merge commits. ensuring consistent message quality."
             ),
-            vec!["Git Integration", "AI-Powered", "Developer Workflow", "Productivity"],
+            vec!["git integration", "ai-powered", "developer workflow", "productivity"],
             commitaura_flow_configs,
+        )?,
+        Project::new(
+            "cybrdelic-portfolio",
+            "cybrdelic portfolio",
+            "interactive developer portfolio",
+            "a full-stack portfolio and interactive web app built with rust, featuring dynamic routing, interactive ui elements, and markdown-driven documentation. integrates axum, tera, and modern javascript to deliver a cutting-edge, terminal-inspired experience.",
+            "/static/images/cybrdelic-portfolio.jpg",
+            "an interactive showcase of cutting-edge developer projects with terminal vibes",
+            "m10 10h4v4h-4z",
+            vec!["rust", "axum", "tera", "javascript", "css"],
+            vec![
+                ("github", "https://github.com/cybrdelic/cybrdelic-portfolio"),
+                ("demo", "https://cybrdelic-portfolio.example.com"),
+            ],
+            vec![
+                (
+                    "dynamic routing",
+                    "seamless navigation with axum routing and modular content rendering",
+                    "m5 5h14v14h-14z"
+                ),
+                (
+                    "interactive ui",
+                    "rich animations, transitions, and terminal-inspired design for a modern feel",
+                    "m2 2h20v20h-20z"
+                ),
+                (
+                    "markdown driven",
+                    "dynamic parsing and rendering of markdown for user flows and documentation",
+                    "m4 4h16v16h-16z"
+                ),
+            ],
+            (
+                "rust backend with axum",
+                "tera templating for dynamic content",
+                "robust error handling and markdown processing"
+            ),
+            vec!["cutting-edge", "interactive", "modern", "modular"],
+            cybrdelic_flow_configs,
         )?,
     ])
 }
