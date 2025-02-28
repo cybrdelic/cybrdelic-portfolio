@@ -27,7 +27,7 @@
 
 /* Console description */
 .console-description {
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-md);
     color: var(--color-text-secondary);
     align-self: flex-start;
     width: 400px;
@@ -40,6 +40,18 @@
     position: sticky;
     top: var(--space-xl);
     transition: all 0.3s ease;
+}
+
+.project-console-left-panel {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    justify-content: space-between;
+}
+
+.project-console-animated-icon-container {
+    height: 100%;
+    width: 100%;
 }
 
 /* Projects grid - vertically stacked list */
