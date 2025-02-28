@@ -205,140 +205,7 @@ pub async fn index(State(state): State<AppState>) -> Result<Response, AppError> 
 
 pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
     let sagacity_flow_configs = scan_flow_configs("sagacity")?;
-
-    let sagacity_installation_steps = vec![
-    FlowStep {
-            title: "Install Rust".to_string(),
-            description: "Install the Rust programming language and Cargo package manager".to_string(),
-            command: Command {
-                text: "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh".to_string(),
-                description: "Install Rust toolchain".to_string(),
-                icon_path: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z".to_string(),
-            },
-        },
-        FlowStep {
-            title: "Install Sagacity".to_string(),
-            description: "Install Sagacity using Cargo, Rust's package manager".to_string(),
-            command: Command {
-                text: "cargo install sagacity".to_string(),
-                description: "Install Sagacity via Cargo".to_string(),
-                icon_path: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10".to_string(),
-            },
-        },
-        FlowStep {
-            title: "Initialize Project".to_string(),
-            description: "Set up Sagacity in your development environment".to_string(),
-            command: Command {
-                text: "sagacity init".to_string(),
-                description: "Initialize Sagacity in your project".to_string(),
-                icon_path: "M12 6v6m0 0v6m0-6h6m-6 0H6".to_string(),
-            },
-        },
-    ];
-
-    let sagacity_usage_steps = vec![
-        FlowStep {
-            title: "Search Codebase".to_string(),
-            description: "Search through your codebase using natural language queries".to_string(),
-            command: Command {
-                text: "sagacity search \"find error handling patterns\"".to_string(),
-                description: "Search codebase for patterns".to_string(),
-                icon_path: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z".to_string(),
-            },
-        },
-        FlowStep {
-            title: "Analyze Code".to_string(),
-            description: "Get detailed analysis of specific functionality".to_string(),
-            command: Command {
-                text: "sagacity analyze \"explain auth flow\"".to_string(),
-                description: "Analyze specific functionality".to_string(),
-                icon_path: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2".to_string(),
-            },
-        },
-        FlowStep {
-            title: "Use Context".to_string(),
-            description: "Leverage contextual understanding for better insights".to_string(),
-            command: Command {
-                text: "sagacity context \"how does this relate to user model?\"".to_string(),
-                description: "Get contextual information".to_string(),
-                icon_path: "M13 10V3L4 14h7v7l9-11h-7z".to_string(),
-            },
-        },
-    ];
-
-    let sagacity_architecture_steps = vec![
-        FlowStep {
-            title: "Core Components".to_string(),
-            description: "Review the core architectural components".to_string(),
-            command: Command {
-                text: "tree src/".to_string(),
-                description: "View project structure".to_string(),
-                icon_path:
-                    "M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                        .to_string(),
-            },
-        },
-        FlowStep {
-            title: "API Integration".to_string(),
-            description: "Review the Claude API integration".to_string(),
-            command: Command {
-                text: "cat src/api.rs".to_string(),
-                description: "View API integration code".to_string(),
-                icon_path: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4".to_string(),
-            },
-        },
-    ];
-
-    let commitaura_setup_steps = vec![
-        FlowStep {
-            title: "Install Commitaura".to_string(),
-            description: "Install the tool globally using Cargo package manager".to_string(),
-            command: Command {
-                text: "cargo install commitaura".to_string(),
-                description: "Install Commitaura globally".to_string(),
-                icon_path: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10".to_string(),
-            },
-        },
-        FlowStep {
-            title: "Add API Key".to_string(),
-            description: "Add your Anthropic API key to your shell environment".to_string(),
-            command: Command {
-                text: "echo 'export ANTHROPIC_API_KEY=your-api-key-here' >> ~/.zshrc && source ~/.zshrc".to_string(),
-                description: "Configure API key".to_string(),
-                icon_path: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z".to_string(),
-            },
-        },
-    ];
-
-    let commitaura_workflow_steps = vec![
-        FlowStep {
-            title: "Stage Changes".to_string(),
-            description: "Stage your code changes for commit".to_string(),
-            command: Command {
-                text: "git add .".to_string(),
-                description: "Stage your changes".to_string(),
-                icon_path: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2".to_string(),
-            },
-        },
-        FlowStep {
-            title: "Generate Message".to_string(),
-            description: "Generate an AI-powered commit message based on your changes".to_string(),
-            command: Command {
-                text: "commitaura".to_string(),
-                description: "Generate commit message".to_string(),
-                icon_path: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z".to_string(),
-            },
-        },
-        FlowStep {
-            title: "Commit Changes".to_string(),
-            description: "Commit your changes with the generated message".to_string(),
-            command: Command {
-                text: "y/n".to_string(),
-                description: "Confirm commit message".to_string(),
-                icon_path: "M5 13l4 4L19 7".to_string(),
-            },
-        },
-    ];
+    let commitaura_flow_configs = scan_flow_configs("commitaura")?;
 
     Ok(vec![
         Project::new(
@@ -410,10 +277,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
                 "Handling complex Git histories and merge commits. Ensuring consistent message quality.",
             ),
             vec!["Git Integration", "AI-Powered", "Developer Workflow", "Productivity"],
-            vec![
-                ("setup".to_string(), commitaura_setup_steps),
-                ("workflow".to_string(), commitaura_workflow_steps),
-            ],
+            commitaura_flow_configs,
         )?,
     ])
 }
