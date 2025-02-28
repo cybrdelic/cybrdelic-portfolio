@@ -1,4 +1,4 @@
-/* entire #CAREER section fills viewport if desired */
+/* entire #career section fills viewport if desired */
 #CAREER {
     display: flex;
     flex-direction: column;
@@ -6,6 +6,8 @@
     width: 100%;
     color: var(--color-text-primary);
     font-family: var(--font-primary);
+    /* ensure parent can scroll if sticky is to remain visible */
+    overflow: auto;
 }
 
 /* container fills leftover space; no forced bg so it can be styled externally */
@@ -18,48 +20,57 @@
     background-color: transparent;
 }
 
-/* timeline-container: a row with timeline on the left, detail panel on the right */
+/* timeline-container: row with timeline on the left, detail panel on the right */
 #CAREER .timeline-container {
     flex: 1;
     display: flex;
     width: 100%;
     gap: var(--space-md);
-    align-items: stretch;
+    align-items: flex-start;
+    /* keep them aligned at the top */
     justify-content: flex-start;
     overflow-x: hidden;
     /* prevents horizontal overflow if content is wide */
     background-color: transparent;
 }
 
-/* timeline on the left, about 30% width, min-width so it doesn't collapse */
+/* timeline on the left, sticky so it remains visible while scrolling detail panel */
 #CAREER .timeline {
-    position: relative;
+    position: sticky;
+    top: var(--space-md);
+    /* pinned from top with a bit of space */
+    align-self: flex-start;
     flex: 0 0 30%;
+    /* 30% width, can tweak */
     min-width: 220px;
     padding-right: var(--space-lg);
     transition: all var(--transition-base);
 }
 
-/* vertical line in the timeline */
+/* vertical line in the timeline – shifted for more space from the text */
 #CAREER .timeline::before {
     content: '';
     position: absolute;
     top: var(--space-sm);
     bottom: var(--space-sm);
     left: var(--space-sm);
+    /* further left so there's more space from the text */
     width: 2px;
     background-color: var(--color-border);
     z-index: 1;
+
 }
 
-/* timeline items */
+/* timeline items – more spacing from the line */
 #CAREER .timeline-item {
     position: relative;
-    margin-bottom: var(--space-md);
-    padding-left: var(--space-md);
+    margin-bottom: var(--space-xl);
+    padding-left: var(--space-xl);
+    /* push the text further away from the line */
     cursor: pointer;
     opacity: 0.7;
     transition: transform var(--transition-base), opacity var(--transition-base);
+    letter-spacing: var(--letter-spacing-tight);
 }
 
 #CAREER .timeline-item:hover {
@@ -71,15 +82,16 @@
     opacity: 1;
 }
 
-/* dot on each timeline item */
+/* dot on each timeline item – also shift left to match timeline::before */
 #CAREER .timeline-dot {
     position: absolute;
-    left: var(--space-sm);
+    left: var(--space-md);
     top: var(--space-sm);
-    width: var(--space-md);
-    height: var(--space-md);
+    width: var(--space-lg);
+    height: var(--space-lg);
     border-radius: var(--border-radius-full);
-    background-color: var(--color-border);
+    border: 2px solid var(--color-border);
+    background-color: var(--color-white);
     transform: translateX(-50%);
     z-index: 2;
     transition: transform var(--transition-base);
@@ -100,7 +112,7 @@
     font-weight: bold;
 }
 
-/* company label */
+/* company label in timeline */
 #CAREER .company {
     font-weight: 600;
     font-size: var(--font-size-xs);
@@ -124,6 +136,7 @@
     font-weight: 700;
     margin: 0 0 var(--space-xs) 0;
     font-family: var(--font-display);
+    letter-spacing: var(--letter-spacing-tight);
     transition: transform var(--transition-base);
 }
 
@@ -131,11 +144,25 @@
     transform: translateX(var(--space-xs));
 }
 
-/* meta info (date/location) */
+/* meta info (date/location) – now a "badge" style for date */
 #CAREER .meta {
-    font-size: var(--font-size-2xs);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: var(--font-size-xs);
     color: var(--color-text-tertiary);
     font-weight: normal;
+    letter-spacing: var(--letter-spacing-tight);
+}
+
+#CAREER .date {
+    background-color: var(--color-text-tertiary);
+    color: var(--color-white);
+    border-radius: var(--border-radius);
+    padding: 0 var(--space-xs);
+    font-size: var(--font-size-2xs);
+    letter-spacing: normal;
 }
 
 /* detail-panel on the right – flex:1 plus min-width:0 stops horizontal overflow */
@@ -181,14 +208,16 @@
     font-size: var(--font-size-fluid-base);
     margin: 0;
     color: var(--color-text-primary);
+    letter-spacing: var(--letter-spacing-tight);
 }
 
 #CAREER .job-meta {
     display: flex;
     gap: var(--space-md);
-    font-size: var(--font-size-2xs);
+    font-size: var(--font-size-xs);
     color: var(--color-text-tertiary);
     margin-bottom: var(--space-md);
+    letter-spacing: var(--letter-spacing-tight);
 }
 
 #CAREER .job-badge {
@@ -200,9 +229,9 @@
 #CAREER .remote-badge {
     background-color: rgba(255, 255, 255, 0.1);
     color: var(--color-text-primary);
-    padding: calc(var(--space-2xs) / 2) var(--space-sm);
+    padding: calc(var(--space-xs) / 2) var(--space-sm);
     border-radius: var(--border-radius);
-    font-size: var(--font-size-2xs);
+    font-size: var(--font-size-xs);
     font-weight: 500;
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
@@ -210,7 +239,7 @@
 
 #CAREER .current-badge:hover,
 #CAREER .remote-badge:hover {
-    transform: translateY(calc(var(--space-2xs) * -1));
+    transform: translateY(calc(var(--space-xs) * -1));
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     background-color: rgba(255, 255, 255, 0.15);
 }
@@ -225,15 +254,16 @@
 }
 
 #CAREER .job-description {
-    font-size: var(--font-size-xs);
-    line-height: var(--line-height-relaxed);
+    font-size: var(--font-size-fluid-base);
+    font-family: var(--font-display);
+    line-height: var(--font-size-fluid-base);
     margin-bottom: var(--space-lg);
     color: var(--color-text-primary);
     background-color: transparent;
     align-self: flex-start;
     margin-left: auto;
     width: 100%;
-    max-width: 50%;
+    /* narrower so it doesn't sprawl too wide */
 }
 
 /* tech icons section */
@@ -269,7 +299,7 @@
     align-items: center;
     justify-content: center;
     margin: 0 var(--space-lg);
-    opacity: 1;
+    opacity: 0.7;
     transition: all var(--transition-base);
     min-width: 60px;
     position: relative;
@@ -285,7 +315,7 @@
 }
 
 #CAREER .tech-icon-name {
-    font-size: var(--font-size-2xs);
+    font-size: var(--font-size-xs);
     color: var(--color-text-tertiary);
     font-weight: 500;
     text-align: center;
@@ -377,6 +407,7 @@
     color: var(--color-text-primary);
     font-family: var(--font-display);
     transition: transform var(--transition-base);
+    letter-spacing: var(--letter-spacing-tight);
 }
 
 #CAREER .topic-card:hover .topic-name {
@@ -419,7 +450,7 @@
     margin-top: var(--space-xs);
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-2xs);
+    gap: var(--space-xs);
     opacity: 0;
     transform: translateY(var(--space-xs));
     transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1),
@@ -433,7 +464,7 @@
 }
 
 #CAREER .topic-tag {
-    font-size: var(--font-size-2xs);
+    font-size: var(--font-size-xs);
     background-color: rgba(255, 255, 255, 0.05);
     color: var(--color-text-secondary);
     padding: 0 var(--space-xs);
@@ -445,7 +476,7 @@
 
 #CAREER .topic-tag:hover {
     background-color: rgba(255, 255, 255, 0.15);
-    transform: translateY(calc(var(--space-2xs) * -1));
+    transform: translateY(calc(var(--space-xs) * -1));
 }
 
 /* timeline-content if needed */
@@ -467,6 +498,8 @@
     #CAREER .timeline {
         margin-bottom: var(--space-xl);
         padding-right: 0;
+        position: static;
+        /* sticky won't matter if container is too short anyway */
     }
 
     #CAREER .detail-panel {
@@ -512,5 +545,70 @@
     #CAREER .tech-icon span.iconify {
         width: 20px;
         height: 20px;
+    }
+}
+
+/* animated terminal icon for topic cards */
+.animated-terminal-icon {
+    width: 40px;
+    height: 40px;
+    background: #1e1e1e;
+    border-radius: 4px;
+    font-family: monospace;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.animated-terminal-icon .terminal-header {
+    width: 100%;
+    height: 8px;
+    background: #333;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 2px;
+}
+
+.animated-terminal-icon .terminal-header span {
+    display: block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+}
+
+.animated-terminal-icon .terminal-header span:nth-child(1) {
+    background: #ff5f56;
+}
+
+.animated-terminal-icon .terminal-header span:nth-child(2) {
+    background: #ffbd2e;
+}
+
+.animated-terminal-icon .terminal-header span:nth-child(3) {
+    background: #27c93f;
+}
+
+.animated-terminal-icon .terminal-content {
+    color: #0f0;
+    font-size: 6px;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+}
+
+.animated-terminal-icon .terminal-cursor {
+    width: 3px;
+    height: 6px;
+    background: #0f0;
+    margin-left: 2px;
+    animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
     }
 }

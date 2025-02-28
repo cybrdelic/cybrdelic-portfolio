@@ -1,26 +1,29 @@
 <section id="CAREER">
     <div class="container">
+        <!-- optional: animated terminal icon at top, if desired -->
         <div class="timeline-container">
             <div class="timeline">
                 {% for event in career_timeline %}
                 <div class="timeline-item" data-id="{{ loop.index }}">
                     <div class="timeline-dot"></div>
                     <div class="timeline-header">
-                        <div class="company">{{ event.company_name }}</div>
-                        <h2 class="position">{{ event.title }}</h2>
                         <div class="meta">
-                            <div class="date">{{ event.start_date }} — {{ event.end_date }}</div>
+                            <div class="date">{{ event.start_date }}</div>
+                        </div>
+                        <div class="meta">
+                            <div class="company">{{ event.company_name }}</div>
                             {% if event.location %}
                             <div class="location">• {{ event.location }}</div>
                             {% endif %}
                         </div>
+                        <h2 class="position">{{ event.title }}</h2>
                     </div>
                 </div>
                 {% endfor %}
             </div>
             <div class="detail-panel">
                 <div class="detail-content" id="detail-content">
-                    <!-- Default content - will be replaced by job details -->
+                    <!-- default content - will be replaced by job details -->
                 </div>
             </div>
         </div>
@@ -29,89 +32,72 @@
     {% for event in career_timeline %}
     <template id="job-details-{{ loop.index }}">
         <div class="timeline-content">
-            <div class="timeline-flexbox">
-                <div class="job-meta-header">
-                    <div>
-                        <div class="company">{{ event.company_name }}</div>
-                        <h2 class="job-title">{{ event.title }}</h2>
-                        <div class="job-meta">
-                            <div class="job-date">{{ event.start_date }} — {{ event.end_date }}</div>
-                            {% if event.location %}
-                            <div class="job-location">• {{ event.location }}</div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="job-description">
-                    <p>{{ event.description }}</p>
-                    <div class="tech-stack">
-                        <div class="tech-icons-container">
-                            <div class="tech-icons-scroll">
-                                <div class="tech-icon">
-                                    <span class="iconify" data-icon="simple-icons:graphql" data-inline="false"></span>
-                                    <span class="tech-icon-name">GraphQL</span>
-                                </div>
-                                <div class="tech-icon">
-                                    <span class="iconify" data-icon="simple-icons:react" data-inline="false"></span>
-                                    <span class="tech-icon-name">React</span>
-                                </div>
-                                <div class="tech-icon">
-                                    <span class="iconify" data-icon="simple-icons:typescript"
-                                        data-inline="false"></span>
-                                    <span class="tech-icon-name">TypeScript</span>
-                                </div>
-                                <div class="tech-icon">
-                                    <span class="iconify" data-icon="mdi:chart-line" data-inline="false"></span>
-                                    <span class="tech-icon-name">ReCharts</span>
-                                </div>
-                                <div class="tech-icon">
-                                    <span class="iconify" data-icon="simple-icons:postgresql"
-                                        data-inline="false"></span>
-                                    <span class="tech-icon-name">PostgreSQL</span>
-                                </div>
-                                <div class="tech-icon">
-                                    <span class="iconify" data-icon="simple-icons:flask" data-inline="false"></span>
-                                    <span class="tech-icon-name">Flask</span>
-                                </div>
-                                <div class="tech-icon">
-                                    <span class="iconify" data-icon="mdi:server" data-inline="false"></span>
-                                    <span class="tech-icon-name">PgAdmin</span>
-                                </div>
-                                <div class="tech-icon">
-                                    <span class="iconify" data-icon="simple-icons:elasticsearch"
-                                        data-inline="false"></span>
-                                    <span class="tech-icon-name">Elasticsearch</span>
-                                </div>
+            <div class="job-description">
+                <p>{{ event.description }}</p>
+                <div class="tech-stack">
+                    <div class="tech-icons-container">
+                        <div class="tech-icons-scroll">
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="simple-icons:graphql" data-inline="false"></span>
+                                <span class="tech-icon-name">graphql</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="simple-icons:react" data-inline="false"></span>
+                                <span class="tech-icon-name">react</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="simple-icons:typescript" data-inline="false"></span>
+                                <span class="tech-icon-name">typescript</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="mdi:chart-line" data-inline="false"></span>
+                                <span class="tech-icon-name">recharts</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="simple-icons:postgresql" data-inline="false"></span>
+                                <span class="tech-icon-name">postgresql</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="simple-icons:flask" data-inline="false"></span>
+                                <span class="tech-icon-name">flask</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="mdi:server" data-inline="false"></span>
+                                <span class="tech-icon-name">pgadmin</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="simple-icons:elasticsearch" data-inline="false"></span>
+                                <span class="tech-icon-name">elasticsearch</span>
                             </div>
                         </div>
                     </div>
-                    <div class="job-badge">
-                        {% if event.is_current %}
-                        <span class="current-badge">Current</span>
-                        {% endif %}
-                        {% if event.is_remote %}
-                        <span class="remote-badge">Remote</span>
-                        {% endif %}
-                    </div>
+                </div>
+                <div class="job-badge">
+                    {% if event.is_current %}
+                    <span class="current-badge">current</span>
+                    {% endif %}
+                    {% if event.is_remote %}
+                    <span class="remote-badge">remote</span>
+                    {% endif %}
                 </div>
             </div>
+        </div>
 
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const scrollContainer = document.querySelector('.tech-icons-scroll');
-                    if (!scrollContainer) return;
-                    scrollContainer.style.animation = 'none';
-                    const icons = Array.from(scrollContainer.querySelectorAll('.tech-icon'));
-                    icons.forEach(icon => {
-                        const clone = icon.cloneNode(true);
-                        scrollContainer.appendChild(clone);
-                    });
-                    setTimeout(() => {
-                        scrollContainer.style.animation = 'scrollIcons 30s linear infinite';
-                    }, 100);
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const scrollContainer = document.querySelector('.tech-icons-scroll');
+                if (!scrollContainer) return;
+                scrollContainer.style.animation = 'none';
+                const icons = Array.from(scrollContainer.querySelectorAll('.tech-icon'));
+                icons.forEach(icon => {
+                    const clone = icon.cloneNode(true);
+                    scrollContainer.appendChild(clone);
                 });
-            </script>
+                setTimeout(() => {
+                    scrollContainer.style.animation = 'scrollIcons 30s linear infinite';
+                }, 100);
+            });
+        </script>
         </div>
 
         {% if event.topics and event.topics|length > 0 %}
@@ -120,11 +106,18 @@
             <div class="topic-card" tabindex="0">
                 <div class="topic-header">
                     <h3 class="topic-name">{{ topic.name }}</h3>
-                    <svg class="topic-icon" xmlns="http://www.w3.org/2000/svg" width="10" height="10"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
+                    <!-- animated terminal icon replacing default svg icon -->
+                    <div class="animated-terminal-icon">
+                        <div class="terminal-header">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="terminal-content">
+                            <span class="typed-text"></span>
+                            <span class="terminal-cursor"></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="topic-details">
                     <p>{{ topic.description }}</p>
@@ -140,9 +133,11 @@
             {% endfor %}
         </div>
         {% endif %}
+        </div>
     </template>
     {% endfor %}
 
+    <!-- timeline and detail panel scripts (existing code) -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const timelineItems = document.querySelectorAll('#CAREER .timeline-item');
@@ -152,29 +147,29 @@
             document.documentElement.style.setProperty('--topic-cards-count',
                 document.querySelectorAll('#CAREER .topic-card').length);
 
+            // insert timeline animations css into head (if not already present)
             document.head.insertAdjacentHTML('beforeend', `
-            <style>
-            #CAREER .timeline {
-                --active-line-height: 0px;
-            }
-            #CAREER .timeline::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 15px;
-                width: 2px;
-                height: var(--active-line-height);
-                background-color: var(--color-text-secondary);
-                z-index: 2;
-                transition: height 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            }
-            #CAREER .timeline-enter {
-                animation: slideInLeft 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-            }
-            @keyframes slideInLeft {
-                from { opacity: 0; transform: translateX(-30px); }
-                to { opacity: 1; transform: translateX(0); }
-            }
+      <style>
+        /* timeline and topic animations - preserved from your existing css */
+        #CAREER .timeline { --active-line-height: 0px; }
+        #CAREER .timeline::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 15px;
+          width: 2px;
+          height: var(--active-line-height);
+          background-color: var(--color-text-secondary);
+          z-index: 2;
+          transition: height 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        #CAREER .timeline-enter {
+          animation: slideInLeft 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        @keyframes slideInLeft {
+          from { opacity: 0; transform: translateX(-30px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
             #CAREER .item-enter {
                 animation: fadeInItem 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
             }
@@ -301,10 +296,10 @@
                 #CAREER .tech-icons-container { height: 70px; }
                 #CAREER .tech-icon { margin: 0 var(--space-sm); min-width: 50px; }
             }
-            </style>
-            `);
+      </style>
+      `);
             function setActiveItem(item, animate = true) {
-                timelineItems.forEach(item => { item.classList.remove('active'); });
+                timelineItems.forEach(el => { el.classList.remove('active'); });
                 item.classList.add('active');
                 const dataId = item.getAttribute('data-id');
                 const template = document.getElementById(`job-details-${dataId}`);
@@ -320,12 +315,14 @@
                     animateTopicCards();
                 }
             }
+
             function updateActiveLine(activeItem) {
                 const dotPosition = activeItem.querySelector('.timeline-dot').getBoundingClientRect();
                 const timelinePosition = timeline.getBoundingClientRect();
                 const lineHeight = (dotPosition.top - timelinePosition.top) + (dotPosition.height / 2);
                 timeline.style.setProperty('--active-line-height', `${lineHeight}px`);
             }
+
             function animateTopicCards() {
                 const topicCards = document.querySelectorAll('#CAREER .topic-card');
                 topicCards.forEach((card, index) => {
@@ -334,6 +331,7 @@
                     setTimeout(() => { card.classList.add('animate-in'); }, index * 100);
                 });
             }
+
             timelineItems.forEach(item => {
                 item.addEventListener('mouseenter', () => { setActiveItem(item); });
                 item.addEventListener('click', () => {
@@ -348,6 +346,7 @@
                     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveItem(item); }
                 });
             });
+
             document.addEventListener('keydown', (e) => {
                 const activeItem = document.querySelector('#CAREER .timeline-item.active');
                 if (!activeItem) return;
@@ -363,6 +362,7 @@
                     items[currentIndex - 1].focus();
                 }
             });
+
             if (timelineItems.length > 0) {
                 setTimeout(() => {
                     setActiveItem(timelineItems[0], false);
@@ -372,11 +372,14 @@
                     });
                 }, 300);
             }
+
             window.addEventListener('resize', () => {
                 const activeItem = document.querySelector('#CAREER .timeline-item.active');
                 if (activeItem) { updateActiveLine(activeItem); }
             });
         });
+
+        // init tech icons scroll (existing logic)
         document.addEventListener('DOMContentLoaded', function () {
             const initTechStack = () => {
                 const scrollContainer = document.querySelector('.tech-icons-scroll');
@@ -399,6 +402,31 @@
             const timelineItems = document.querySelectorAll('.timeline-item');
             timelineItems.forEach(item => { item.addEventListener('click', () => { setTimeout(initTechStack, 500); }); });
             window.addEventListener('resize', initTechStack);
+        });
+    </script>
+
+    <!-- animated terminal icon typing for topic cards -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const icons = document.querySelectorAll('.animated-terminal-icon .typed-text');
+            icons.forEach(icon => {
+                const text = 'dev exp >';
+                let index = 0;
+                function type() {
+                    if (index < text.length) {
+                        icon.innerText += text.charAt(index);
+                        index++;
+                        setTimeout(type, 150);
+                    } else {
+                        setTimeout(() => {
+                            icon.innerText = '';
+                            index = 0;
+                            type();
+                        }, 1000);
+                    }
+                }
+                type();
+            });
         });
     </script>
 </section>
