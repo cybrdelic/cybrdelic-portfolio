@@ -1,82 +1,69 @@
-/* Terminal-Style Timeline CSS with Microinteractions */
+/* entire #CAREER section fills viewport if desired */
 #CAREER {
-    color: var(--color-text-primary);
-    line-height: var(--line-height-relaxed);
-    width: 100%;
-    font-family: var(--font-primary);
-}
-
-#CAREER section {
-    padding: '10rem';
-}
-
-#CAREER .container {
-    margin: 0 auto;
-    padding: var(--space-xl);
-    width: 100%;
-    min-width: 100%;
-    min-height: 100%;
-}
-
-#CAREER .section-header {
-    margin-bottom: var(--space-2xl);
-    border-bottom: 1px solid var(--color-border);
-    padding-bottom: var(--space-md);
-}
-
-#CAREER .command-prompt {
-    font-size: var(--font-size-lg);
-    color: var(--color-text-tertiary);
-    margin-bottom: var(--space-xl);
-    font-family: var(--font-primary);
-    font-weight: 600;
-}
-
-#CAREER .prompt-symbol {
-    margin-right: var(--space-xs);
-}
-
-#CAREER .prompt-command {
-    color: var(--color-text-secondary);
-}
-
-#CAREER .timeline-container {
     display: flex;
-    min-height: 60vh;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    color: var(--color-text-primary);
+    font-family: var(--font-primary);
 }
 
-/* Left side - Timeline with enhanced animations */
+/* container fills leftover space; no forced bg so it can be styled externally */
+#CAREER .container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0 var(--space-md);
+    background-color: transparent;
+}
+
+/* timeline-container: a row with timeline on the left, detail panel on the right */
+#CAREER .timeline-container {
+    flex: 1;
+    display: flex;
+    width: 100%;
+    gap: var(--space-md);
+    align-items: stretch;
+    justify-content: flex-start;
+    overflow-x: hidden;
+    /* prevents horizontal overflow if content is wide */
+    background-color: transparent;
+}
+
+/* timeline on the left, about 30% width, min-width so it doesn't collapse */
 #CAREER .timeline {
     position: relative;
-    width: 30%;
+    flex: 0 0 30%;
     min-width: 220px;
-    padding-right: var(--space-2xl);
+    padding-right: var(--space-lg);
     transition: all var(--transition-base);
 }
 
-/* The vertical line */
+/* vertical line in the timeline */
 #CAREER .timeline::before {
     content: '';
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 15px;
+    top: var(--space-sm);
+    bottom: var(--space-sm);
+    left: var(--space-sm);
     width: 2px;
     background-color: var(--color-border);
     z-index: 1;
 }
 
+/* timeline items */
 #CAREER .timeline-item {
     position: relative;
-    margin-bottom: var(--space-2xl);
-    padding-left: var(--space-2xl);
+    margin-bottom: var(--space-md);
+    padding-left: var(--space-md);
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     opacity: 0.7;
+    transition: transform var(--transition-base), opacity var(--transition-base);
 }
 
 #CAREER .timeline-item:hover {
-    transform: translateX(6px);
+    transform: translateX(var(--space-xs));
     opacity: 1;
 }
 
@@ -84,18 +71,18 @@
     opacity: 1;
 }
 
-/* The circles on the timeline with enhanced effects */
+/* dot on each timeline item */
 #CAREER .timeline-dot {
     position: absolute;
-    left: 15px;
-    top: 10px;
-    width: 12px;
-    height: 12px;
+    left: var(--space-sm);
+    top: var(--space-sm);
+    width: var(--space-md);
+    height: var(--space-md);
     border-radius: var(--border-radius-full);
     background-color: var(--color-border);
     transform: translateX(-50%);
     z-index: 2;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: transform var(--transition-base);
 }
 
 #CAREER .timeline-item.active .timeline-dot {
@@ -104,74 +91,73 @@
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
+/* timeline header text */
 #CAREER .timeline-header {
-    transition: all var(--transition-base);
+    transition: font-weight var(--transition-base);
 }
 
 #CAREER .timeline-item.active .timeline-header {
     font-weight: bold;
 }
 
+/* company label */
 #CAREER .company {
     font-weight: 600;
     font-size: var(--font-size-xs);
     margin-bottom: var(--space-xs);
     color: var(--color-text-secondary);
-    border: 0.1rem var(--color-text-secondary) solid;
+    border: 0.1rem solid var(--color-text-secondary);
     display: inline-block;
-    padding: 2px 8px;
-    border-radius: 3px;
-    transition: all 0.3s ease;
+    padding: calc(var(--space-xs) / 2) var(--space-sm);
+    border-radius: var(--border-radius);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
 #CAREER .timeline-item:hover .company {
-    transform: translateY(-2px);
+    transform: translateY(calc(var(--space-xs) * -1));
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#CAREER .timeline-flexbox {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-
+/* position/title in timeline */
 #CAREER .position {
     font-size: var(--font-size-lg);
     font-weight: 700;
     margin: 0 0 var(--space-xs) 0;
     font-family: var(--font-display);
-    letter-spacing: var(--letter-spacing-tight);
-    transition: transform 0.3s ease;
+    transition: transform var(--transition-base);
 }
 
 #CAREER .timeline-item:hover .position {
-    transform: translateX(2px);
+    transform: translateX(var(--space-xs));
 }
 
+/* meta info (date/location) */
 #CAREER .meta {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-2xs);
     color: var(--color-text-tertiary);
     font-weight: normal;
-    transition: opacity 0.3s ease;
 }
 
-/* Right side - Details Panel */
+/* detail-panel on the right – flex:1 plus min-width:0 stops horizontal overflow */
 #CAREER .detail-panel {
-    width: 100%;
-    padding: 0 0 0 var(--space-2xl);
-    min-height: 400px;
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
     border-left: 1px solid var(--color-border);
+    padding-left: var(--space-lg);
+    background-color: transparent;
 }
 
-/* Enhanced animation for content change */
+/* fade-in animation for dynamic content */
 #CAREER .content-fade-in {
-    animation: contentFadeIn 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    animation: contentfadein var(--transition-slow) ease;
 }
 
-@keyframes contentFadeIn {
+@keyframes contentfadein {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(var(--space-md));
     }
 
     to {
@@ -180,35 +166,27 @@
     }
 }
 
-/* Detail content styling with enhanced transitions */
+/* job meta header in detail panel */
 #CAREER .job-meta-header {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: var(--space-lg);
-}
-
-#CAREER .company-name {
-    font-size: var(--font-size-base);
-    font-weight: 600;
-    margin-bottom: var(--space-xs);
 }
 
 #CAREER .job-title {
     font-family: var(--font-display);
     font-weight: 800;
     font-size: var(--font-size-fluid-base);
-    line-height: var(--line-height-tight);
     margin: 0;
     color: var(--color-text-primary);
-    mix-blend-mode: multiply;
-    position: relative;
 }
 
 #CAREER .job-meta {
     display: flex;
     gap: var(--space-md);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-2xs);
     color: var(--color-text-tertiary);
     margin-bottom: var(--space-md);
 }
@@ -222,19 +200,28 @@
 #CAREER .remote-badge {
     background-color: rgba(255, 255, 255, 0.1);
     color: var(--color-text-primary);
-    padding: var(--space-2xs) var(--space-sm);
+    padding: calc(var(--space-2xs) / 2) var(--space-sm);
     border-radius: var(--border-radius);
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-2xs);
     font-weight: 500;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
 #CAREER .current-badge:hover,
 #CAREER .remote-badge:hover {
-    transform: translateY(-2px);
+    transform: translateY(calc(var(--space-2xs) * -1));
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* job-description area – flexible layout within detail panel */
+#CAREER .timeline-flexbox {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-lg);
+    align-items: flex-start;
+    justify-content: space-between;
 }
 
 #CAREER .job-description {
@@ -242,14 +229,74 @@
     line-height: var(--line-height-relaxed);
     margin-bottom: var(--space-lg);
     color: var(--color-text-primary);
-    align-self: center;
+    background-color: transparent;
+    align-self: flex-start;
+    margin-left: auto;
+    width: 100%;
+    max-width: 50%;
 }
 
-/* Key Topics Section with enhanced interactions */
+/* tech icons section */
+#CAREER .tech-icons-container {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    margin: var(--space-md) 0;
+    height: 80px;
+}
+
+#CAREER .tech-icons-scroll {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    height: 100%;
+    animation: scrollIcons 30s linear infinite;
+}
+
+@keyframes scrollIcons {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+#CAREER .tech-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 var(--space-lg);
+    opacity: 1;
+    transition: all var(--transition-base);
+    min-width: 60px;
+    position: relative;
+}
+
+#CAREER .tech-icon svg,
+#CAREER .tech-icon span.iconify {
+    width: 32px;
+    height: 32px;
+    margin-bottom: var(--space-xs);
+    fill: currentColor;
+    color: var(--color-text-secondary);
+}
+
+#CAREER .tech-icon-name {
+    font-size: var(--font-size-2xs);
+    color: var(--color-text-tertiary);
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* topics heading if you want one */
 #CAREER .topics-heading {
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
     font-weight: 700;
-    margin: 0 0 var(--space-md);
+    margin-bottom: var(--space-md);
     letter-spacing: var(--letter-spacing-tight);
     color: var(--color-text-primary);
     position: relative;
@@ -262,15 +309,15 @@
     margin-right: var(--space-xs);
     font-weight: bold;
     opacity: 0.8;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: transform var(--transition-base), opacity var(--transition-base);
 }
 
 #CAREER .topics-heading:hover::before {
-    transform: translateX(2px) scale(1.2);
+    transform: translateX(var(--space-xs)) scale(1.1);
     opacity: 1;
 }
 
-/* Topic grid with improved layout */
+/* topic grid */
 #CAREER .topic-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -278,10 +325,11 @@
     width: 100%;
 }
 
+/* topic card */
 #CAREER .topic-card {
     background-color: rgba(255, 255, 255, 0.03);
     border-radius: var(--border-radius);
-    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all var(--transition-base);
     cursor: pointer;
     border-left: 2px solid var(--color-border);
     position: relative;
@@ -294,7 +342,7 @@
     background-color: rgba(255, 255, 255, 0.08);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     border-left-color: var(--color-text-secondary);
-    transform: translateY(-4px);
+    transform: translateY(calc(var(--space-xs) * -1));
 }
 
 #CAREER .topic-card:focus {
@@ -302,6 +350,7 @@
     outline-offset: 1px;
 }
 
+/* topic header */
 #CAREER .topic-header {
     padding: var(--space-xs) var(--space-sm);
     position: relative;
@@ -312,7 +361,7 @@
 
 #CAREER .topic-icon {
     color: var(--color-text-secondary);
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: transform var(--transition-base);
     opacity: 0.7;
 }
 
@@ -327,13 +376,14 @@
     margin: 0;
     color: var(--color-text-primary);
     font-family: var(--font-display);
-    transition: transform 0.3s ease;
+    transition: transform var(--transition-base);
 }
 
 #CAREER .topic-card:hover .topic-name {
-    transform: translateX(3px);
+    transform: translateX(var(--space-xs));
 }
 
+/* topic details expand on hover */
 #CAREER .topic-details {
     max-height: 0;
     opacity: 0;
@@ -350,11 +400,12 @@
 
 #CAREER .topic-details p {
     font-size: var(--font-size-xs);
-    line-height: var(--line-height-normal);
+    line-height: var(--line-height-relaxed);
     margin: 0;
     color: var(--color-text-secondary);
-    transform: translateY(10px);
-    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transform: translateY(var(--space-xs));
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+        opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     opacity: 0;
 }
 
@@ -363,14 +414,16 @@
     opacity: 1;
 }
 
+/* topic tags */
 #CAREER .topic-tags {
     margin-top: var(--space-xs);
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2xs);
     opacity: 0;
-    transform: translateY(10px);
-    transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transform: translateY(var(--space-xs));
+    transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1),
+        opacity 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
     transition-delay: 0.1s;
 }
 
@@ -384,22 +437,23 @@
     background-color: rgba(255, 255, 255, 0.05);
     color: var(--color-text-secondary);
     padding: 0 var(--space-xs);
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius);
     border: 1px solid rgba(255, 255, 255, 0.1);
     white-space: nowrap;
-    transition: all 0.3s ease;
+    transition: all var(--transition-base);
 }
 
 #CAREER .topic-tag:hover {
     background-color: rgba(255, 255, 255, 0.15);
-    transform: translateY(-2px);
+    transform: translateY(calc(var(--space-2xs) * -1));
 }
 
+/* timeline-content if needed */
 .timeline-content {
     min-width: 100%;
 }
 
-/* Responsive design */
+/* responsive adjustments */
 @media (max-width: 768px) {
     #CAREER .timeline-container {
         flex-direction: column;
@@ -416,26 +470,47 @@
     }
 
     #CAREER .detail-panel {
-        padding: var(--space-xl) 0 0 0;
         border-left: none;
         border-top: 1px solid var(--color-border);
+        padding-left: 0;
+        padding-top: var(--space-xl);
     }
 
     #CAREER .job-meta-header {
         flex-direction: column;
     }
 
+    #CAREER .job-description {
+        margin-left: 0;
+        max-width: 100%;
+    }
+
     #CAREER .job-badge {
         margin-top: var(--space-md);
     }
 
-    #CAREER .topic-grid {
-        grid-template-columns: repeat(2, 1fr);
+    #CAREER .tech-icons-container {
+        height: 60px;
+    }
+
+    #CAREER .tech-icon {
+        margin: 0 var(--space-md);
     }
 }
 
 @media (max-width: 480px) {
-    #CAREER .topic-grid {
-        grid-template-columns: 1fr;
+    #CAREER .tech-icons-container {
+        height: 70px;
+    }
+
+    #CAREER .tech-icon {
+        margin: 0 var(--space-sm);
+        min-width: 50px;
+    }
+
+    #CAREER .tech-icon svg,
+    #CAREER .tech-icon span.iconify {
+        width: 20px;
+        height: 20px;
     }
 }

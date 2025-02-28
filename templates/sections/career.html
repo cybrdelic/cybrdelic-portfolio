@@ -1,7 +1,6 @@
 <section id="CAREER">
     <div class="container">
         <div class="timeline-container">
-            <!-- Left side - Timeline -->
             <div class="timeline">
                 {% for event in career_timeline %}
                 <div class="timeline-item" data-id="{{ loop.index }}">
@@ -19,8 +18,6 @@
                 </div>
                 {% endfor %}
             </div>
-
-            <!-- Right side - Details Panel -->
             <div class="detail-panel">
                 <div class="detail-content" id="detail-content">
                     <!-- Default content - will be replaced by job details -->
@@ -29,7 +26,6 @@
         </div>
     </div>
 
-    <!-- Hidden templates for each job's details -->
     {% for event in career_timeline %}
     <template id="job-details-{{ loop.index }}">
         <div class="timeline-content">
@@ -49,6 +45,47 @@
 
                 <div class="job-description">
                     <p>{{ event.description }}</p>
+                    <div class="tech-stack">
+                        <div class="tech-icons-container">
+                            <div class="tech-icons-scroll">
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:graphql" data-inline="false"></span>
+                                    <span class="tech-icon-name">GraphQL</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:react" data-inline="false"></span>
+                                    <span class="tech-icon-name">React</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:typescript"
+                                        data-inline="false"></span>
+                                    <span class="tech-icon-name">TypeScript</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="mdi:chart-line" data-inline="false"></span>
+                                    <span class="tech-icon-name">ReCharts</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:postgresql"
+                                        data-inline="false"></span>
+                                    <span class="tech-icon-name">PostgreSQL</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:flask" data-inline="false"></span>
+                                    <span class="tech-icon-name">Flask</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="mdi:server" data-inline="false"></span>
+                                    <span class="tech-icon-name">PgAdmin</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:elasticsearch"
+                                        data-inline="false"></span>
+                                    <span class="tech-icon-name">Elasticsearch</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="job-badge">
                         {% if event.is_current %}
                         <span class="current-badge">Current</span>
@@ -60,57 +97,66 @@
                 </div>
             </div>
 
-            <!-- Key Topics section -->
-            {% if event.topics and event.topics|length > 0 %}
-            <h3 class="topics-heading">Key Topics</h3>
-            <div class="topic-grid">
-                {% for topic in event.topics %}
-                <div class="topic-card" tabindex="0">
-                    <div class="topic-header">
-                        <h3 class="topic-name">{{ topic.name }}</h3>
-                        <svg class="topic-icon" xmlns="http://www.w3.org/2000/svg" width="10" height="10"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </div>
-                    <div class="topic-details">
-                        <p>{{ topic.description }}</p>
-                        {% if topic.tags and topic.tags|length > 0 %}
-                        <div class="topic-tags">
-                            {% for tag in topic.tags %}
-                            <span class="topic-tag">{{ tag }}</span>
-                            {% endfor %}
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            {% endif %}
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const scrollContainer = document.querySelector('.tech-icons-scroll');
+                    if (!scrollContainer) return;
+                    scrollContainer.style.animation = 'none';
+                    const icons = Array.from(scrollContainer.querySelectorAll('.tech-icon'));
+                    icons.forEach(icon => {
+                        const clone = icon.cloneNode(true);
+                        scrollContainer.appendChild(clone);
+                    });
+                    setTimeout(() => {
+                        scrollContainer.style.animation = 'scrollIcons 30s linear infinite';
+                    }, 100);
+                });
+            </script>
         </div>
+
+        {% if event.topics and event.topics|length > 0 %}
+        <div class="topic-grid">
+            {% for topic in event.topics %}
+            <div class="topic-card" tabindex="0">
+                <div class="topic-header">
+                    <h3 class="topic-name">{{ topic.name }}</h3>
+                    <svg class="topic-icon" xmlns="http://www.w3.org/2000/svg" width="10" height="10"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="topic-details">
+                    <p>{{ topic.description }}</p>
+                    {% if topic.tags and topic.tags|length > 0 %}
+                    <div class="topic-tags">
+                        {% for tag in topic.tags %}
+                        <span class="topic-tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
     </template>
     {% endfor %}
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const timelineItems = document.querySelectorAll('#CAREER .timeline-item');
-            const detailPanel = document.querySelector('#CAREER .detail-panel');
             const detailContent = document.getElementById('detail-content');
             const timeline = document.querySelector('#CAREER .timeline');
 
-            // Add CSS variables for animations
             document.documentElement.style.setProperty('--topic-cards-count',
                 document.querySelectorAll('#CAREER .topic-card').length);
 
-            // Add styles for microinteractions
             document.head.insertAdjacentHTML('beforeend', `
             <style>
-            /* Microinteraction animations */
             #CAREER .timeline {
                 --active-line-height: 0px;
             }
-
             #CAREER .timeline::after {
                 content: '';
                 position: absolute;
@@ -122,37 +168,20 @@
                 z-index: 2;
                 transition: height 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
             }
-
             #CAREER .timeline-enter {
                 animation: slideInLeft 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
             }
-
             @keyframes slideInLeft {
-                from {
-                    opacity: 0;
-                    transform: translateX(-30px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateX(0);
-                }
+                from { opacity: 0; transform: translateX(-30px); }
+                to { opacity: 1; transform: translateX(0); }
             }
-
             #CAREER .item-enter {
                 animation: fadeInItem 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
             }
-
             @keyframes fadeInItem {
-                from {
-                    opacity: 0;
-                    transform: translateX(-20px);
-                }
-                to {
-                    opacity: 0.7;
-                    transform: translateX(0);
-                }
+                from { opacity: 0; transform: translateX(-20px); }
+                to { opacity: 0.7; transform: translateX(0); }
             }
-
             #CAREER .timeline-item.active .timeline-dot::after {
                 content: '';
                 position: absolute;
@@ -165,270 +194,211 @@
                 animation: pulse 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
                 z-index: -1;
             }
-
             @keyframes pulse {
-                0% {
-                    transform: scale(1);
-                    opacity: 0.8;
-                }
-                70% {
-                    transform: scale(2);
-                    opacity: 0;
-                }
-                100% {
-                    transform: scale(2.5);
-                    opacity: 0;
-                }
+                0% { transform: scale(1); opacity: 0.8; }
+                70% { transform: scale(2); opacity: 0; }
+                100% { transform: scale(2.5); opacity: 0; }
             }
-
             #CAREER .topic-card.animate-in {
                 animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-                opacity: 0;
-                transform: scale(0.9);
+                opacity: 0; transform: scale(0.9);
             }
-
             @keyframes popIn {
-                from {
-                    opacity: 0;
-                    transform: scale(0.9);
-                }
-                to {
-                    opacity: 1;
-                    transform: scale(1);
-                }
+                from { opacity: 0; transform: scale(0.9); }
+                to { opacity: 1; transform: scale(1); }
             }
-
             #CAREER .ripple-effect {
                 position: absolute;
                 border-radius: 50%;
                 background-color: rgba(255, 255, 255, 0.3);
-                width: 10px;
-                height: 10px;
-                left: 15px;
-                top: 10px;
+                width: 10px; height: 10px;
+                left: 15px; top: 10px;
                 transform: translate(-50%, -50%) scale(0);
                 animation: ripple 1s cubic-bezier(0.165, 0.84, 0.44, 1);
                 pointer-events: none;
             }
-
             @keyframes ripple {
-                0% {
-                    transform: translate(-50%, -50%) scale(0);
-                    opacity: 0.8;
-                }
-                100% {
-                    transform: translate(-50%, -50%) scale(20);
-                    opacity: 0;
-                }
+                0% { transform: translate(-50%, -50%) scale(0); opacity: 0.8; }
+                100% { transform: translate(-50%, -50%) scale(20); opacity: 0; }
             }
-
             #CAREER .job-meta-header {
                 animation: slideInRight 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
             }
-
             @keyframes slideInRight {
-                from {
-                    opacity: 0;
-                    transform: translateX(-20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateX(0);
-                }
+                from { opacity: 0; transform: translateX(-20px); }
+                to { opacity: 1; transform: translateX(0); }
             }
-
             #CAREER .job-title {
                 animation: fadeUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-                animation-delay: 0.1s;
-                animation-fill-mode: both;
+                animation-delay: 0.1s; animation-fill-mode: both;
             }
-
             #CAREER .job-meta {
                 animation: fadeUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-                animation-delay: 0.2s;
-                animation-fill-mode: both;
+                animation-delay: 0.2s; animation-fill-mode: both;
             }
-
             #CAREER .job-description {
                 animation: fadeUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-                animation-delay: 0.3s;
-                animation-fill-mode: both;
+                animation-delay: 0.3s; animation-fill-mode: both;
             }
-
             #CAREER .topics-heading {
                 animation: fadeUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-                animation-delay: 0.4s;
-                animation-fill-mode: both;
+                animation-delay: 0.4s; animation-fill-mode: both;
             }
-
             @keyframes fadeUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(10px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
             }
-
             #CAREER .topic-details p {
                 transform: translateY(10px);
                 transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
                 opacity: 0;
             }
-
             #CAREER .topic-card:hover .topic-details p {
-                transform: translateY(0);
-                opacity: 1;
+                transform: translateY(0); opacity: 1;
             }
-
             #CAREER .topic-tags {
-                opacity: 0;
-                transform: translateY(10px);
+                opacity: 0; transform: translateY(10px);
                 transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
                 transition-delay: 0.1s;
             }
-
             #CAREER .topic-card:hover .topic-tags {
-                opacity: 1;
-                transform: translateY(0);
+                opacity: 1; transform: translateY(0);
             }
-
             #CAREER .topic-name {
                 transition: transform 0.3s ease;
             }
-
             #CAREER .topic-card:hover .topic-name {
                 transform: translateX(3px);
             }
-
             #CAREER .topic-card:hover {
                 transform: translateY(-4px);
                 box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             }
+            #CAREER .tech-icon svg,
+            #CAREER .tech-icon span.iconify {
+                font-size: 24px;
+                margin-bottom: 4px;
+                color: var(--color-text-secondary);
+            }
+            #CAREER .tech-stack {
+                margin: var(--space-xl) 0;
+            }
+            #CAREER .tech-icon {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin: 0 var(--space-lg);
+                opacity: 0.7;
+                transition: all 0.3s ease;
+                min-width: 60px;
+            }
+            @media (max-width: 768px) {
+                #CAREER .tech-icons-container { height: 60px; }
+                #CAREER .tech-icon { margin: 0 var(--space-md); }
+            }
+            @media (max-width: 480px) {
+                #CAREER .tech-icons-container { height: 70px; }
+                #CAREER .tech-icon { margin: 0 var(--space-sm); min-width: 50px; }
+            }
             </style>
             `);
-
-            // Function to set active timeline item with enhanced interactions
             function setActiveItem(item, animate = true) {
-                // Remove active class from all items
-                timelineItems.forEach(item => {
-                    item.classList.remove('active');
-                });
-
-                // Add active class to current item
+                timelineItems.forEach(item => { item.classList.remove('active'); });
                 item.classList.add('active');
-
-                // Get the data index from the item
                 const dataId = item.getAttribute('data-id');
-
-                // Get the template for this job
                 const template = document.getElementById(`job-details-${dataId}`);
-
-                // Update the active line height
                 updateActiveLine(item);
-
                 if (template) {
-                    // Clone the template content
                     const content = template.content.cloneNode(true);
-
-                    // Clear and append to the detail panel
                     detailContent.innerHTML = '';
                     detailContent.appendChild(content);
-
-                    // Add animation class to trigger fade-in
                     if (animate) {
                         detailContent.classList.add('content-fade-in');
-
-                        // Remove the animation class after animation completes
-                        setTimeout(() => {
-                            detailContent.classList.remove('content-fade-in');
-                        }, 600);
+                        setTimeout(() => { detailContent.classList.remove('content-fade-in'); }, 600);
                     }
-
-                    // Add staggered animation to topic cards
                     animateTopicCards();
                 }
             }
-
-            // Function to update the active line height based on active item position
             function updateActiveLine(activeItem) {
-                // Get position of the active dot
                 const dotPosition = activeItem.querySelector('.timeline-dot').getBoundingClientRect();
                 const timelinePosition = timeline.getBoundingClientRect();
-
-                // Calculate height from top of timeline to the active dot
                 const lineHeight = (dotPosition.top - timelinePosition.top) + (dotPosition.height / 2);
-
-                // Update the CSS variable for the active line height
                 timeline.style.setProperty('--active-line-height', `${lineHeight}px`);
             }
-
-            // Function to animate topic cards with staggered effect
             function animateTopicCards() {
                 const topicCards = document.querySelectorAll('#CAREER .topic-card');
-
-                // Reset animations by removing and adding classes
                 topicCards.forEach((card, index) => {
                     card.classList.remove('animate-in');
-
-                    // Trigger reflow
                     void card.offsetWidth;
-
-                    // Add animation class with delay
-                    setTimeout(() => {
-                        card.classList.add('animate-in');
-                    }, index * 100);
+                    setTimeout(() => { card.classList.add('animate-in'); }, index * 100);
                 });
             }
-
-            // Add event listeners to timeline items
             timelineItems.forEach(item => {
-                item.addEventListener('mouseenter', () => {
-                    setActiveItem(item);
-                });
-
+                item.addEventListener('mouseenter', () => { setActiveItem(item); });
                 item.addEventListener('click', () => {
                     setActiveItem(item);
-
-                    // Add special click effect
                     const ripple = document.createElement('div');
                     ripple.classList.add('ripple-effect');
                     item.appendChild(ripple);
-
-                    // Remove ripple after animation completes
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 1000);
+                    setTimeout(() => { ripple.remove(); }, 1000);
                 });
-
-                // Add keyboard navigation support
                 item.setAttribute('tabindex', '0');
                 item.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        setActiveItem(item);
-                    }
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveItem(item); }
                 });
             });
-
-            // Initialize with first item active
+            document.addEventListener('keydown', (e) => {
+                const activeItem = document.querySelector('#CAREER .timeline-item.active');
+                if (!activeItem) return;
+                const items = Array.from(timelineItems);
+                const currentIndex = items.indexOf(activeItem);
+                if (e.key === 'ArrowDown' && currentIndex < items.length - 1) {
+                    e.preventDefault();
+                    setActiveItem(items[currentIndex + 1]);
+                    items[currentIndex + 1].focus();
+                } else if (e.key === 'ArrowUp' && currentIndex > 0) {
+                    e.preventDefault();
+                    setActiveItem(items[currentIndex - 1]);
+                    items[currentIndex - 1].focus();
+                }
+            });
             if (timelineItems.length > 0) {
                 setTimeout(() => {
                     setActiveItem(timelineItems[0], false);
-
-                    // Add entrance animation for the timeline
                     timeline.classList.add('timeline-enter');
-
-                    // Animate each timeline item in sequence
                     timelineItems.forEach((item, index) => {
-                        setTimeout(() => {
-                            item.classList.add('item-enter');
-                        }, 300 + (index * 150));
+                        setTimeout(() => { item.classList.add('item-enter'); }, 300 + (index * 150));
                     });
                 }, 300);
             }
+            window.addEventListener('resize', () => {
+                const activeItem = document.querySelector('#CAREER .timeline-item.active');
+                if (activeItem) { updateActiveLine(activeItem); }
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const initTechStack = () => {
+                const scrollContainer = document.querySelector('.tech-icons-scroll');
+                if (!scrollContainer) return;
+                scrollContainer.style.animation = 'none';
+                scrollContainer.offsetHeight;
+                const icons = Array.from(scrollContainer.querySelectorAll('.tech-icon'));
+                if (icons.length === 0) return;
+                const originalIconsCount = icons.length;
+                while (scrollContainer.children.length > originalIconsCount) {
+                    scrollContainer.removeChild(scrollContainer.lastChild);
+                }
+                icons.forEach(icon => {
+                    const clone = icon.cloneNode(true);
+                    scrollContainer.appendChild(clone);
+                });
+                setTimeout(() => { scrollContainer.style.animation = 'scrollIcons 30s linear infinite'; }, 10);
+            };
+            initTechStack();
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            timelineItems.forEach(item => { item.addEventListener('click', () => { setTimeout(initTechStack, 500); }); });
+            window.addEventListener('resize', initTechStack);
         });
     </script>
 </section>

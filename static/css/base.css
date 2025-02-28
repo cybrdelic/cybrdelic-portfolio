@@ -170,7 +170,6 @@ main section {
     min-height: 100vh;
     scroll-snap-align: start;
     margin: 0;
-    padding: 2rem;
     box-sizing: border-box;
 }
 
@@ -475,13 +474,6 @@ a:hover {
     line-height: 1;
 }
 
-/* Container styles */
-.container {
-    width: var(--width-main);
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--space-md);
-}
 
 /* Button styles */
 .btn {
