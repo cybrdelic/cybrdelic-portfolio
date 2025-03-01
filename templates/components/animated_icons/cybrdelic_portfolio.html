@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cybrdelic portfolio</title>
+    <style>
+        /* base styles */
+        body {
+            margin: 0;
+            background: #fff;
+            font-family: 'ibm plex mono', monospace;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .icon-container {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            cursor: pointer;
+        }
+
+        /* background radiance */
+        .bg-line {
+            stroke: #f0f0f0;
+            stroke-width: 1;
+            opacity: 0.4;
+        }
+
+        /* terminal interface as portfolio hub */
+        .terminal-interface {
+            /* grouping terminal elements */
+        }
+
+        .terminal-window {
+            fill: none;
+            stroke: #333;
+            stroke-width: 4;
+            rx: 2;
+            ry: 2;
+        }
+
+        .terminal-title-bg {
+            fill: #333;
+        }
+
+        .terminal-title {
+            fill: #fff;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .terminal-text {
+            fill: #fff;
+            font-size: 12px;
+            animation: shift-text 3s infinite linear;
+        }
+
+        .terminal-text:nth-of-type(2) {
+            animation-delay: 0.2s;
+        }
+
+        .terminal-text:nth-of-type(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes shift-text {
+            0% {
+                transform: translateY(20px);
+                opacity: 0.6;
+            }
+
+            25% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            75% {
+                transform: translateY(-20px);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-40px);
+                opacity: 0.6;
+            }
+        }
+
+        .scan-line {
+            fill: #fff;
+            opacity: 0.2;
+            animation: scan 3s infinite linear;
+        }
+
+        @keyframes scan {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(180px);
+            }
+
+            100% {
+                transform: translateY(360px);
+            }
+        }
+
+        .cursor {
+            fill: #fff;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        /* project nodes representing portfolio items */
+        .project-node {
+            fill: #333;
+            stroke: #333;
+            stroke-width: 2;
+            transform-origin: center;
+            transition: transform 0.2s, stroke-width 0.2s;
+            animation: pulse-node 2s infinite;
+        }
+
+        @keyframes pulse-node {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .project-node:hover {
+            transform: scale(1.1);
+            stroke-width: 3;
+        }
+
+        /* connectors from terminal to nodes */
+        .connector {
+            stroke: #333;
+            stroke-width: 2;
+            stroke-dasharray: 5;
+            transition: stroke-width 0.2s;
+        }
+
+        /* data streams along connectors */
+        .data-stream {
+            fill: #333;
+            opacity: 0.6;
+            animation: flow 2s infinite linear;
+        }
+
+        @keyframes flow {
+            0% {
+                transform: translateX(0);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(20px);
+                opacity: 0;
+            }
+        }
+
+        /* hover on terminal: pause text cycling */
+        .icon-container:hover .terminal-text {
+            animation-play-state: paused;
+        }
+
+        /* click interaction: flash terminal window */
+        .icon-container.active .terminal-window {
+            animation: flash-window 0.5s ease-in-out;
+        }
+
+        @keyframes flash-window {
+            0% {
+                stroke: #333;
+            }
+
+            50% {
+                stroke: #fff;
+            }
+
+            100% {
+                stroke: #333;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="icon-container" id="iconcontainer">
+            <svg viewBox="0 0 800 600">
+                <!-- background radiating lines -->
+                <line class="bg-line" x1="400" y1="300" x2="800" y2="300" />
+                <line class="bg-line" x1="400" y1="300" x2="0" y2="300" />
+                <line class="bg-line" x1="400" y1="300" x2="400" y2="0" />
+                <line class="bg-line" x1="400" y1="300" x2="400" y2="600" />
+
+        <!-- terminal interface (central hub) -->
+                <g class="terminal-interface">
+                    <!-- terminal window with title bar -->
+                    <rect class="terminal-window" x="300" y="200" width="200" height="200" />
+                    <rect class="terminal-title-bg" x="300" y="200" width="200" height="20" />
+                    <text class="terminal-title" x="310" y="215">cybrdelic portfolio</text>
+                    <!-- cycling project names -->
+                    <text class="terminal-text" x="310" y="250">[term_app_01]</text>
+                    <text class="terminal-text" x="310" y="270">[ai_automation]</text>
+                    <text class="terminal-text" x="310" y="290">[web_stack]</text>
+                    <!-- blinking cursor -->
+                    <rect class="cursor" x="490" y="260" width="8" height="16" />
+                    <!-- moving scan line -->
+                    <rect class="scan-line" x="300" y="200" width="200" height="2" />
+                </g>
+
+        <!-- project nodes arranged hexagonally around terminal -->
+                <!-- positions computed relative to center (400,300), radius ~150 -->
+                <!-- top node -->
+                <rect class="project-node" x="395" y="150" width="10" height="10" />
+                <line class="connector" x1="400" y1="300" x2="400" y2="155" />
+                <!-- top-right node -->
+                <rect class="project-node" x="525" y="225" width="10" height="10" />
+                <line class="connector" x1="400" y1="300" x2="530" y2="230" />
+                <!-- bottom-right node -->
+                <rect class="project-node" x="525" y="375" width="10" height="10" />
+                <line class="connector" x1="400" y1="300" x2="530" y2="380" />
+                <!-- bottom node -->
+                <rect class="project-node" x="395" y="450" width="10" height="10" />
+                <line class="connector" x1="400" y1="300" x2="400" y2="455" />
+                <!-- bottom-left node -->
+                <rect class="project-node" x="265" y="375" width="10" height="10" />
+                <line class="connector" x1="400" y1="300" x2="270" y2="380" />
+                <!-- top-left node -->
+                <rect class="project-node" x="265" y="225" width="10" height="10" />
+                <line class="connector" x1="400" y1="300" x2="270" y2="230" />
+
+        <!-- data streams along select connectors -->
+                <rect class="data-stream" x="395" y="230" width="20" height="1" />
+                <rect class="data-stream" x="410" y="300" width="20" height="1" />
+                <rect class="data-stream" x="395" y="370" width="20" height="1" />
+            </svg>
+        </div>
+    </div>
+    <script>
+        const iconcontainer = document.getElementById('iconcontainer');
+        iconcontainer.addEventListener('click', () => {
+            iconcontainer.classList.add('active');
+            document.querySelectorAll('.terminal-text').forEach(el => {
+                el.style.animationPlayState = 'paused';
+            });
+            setTimeout(() => {
+                iconcontainer.classList.remove('active');
+                document.querySelectorAll('.terminal-text').forEach(el => {
+                    el.style.animationPlayState = 'running';
+                });
+            }, 500);
+        });
+    </script>
+</body>
+
+</html>
