@@ -10,15 +10,21 @@
 
         .container {
             display: flex;
-            align-items: center;
+            /* Removed align-items: center; so the icon stays at the top */
             justify-content: center;
         }
 
         .icon-container {
             position: relative;
             cursor: pointer;
-            width: 500px;
-            height: 360px;
+            min-width: 1000px;
+            margin-top: 0;
+        }
+
+        /* Make the SVG responsive & scalable */
+        .icon-container svg {
+            max-width: 100%;
+            height: auto;
         }
 
         /* idle animation for code input */
@@ -200,13 +206,13 @@
     <div class="container">
         <div class="icon-container" id="iconcontainer">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
-                <!-- subtle background curves -->
-                <path d="m80 100 c150 50, 250 0, 400 50" stroke="#f0f0f0" stroke-width="3" fill="none" />
-                <path d="m80 500 c150 -50, 250 0, 400 -50" stroke="#f0f0f0" stroke-width="3" fill="none" />
+                <!-- Removed the two grey strands -->
+
                 <!-- labels -->
                 <text x="210" y="240" font-size="16" fill="#333">code changes</text>
                 <text x="380" y="230" font-size="16" fill="#333">ai</text>
                 <text x="490" y="240" font-size="16" fill="#333">commit msg</text>
+
                 <!-- code input box & diff lines -->
                 <rect class="code-box" x="150" y="250" width="120" height="100" fill="none" stroke="#333"
                     stroke-width="4" rx="2" ry="2" />
@@ -214,6 +220,7 @@
                 <line class="code-line code-line-2" x1="160" y1="290" x2="240" y2="290" stroke-width="3" />
                 <line class="code-line code-line-3" x1="160" y1="310" x2="250" y2="310" stroke-width="3" />
                 <line class="code-line code-line-4" x1="160" y1="330" x2="230" y2="330" stroke-width="3" />
+
                 <!-- ai processing: center circle & robot -->
                 <circle class="center-circle" cx="400" cy="300" r="100" fill="none" />
                 <circle class="robot-face" cx="400" cy="300" r="50" fill="none" stroke="#333" stroke-width="4" />
@@ -240,11 +247,13 @@
                     opacity="0.6" />
                 <rect class="message-line message-line-4" x="540" y="330" height="8" rx="2" ry="2" fill="#666"
                     opacity="0.4" />
+
                 <!-- output arrow -->
                 <path class="output-arrow" d="m650 300 h30" stroke="#0066ff" stroke-width="4" stroke-dasharray="30">
                     <animate attributeName="stroke-dashoffset" values="30;0" dur="2s" repeatCount="indefinite"
                         begin="0.5s" />
                 </path>
+
                 <!-- commit path & node (glowing in idle) -->
                 <path class="commit-path" d="m400 400 v50 h100" stroke="#333" stroke-width="4" fill="none">
                     <animate attributeName="stroke" values="#333;#0066ff;#333" dur="2s" repeatCount="indefinite" />
@@ -252,9 +261,11 @@
                 <circle class="commit-node" cx="500" cy="450" r="15" stroke="#333" stroke-width="3" fill="none">
                     <animate attributeName="r" values="15;18;15" dur="2s" repeatCount="indefinite" />
                 </circle>
+
                 <!-- glitch rects for click effect -->
                 <rect class="glitch-rect" x="390" y="280" width="3" height="40" fill="#0066ff" opacity="0" />
                 <rect class="glitch-rect" x="405" y="280" width="3" height="40" fill="#0066ff" opacity="0" />
+
                 <!-- input arrow -->
                 <path class="input-arrow" d="m320 300 h30" stroke="#333" stroke-width="4" stroke-dasharray="30">
                     <animate attributeName="stroke-dashoffset" values="30;0" dur="2s" repeatCount="indefinite" />
