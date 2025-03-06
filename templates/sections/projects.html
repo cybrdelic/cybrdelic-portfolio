@@ -1,9 +1,6 @@
 <!-- templates/sections/projects.html -->
 <section id="PROJECTS">
     <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Projects</h2>
-        </div>
         
         <div class="projects-layout">
             <!-- Projects list -->
@@ -23,11 +20,24 @@
             
             <!-- Project visualization -->
             <div class="project-visualization">
+                <div class="project-panel-header">
+                    <div class="project-panel-controls">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="project-panel-title">
+                        <span class="terminal-prefix">~/projects</span>
+                        <span class="terminal-cursor">▋</span>
+                    </div>
+                </div>
                 <div class="project-icon-container" id="project-icon-container">
                     <!-- Fixed static illustration as default -->
                     <div class="icon-wrapper active" data-icon="default">
                         <div class="project-default-icon">
                             <div class="code-snippet">
+                                <div class="code-line"></div>
+                                <div class="code-line"></div>
                                 <div class="code-line"></div>
                                 <div class="code-line"></div>
                                 <div class="code-line"></div>
@@ -41,16 +51,37 @@
                         <div class="icon-scaling-wrapper">
                             {% include "components/animated_icons/commitaura.html" %}
                         </div>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Rust</span>
+                            <span class="tech-tag">SVG</span>
+                            <span class="tech-tag">Git</span>
+                        </div>
                     </div>
                     <div class="icon-wrapper" data-icon="sagacity">
                         <div class="icon-scaling-wrapper">
                             {% include "components/animated_icons/sagacity.html" %}
+                        </div>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">TUI</span>
+                            <span class="tech-tag">LLM</span>
                         </div>
                     </div>
                     <div class="icon-wrapper" data-icon="cybrdelic_portfolio">
                         <div class="icon-scaling-wrapper">
                             {% include "components/animated_icons/cybrdelic_portfolio.html" %}
                         </div>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Rust</span>
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-status-bar">
+                    <div class="status-indicator">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Ready</span>
                     </div>
                 </div>
             </div>

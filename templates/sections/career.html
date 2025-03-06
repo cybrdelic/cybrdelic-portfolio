@@ -1,17 +1,18 @@
 <section id="CAREER">
     <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Career</h2>
-        </div>
-        
+
         <div class="timeline-container">
             <div class="timeline">
                 {% for event in career_timeline %}
                 <div class="timeline-item" data-id="{{ loop.index }}" tabindex="0">
                     <div class="timeline-dot"></div>
+                    <div class="timeline-pulse"></div>
                     <div class="timeline-header">
                         <div class="meta">
                             <div class="date">{{ event.start_date }}</div>
+                            {% if event.is_current %}
+                            <div class="current-indicator">Present</div>
+                            {% endif %}
                         </div>
                         <div class="meta">
                             <div class="company">{{ event.company_name }}</div>
@@ -20,6 +21,9 @@
                             {% endif %}
                         </div>
                         <h2 class="position">{{ event.title }}</h2>
+                        <div class="timeline-preview">
+                            <span class="preview-text">{{ event.description }}</span>
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
@@ -117,7 +121,6 @@
             {% endfor %}
         </div>
         {% endif %}
-        {% include "components/animated_icons/commitaura.html" %}
     </template>
     {% endfor %}
 
