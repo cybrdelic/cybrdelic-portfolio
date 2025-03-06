@@ -47,6 +47,7 @@
     flex-direction: column;
     min-height: 100%;
     justify-content: space-between;
+    min-width: 50%;
 }
 
 .project-console-animated-icon-container {
