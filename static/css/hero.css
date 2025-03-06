@@ -9,6 +9,7 @@
     margin-top: 5vh;
     position: relative;
     overflow-x: hidden;
+    background-color: white; /* Force pure white background */
 }
 
 .vertical-text {
@@ -107,8 +108,8 @@
     font-size: var(--font-size-fluid-base);
     line-height: var(--line-height-tight);
     margin: 0;
-    color: var(--color-text-primary);
-    mix-blend-mode: multiply;
+    color: black; /* Force pure black */
+    /* Remove mix-blend-mode for consistent color */
     position: relative;
 }
 
@@ -150,11 +151,12 @@
 .role {
     font-family: var(--font-primary);
     font-size: var(--font-size-base);
-    color: var(--color-text-tertiary);
+    color: black; /* Force black color */
     margin-top: 1.5rem;
     letter-spacing: var(--letter-spacing-wide);
     position: relative;
     display: inline-block;
+    font-weight: 500; /* Slightly bolder */
 }
 
 .role::after {
@@ -181,10 +183,11 @@
     font-family: var(--font-display);
     font-size: var(--font-size-lg);
     line-height: var(--line-height-relaxed);
-    color: var(--color-text-secondary);
+    color: black; /* Force black text */
     padding-left: var(--space-2xl);
-    border-left: 1px solid var(--color-border);
+    border-left: 1px solid black; /* Darker border */
     position: relative;
+    font-weight: 500; /* Slightly bolder */
 }
 
 .description::before {

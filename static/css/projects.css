@@ -5,7 +5,8 @@
     min-height: 100vh;
     padding: 0 0;
     font-family: var(--font-primary);
-    color: var(--color-text-primary);
+    color: black; /* Force black text */
+    background-color: white; /* Force white background */
     position: relative;
     overflow-x: hidden;
 }
@@ -28,11 +29,11 @@
 /* Console description */
 .console-description {
     font-size: var(--font-size-md);
-    color: var(--color-text-secondary);
+    color: var(--color-text-primary); /* Use primary text color for better visibility */
     align-self: flex-start;
     width: 400px;
     min-height: 150px;
-    background-color: rgba(255, 255, 255, 0.03);
+    background-color: rgba(0, 0, 0, 0.02); /* Subtle background */
     border-left: 2px solid var(--color-border);
     font-family: var(--font-display);
     line-height: var(--line-height-tight);
@@ -40,6 +41,7 @@
     position: sticky;
     top: var(--space-xl);
     transition: all 0.3s ease;
+    font-weight: 500; /* Slightly bolder for better readability */
 }
 
 .project-console-left-panel {
@@ -66,7 +68,7 @@
 /* Project card - no background */
 .project-card {
     position: relative;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Darker border for contrast */
     transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
     cursor: pointer;
     display: flex;
@@ -97,8 +99,8 @@
     transform: translateY(-2px);
     border-bottom-color: var(--color-text-primary);
     mix-blend-mode: difference;
-    background-color: white;
-    /* Change to white for true inversion */
+    background-color: var(--color-white);
+    /* Use variable for theme compatibility */
     transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
     /* Ensure smooth transition */
 }
@@ -118,9 +120,9 @@
 .project-type {
     font-family: var(--font-display);
     font-size: var(--font-size-xl);
-    color: var(--color-text-primary);
+    color: black; /* Force black */
     line-height: var(--line-height-tight);
-    font-weight: 600;
+    font-weight: 800; /* Extra bold */
     letter-spacing: 0px;
     text-transform: capitalize;
     display: block;
@@ -135,19 +137,18 @@
 /* Smaller title */
 .project-title {
     font-size: var(--font-size-xs);
-    font-weight: 500;
     margin-bottom: var(--space-sm);
-    color: var(--color-text-tertiary);
+    color: black; /* Force black text */
     font-family: var(--font-display);
     transition: transform 0.3s ease;
     position: relative;
     order: -1;
-    font-weight: 600;
+    font-weight: 700; /* Very bold */
     text-transform: uppercase;
 }
 
 .project-card:hover .project-title {
-    color: var(--color-text-primary);
+    color: black; /* Force black text on hover too */
 }
 
 /* Project description */
@@ -155,13 +156,14 @@
     font-size: var(--font-size-2xs);
     line-height: var(--line-height-tight);
     max-width: 100%;
-    color: var(--color-text-tertiary);
+    color: black; /* Force black text */
     transition: color 0.3s ease;
     margin-top: var(--space-xs);
+    font-weight: 500; /* Slightly bolder */
 }
 
 .project-card:hover .project-description {
-    color: var(--color-text-secondary);
+    color: black; /* Keep black on hover */
 }
 
 /* Project footer */
@@ -246,7 +248,7 @@
 /* Active state for console description */
 .console-description.active {
     border-left-color: var(--color-text-primary);
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(0, 0, 0, 0.05); /* Light gray for better contrast */
 }
 
 /* Responsive adjustments */

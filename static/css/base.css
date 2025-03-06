@@ -1,14 +1,14 @@
 :root {
     /* colors */
-    --color-black: #1a1a1a;
-    --color-dark-gray: #333;
-    --color-medium-gray: #666;
-    --color-white: #fff;
+    --color-black: #000000;
+    --color-dark-gray: #222;
+    --color-medium-gray: #555;
+    --color-white: #f8f8f8; /* Near white background */
 
     /* background colors with opacity */
-    --bg-white-70: rgba(255, 255, 255, 0.7);
-    --bg-white-30: rgba(255, 255, 255, 0.3);
-    --bg-white-08: rgba(255, 255, 255, 0.08);
+    --bg-white-70: rgba(248, 248, 248, 0.7);
+    --bg-white-30: rgba(248, 248, 248, 0.3);
+    --bg-white-08: rgba(0, 0, 0, 0.03); /* Light gray for contrast */
     --bg-black-05: rgba(0, 0, 0, 0.05);
 
     /* border colors */
@@ -54,10 +54,10 @@
     --contrast-noise: contrast(120%);
 
     /* additional colors */
-    --color-text-primary: #111;
-    --color-text-secondary: #444;
-    --color-text-tertiary: #666;
-    --color-text-quaternary: #888;
+    --color-text-primary: #000000; /* Pure black for main text */
+    --color-text-secondary: #222;
+    --color-text-tertiary: #444;
+    --color-text-quaternary: #666;
     --color-border: #ddd;
     --color-success: #22c55e;
     --color-accent: #55aaff;
@@ -114,7 +114,8 @@
     --width-main: 95%;
 }
 
-/* dark mode variables */
+/* Disabled dark mode variables for now */
+/*
 [data-theme='dark'] {
     --color-text-primary: #eaeaea;
     --color-text-secondary: #ccc;
@@ -129,7 +130,9 @@
     --bg-code-block: #2b2b2b;
     --color-accent: #55aaff;
     --color-accent-hover: #3399ff;
+    background-color: #1a1a1a; 
 }
+*/
 
 /* reset and base styles */
 *,
@@ -147,9 +150,16 @@ body {
     font-size: var(--font-size-base);
     line-height: var(--line-height-base);
     color: var(--color-text-primary);
-    background-color: var(--color-white);
+    background-color: white; /* Force pure white background */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-weight: 500; /* Slightly bolder for better contrast */
+}
+
+/* Set light theme explicitly for the terminal */
+#terminal {
+    background-color: white; /* Force pure white background */
+    color: black; /* Force pure black text */
 }
 
 /* scroll-snap styles */
@@ -186,9 +196,10 @@ h4,
 h5,
 h6 {
     font-family: var(--font-display);
-    font-weight: 800;
+    font-weight: 800; /* Extra bold */
     line-height: var(--line-height-tight);
     margin-bottom: 1rem;
+    color: var(--color-black); /* Ensure black text for headers */
 }
 
 h1 {
@@ -325,9 +336,8 @@ a:hover {
     display: flex;
     align-items: center;
     height: var(--header-height);
-    background: var(--bg-white-70);
-    backdrop-filter: var(--blur-sm);
-    -webkit-backdrop-filter: var(--blur-sm);
+    background: white; /* Pure white for nav bar */
+    /* Remove blur filters for cleaner appearance */
     border-bottom: 1px solid var(--border-light);
     z-index: var(--z-nav);
     transition: background 0.3s, border-color 0.3s;

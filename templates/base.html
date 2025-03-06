@@ -68,6 +68,7 @@
             </div>
             <div class="nav-right">
                 <a href="https://github.com/cybrdelic" target="_blank" class="cmd">git clone</a>
+                <a href="#" class="cmd" id="theme-toggle">toggle theme</a>
             </div>
         </nav>
         {% block content %}{% endblock %}
@@ -75,6 +76,21 @@
         <div class="vertical-name"></div>
     </div>
     <script src="/static/js/glitch.js"></script>
+    <script>
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            
+            themeToggleBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        });
+    </script>
 </body>
 <script>
     // scrambleText animates a scramble effect that resolves to newText over duration ms
