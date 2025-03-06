@@ -1,4 +1,4 @@
-/* entire #career section fills viewport if desired */
+/* Career section styles */
 #CAREER {
     display: flex;
     flex-direction: column;
@@ -6,31 +6,47 @@
     width: 100%;
     color: var(--color-text-primary);
     font-family: var(--font-primary);
-    /* ensure parent can scroll if sticky is to remain visible */
     overflow: auto;
+    padding: var(--space-xl) 0;
 }
 
-/* container fills leftover space; no forced bg so it can be styled externally */
+/* Container with consistent styling */
 #CAREER .container {
     flex: 1;
     display: flex;
     flex-direction: column;
-    margin: 0;
-    padding: 0 var(--space-md);
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
     background-color: transparent;
+    max-width: 1400px;
+    width: 100%;
 }
 
-/* timeline-container: row with timeline on the left, detail panel on the right */
+/* Section header to match other sections */
+.section-header {
+    margin-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-md);
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    color: var(--color-text-primary);
+    letter-spacing: var(--letter-spacing-tight);
+    margin: 0;
+}
+
+/* Timeline container layout */
 #CAREER .timeline-container {
     flex: 1;
     display: flex;
     width: 100%;
-    gap: var(--space-md);
+    gap: var(--space-xl);
     align-items: flex-start;
-    /* keep them aligned at the top */
     justify-content: flex-start;
     overflow-x: hidden;
-    /* prevents horizontal overflow if content is wide */
     background-color: transparent;
 }
 

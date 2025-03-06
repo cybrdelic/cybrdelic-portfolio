@@ -1,48 +1,69 @@
 <!-- templates/sections/projects.html -->
 <section id="PROJECTS">
     <div class="container">
-        <div class="project-console">
-            <!-- Fixed description panel -->
-            <div class="project-console-left-panel">
-
-                <div class="project-console-animated-icon-container">
-                    {% include "components/animated_icons/commitaura.html" %}
-                </div>
-                <div class="console-description" id="console-description">
-                    A curated selection of projects showcasing AI integration, systems architecture, and developer
-                    tools.
-                </div>
-
-            </div>
-            <!-- Projects grid -->
-            <div class="projects-grid">
+        <div class="section-header">
+            <h2 class="section-title">Projects</h2>
+        </div>
+        
+        <div class="projects-layout">
+            <!-- Projects list -->
+            <div class="projects-list">
                 {% for project in projects %}
-                <div class="project-card" data-id="{{ project.id }}" tabindex="0">
-                    <!-- Title now comes first in the DOM but will be visually ordered second via CSS -->
+                <div class="project-card" data-id="{{ project.id }}" data-project="{{ project.id }}" tabindex="0">
                     <div class="project-content">
                         <h3 class="project-title">{{ project.title }}</h3>
-                        <!-- Subtitle is now the main bold font -->
-                        <div class="project-type">{{ project.subtitle }}<div class="project-more">
-                                <span class="more-icon">→</span>
-                            </div>
+                        <div class="project-type">{{ project.subtitle }}</div>
+                        <div class="project-more">
+                            <span class="more-icon">→</span>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
+            </div>
+            
+            <!-- Project visualization -->
+            <div class="project-visualization">
+                <div class="project-icon-container" id="project-icon-container">
+                    <!-- Fixed static illustration as default -->
+                    <div class="icon-wrapper active" data-icon="default">
+                        <div class="project-default-icon">
+                            <div class="code-snippet">
+                                <div class="code-line"></div>
+                                <div class="code-line"></div>
+                                <div class="code-line"></div>
+                                <div class="code-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project-specific icons -->
+                    <div class="icon-wrapper" data-icon="commitaura">
+                        <div class="icon-scaling-wrapper">
+                            {% include "components/animated_icons/commitaura.html" %}
+                        </div>
+                    </div>
+                    <div class="icon-wrapper" data-icon="sagacity">
+                        <div class="icon-scaling-wrapper">
+                            {% include "components/animated_icons/sagacity.html" %}
+                        </div>
+                    </div>
+                    <div class="icon-wrapper" data-icon="cybrdelic_portfolio">
+                        <div class="icon-scaling-wrapper">
+                            {% include "components/animated_icons/cybrdelic_portfolio.html" %}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Fix the duplicate ID error by using a variable instead of creating a new element
             const projectCards = document.querySelectorAll('#PROJECTS .project-card');
-            const consoleDescription = document.getElementById('console-description');
+            const iconWrappers = document.querySelectorAll('#project-icon-container .icon-wrapper');
+            let currentProject = null;
+            let iconChangeTimeout = null;
             
-            if (!consoleDescription) return;
-            
-            const defaultDescription = consoleDescription.textContent;
-
             // Card reveal animation
             projectCards.forEach((card, index) => {
                 setTimeout(() => {
@@ -50,18 +71,62 @@
                 }, 120 * index);
             });
 
-            // Card hover handler for description swap
+            // Function to show the corresponding project icon
+            function showProjectIcon(projectId) {
+                // Clear any pending timeout
+                if (iconChangeTimeout) {
+                    clearTimeout(iconChangeTimeout);
+                }
+                
+                // Save current project
+                currentProject = projectId;
+                
+                // Hide all icons first
+                iconWrappers.forEach(wrapper => {
+                    wrapper.classList.remove('active');
+                });
+                
+                // Try to find a matching icon for the project
+                const matchingIcon = document.querySelector(`.icon-wrapper[data-icon="${projectId}"]`);
+                
+                if (matchingIcon) {
+                    matchingIcon.classList.add('active');
+                } else {
+                    // Fall back to default if no matching icon
+                    document.querySelector('.icon-wrapper[data-icon="default"]').classList.add('active');
+                }
+            }
+
+            // Reset to default icon
+            function resetToDefaultIcon() {
+                // Set a delay to avoid flickering when moving between cards
+                iconChangeTimeout = setTimeout(() => {
+                    // Only reset if no active project
+                    if (!currentProject) {
+                        iconWrappers.forEach(wrapper => {
+                            wrapper.classList.remove('active');
+                        });
+                        document.querySelector('.icon-wrapper[data-icon="default"]').classList.add('active');
+                    }
+                }, 100);
+            }
+
+            // Card hover handler for icon change
             projectCards.forEach(card => {
-                // Show project description in console on hover
                 card.addEventListener('mouseenter', () => {
-                    consoleDescription.textContent = "Exploring " + card.querySelector('.project-title').textContent;
-                    consoleDescription.classList.add('active');
+                    const projectId = card.getAttribute('data-project');
+                    showProjectIcon(projectId);
+                    
+                    // Highlight the active card
+                    projectCards.forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
                 });
 
-                // Restore default description when not hovering
                 card.addEventListener('mouseleave', () => {
-                    consoleDescription.textContent = defaultDescription;
-                    consoleDescription.classList.remove('active');
+                    // Set current project to null
+                    currentProject = null;
+                    card.classList.remove('active');
+                    resetToDefaultIcon();
                 });
 
                 // Card click handler
@@ -79,6 +144,32 @@
                     }
                 });
             });
+
+            // Animation for default code snippet
+            function animateCodeSnippet() {
+                const codeLines = document.querySelectorAll('.code-snippet .code-line');
+                codeLines.forEach((line, index) => {
+                    // Random width for each line
+                    const width = 50 + Math.random() * 40;
+                    line.style.width = `${width}%`;
+                    
+                    // Staggered animation
+                    setTimeout(() => {
+                        line.classList.add('animate');
+                        
+                        // Reset animation periodically
+                        setTimeout(() => {
+                            line.classList.remove('animate');
+                            setTimeout(() => {
+                                animateCodeSnippet();
+                            }, 100);
+                        }, 3000);
+                    }, index * 200);
+                });
+            }
+            
+            // Start code snippet animation
+            animateCodeSnippet();
         });
     </script>
 </section>

@@ -1,0 +1,140 @@
+<section id="CONTACT">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Contact</h2>
+        </div>
+        
+        <div class="contact-layout">
+            <!-- Contact info -->
+            <div class="contact-info">
+                <div class="contact-intro">
+                    <p>Let's collaborate on something amazing. Connect with me through any of these channels:</p>
+                </div>
+                
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <div class="method-icon">
+                            <span class="iconify" data-icon="mdi:email-outline"></span>
+                        </div>
+                        <div class="method-details">
+                            <h3>Email</h3>
+                            <a href="mailto:hello@cybrdelic.com">hello@cybrdelic.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="method-icon">
+                            <span class="iconify" data-icon="mdi:github"></span>
+                        </div>
+                        <div class="method-details">
+                            <h3>GitHub</h3>
+                            <a href="https://github.com/cybrdelic" target="_blank">@cybrdelic</a>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="method-icon">
+                            <span class="iconify" data-icon="mdi:linkedin"></span>
+                        </div>
+                        <div class="method-details">
+                            <h3>LinkedIn</h3>
+                            <a href="https://linkedin.com/in/cybrdelic" target="_blank">in/cybrdelic</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <span class="terminal-button close"></span>
+                            <span class="terminal-button minimize"></span>
+                            <span class="terminal-button expand"></span>
+                        </div>
+                        <div class="terminal-title">cybrdelic:~</div>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-line">
+                            <span class="prompt">~$</span> <span class="command typing-text">echo "Thanks for visiting!"</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact form -->
+            <div class="contact-form-container">
+                <form class="contact-form">
+                    <div class="form-field">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="_" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="_" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="_" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <span class="btn-text">Send Message</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animate typing effect
+            const typingText = document.querySelector('.typing-text');
+            const text = typingText.textContent;
+            typingText.textContent = '';
+            
+            function typeText(i = 0) {
+                if (i < text.length) {
+                    typingText.textContent += text.charAt(i);
+                    setTimeout(() => typeText(i + 1), 50 + Math.random() * 50);
+                }
+            }
+            
+            // Start typing animation when section becomes visible
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(typeText, 500);
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.3 });
+            
+            observer.observe(document.getElementById('CONTACT'));
+            
+            // Form submission handling
+            const contactForm = document.querySelector('.contact-form');
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const submitBtn = contactForm.querySelector('.submit-btn');
+                const formData = new FormData(contactForm);
+                
+                // Show sending state
+                submitBtn.classList.add('sending');
+                submitBtn.querySelector('.btn-text').textContent = 'Sending...';
+                
+                // Simulate sending (replace with actual form submission)
+                setTimeout(() => {
+                    submitBtn.classList.remove('sending');
+                    submitBtn.classList.add('sent');
+                    submitBtn.querySelector('.btn-text').textContent = 'Message Sent!';
+                    contactForm.reset();
+                    
+                    // Reset button after delay
+                    setTimeout(() => {
+                        submitBtn.classList.remove('sent');
+                        submitBtn.querySelector('.btn-text').textContent = 'Send Message';
+                    }, 3000);
+                }, 1500);
+                
+                // Add actual form submission code here
+            });
+        });
+    </script>
+</section>

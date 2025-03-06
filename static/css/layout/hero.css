@@ -4,10 +4,11 @@
 
 .hero-container {
     height: var(--height-hero);
-    width: auto;
+    width: 100%;
+    max-width: 1800px;
     padding-right: 5%;
     padding-left: 5%;
-    margin-top: 5vh;
+    margin: 5vh auto 0;
     position: relative;
     overflow-x: hidden;
 }
