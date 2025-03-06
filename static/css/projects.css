@@ -5,8 +5,8 @@
     min-height: 100vh;
     padding: 0 0;
     font-family: var(--font-primary);
-    color: black; /* Force black text */
-    background-color: white; /* Force white background */
+    color: var(--color-text-primary);
+    background-color: var(--body-bg);
     position: relative;
     overflow-x: hidden;
 }
@@ -120,7 +120,7 @@
 .project-type {
     font-family: var(--font-display);
     font-size: var(--font-size-xl);
-    color: black; /* Force black */
+    color: var(--color-text-primary);
     line-height: var(--line-height-tight);
     font-weight: 800; /* Extra bold */
     letter-spacing: 0px;
@@ -138,7 +138,7 @@
 .project-title {
     font-size: var(--font-size-xs);
     margin-bottom: var(--space-sm);
-    color: black; /* Force black text */
+    color: var(--color-text-primary);
     font-family: var(--font-display);
     transition: transform 0.3s ease;
     position: relative;
@@ -148,7 +148,7 @@
 }
 
 .project-card:hover .project-title {
-    color: black; /* Force black text on hover too */
+    color: var(--color-text-primary);
 }
 
 /* Project description */
@@ -156,14 +156,14 @@
     font-size: var(--font-size-2xs);
     line-height: var(--line-height-tight);
     max-width: 100%;
-    color: black; /* Force black text */
+    color: var(--color-text-secondary);
     transition: color 0.3s ease;
     margin-top: var(--space-xs);
     font-weight: 500; /* Slightly bolder */
 }
 
 .project-card:hover .project-description {
-    color: black; /* Keep black on hover */
+    color: var(--color-text-primary);
 }
 
 /* Project footer */

@@ -91,7 +91,7 @@
     height: var(--space-lg);
     border-radius: var(--border-radius-full);
     border: 2px solid var(--color-border);
-    background-color: var(--color-white);
+    background-color: var(--bg-white-30);
     transform: translateX(-50%);
     z-index: 2;
     transition: transform var(--transition-base);

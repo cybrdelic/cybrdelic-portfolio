@@ -195,7 +195,7 @@
 .tech-detail-card h3 {
     font-family: 'Syne', sans-serif;
     font-size: 1.35rem;
-    color: rgba(17, 17, 17, 0.95);
+    color: var(--color-text-primary);
     margin: 0;
     font-weight: 600;
     letter-spacing: -0.02em;
@@ -204,7 +204,7 @@
 .tech-detail-card span {
     font-family: var(--font-display);
     font-size: 0.75rem;
-    color: rgba(102, 102, 102, 0.9);
+    color: var(--color-text-tertiary);
     display: block;
     margin-top: 0.35rem;
 }
@@ -677,12 +677,12 @@
     font-family: var(--font-display);
     font-size: var(--font-size-fluid-base);
     line-height: var(--line-height-tight);
-    -webkit-text-stroke: 0.03rem #444;
+    -webkit-text-stroke: 0.03rem var(--color-text-tertiary);
     /* Creates outline */
     color: transparent;
     /* Makes inside hollow */
     padding-left: 2rem;
-    border-left: 1px solid #ddd;
+    border-left: 1px solid var(--color-border);
     position: relative;
 }
 
@@ -693,7 +693,7 @@
     left: -1px;
     width: 1px;
     height: 0;
-    background: #111;
+    background: var(--color-text-primary);
     transition: height 1s cubic-bezier(0.19, 1, 0.22, 1);
 }
 

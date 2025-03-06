@@ -2,30 +2,29 @@
 * CYBRDELIC PORTFOLIO - MAIN CSS
 ========================================= */
 
-/* Core Styles */
-@import 'core/fonts.css';
-@import 'core/variables.css';
-@import 'core/reset.css';
+/* Variables */
+@import 'variables/variables.css';
 
-/* Animations */
-@import 'animations/animations.css';
+/* Base styles */
+@import 'base/reset.css';
+@import 'base/typography.css';
+@import 'base/utilities.css';
+@import 'base/animations.css';
 
 /* Layouts */
-@import 'layout/layouts.css';
-@import 'layout/scroll-snap.css';
-@import 'layout/hero.css';
-@import 'layout/projects.css';
-
-/* Additional layouts - incorporate these into the layout directory in the future */
-@import 'career.css';
-@import 'project-detail.css';
-@import 'project-hero.css';
-@import 'documentation.css';
+@import 'layouts/scroll-snap.css';
 
 /* Components */
 @import 'components/navigation.css';
 @import 'components/buttons.css';
 @import 'components/cards.css';
+@import 'components/theme-toggle.css';
+@import 'components/commands.css';
 
-/* Themes - If needed in the future */
-/* @import 'themes/dark-theme.css'; */
+/* Original CSS files - keep for now to maintain compatibility */
+@import 'hero.css';
+@import 'projects.css';
+@import 'career.css';
+@import 'project-detail.css';
+@import 'project-hero.css';
+@import 'documentation.css';

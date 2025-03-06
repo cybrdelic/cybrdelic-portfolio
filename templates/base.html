@@ -5,16 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>cybrdelic</title>
-    <link rel="stylesheet" href="/static/css/base.css" />
-    <link rel="stylesheet" href="/static/css/hero.css" />
-    <link rel="stylesheet" href="/static/css/projects.css" />
-    <link rel="stylesheet" href="/static/css/career.css" />
-    <link rel="stylesheet" href="/static/css/project-detail.css" />
-    <link rel="stylesheet" href="/static/css/project-hero.css" />
-    <link rel="stylesheet" href="/static/css/documentation.css" />
-    <!-- our scroll snapping overrides -->
-    <link rel="stylesheet" href="/static/css/scroll-snap.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ibm+plex+mono:wght@400;600&display=swap" />
+    <!-- Centralized CSS file that imports all modules -->
+    <link rel="stylesheet" href="/static/css/main.css" />
     <!-- add this in your head -->
     <!-- in your head -->
     <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
@@ -68,7 +60,10 @@
             </div>
             <div class="nav-right">
                 <a href="https://github.com/cybrdelic" target="_blank" class="cmd">git clone</a>
-                <a href="#" class="cmd" id="theme-toggle">toggle theme</a>
+                <a href="#" class="cmd" id="nav-theme-toggle">
+                    <span class="toggle-icon">☀️</span>
+                    <span class="toggle-text">toggle theme</span>
+                </a>
             </div>
         </nav>
         {% block content %}{% endblock %}
@@ -79,16 +74,35 @@
     <script>
         // Theme toggle functionality
         document.addEventListener('DOMContentLoaded', () => {
-            const themeToggleBtn = document.getElementById('theme-toggle');
+            const navThemeToggleBtn = document.getElementById('nav-theme-toggle');
+            const toggleIcon = document.querySelector('.toggle-icon');
             
-            themeToggleBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const currentTheme = document.documentElement.getAttribute('data-theme');
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            // Function to update theme
+            function updateTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
                 
-                document.documentElement.setAttribute('data-theme', newTheme);
-                localStorage.setItem('theme', newTheme);
-            });
+                // Update toggle icon
+                if (theme === 'dark') {
+                    toggleIcon.textContent = '🌙';
+                } else {
+                    toggleIcon.textContent = '☀️';
+                }
+            }
+            
+            // Initialize theme
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            updateTheme(savedTheme);
+            
+            // Add click handler
+            if (navThemeToggleBtn) {
+                navThemeToggleBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const currentTheme = document.documentElement.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    updateTheme(newTheme);
+                });
+            }
         });
     </script>
 </body>

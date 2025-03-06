@@ -1,0 +1,14 @@
+/* =========================================
+* THEME TOGGLE
+========================================= */
+
+.toggle-icon {
+  display: inline-block;
+  margin-right: var(--space-2xs);
+  transition: transform 0.3s ease;
+}
+
+/* Theme toggle animations */
+#nav-theme-toggle:hover .toggle-icon {
+  transform: rotate(30deg);
+}
