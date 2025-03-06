@@ -152,30 +152,45 @@
 
 /* Dark theme variables */
 [data-theme='dark'] {
-    /* Invert base colors */
+    /* Invert base colors - increase contrast */
     --color-black: #ffffff;
-    --color-white: #111111;
+    --color-white: #070707;
+    --color-dark-gray: #dddddd;
+    --color-medium-gray: #aaaaaa;
     
-    /* Text colors for dark mode */
+    /* Text colors for dark mode with higher contrast */
     --color-text-primary: #ffffff;
-    --color-text-secondary: #cccccc;
-    --color-text-tertiary: #999999;
-    --color-text-quaternary: #777777;
+    --color-text-secondary: #dddddd;
+    --color-text-tertiary: #aaaaaa;
+    --color-text-quaternary: #888888;
     
     /* Background and border colors */
     --bg-black-05: rgba(255, 255, 255, 0.05);
-    --bg-white-08: rgba(255, 255, 255, 0.1);
-    --bg-glass: rgba(0, 0, 0, 0.3);
-    --bg-glass-hover: rgba(0, 0, 0, 0.4);
-    --color-border: #444;
-    --bg-code-block: #2b2b2b;
+    --bg-white-08: rgba(255, 255, 255, 0.08);
+    --bg-glass: rgba(0, 0, 0, 0.4);
+    --bg-glass-hover: rgba(0, 0, 0, 0.5);
+    --color-border: #333333;
+    --bg-code-block: #151515;
     
-    /* Background colors */
-    --body-bg: #1a1a1a;
-    --terminal-bg: #1a1a1a;
-    --nav-bg: #1a1a1a;
+    /* Darker background colors for more contrast */
+    --body-bg: #070707;
+    --terminal-bg: #070707;
+    --nav-bg: #090909;
     
-    /* Keep accent colors the same */
-    --color-accent: #55aaff;
-    --color-accent-hover: #3399ff;
+    /* Brighter accent colors for dark mode */
+    --color-accent: #66bbff;
+    --color-accent-hover: #44aaff;
+    
+    /* Shadow adjustments for dark mode */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.8), 0 4px 6px -2px rgba(0, 0, 0, 0.7);
+    --shadow-glass: 0 4px 6px -1px rgba(0, 0, 0, 0.6),
+        0 2px 4px -1px rgba(0, 0, 0, 0.5),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+        inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    --shadow-glass-hover: 0 8px 12px -1px rgba(0, 0, 0, 0.8),
+        0 4px 6px -1px rgba(0, 0, 0, 0.6),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 1px rgba(255, 255, 255, 0.07);
 }

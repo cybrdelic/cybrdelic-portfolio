@@ -48,7 +48,13 @@
 </head>
 
 <body>
+    <!-- Cyberpunk corner effects - now outside terminal to avoid z-index issues -->
+    <div class="corner-effect corner-top-right"></div>
+    <div class="corner-effect corner-bottom-left"></div>
+    <div class="scanner"></div>
+    
     <div id="terminal">
+        
         <nav class="nav">
             <a href="/" class="home-link">
                 <div class="logo">cybrdelic</div>
@@ -76,6 +82,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             const navThemeToggleBtn = document.getElementById('nav-theme-toggle');
             const toggleIcon = document.querySelector('.toggle-icon');
+            const cornerEffects = document.querySelectorAll('.corner-effect');
+            const terminal = document.getElementById('terminal');
             
             // Function to update theme
             function updateTheme(theme) {
@@ -88,6 +96,16 @@
                 } else {
                     toggleIcon.textContent = '☀️';
                 }
+                
+                // Apply subtle animation to corner effects
+                // Subtle animation when switching themes
+                cornerEffects.forEach(corner => {
+                    corner.style.transition = 'opacity 0.5s ease';
+                    corner.style.opacity = '0.5';
+                    setTimeout(() => {
+                        corner.style.opacity = '0.3';
+                    }, 300);
+                });
             }
             
             // Initialize theme

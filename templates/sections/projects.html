@@ -35,8 +35,12 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Fix the duplicate ID error by using a variable instead of creating a new element
             const projectCards = document.querySelectorAll('#PROJECTS .project-card');
             const consoleDescription = document.getElementById('console-description');
+            
+            if (!consoleDescription) return;
+            
             const defaultDescription = consoleDescription.textContent;
 
             // Card reveal animation
@@ -48,14 +52,10 @@
 
             // Card hover handler for description swap
             projectCards.forEach(card => {
-                const projectDescription = card.querySelector('.project-description');
-
                 // Show project description in console on hover
                 card.addEventListener('mouseenter', () => {
-                    if (projectDescription && projectDescription.dataset.description) {
-                        consoleDescription.textContent = projectDescription.dataset.description;
-                        consoleDescription.classList.add('active');
-                    }
+                    consoleDescription.textContent = "Exploring " + card.querySelector('.project-title').textContent;
+                    consoleDescription.classList.add('active');
                 });
 
                 // Restore default description when not hovering

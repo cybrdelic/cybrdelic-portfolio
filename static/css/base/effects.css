@@ -1,0 +1,150 @@
+/* =========================================
+* CYBERPUNK GRID EFFECTS
+========================================= */
+
+/* Base Grid Background */
+body {
+  position: relative;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(var(--grid-color-rgb), 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--grid-color-rgb), 0.05) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* Angled Corner Effect */
+.corner-effect {
+  position: fixed;
+  z-index: 100;
+  transition: opacity 0.5s ease;
+}
+
+/* Add diagonal shader effect to terminal */
+#terminal {
+  position: relative;
+}
+
+/* Corner angles */
+.corner-top-right {
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  border-top: 1px solid var(--corner-color);
+  border-right: 1px solid var(--corner-color);
+  opacity: 0.3;
+  /* Ensure it's visible by using higher z-index */
+  z-index: 1 !important;
+  background: none;
+  clip-path: polygon(90% 0, 100% 0, 100% 10%);
+}
+
+/* Corner angles */
+.corner-bottom-left {
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  border-bottom: 1px solid var(--corner-color);
+  border-left: 1px solid var(--corner-color);
+  opacity: 0.3;
+  /* Ensure it's visible by using higher z-index */
+  z-index: 1 !important;
+  background: none;
+  clip-path: polygon(0 90%, 0 100%, 10% 100%);
+}
+
+/* Scan Line Effect */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(
+      to bottom,
+      transparent 50%,
+      rgba(var(--grid-color-rgb), 0.03) 50%
+    );
+  background-size: 100% 2px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.3;
+}
+
+/* Animations */
+@keyframes scanEffect {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.scanner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to bottom, 
+    transparent, 
+    var(--corner-color), 
+    transparent);
+  z-index: 500;
+  opacity: 0.4;
+  animation: scanEffect 12s linear infinite;
+  pointer-events: none;
+}
+
+/* Light Mode Variables */
+:root {
+  --grid-color-rgb: 0, 0, 0;
+  --grid-size: 40px;
+  --corner-color: rgba(0, 0, 0, 0.2);
+  
+  /* Add shader angle effect for corners - more subtle */
+  --shader-color-1: rgba(0, 0, 0, 0.02);
+  --shader-color-2: rgba(0, 0, 0, 0.04);
+}
+
+/* Dark Mode Variables */
+[data-theme='dark'] {
+  --grid-color-rgb: 255, 255, 255;
+  --grid-size: 40px;
+  --corner-color: rgba(255, 255, 255, 0.25);
+  
+  /* Subtle shader effect for dark mode */
+  --shader-color-1: rgba(255, 255, 255, 0.03);
+  --shader-color-2: rgba(255, 255, 255, 0.05);
+}
+
+/* Media query for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .scanner {
+    animation: none;
+  }
+  
+  body::after,
+  body::before {
+    opacity: 0.02;
+  }
+  
+  .corner-effect {
+    opacity: 0.2;
+  }
+}
