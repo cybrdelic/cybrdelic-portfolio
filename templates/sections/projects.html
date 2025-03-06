@@ -10,8 +10,17 @@
                     <div class="project-content">
                         <h3 class="project-title">{{ project.title }}</h3>
                         <div class="project-type">{{ project.subtitle }}</div>
+                        <div class="project-description">
+                            <p>{{ project.description }}</p>
+                        </div>
+                        <div class="project-tech">
+                            {% for tech in project.tech_stack %}
+                            <span class="project-tech-item">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
                         <div class="project-more">
                             <span class="more-icon">→</span>
+                            <span class="more-text">View Details</span>
                         </div>
                     </div>
                 </div>
@@ -152,20 +161,29 @@
                 // Save current project
                 currentProject = projectId;
                 
-                // Hide all icons first
+                // Update status text
+                const statusText = document.querySelector('.status-text');
+                if (statusText) {
+                    statusText.textContent = `Viewing: ${projectId}`;
+                }
+                
+                // Hide all icons first with staggered animation
                 iconWrappers.forEach(wrapper => {
+                    wrapper.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
                     wrapper.classList.remove('active');
                 });
                 
-                // Try to find a matching icon for the project
-                const matchingIcon = document.querySelector(`.icon-wrapper[data-icon="${projectId}"]`);
-                
-                if (matchingIcon) {
-                    matchingIcon.classList.add('active');
-                } else {
-                    // Fall back to default if no matching icon
-                    document.querySelector('.icon-wrapper[data-icon="default"]').classList.add('active');
-                }
+                // Try to find a matching icon for the project after a brief delay for smooth transition
+                setTimeout(() => {
+                    const matchingIcon = document.querySelector(`.icon-wrapper[data-icon="${projectId}"]`);
+                    
+                    if (matchingIcon) {
+                        matchingIcon.classList.add('active');
+                    } else {
+                        // Fall back to default if no matching icon
+                        document.querySelector('.icon-wrapper[data-icon="default"]').classList.add('active');
+                    }
+                }, 150);
             }
 
             // Reset to default icon
@@ -174,12 +192,23 @@
                 iconChangeTimeout = setTimeout(() => {
                     // Only reset if no active project
                     if (!currentProject) {
+                        // Update status text
+                        const statusText = document.querySelector('.status-text');
+                        if (statusText) {
+                            statusText.textContent = 'Ready';
+                        }
+                        
+                        // Fade animation for smoother transition
                         iconWrappers.forEach(wrapper => {
                             wrapper.classList.remove('active');
                         });
-                        document.querySelector('.icon-wrapper[data-icon="default"]').classList.add('active');
+                        
+                        // Small delay before showing default
+                        setTimeout(() => {
+                            document.querySelector('.icon-wrapper[data-icon="default"]').classList.add('active');
+                        }, 150);
                     }
-                }, 100);
+                }, 200);
             }
 
             // Card hover handler for icon change
@@ -188,16 +217,39 @@
                     const projectId = card.getAttribute('data-project');
                     showProjectIcon(projectId);
                     
-                    // Highlight the active card
-                    projectCards.forEach(c => c.classList.remove('active'));
-                    card.classList.add('active');
+                    // Highlight the active card - remove active from others first
+                    projectCards.forEach(c => {
+                        if (c !== card) c.classList.remove('active');
+                    });
+                    
+                    // Add active class with slight delay for smooth transition
+                    setTimeout(() => {
+                        card.classList.add('active');
+                    }, 50);
+                    
+                    // Add active dot to status
+                    const statusDot = document.querySelector('.status-dot');
+                    if (statusDot) {
+                        statusDot.classList.add('active');
+                    }
                 });
 
                 card.addEventListener('mouseleave', () => {
                     // Set current project to null
                     currentProject = null;
-                    card.classList.remove('active');
+                    
+                    // Remove active with delay for smooth transition
+                    setTimeout(() => {
+                        card.classList.remove('active');
+                    }, 100);
+                    
                     resetToDefaultIcon();
+                    
+                    // Remove active dot from status
+                    const statusDot = document.querySelector('.status-dot');
+                    if (statusDot) {
+                        statusDot.classList.remove('active');
+                    }
                 });
 
                 // Card click handler
