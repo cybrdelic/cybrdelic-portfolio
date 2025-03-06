@@ -1,0 +1,108 @@
+/* =========================================
+* NAVIGATION
+========================================= */
+
+/* Main navigation */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    height: var(--header-height);
+    background: var(--bg-white-70);
+    backdrop-filter: var(--blur-sm);
+    -webkit-backdrop-filter: var(--blur-sm);
+    border-bottom: 1px solid var(--border-light);
+    z-index: var(--z-nav);
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.nav::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: var(--shadow-sm);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Navigation sections */
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    padding-left: var(--space-lg);
+}
+
+.nav-right {
+    margin-left: auto;
+    padding-right: var(--space-md);
+}
+
+/* Home/logo link */
+.home-link {
+    text-decoration: none;
+    height: var(--header-height);
+    display: inline-flex;
+    align-items: center;
+    padding: 0 var(--space-md);
+    border-right: 1px solid var(--border-light);
+    transition: background var(--transition-fast);
+    background: var(--bg-white-30);
+}
+
+.home-link:hover,
+.home-link:active {
+    background: var(--bg-black-05);
+}
+
+.logo {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-dark-gray);
+    letter-spacing: var(--letter-spacing-tight);
+}
+
+.logo::before {
+    content: '<';
+    color: var(--color-medium-gray);
+    margin-right: var(--space-2xs);
+}
+
+.logo::after {
+    content: '/>';
+    color: var(--color-medium-gray);
+    margin-left: var(--space-2xs);
+}
+
+/* Responsive navigation */
+@media (max-width: 768px) {
+    .nav {
+        flex-direction: column;
+        height: auto;
+        padding: var(--space-md);
+        align-items: flex-start;
+        gap: var(--space-md);
+    }
+
+    .home-link {
+        height: var(--space-xl);
+        border: none;
+        padding: 0;
+    }
+
+    .nav-left {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: var(--space-xs);
+        padding: 0;
+    }
+
+    .cmd {
+        height: var(--space-xl);
+        width: 100%;
+    }
+}
