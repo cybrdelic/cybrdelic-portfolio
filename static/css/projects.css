@@ -3,7 +3,8 @@
 #projects {
     width: 100%;
     min-height: 100vh;
-    padding: var(--space-2xl) 0 var(--space-xl) 0; /* Reduced top padding */
+    padding: var(--space-2xl) 0 var(--space-xl) 0;
+    /* Reduced top padding */
     font-family: var(--font-primary);
     color: var(--color-text-primary);
     background-color: var(--body-bg);
@@ -12,8 +13,10 @@
     display: flex;
     flex-direction: column;
     scroll-margin-top: var(--header-height);
-    will-change: transform; /* Performance optimization */
-    transform: translateZ(0); /* Force GPU acceleration */
+    will-change: transform;
+    /* Performance optimization */
+    transform: translateZ(0);
+    /* Force GPU acceleration */
 }
 
 #projects .container {
@@ -23,10 +26,12 @@
     padding: 0 var(--space-xl);
     display: flex;
     flex-direction: column;
-    gap: var(--space-lg); /* Reduced gap */
+    gap: var(--space-lg);
+    /* Reduced gap */
     flex: 1;
     overflow: visible !important;
-    contain: content; /* Improve rendering performance */
+    contain: content;
+    /* Improve rendering performance */
 }
 
 .projects-container {
@@ -34,9 +39,12 @@
     grid-template-columns: minmax(300px, 40%) 1fr;
     gap: var(--space-xl);
     min-height: 80vh;
-    overflow: visible !important; /* Ensure no scrollbar */
-    contain: layout; /* Performance optimization */
-    border: none !important; /* No invisible borders that could cause scrollbars */
+    overflow: visible !important;
+    /* Ensure no scrollbar */
+    contain: layout;
+    /* Performance optimization */
+    border: none !important;
+    /* No invisible borders that could cause scrollbars */
 }
 
 /* Section header */
@@ -454,9 +462,12 @@
     margin: var(--space-md) 0;
     position: relative;
     padding-left: var(--space-xs);
-    border-left: 1px solid var(--color-border); /* Use theme variable */
-    max-height: none !important; /* Prevent scrollbar */
-    overflow: visible !important; /* Prevent scrollbar */
+    border-left: 1px solid var(--color-border);
+    /* Use theme variable */
+    max-height: none !important;
+    /* Prevent scrollbar */
+    overflow: visible !important;
+    /* Prevent scrollbar */
 }
 
 .details-stats {
@@ -586,9 +597,12 @@
     gap: var(--space-lg);
     padding: var(--space-md) 0;
     background-color: transparent;
-    overflow: visible !important; /* Prevent scrollbars */
-    height: auto; /* Let it size naturally */
-    max-height: none !important; /* Prevent scrollbar */
+    overflow: visible !important;
+    /* Prevent scrollbars */
+    height: auto;
+    /* Let it size naturally */
+    max-height: none !important;
+    /* Prevent scrollbar */
 }
 
 /* Ensure all children never have scrollbars */
@@ -614,7 +628,8 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     position: relative;
     overflow: hidden;
-    border-left: 3px solid transparent; /* Fix layout shift by pre-setting border */
+    border-left: 3px solid transparent;
+    /* Fix layout shift by pre-setting border */
 }
 
 .project-list-item.reveal {
@@ -1035,6 +1050,7 @@
     letter-spacing: var(--letter-spacing-tight);
     position: relative;
     display: inline-block;
+    background-color: blue;
 }
 
 .project-title::after {

@@ -85,6 +85,7 @@
     0% {
         opacity: 0.2;
     }
+
     100% {
         opacity: 0.5;
     }
@@ -92,7 +93,7 @@
 
 .details-header {
     font-family: var(--font-display);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-md);
     font-weight: 700;
     margin: 0 0 var(--space-sm) 0;
     color: var(--color-text-primary);
@@ -145,11 +146,9 @@
     font-size: var(--font-size-xl);
     font-weight: 700;
     color: var(--color-text-primary);
-    background: linear-gradient(
-        90deg,
-        var(--color-text-primary) 0%,
-        var(--color-text-secondary) 100%
-    );
+    background: linear-gradient(90deg,
+            var(--color-text-primary) 0%,
+            var(--color-text-secondary) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -318,14 +317,15 @@
     gap: var(--space-xs);
 }
 
-.project-title {
+#whats-next .project-title {
     font-family: var(--font-display);
-    font-size: var(--font-size-lg);
-    font-weight: 700;
+    font-size: var(--font-size-md);
+    font-weight: 300;
     margin: 0;
-    color: var(--color-text-primary);
+    color: red;
     transition: all 0.3s ease;
     position: relative;
+    background-color: red;
 }
 
 .project-title::after {
@@ -428,7 +428,7 @@
         grid-template-columns: 1fr;
         gap: var(--space-lg);
     }
-    
+
     .future-details-panel {
         position: relative;
         top: 0;
@@ -436,7 +436,7 @@
         max-height: none;
         height: auto;
     }
-    
+
     .future-projects-list {
         order: 1;
         height: auto;
@@ -447,19 +447,19 @@
     #whats-next .container {
         padding: 0 var(--space-md);
     }
-    
+
     .project-title {
         font-size: var(--font-size-md);
     }
-    
+
     .details-header {
         font-size: var(--font-size-lg);
     }
-    
+
     .project-description {
         font-size: var(--font-size-xs);
     }
-    
+
     .future-project-item {
         padding: var(--space-sm) var(--space-md);
     }
@@ -469,23 +469,23 @@
     #whats-next {
         padding: var(--space-lg) 0;
     }
-    
+
     #whats-next .container {
         padding: 0 var(--space-sm);
     }
-    
+
     .future-details-panel {
         padding: var(--space-md);
     }
-    
+
     .future-project-item {
         flex-direction: column;
     }
-    
+
     .project-icon {
         margin-bottom: var(--space-sm);
     }
-    
+
     .project-tech {
         display: flex;
         flex-wrap: nowrap;
@@ -493,7 +493,7 @@
         padding-bottom: var(--space-xs);
         -webkit-overflow-scrolling: touch;
     }
-    
+
     .project-tech-item {
         flex: 0 0 auto;
         white-space: nowrap;

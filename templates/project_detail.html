@@ -100,7 +100,7 @@
         {% endfor %}
         <div class="cta-button-container-wrapper">
             <div class="cta-button-container">
-                <a href="#projects" class="primary-button btn-interaction">View Live</a>
+                {% include "sections/cyber_button.html" %}
                 <a href="https://github.com/cybrdelic" class="secondary-button btn-interaction" target="_blank">
                     <svg viewBox="0 0 24 24" class="button-icon">
                         <path
@@ -113,51 +113,6 @@
         </div>
     </div>
 
-    <!-- Technical Section -->
-    <section class="technical-section">
-        <h2 class="section-heading">Technical Details</h2>
-        <div class="technical-grid">
-            <div class="technical-card">
-                <h3>Architecture</h3>
-                <p>{{ project.technical.architecture }}</p>
-            </div>
-            <div class="technical-card">
-                <h3>Implementation</h3>
-                <p>{{ project.technical.implementation }}</p>
-            </div>
-            <div class="technical-card">
-                <h3>Challenges</h3>
-                <p>{{ project.technical.challenges }}</p>
-            </div>
-        </div>
-    </section>
-
-
-
-
-
-    {% include "sections/future_section.html" %}
-    <!-- Related Projects Section -->
-    {% if related_projects and related_projects|length > 0 %}
-    <section class="related-section">
-        <h2 class="section-heading">Related Projects</h2>
-        <div class="related-grid">
-            {% for related in related_projects %}
-            <a href="/projects/{{ related.id }}" class="related-card card-hover">
-                <div class="related-image-container">
-                    <img src="{{ related.image_url }}" alt="{{ related.title }}" />
-                </div>
-                <div class="related-content">
-                    <h3 class="related-title">{{ related.title }}</h3>
-                    <p class="related-subtitle">{{ related.subtitle }}</p>
-                </div>
-            </a>
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
-
-    <!-- Documentation Section -->
     {% if project.user_flows and project.user_flows|length > 0 %}
     <section class="documentation-section" id="DOCS">
         <div class="docs-container">
@@ -181,6 +136,28 @@
                 </div>
                 {% endfor %}
             </div>
+        </div>
+    </section>
+    {% endif %}
+
+    {% include "sections/future_section.html" %}
+
+    <!-- Related Projects Section -->
+    {% if related_projects and related_projects|length > 0 %}
+    <section class="related-section">
+        <h2 class="section-heading">Related Projects</h2>
+        <div class="related-grid">
+            {% for related in related_projects %}
+            <a href="/projects/{{ related.id }}" class="related-card card-hover">
+                <div class="related-image-container">
+                    <img src="{{ related.image_url }}" alt="{{ related.title }}" />
+                </div>
+                <div class="related-content">
+                    <h3 class="related-title">{{ related.title }}</h3>
+                    <p class="related-subtitle">{{ related.subtitle }}</p>
+                </div>
+            </a>
+            {% endfor %}
         </div>
     </section>
     {% endif %}

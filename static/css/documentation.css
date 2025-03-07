@@ -1,15 +1,17 @@
 /* documentation.css - CSS specific to documentation sections */
 
 /* Documentation layout */
-/* Fix the documentation section to have only one scrollbar */
+/* Remove internal scroll constraints so the site scrollbar is used */
 .documentation-section {
     display: flex;
     border: 1px solid var(--border-light);
     border-radius: var(--border-radius);
-    overflow: hidden;
-    margin: 0 0;
-    /* Remove max-height constraint from the parent */
-    max-height: 90vh;
+    overflow: visible;
+    /* No internal scrollbar */
+    margin: 0;
+    max-height: none;
+    min-height: 100%;
+    /* Allow full document height */
     min-width: 100%;
 }
 
@@ -20,12 +22,12 @@
 .documentation-navigation {
     position: sticky;
     top: var(--header-height);
-    /* Match the height of your navbar */
-    max-height: calc(100vh - var(--header-height));
-    overflow-y: auto;
+    /* Remove max-height constraint */
+    max-height: none;
+    min-height: 100%;
+    /* Let the site's scrollbar handle vertical scroll */
     align-self: flex-start;
     width: 240px;
-    flex-shrink: 0;
     border-right: 1px solid var(--border-light);
     padding: var(--space-sm) 0;
     background: var(--bg-white-08);
@@ -33,14 +35,14 @@
     box-shadow: var(--shadow-sm);
 }
 
-/* Remove the scroll from content area */
+/* Documentation content now flows naturally */
 .documentation-content {
     flex: 1;
-    /* Remove the overflow and max-height */
     overflow-y: visible;
+    /* Remove internal overflow */
     max-height: none;
     background: var(--bg-white-02);
-    min-height: 90vh;
+    min-height: auto;
 }
 
 .documentation-navigation .nav-item {
@@ -84,7 +86,6 @@
 .nav-item:hover .nav-highlight {
     width: 100%;
 }
-
 
 .content-section {
     padding: var(--space-xl);
