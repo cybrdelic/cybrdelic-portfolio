@@ -391,9 +391,9 @@
 }
 
 #career .job-description {
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-lg);
     font-family: var(--font-md);
-    line-height: var(--font-size-md);
+    line-height: var(--font-size-lg);
     margin-bottom: var(--space-lg);
     color: var(--color-text-primary);
     background-color: transparent;
@@ -486,8 +486,8 @@
 
 /* topic grid */
 #career .topic-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    display: flex;
+    flex-direction: column;
     gap: var(--space-sm);
     width: 100%;
 }

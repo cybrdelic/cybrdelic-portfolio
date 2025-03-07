@@ -31,12 +31,13 @@ pub struct UserFlow {
 
 // Cache for markdown content to avoid repeated file reads and parsing
 use std::collections::HashMap;
-static MARKDOWN_CACHE: Lazy<Mutex<HashMap<String, String>>> = Lazy::new(|| Mutex::new(HashMap::new()));
+static MARKDOWN_CACHE: Lazy<Mutex<HashMap<String, String>>> =
+    Lazy::new(|| Mutex::new(HashMap::new()));
 
 impl UserFlow {
     fn load_from_markdown(project_id: &str, flow_name: &str) -> Result<String, std::io::Error> {
         let cache_key = format!("{}-{}", project_id, flow_name);
-        
+
         // Check cache first
         {
             let cache = MARKDOWN_CACHE.lock().unwrap();
@@ -44,7 +45,7 @@ impl UserFlow {
                 return Ok(content.clone());
             }
         }
-        
+
         // If not in cache, load from file
         let mut path = PathBuf::from("content");
         path.push("projects");
@@ -64,11 +65,11 @@ impl UserFlow {
         let content = fs::read_to_string(path)?;
         let processed_content = crate::markdown::preprocess_markdown(content);
         let html = crate::markdown::parse_markdown(&processed_content);
-        
+
         // Cache the result
         let mut cache = MARKDOWN_CACHE.lock().unwrap();
         cache.insert(cache_key, html.clone());
-        
+
         Ok(html)
     }
 }
@@ -213,8 +214,8 @@ pub async fn project_detail(
 
     ctx.insert("project", &project);
     ctx.insert("related_projects", &related_projects);
-    
-    // Add preloading hint for browsers 
+
+    // Add preloading hint for browsers
     ctx.insert("preload_hint", &true);
 
     match state.tera.render("project_detail.html", &ctx) {
@@ -250,7 +251,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
     if let Some(projects) = cache.clone() {
         return Ok(projects);
     }
-    
+
     // If not cached, build the projects list
     let sagacity_flow_configs = scan_flow_configs("sagacity")?;
     let commitaura_flow_configs = scan_flow_configs("commitaura")?;
@@ -259,7 +260,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
     let resumatyk_flow_configs = scan_flow_configs("resumatyk")?;
     let browsealizer_flow_configs = scan_flow_configs("browsealizer")?;
     let lester_flow_configs = scan_flow_configs("lester")?;
-    
+
     let projects_result = vec![
         Project::new(
             "jjugg",
@@ -299,7 +300,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             vec!["automated", "data-driven", "insightful", "time-saving"],
             jjugg_flow_configs,
         )?,
-        
+
         Project::new(
             "sagacity",
             "Sagacity",
@@ -338,7 +339,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             vec!["intelligent search", "code understanding", "developer focus", "efficiency"],
             sagacity_flow_configs,
         )?,
-        
+
         Project::new(
             "commitaura",
             "CommitAura",
@@ -377,7 +378,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             vec!["git integration", "AI-powered", "developer workflow", "productivity"],
             commitaura_flow_configs,
         )?,
-        
+
         Project::new(
             "resumatyk",
             "Resumatyk",
@@ -416,7 +417,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             vec!["automated", "professional", "dynamic", "tailored"],
             resumatyk_flow_configs,
         )?,
-        
+
         Project::new(
             "cybrdelic-portfolio",
             "Cybrdelic Portfolio",
@@ -455,7 +456,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             vec!["cutting-edge", "interactive", "modern", "modular"],
             cybrdelic_flow_configs,
         )?,
-        
+
         Project::new(
             "lester",
             "Lester",
@@ -494,13 +495,13 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             vec!["decentralized", "trustless", "efficient", "innovative"],
             lester_flow_configs,
         )?,
-        
+
         Project::new(
             "browsealizer",
             "Browsealizer",
             "GitHub Project Explorer",
             "A tool designed to enhance the GitHub browsing experience by offering an unlimited, continuously updated feed of projects with mobile optimization and intuitive filtering.",
-            "/static/images/default-project.jpg",
+            "/static/images/browsealizer.jpg",
             "Discover GitHub projects with an endless, mobile-friendly feed",
             "m21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9",
             vec!["React", "TypeScript", "GitHub API", "CSS"],
@@ -534,10 +535,10 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             browsealizer_flow_configs,
         )?,
     ];
-    
+
     // Cache the result
     *cache = Some(projects_result.clone());
-    
+
     Ok(projects_result)
 }
 
