@@ -2,27 +2,27 @@
 * CYBRDELIC PORTFOLIO - MAIN CSS
 ========================================= */
 
-/* Variables */
+/* Variables - Core design tokens */
 @import 'variables/variables.css';
 
-/* Base styles */
+/* Base styles - Foundational elements */
 @import 'base/reset.css';
 @import 'base/typography.css';
 @import 'base/utilities.css';
 @import 'base/animations.css';
 @import 'base/effects.css';
 
-/* Layouts */
-@import 'layouts/scroll-snap.css';
+/* Layout system - Structural components */
+@import 'layout/layouts.css';
 
-/* Components */
+/* Components - Reusable UI elements */
 @import 'components/navigation.css';
 @import 'components/buttons.css';
 @import 'components/cards.css';
 @import 'components/theme-toggle.css';
 @import 'components/commands.css';
 
-/* Original CSS files - keep for now to maintain compatibility */
+/* Page-specific styles - Use layout/component systems where possible */
 @import 'hero.css';
 @import 'projects.css';
 @import 'career.css';

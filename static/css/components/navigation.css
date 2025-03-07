@@ -17,6 +17,27 @@
     transition: background 0.3s, border-color 0.3s;
 }
 
+/* Vertical section indicator */
+.vertical-name {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-extrabold);
+    font-size: var(--font-size-fluid-base);
+    position: fixed;
+    top: 50%;
+    right: var(--space-sm);
+    transform: translateY(-50%) rotate(180deg);
+    writing-mode: vertical-rl;
+    white-space: nowrap;
+    text-orientation: mixed;
+    z-index: var(--z-above);
+    color: var(--color-text-primary);
+    opacity: 0.2;
+    pointer-events: none;
+    letter-spacing: var(--letter-spacing-wider);
+    text-transform: uppercase;
+    transition: opacity var(--transition-medium);
+}
+
 .nav::after {
     content: '';
     position: absolute;

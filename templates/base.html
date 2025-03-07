@@ -7,57 +7,19 @@
     <title>cybrdelic</title>
     <!-- Centralized CSS file that imports all modules -->
     <link rel="stylesheet" href="/static/css/main.css" />
-    <!-- add this in your head -->
-    <!-- in your head -->
+    <!-- External dependencies -->
     <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-    <script src="/static/js/animations.js"></script>
-    <script src="/static/js/documentation.js"></script>
-    <script src="/static/js/projects.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.3.0/mermaid.min.js"></script>
-    <script>
-        mermaid.initialize({
-            startOnLoad: true,
-            theme: 'neutral',
-            flowchart: { curve: 'basis' }
-        });
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                document.documentElement.setAttribute('data-theme', savedTheme);
-            }
-        });
-    </script>
-    <style>
-        .vertical-name {
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: var(--font-size-fluid-base);
-            position: fixed;
-            top: 50%;
-            right: var(--space-sm);
-            transform: translateY(-50%) rotate(180deg);
-            writing-mode: vertical-rl;
-            white-space: nowrap;
-            text-orientation: mixed;
-            z-index: 10;
-            color: var(--color-text-primary);
-            opacity: 20%;
-            pointer-events: none;
-            letter-spacing: var(--letter-spacing-wider);
-            text-transform: uppercase;
-        }
-    </style>
 </head>
 
 <body>
-    <!-- Cyberpunk corner effects - now outside terminal to avoid z-index issues -->
+    <!-- Cyberpunk corner effects -->
     <div class="corner-effect corner-top-right"></div>
     <div class="corner-effect corner-bottom-left"></div>
     <div class="scanner"></div>
     
     <div id="terminal">
-        
         <nav class="nav">
             <a href="/" class="home-link">
                 <div class="logo">cybrdelic</div>
@@ -76,17 +38,30 @@
             </div>
         </nav>
         {% block content %}{% endblock %}
-        <!-- initial text so something shows up -->
         <div class="vertical-name"></div>
     </div>
+
+    <!-- Site scripts -->
+    <script src="/static/js/animations.js"></script>
+    <script src="/static/js/documentation.js"></script>
+    <script src="/static/js/projects.js"></script>
     <script src="/static/js/glitch.js"></script>
+    <script src="/static/js/transitions.js"></script>
+
+    <!-- Core functionality -->
     <script>
-        // Theme toggle functionality
+        // Initialize Mermaid diagrams
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'neutral',
+            flowchart: { curve: 'basis' }
+        });
+
+        // Theme management system
         document.addEventListener('DOMContentLoaded', () => {
             const navThemeToggleBtn = document.getElementById('nav-theme-toggle');
             const toggleIcon = document.querySelector('.toggle-icon');
             const cornerEffects = document.querySelectorAll('.corner-effect');
-            const terminal = document.getElementById('terminal');
             
             // Function to update theme
             function updateTheme(theme) {
@@ -94,14 +69,9 @@
                 localStorage.setItem('theme', theme);
                 
                 // Update toggle icon
-                if (theme === 'dark') {
-                    toggleIcon.textContent = '🌙';
-                } else {
-                    toggleIcon.textContent = '☀️';
-                }
+                toggleIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
                 
                 // Apply subtle animation to corner effects
-                // Subtle animation when switching themes
                 cornerEffects.forEach(corner => {
                     corner.style.transition = 'opacity 0.5s ease';
                     corner.style.opacity = '0.5';
@@ -111,11 +81,11 @@
                 });
             }
             
-            // Initialize theme
+            // Initialize theme from saved preference
             const savedTheme = localStorage.getItem('theme') || 'light';
             updateTheme(savedTheme);
             
-            // Add click handler
+            // Toggle theme on click
             if (navThemeToggleBtn) {
                 navThemeToggleBtn.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -125,153 +95,126 @@
                 });
             }
         });
-    </script>
-</body>
-<script>
-    // scrambleText animates a scramble effect that resolves to newText over duration ms
-    function scrambleText(element, newText, duration = 1000) {
-        const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        const oldText = element.textContent;
-        const maxLength = Math.max(oldText.length, newText.length);
-        const startTime = performance.now();
 
-        function update() {
-            const now = performance.now();
-            const progress = Math.min((now - startTime) / duration, 1);
-            let output = "";
-            for (let i = 0; i < maxLength; i++) {
-                // if progress for letter i has passed threshold, show final letter; else random
-                if (i < newText.length && progress > i / maxLength) {
-                    output += newText[i];
-                } else {
-                    output += letters[Math.floor(Math.random() * letters.length)];
-                }
-            }
-            element.textContent = output;
-            if (progress < 1) {
-                requestAnimationFrame(update);
-            } else {
-                element.textContent = newText;
-            }
-        }
-        update();
-    }
+        // Text scramble effect
+        function scrambleText(element, newText, duration = 1000) {
+            const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            const oldText = element.textContent;
+            const maxLength = Math.max(oldText.length, newText.length);
+            const startTime = performance.now();
 
-    // morphVerticalName triggers the scramble animation if text changes
-    function morphVerticalName(newText) {
-        const vn = document.querySelector('.vertical-name');
-        if (vn && vn.textContent !== newText) {
-            scrambleText(vn, newText, 200);
-        }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const verticalName = document.querySelector(".vertical-name");
-        if (!verticalName) return;
-        
-        // Set default text
-        morphVerticalName("cybrdelic");
-        
-        // Create intersection observer to detect which section is in view
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                // If this section is more than 50% visible
-                if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
-                    const sectionId = entry.target.getAttribute('id');
-                    if (sectionId && verticalName.textContent !== sectionId) {
-                        // Map section IDs to display names if needed
-                        const displayMap = {
-                            'hero': 'cybrdelic',
-                            'projects': 'projects',
-                            'career': 'timeline',
-                            'whats-next': 'future',
-                            'contact': 'contact'
-                        };
-                        
-                        const displayText = displayMap[sectionId] || sectionId;
-                        morphVerticalName(displayText);
+            function update() {
+                const now = performance.now();
+                const progress = Math.min((now - startTime) / duration, 1);
+                let output = "";
+                for (let i = 0; i < maxLength; i++) {
+                    if (i < newText.length && progress > i / maxLength) {
+                        output += newText[i];
+                    } else {
+                        output += letters[Math.floor(Math.random() * letters.length)];
                     }
                 }
-            });
-        }, { 
-            threshold: [0.3, 0.6],  // Check when section is 30% or 60% visible
-            rootMargin: "-10% 0px"  // Adjust trigger area slightly
-        });
-
-        // Observe all sections with IDs
-        document.querySelectorAll("section[id]").forEach(section => {
-            observer.observe(section);
-        });
-        
-        // Update after any dynamic content changes
-        document.body.addEventListener("htmx:afterSwap", () => {
-            document.querySelectorAll("section[id]").forEach(section => {
-                observer.observe(section);
-            });
-        });
-    });
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Force scroll to top on page load
-        window.scrollTo(0, 0);
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-        
-        // Handle navigation clicks
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    // Calculate offset to account for fixed header
-                    const headerHeight = document.querySelector('.nav')?.offsetHeight || 0;
-                    const elementPosition = targetElement.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
-                    
-                    // Scroll to the element
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Update URL hash without scrolling
-                    history.pushState(null, null, targetId);
+                element.textContent = output;
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    element.textContent = newText;
                 }
+            }
+            update();
+        }
+
+        // Vertical name management
+        function morphVerticalName(newText) {
+            const vn = document.querySelector('.vertical-name');
+            if (vn && vn.textContent !== newText) {
+                scrambleText(vn, newText, 200);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Initialize vertical name
+            const verticalName = document.querySelector(".vertical-name");
+            if (!verticalName) return;
+            
+            morphVerticalName("cybrdelic");
+            
+            // Section navigation mapping
+            const displayMap = {
+                'hero': 'cybrdelic',
+                'projects': 'projects',
+                'career': 'timeline',
+                'whats-next': 'future',
+                'contact': 'contact'
+            };
+            
+            // Create intersection observer to detect visible section
+            const sectionObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+                        const sectionId = entry.target.getAttribute('id');
+                        if (sectionId && verticalName.textContent !== sectionId) {
+                            const displayText = displayMap[sectionId] || sectionId;
+                            morphVerticalName(displayText);
+                        }
+                    }
+                });
+            }, { 
+                threshold: [0.3, 0.6],
+                rootMargin: "-10% 0px"
             });
-        });
-        
-        // Highlight current section in navigation
-        const sections = document.querySelectorAll('section[id]');
-        if (sections.length) {
-            // Create an intersection observer
-            const observer = new IntersectionObserver((entries) => {
+
+            // Force scroll to top on page load
+            window.scrollTo(0, 0);
+            
+            // Smooth scroll navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('.nav')?.offsetHeight || 0;
+                        const offsetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        history.pushState(null, null, targetId);
+                    }
+                });
+            });
+            
+            // Active section highlighting in navigation
+            const navObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-                        // Get current section id
                         const id = entry.target.getAttribute('id');
-                        // Update active nav link
                         document.querySelectorAll('.nav a').forEach(link => {
-                            if (link.getAttribute('href') === `#${id}`) {
-                                link.classList.add('active');
-                            } else {
-                                link.classList.remove('active');
-                            }
+                            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
                         });
                     }
                 });
             }, { threshold: 0.5 });
             
-            // Observe all sections
-            sections.forEach(section => {
-                observer.observe(section);
+            // Observe all sections for both effects
+            document.querySelectorAll("section[id]").forEach(section => {
+                sectionObserver.observe(section);
+                navObserver.observe(section);
             });
-        }
-    });
-</script>
-
+            
+            // Update after any dynamic content changes
+            document.body.addEventListener("htmx:afterSwap", () => {
+                document.querySelectorAll("section[id]").forEach(section => {
+                    sectionObserver.observe(section);
+                    navObserver.observe(section);
+                });
+            });
+        });
+    </script>
+</body>
 </html>
