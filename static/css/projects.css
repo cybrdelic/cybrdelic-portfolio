@@ -578,6 +578,7 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     position: relative;
     overflow: hidden;
+    border-left: 3px solid transparent; /* Fix layout shift by pre-setting border */
 }
 
 .project-list-item.reveal {
@@ -621,8 +622,7 @@
 }
 
 .project-list-item.active {
-    border-left: 3px solid var(--color-text-primary);
-    padding-left: calc(var(--space-xl) - 3px);
+    border-left-color: var(--color-text-primary);
 }
 
 .project-list-item.dim {

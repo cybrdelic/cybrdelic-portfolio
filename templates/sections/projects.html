@@ -176,41 +176,80 @@
 
             // Handle project item interactions
             projectItems.forEach(item => {
-                // Click/tap handler
+                // Click handler - navigate to details page
                 item.addEventListener('click', () => {
-                    // Remove active class from all items
-                    projectItems.forEach(p => p.classList.remove('active'));
-
-                    // Add active class to clicked item
-                    item.classList.add('active');
-
-                    // Update the details panel
-                    updateProjectDetails(item);
+                    const projectId = item.getAttribute('data-id');
+                    window.location.href = `/projects/${projectId}`;
                 });
-
-                // Hover effect for non-touch devices
+                
+                // Hover effect to show project details for non-touch devices
                 if (!isTouchDevice) {
                     item.addEventListener('mouseenter', () => {
+                        // Remove active class from all items
                         projectItems.forEach(p => {
-                            if (p !== item) p.classList.add('dim');
+                            p.classList.remove('active');
+                            p.classList.add('dim');
                         });
+                        
+                        // Add active class to hovered item and remove dim
+                        item.classList.add('active');
+                        item.classList.remove('dim');
+                        
+                        // Update the details panel
+                        updateProjectDetails(item);
                     });
-
+                    
                     item.addEventListener('mouseleave', () => {
+                        // Only remove dim class, keep active state for last hovered item
                         projectItems.forEach(p => p.classList.remove('dim'));
                     });
+                } else {
+                    // For touch devices, show details on tap and navigate on second tap
+                    let lastTappedItem = null;
+                    
+                    item.addEventListener('touchstart', (e) => {
+                        if (lastTappedItem === item) {
+                            // Second tap on same item - navigate to details
+                            const projectId = item.getAttribute('data-id');
+                            window.location.href = `/projects/${projectId}`;
+                        } else {
+                            // First tap - show details
+                            e.preventDefault();
+                            
+                            // Remove active class from all items
+                            projectItems.forEach(p => p.classList.remove('active'));
+                            
+                            // Add active class to tapped item
+                            item.classList.add('active');
+                            
+                            // Update the details panel
+                            updateProjectDetails(item);
+                            
+                            // Remember last tapped item
+                            lastTappedItem = item;
+                            
+                            // Reset after delay
+                            setTimeout(() => {
+                                lastTappedItem = null;
+                            }, 1500);
+                        }
+                    });
                 }
-
+                
                 // Keyboard accessibility
                 item.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
-
-                        // Simulate click
-                        item.click();
-
+                        
+                        // Show details first
+                        projectItems.forEach(p => p.classList.remove('active'));
+                        item.classList.add('active');
+                        updateProjectDetails(item);
+                        
                         // Focus on the details panel for better accessibility
-                        document.querySelector('.project-details-panel').focus();
+                        detailsPanel.focus();
+                        
+                        // Navigate on second Enter key press (handled by link in details panel)
                     }
                 });
             });
