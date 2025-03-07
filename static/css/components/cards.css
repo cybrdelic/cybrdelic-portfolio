@@ -39,8 +39,11 @@
 /* Project card */
 .project-card {
     position: relative;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    /* Transparent border to prevent layout shift when hovering */
+    border-bottom: 1px solid transparent;
+    /* Include the actual visible border in a pseudo-element */
+    background-clip: padding-box;
+    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -48,6 +51,22 @@
     opacity: 0;
     transform: translateY(20px);
     margin-left: var(--space-lg);
+    will-change: transform; /* GPU acceleration hint */
+    /* Fixed overflow issues */
+    overflow: visible !important;
+    contain: paint; /* Performance improvement without causing overflow issues */
+}
+
+/* Visible border in after pseudo-element to prevent layout shift */
+.project-card::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease;
 }
 
 .project-card.reveal {
@@ -56,10 +75,20 @@
 
 .project-card:hover {
     transform: translateY(-2px);
-    border-bottom-color: var(--color-text-primary);
-    mix-blend-mode: difference;
-    background-color: white;
-    transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/* Change border color on hover via the pseudo-element */
+.project-card:hover::after {
+    background-color: var(--color-text-primary);
+}
+
+/* Reset background color for dark/light theme compatibility */
+[data-theme='dark'] .project-card:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+[data-theme='light'] .project-card:hover {
+    background-color: rgba(0, 0, 0, 0.03);
 }
 
 .project-card:focus {

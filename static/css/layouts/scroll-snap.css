@@ -30,7 +30,11 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    /* Make scrolling feel more natural */
+    -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
+    /* Disable scroll snap for better scroll experience */
+    scroll-snap-type: none !important; 
     /* Only body gets a scrollbar */
     scrollbar-width: thin;
     -ms-overflow-style: auto;
@@ -77,6 +81,19 @@ main section {
     position: relative;
     /* Ensure internal content doesn't scroll */
     overflow: visible !important;
+    /* Improve scrolling experience by making sections not snap */
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
+}
+
+/* Remove ANY scrollbars from ANY elements */
+main *, section * {
+    scrollbar-width: none !important;
+}
+
+main *::-webkit-scrollbar, section *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
 }
 
 /* First section should be at the top */
@@ -99,4 +116,35 @@ a[href^="#"] {
     html, body {
         scroll-behavior: auto;
     }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--body-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-accent);
+    border-radius: 4px;
+}
+
+/* Theme-specific scrollbar colors */
+[data-theme='dark'] ::-webkit-scrollbar-track {
+    background: var(--body-bg);
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+    background-color: var(--color-accent);
+}
+
+[data-theme='light'] ::-webkit-scrollbar-track {
+    background: var(--body-bg);
+}
+
+[data-theme='light'] ::-webkit-scrollbar-thumb {
+    background-color: var(--color-accent);
 }

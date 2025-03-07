@@ -3,7 +3,7 @@
 #projects {
     width: 100%;
     min-height: 100vh;
-    padding: var(--space-3xl) 0 var(--space-xl) 0; /* Add more top padding */
+    padding: var(--space-2xl) 0 var(--space-xl) 0; /* Reduced top padding */
     font-family: var(--font-primary);
     color: var(--color-text-primary);
     background-color: var(--body-bg);
@@ -11,7 +11,9 @@
     overflow: visible !important;
     display: flex;
     flex-direction: column;
-    scroll-margin-top: 60px;
+    scroll-margin-top: var(--header-height);
+    will-change: transform; /* Performance optimization */
+    transform: translateZ(0); /* Force GPU acceleration */
 }
 
 #projects .container {
@@ -21,9 +23,10 @@
     padding: 0 var(--space-xl);
     display: flex;
     flex-direction: column;
-    gap: var(--space-xl);
+    gap: var(--space-lg); /* Reduced gap */
     flex: 1;
     overflow: visible !important;
+    contain: content; /* Improve rendering performance */
 }
 
 .projects-container {
@@ -32,6 +35,8 @@
     gap: var(--space-xl);
     min-height: 80vh;
     overflow: visible !important; /* Ensure no scrollbar */
+    contain: layout; /* Performance optimization */
+    border: none !important; /* No invisible borders that could cause scrollbars */
 }
 
 /* Section header */
@@ -343,11 +348,13 @@
     flex-direction: column;
     gap: var(--space-md);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    overflow-y: auto;
+    /* Remove scrollbars completely */
+    overflow: visible !important;
+    max-height: none !important;
     transition: all 0.3s ease;
     z-index: 5;
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-border) transparent;
+    /* Handle theme-specific styling */
+    background-color: var(--bg-glass);
 }
 
 .project-details-panel:hover {
@@ -355,18 +362,18 @@
     border-color: rgba(255, 255, 255, 0.15);
 }
 
-/* Custom scrollbar styling */
-.project-details-panel::-webkit-scrollbar {
-    width: 6px;
+/* Remove all scrollbars and ensure proper display */
+.project-details-panel::-webkit-scrollbar,
+.project-details-panel *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
 }
 
-.project-details-panel::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.project-details-panel::-webkit-scrollbar-thumb {
-    background-color: var(--color-border);
-    border-radius: 3px;
+/* Ensure all child elements don't create scrollbars */
+.project-details-panel * {
+    overflow: visible !important;
+    max-height: none !important;
+    scrollbar-width: none !important;
 }
 
 /* Add a subtle glow effect to the panel */
@@ -447,7 +454,9 @@
     margin: var(--space-md) 0;
     position: relative;
     padding-left: var(--space-xs);
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 1px solid var(--color-border); /* Use theme variable */
+    max-height: none !important; /* Prevent scrollbar */
+    overflow: visible !important; /* Prevent scrollbar */
 }
 
 .details-stats {
@@ -482,11 +491,22 @@
     font-family: var(--font-primary);
     font-size: var(--font-size-2xs);
     color: var(--color-text-secondary);
-    background-color: rgba(255, 255, 255, 0.03);
+    background-color: var(--bg-white-08);
     padding: calc(var(--space-xs) / 2) var(--space-xs);
     border-radius: var(--border-radius);
     border: 1px solid var(--color-border);
     transition: all 0.2s ease;
+}
+
+/* Theme-specific styles */
+[data-theme='dark'] .expertise-tag,
+[data-theme='dark'] .tech-tag {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+[data-theme='light'] .expertise-tag,
+[data-theme='light'] .tech-tag {
+    background-color: rgba(0, 0, 0, 0.03);
 }
 
 .tech-tag:hover,
@@ -566,8 +586,21 @@
     gap: var(--space-lg);
     padding: var(--space-md) 0;
     background-color: transparent;
-    overflow-y: auto;
-    height: 80vh;
+    overflow: visible !important; /* Prevent scrollbars */
+    height: auto; /* Let it size naturally */
+    max-height: none !important; /* Prevent scrollbar */
+}
+
+/* Ensure all children never have scrollbars */
+.projects-list * {
+    overflow: visible !important;
+    max-height: none !important;
+    scrollbar-width: none !important;
+}
+
+.projects-list *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
 }
 
 .project-list-item {

@@ -7,6 +7,7 @@
     {% include "sections/hero.html" %}
     {% include "sections/projects.html" %}
     {% include "sections/career.html" %}
+    {% include "sections/whats_next.html" %}
     {% include "sections/contact.html" %}
     <div class="scroll-indicator fade-in delay-3">
         <div class="scroll-line"></div>
@@ -14,10 +15,73 @@
     </div>
 </main>
 <script>
-    // Force scroll to top on page load
+    // Force scroll to top on page load and set up interactions
     document.addEventListener('DOMContentLoaded', function() {
+        // Force scroll to top
         window.scrollTo(0, 0);
         history.scrollRestoration = 'manual';
+        
+        // Create helper scroll indicator for first-time users
+        const createScrollHelper = () => {
+            const scrollHelper = document.createElement('div');
+            scrollHelper.className = 'scroll-helper';
+            scrollHelper.innerHTML = `
+                <div class="scroll-helper-inner">
+                    <div class="scroll-arrow">↓</div>
+                    <div class="scroll-text">Scroll down to explore</div>
+                </div>
+            `;
+            document.body.appendChild(scrollHelper);
+            
+            // Add styles for the scroll helper
+            const style = document.createElement('style');
+            style.innerHTML = `
+                .scroll-helper {
+                    position: fixed;
+                    bottom: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: rgba(0, 0, 0, 0.7);
+                    color: white;
+                    padding: 10px 20px;
+                    border-radius: 20px;
+                    z-index: 1000;
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+                    opacity: 0;
+                    animation: fadeInUp 0.5s ease-out 2s forwards, 
+                              bounce 2s infinite 2.5s,
+                              fadeOut 0.5s ease-out 10s forwards;
+                }
+                .scroll-helper-inner {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+                .scroll-arrow {
+                    font-size: 20px;
+                    animation: arrowBounce 1s infinite;
+                }
+                @keyframes arrowBounce {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(5px); }
+                }
+                @keyframes fadeOut {
+                    to { opacity: 0; visibility: hidden; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Remove helper after user scrolls
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    scrollHelper.style.animation = 'fadeOut 0.5s forwards';
+                    setTimeout(() => scrollHelper.remove(), 500);
+                }
+            }, { once: true });
+        };
+        
+        // Create scroll helper with slight delay
+        setTimeout(createScrollHelper, 1000);
         
         // Setup career timeline interactions
         const timelineItems = document.querySelectorAll('.timeline-item');

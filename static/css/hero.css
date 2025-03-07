@@ -53,8 +53,8 @@
     width: 100%;
     height: 100%;
     background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        linear-gradient(to right, var(--bg-white-08) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--bg-white-08) 1px, transparent 1px);
     background-size: 40px 40px;
     pointer-events: none;
 }
@@ -67,10 +67,11 @@
     height: 40%;
     background: radial-gradient(
         circle at center,
-        rgba(120, 41, 190, 0.15) 0%,
-        rgba(80, 41, 190, 0.1) 25%,
-        rgba(0, 0, 0, 0) 70%
+        var(--color-accent-hover) 0%,
+        var(--color-accent) 25%,
+        transparent 70%
     );
+    opacity: 0.1;
     filter: blur(50px);
     pointer-events: none;
     z-index: 1;
@@ -127,7 +128,7 @@
     background: linear-gradient(
         90deg,
         var(--color-text-primary) 0%,
-        rgba(255, 255, 255, 0.8) 100%
+        var(--color-text-secondary) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -239,7 +240,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    border-left: 1px solid rgba(255, 255, 255, 0.1); /* Keep vertical separator */
+    border-left: 1px solid var(--color-border); /* Use theme variable */
     height: 100%;
     overflow: visible;
 }
@@ -274,7 +275,7 @@
     background: linear-gradient(
         90deg,
         var(--color-text-primary) 0%,
-        rgba(255, 255, 255, 0.2) 100%
+        var(--color-text-tertiary) 100%
     );
     filter: blur(3px);
     opacity: 0.6;
@@ -289,9 +290,9 @@
 }
 
 .expertise-card {
-    background: rgba(20, 20, 20, 0.3);
+    background: var(--bg-glass);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
     padding: var(--space-md); /* Smaller padding */
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -312,7 +313,7 @@
     background: linear-gradient(
         90deg,
         var(--color-text-primary) 0%,
-        rgba(255, 255, 255, 0.2) 100%
+        var(--color-text-secondary) 100%
     );
     transform: scaleX(0);
     transform-origin: left;
@@ -322,7 +323,7 @@
 .expertise-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: var(--color-text-quaternary);
 }
 
 .expertise-card:hover::before {
@@ -390,18 +391,18 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: var(--font-size-xs); /* Smaller font */
     color: var(--color-text-secondary);
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: var(--bg-white-02);
     padding: 4px 8px; /* Smaller padding */
     border-radius: var(--border-radius);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--color-border);
     transition: all 0.25s ease;
 }
 
 .tech-tag:hover {
     transform: translateY(-3px);
     color: var(--color-text-primary);
-    background-color: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--bg-white-04);
+    border-color: var(--color-text-tertiary);
 }
 
 .tag-icon {
@@ -424,9 +425,9 @@
 }
 
 .stat-card {
-    background: rgba(20, 20, 20, 0.2);
+    background: var(--bg-glass);
     backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
     padding: var(--space-sm); /* Smaller padding */
     transition: all 0.3s ease;
@@ -435,9 +436,9 @@
 
 .stat-card:hover {
     transform: translateY(-5px);
-    background: rgba(20, 20, 20, 0.3);
-    border-color: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    background: var(--bg-glass-hover);
+    border-color: var(--color-text-tertiary);
+    box-shadow: var(--shadow-glass-hover);
 }
 
 .stat-number {
@@ -449,7 +450,7 @@
     background: linear-gradient(
         90deg,
         var(--color-text-primary) 0%,
-        rgba(255, 255, 255, 0.7) 100%
+        var(--color-text-secondary) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
