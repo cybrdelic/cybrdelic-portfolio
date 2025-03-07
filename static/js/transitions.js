@@ -66,7 +66,20 @@ function initPageTransitions() {
     // If no overlay or content elements exist, don't set up transitions
     if (!overlay || !content) return;
     
-    async function handleNavigation(event) {
+    // Make sure the overlay is not active on page load
+    overlay.classList.remove('active');
+    
+    // Store current transition state in session storage
+    if (sessionStorage.getItem('pageIsTransitioning') === 'true') {
+        // Clean up after navigation
+        sessionStorage.removeItem('pageIsTransitioning');
+        // Remove overlay with a tiny delay to ensure clean transition
+        setTimeout(() => {
+            overlay.classList.remove('active');
+        }, 10);
+    }
+    
+    function handleNavigation(event) {
         const link = event.target.closest('[data-transition]');
         if (!link) return;
         
@@ -76,93 +89,17 @@ function initPageTransitions() {
         // Start transition
         overlay.classList.add('active');
         
-        // Reduced wait time to 50ms - just enough for the visual effect to start
-        await new Promise(r => setTimeout(r, 50));
+        // Mark that we're in a transition
+        sessionStorage.setItem('pageIsTransitioning', 'true');
         
-        try {
-            // Fetch new content - use Promise.race to limit waiting time
-            const fetchPromise = fetch(url);
-            const timeoutPromise = new Promise((_, reject) => 
-                setTimeout(() => reject(new Error('Fetch timeout')), 2000)
-            );
-            
-            const response = await Promise.race([fetchPromise, timeoutPromise]);
-            const html = await response.text();
-            
-            // Parse new content - optimize by only selecting what we need
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            const newContent = doc.querySelector('#content').innerHTML;
-            
-            // Update URL and content
-            window.history.pushState({}, '', url);
-            content.innerHTML = newContent;
-            
-            // Update page class
-            const newPageClass = doc.querySelector('body').className;
-            document.body.className = newPageClass;
-            
-            // Initialize any scripts for new content
-            initializePageScripts();
-        } catch (error) {
-            console.error('Navigation error:', error);
-            // If there's an error, try a traditional navigation
+        // Navigate after a very brief delay to allow overlay to appear
+        setTimeout(() => {
             window.location.href = url;
-        }
-        
-        // End transition - remove with a slight delay to ensure the content is ready
-        requestAnimationFrame(() => {
-            overlay.classList.remove('active');
-        });
+        }, 10);
     }
     
     // Handle navigation events
     document.addEventListener('click', handleNavigation);
-    
-    // Handle browser back/forward buttons
-    window.addEventListener('popstate', async () => {
-        if (!overlay || !content) return;
-        
-        overlay.classList.add('active');
-        await new Promise(r => setTimeout(r, 50)); // Reduced time to 50ms
-        
-        try {
-            // Use Promise.race to limit waiting time
-            const fetchPromise = fetch(window.location.href);
-            const timeoutPromise = new Promise((_, reject) => 
-                setTimeout(() => reject(new Error('Fetch timeout')), 2000)
-            );
-            
-            const response = await Promise.race([fetchPromise, timeoutPromise]);
-            const html = await response.text();
-            
-            // Use createRange and createContextualFragment for faster parsing
-            const range = document.createRange();
-            range.setStart(document.body, 0);
-            const fragment = range.createContextualFragment(html);
-            
-            const newContent = fragment.querySelector('#content');
-            if (newContent) {
-                content.innerHTML = newContent.innerHTML;
-            }
-            
-            const newBodyClass = fragment.querySelector('body')?.className;
-            if (newBodyClass) {
-                document.body.className = newBodyClass;
-            }
-            
-            initializePageScripts();
-        } catch (error) {
-            console.error('Navigation error on popstate:', error);
-            // If there's an error, just reload the page
-            window.location.reload();
-        }
-        
-        // Use requestAnimationFrame for smoother transition
-        requestAnimationFrame(() => {
-            overlay.classList.remove('active');
-        });
-    });
 }
 
 /**

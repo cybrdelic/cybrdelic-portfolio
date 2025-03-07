@@ -29,17 +29,47 @@ pub struct UserFlow {
     steps: Vec<FlowStep>,
 }
 
+// Cache for markdown content to avoid repeated file reads and parsing
+use std::collections::HashMap;
+static MARKDOWN_CACHE: Lazy<Mutex<HashMap<String, String>>> = Lazy::new(|| Mutex::new(HashMap::new()));
+
 impl UserFlow {
     fn load_from_markdown(project_id: &str, flow_name: &str) -> Result<String, std::io::Error> {
+        let cache_key = format!("{}-{}", project_id, flow_name);
+        
+        // Check cache first
+        {
+            let cache = MARKDOWN_CACHE.lock().unwrap();
+            if let Some(content) = cache.get(&cache_key) {
+                return Ok(content.clone());
+            }
+        }
+        
+        // If not in cache, load from file
         let mut path = PathBuf::from("content");
         path.push("projects");
         path.push(project_id);
         path.push("flows");
         path.push(format!("{}.md", flow_name));
 
+        // Add path check to avoid redundant filesystem operations if file doesn't exist
+        if !path.exists() {
+            let default_content = String::from("<p>Documentation coming soon...</p>");
+            // Cache the default content too
+            let mut cache = MARKDOWN_CACHE.lock().unwrap();
+            cache.insert(cache_key, default_content.clone());
+            return Ok(default_content);
+        }
+
         let content = fs::read_to_string(path)?;
         let processed_content = crate::markdown::preprocess_markdown(content);
-        Ok(crate::markdown::parse_markdown(&processed_content))
+        let html = crate::markdown::parse_markdown(&processed_content);
+        
+        // Cache the result
+        let mut cache = MARKDOWN_CACHE.lock().unwrap();
+        cache.insert(cache_key, html.clone());
+        
+        Ok(html)
     }
 }
 
@@ -203,7 +233,20 @@ pub async fn index(State(state): State<AppState>) -> Result<Response, AppError> 
     }
 }
 
+// Add a static memoization for projects to avoid scanning on every request
+use once_cell::sync::Lazy;
+use std::sync::Mutex;
+
+static PROJECTS_CACHE: Lazy<Mutex<Option<Vec<Project>>>> = Lazy::new(|| Mutex::new(None));
+
 pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
+    // Check if we have a cached result
+    let mut cache = PROJECTS_CACHE.lock().unwrap();
+    if let Some(projects) = cache.clone() {
+        return Ok(projects);
+    }
+    
+    // If not cached, build the projects list
     let sagacity_flow_configs = scan_flow_configs("sagacity")?;
     let commitaura_flow_configs = scan_flow_configs("commitaura")?;
     let cybrdelic_flow_configs = scan_flow_configs("cybrdelic-portfolio")?;
@@ -212,7 +255,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
     let browsealizer_flow_configs = scan_flow_configs("browsealizer")?;
     let lester_flow_configs = scan_flow_configs("lester")?;
     
-    Ok(vec![
+    let projects_result = vec![
         Project::new(
             "jjugg",
             "JJugg",
@@ -485,7 +528,12 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             vec!["discovery", "mobile-friendly", "continuous", "user-friendly"],
             browsealizer_flow_configs,
         )?,
-    ])
+    ];
+    
+    // Cache the result
+    *cache = Some(projects_result.clone());
+    
+    Ok(projects_result)
 }
 
 fn get_project_by_id(id: &str) -> Option<Project> {

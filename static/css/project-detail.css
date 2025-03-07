@@ -372,10 +372,9 @@
     padding: var(--space-lg);
     background: var(--bg-glass);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-glass);
-    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-sm);
     border: 1px solid var(--color-border);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .feature-card:hover {
@@ -425,10 +424,9 @@
     padding: var(--space-lg);
     background: var(--bg-glass);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-glass);
-    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-sm);
     border: 1px solid var(--color-border);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .technical-card:hover {
@@ -464,8 +462,7 @@
     gap: var(--space-xl);
     background: var(--bg-glass);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-glass);
-    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-sm);
     border: 1px solid var(--color-border);
     overflow: hidden;
     min-height: 500px;

@@ -188,8 +188,19 @@
         const navItems = document.querySelectorAll('.docs-nav-item');
         if (navItems.length === 0) return;
 
-        navItems.forEach(item => {
-            item.addEventListener('click', () => {
+        // Preload all documentation content
+        document.querySelectorAll('.docs-panel').forEach(panel => {
+            // Create a flag to track initialization
+            panel.dataset.initialized = 'true';
+        });
+
+        // Event delegation for tab switching
+        const sidebar = document.querySelector('.docs-sidebar');
+        if (sidebar) {
+            sidebar.addEventListener('click', (e) => {
+                const item = e.target.closest('.docs-nav-item');
+                if (!item) return;
+                
                 // Remove active class from all nav items
                 document.querySelectorAll('.docs-nav-item').forEach(navItem => {
                     navItem.classList.remove('active');
@@ -198,8 +209,8 @@
                 // Add active class to clicked item
                 item.classList.add('active');
 
-                // Hide all content panels
-                document.querySelectorAll('.docs-panel').forEach(panel => {
+                // Hide all content panels efficiently
+                document.querySelectorAll('.docs-panel.active').forEach(panel => {
                     panel.classList.add('hidden');
                     panel.classList.remove('active');
                 });
@@ -212,7 +223,7 @@
                     targetPanel.classList.add('active');
                 }
             });
-        });
+        }
     }
 
     function copyToClipboard(button) {
