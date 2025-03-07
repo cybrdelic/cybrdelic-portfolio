@@ -136,6 +136,71 @@
     text-fill-color: transparent;
     letter-spacing: -0.03em;
     animation: fadeInUp 0.8s ease-out forwards;
+    transition: all 0.3s ease;
+}
+
+/* Text transformations */
+.hero-name.uppercase {
+    text-transform: uppercase;
+}
+
+.hero-name.lowercase {
+    text-transform: lowercase;
+}
+
+.hero-name.text-outline {
+    background: none;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--color-text-primary);
+    text-stroke: 1.5px var(--color-text-primary);
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+}
+
+.hero-name.text-shadow {
+    background: none;
+    -webkit-text-fill-color: var(--color-text-primary);
+    text-fill-color: var(--color-text-primary);
+    text-shadow: 3px 3px 0 var(--color-accent);
+}
+
+.hero-name.text-glow {
+    background: none;
+    -webkit-text-fill-color: var(--color-text-primary);
+    text-fill-color: var(--color-text-primary);
+    text-shadow: 0 0 10px var(--color-accent), 
+                 0 0 20px var(--color-accent), 
+                 0 0 30px var(--color-accent);
+}
+
+/* Text transformation controls */
+.text-transform-controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.transform-option {
+  padding: 4px 8px;
+  background: var(--bg-glass);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.transform-option:hover {
+  background: var(--bg-glass-hover);
+  transform: translateY(-1px);
+}
+
+.transform-option.active {
+  background: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
 }
 
 .hero-title {

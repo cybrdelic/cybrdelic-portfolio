@@ -154,21 +154,7 @@ body::before {
   animation: glitchEffect 2s infinite linear alternate-reverse;
 }
 
-.scanner {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(to right, 
-    transparent, 
-    var(--color-accent), 
-    transparent);
-  z-index: var(--z-above);
-  opacity: 0.4;
-  animation: scanEffect 12s linear infinite;
-  pointer-events: none;
-}
+/* Scanner removed for cleaner UI */
 
 /* Common color variables */
 :root {

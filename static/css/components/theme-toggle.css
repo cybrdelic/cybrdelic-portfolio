@@ -1,5 +1,5 @@
 /* =========================================
-* THEME TOGGLE
+* THEME TOGGLE & FONT SWITCHER
 ========================================= */
 
 .toggle-icon {
@@ -11,4 +11,127 @@
 /* Theme toggle animations */
 #nav-theme-toggle:hover .toggle-icon {
   transform: rotate(30deg);
+}
+
+/* Font switcher animations */
+#font-switcher:hover .toggle-icon {
+  transform: scale(1.1);
+}
+
+/* Font Dropdown */
+.cmd-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.font-dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: var(--bg-glass);
+  backdrop-filter: blur(10px);
+  min-width: 160px;
+  box-shadow: var(--shadow-md);
+  z-index: var(--z-above);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+  max-height: 350px;
+  overflow-y: auto;
+  margin-top: 8px;
+}
+
+.cmd-dropdown:hover .font-dropdown-content,
+.font-dropdown-content:hover {
+  display: block;
+}
+
+.font-option {
+  padding: 10px 15px;
+  display: block;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.font-option:last-child {
+  border-bottom: none;
+}
+
+.font-option:hover {
+  background-color: var(--bg-glass-hover);
+}
+
+.font-option .option-name {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.font-option.active {
+  background-color: var(--bg-black-05);
+  font-weight: bold;
+}
+
+.font-option.ubuntu-mono::after {
+  content: " ★";
+  color: var(--color-accent);
+}
+
+/* Font Modal */
+#font-modal {
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+}
+
+#font-modal h3 {
+  color: var(--color-text-primary);
+  margin-top: 0;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 10px;
+}
+
+#font-modal button {
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+#font-modal button:hover {
+  background-color: var(--bg-black-10);
+  transform: translateY(-1px);
+}
+
+/* Font Toast */
+#font-toast {
+  border: 1px solid var(--color-border);
+  font-size: 14px;
+  opacity: 1;
+}
+
+/* Text transformation controls */
+.text-transform-controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.transform-option {
+  padding: 4px 8px;
+  background: var(--bg-glass);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.transform-option:hover {
+  background: var(--bg-glass-hover);
+  transform: translateY(-1px);
+}
+
+.transform-option.active {
+  background: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
 }

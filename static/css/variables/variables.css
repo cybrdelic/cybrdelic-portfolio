@@ -51,6 +51,72 @@
     --font-display: 'Syne', sans-serif;
     --font-mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
     
+    /* Font options for switcher - from conservative to wild */
+    /* Classic/Professional Options */
+    --font-option1-primary: 'IBM Plex Mono', monospace;
+    --font-option1-display: 'Syne', sans-serif;
+    --font-option1-mono: 'JetBrains Mono', monospace;
+    
+    --font-option2-primary: 'Roboto Mono', monospace;
+    --font-option2-display: 'Space Grotesk', sans-serif;
+    --font-option2-mono: 'Fira Code', monospace;
+    
+    --font-option3-primary: 'Cascadia Code', 'Consolas', monospace;
+    --font-option3-display: 'Outfit', sans-serif;
+    --font-option3-mono: 'Source Code Pro', monospace;
+    
+    /* Modern Tech Options */
+    --font-option4-primary: 'Ubuntu Mono', monospace;
+    --font-option4-display: 'Exo 2', sans-serif;
+    --font-option4-mono: 'Share Tech Mono', monospace;
+    
+    --font-option5-primary: 'Sometype Mono', monospace;
+    --font-option5-display: 'Rajdhani', sans-serif;
+    --font-option5-mono: 'Nova Mono', monospace;
+    
+    --font-option6-primary: 'Space Mono', monospace;
+    --font-option6-display: 'Chakra Petch', sans-serif;
+    --font-option6-mono: 'Xanh Mono', monospace;
+    
+    /* SciFi/Cyberpunk Options */
+    --font-option7-primary: 'Silkscreen', monospace;
+    --font-option7-display: 'Orbitron', sans-serif;
+    --font-option7-mono: 'VT323', monospace;
+    
+    --font-option8-primary: 'Major Mono Display', monospace;
+    --font-option8-display: 'Tourney', sans-serif;
+    --font-option8-mono: 'Wallpoet', monospace;
+    
+    --font-option9-primary: 'Goldman', monospace;
+    --font-option9-display: 'Audiowide', sans-serif;
+    --font-option9-mono: 'Quantico', monospace;
+    
+    /* Fun/Experimental Options */
+    --font-option10-primary: 'Press Start 2P', monospace;
+    --font-option10-display: 'Bungee', sans-serif;
+    --font-option10-mono: 'Silkscreen', monospace;
+    
+    --font-option11-primary: 'Inconsolata', monospace;
+    --font-option11-display: 'Rubik Mono One', sans-serif;
+    --font-option11-mono: 'Courier Prime', monospace;
+    
+    --font-option12-primary: 'Nova Mono', monospace; 
+    --font-option12-display: 'Monoton', cursive;
+    --font-option12-mono: 'Monofett', monospace;
+    
+    /* Extreme/Artistic Options */
+    --font-option13-primary: 'Noto Sans Mono', monospace;
+    --font-option13-display: 'Rubik Glitch', cursive;
+    --font-option13-mono: 'Gruppo', monospace;
+    
+    --font-option14-primary: 'Space Mono', monospace;
+    --font-option14-display: 'Faster One', sans-serif;
+    --font-option14-mono: 'Kenia', monospace;
+    
+    --font-option15-primary: 'Xanh Mono', monospace;
+    --font-option15-display: 'Nabla', cursive;
+    --font-option15-mono: 'Moirai One', monospace;
+    
     /* Font sizes */
     --font-size-2xs: 0.7rem;
     --font-size-xs: 0.875rem;

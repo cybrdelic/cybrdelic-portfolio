@@ -5,6 +5,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>cybrdelic</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Base monospace and display fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cascadia+Code:wght@400;500;600;700&family=Courier+Prime:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inconsolata:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600;700;800&family=Ubuntu+Mono:wght@400;700&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Fun and unique display fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Bungee&family=Bungee+Hairline&family=Bungee+Inline&family=Bungee+Shade&family=Chakra+Petch:wght@400;500;600;700&family=Comfortaa:wght@400;500;600;700&family=Geologica:wght@400;500;700&family=Gugi&family=Josefin+Sans:wght@400;500;600;700&family=Major+Mono+Display&family=Megrim&family=Monofett&family=Monoton&family=Montserrat:wght@400;500;600;700;800&family=Nova+Mono&family=Orbitron:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Oxanium:wght@400;500;600;700&family=Poiret+One&family=Press+Start+2P&family=Quantico:wght@400;700&family=Rajdhani:wght@400;500;600;700&family=Righteous&family=Silkscreen&family=Smooch+Sans:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Syncopate:wght@400;700&family=Syne:wght@400;500;600;700;800&family=VT323&family=Wallpoet&family=Xanh+Mono&family=Yatra+One&family=Tourney:wght@400;500;700&family=Teko:wght@400;500;600;700&family=Exo+2:wght@400;500;600;700;800&family=Rubik+Glitch&family=Rubik+Mono+One&family=Rubik+Pixels&family=Rubik+Spray+Paint&family=Rubik+Vinyl&family=Goldman&display=swap" rel="stylesheet">
+    
+    <!-- Additional creative fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Moirai+One&family=Nabla&family=Noto+Sans+Mono:wght@400;500;600;700&family=Share+Tech+Mono&family=Silkscreen&family=Sometype+Mono:wght@400;500;600;700&family=Faster+One&family=Flow+Circular&family=Flow+Rounded&family=Gruppo&family=Keania+One&family=Kenia&family=Londrina+Outline&family=Plaster&display=swap" rel="stylesheet">
+    
     <!-- Centralized CSS file that imports all modules -->
     <link rel="stylesheet" href="/static/css/main.css" />
     <!-- External dependencies -->
@@ -17,7 +29,6 @@
     <!-- Cyberpunk corner effects -->
     <div class="corner-effect corner-top-right"></div>
     <div class="corner-effect corner-bottom-left"></div>
-    <div class="scanner"></div>
     
     <div id="terminal">
         <nav class="nav">
@@ -38,6 +49,15 @@
                     </span>
                     git clone
                 </a>
+                <div class="cmd-dropdown">
+                    <a href="#" class="cmd highlight-on-hover" id="font-switcher">
+                        <span class="toggle-icon">Aa</span>
+                        <span class="toggle-text">font</span>
+                    </a>
+                    <div class="font-dropdown-content">
+                        <!-- Font options will be dynamically populated here -->
+                    </div>
+                </div>
                 <a href="#" class="cmd highlight-on-hover" id="nav-theme-toggle">
                     <span class="toggle-icon pulse">☀️</span>
                     <span class="toggle-text">toggle theme</span>
@@ -67,8 +87,128 @@
         // Theme management system
         document.addEventListener('DOMContentLoaded', () => {
             const navThemeToggleBtn = document.getElementById('nav-theme-toggle');
+            const fontSwitcherBtn = document.getElementById('font-switcher');
             const toggleIcon = document.querySelector('.toggle-icon');
             const cornerEffects = document.querySelectorAll('.corner-effect');
+            
+            // Font switcher configuration
+            const fontOptions = [
+                // Classic/Professional Options
+                { 
+                    name: "IBM Plex + Syne",
+                    primary: "var(--font-option1-primary)",
+                    display: "var(--font-option1-display)",
+                    mono: "var(--font-option1-mono)",
+                    category: "Professional"
+                },
+                { 
+                    name: "Roboto Mono + Space Grotesk",
+                    primary: "var(--font-option2-primary)",
+                    display: "var(--font-option2-display)",
+                    mono: "var(--font-option2-mono)",
+                    category: "Professional"
+                },
+                { 
+                    name: "Cascadia Code + Outfit",
+                    primary: "var(--font-option3-primary)",
+                    display: "var(--font-option3-display)",
+                    mono: "var(--font-option3-mono)",
+                    category: "Professional"
+                },
+                
+                // Modern Tech Options
+                { 
+                    name: "Ubuntu Mono + Exo 2",
+                    primary: "var(--font-option4-primary)",
+                    display: "var(--font-option4-display)",
+                    mono: "var(--font-option4-mono)",
+                    category: "Modern Tech",
+                    isUbuntuMono: true
+                },
+                { 
+                    name: "Sometype + Rajdhani",
+                    primary: "var(--font-option5-primary)",
+                    display: "var(--font-option5-display)",
+                    mono: "var(--font-option5-mono)",
+                    category: "Modern Tech"
+                },
+                { 
+                    name: "Space Mono + Chakra Petch",
+                    primary: "var(--font-option6-primary)",
+                    display: "var(--font-option6-display)",
+                    mono: "var(--font-option6-mono)",
+                    category: "Modern Tech"
+                },
+                
+                // SciFi/Cyberpunk Options
+                { 
+                    name: "Silkscreen + Orbitron",
+                    primary: "var(--font-option7-primary)",
+                    display: "var(--font-option7-display)",
+                    mono: "var(--font-option7-mono)",
+                    category: "Cyberpunk"
+                },
+                { 
+                    name: "Major Mono + Tourney",
+                    primary: "var(--font-option8-primary)",
+                    display: "var(--font-option8-display)",
+                    mono: "var(--font-option8-mono)",
+                    category: "Cyberpunk"
+                },
+                { 
+                    name: "Goldman + Audiowide",
+                    primary: "var(--font-option9-primary)",
+                    display: "var(--font-option9-display)",
+                    mono: "var(--font-option9-mono)",
+                    category: "Cyberpunk"
+                },
+                
+                // Fun/Experimental Options
+                { 
+                    name: "Press Start 2P + Bungee",
+                    primary: "var(--font-option10-primary)",
+                    display: "var(--font-option10-display)",
+                    mono: "var(--font-option10-mono)",
+                    category: "Experimental"
+                },
+                { 
+                    name: "Inconsolata + Rubik Mono",
+                    primary: "var(--font-option11-primary)",
+                    display: "var(--font-option11-display)",
+                    mono: "var(--font-option11-mono)",
+                    category: "Experimental"
+                },
+                { 
+                    name: "Nova Mono + Monoton",
+                    primary: "var(--font-option12-primary)",
+                    display: "var(--font-option12-display)",
+                    mono: "var(--font-option12-mono)",
+                    category: "Experimental"
+                },
+                
+                // Extreme/Artistic Options
+                { 
+                    name: "Noto Sans + Rubik Glitch",
+                    primary: "var(--font-option13-primary)",
+                    display: "var(--font-option13-display)",
+                    mono: "var(--font-option13-mono)",
+                    category: "Artistic"
+                },
+                { 
+                    name: "Space Mono + Faster One",
+                    primary: "var(--font-option14-primary)",
+                    display: "var(--font-option14-display)",
+                    mono: "var(--font-option14-mono)",
+                    category: "Artistic"
+                },
+                { 
+                    name: "Xanh Mono + Nabla",
+                    primary: "var(--font-option15-primary)",
+                    display: "var(--font-option15-display)",
+                    mono: "var(--font-option15-mono)",
+                    category: "Artistic"
+                }
+            ];
             
             // Function to update theme
             function updateTheme(theme) {
@@ -88,9 +228,118 @@
                 });
             }
             
+            // Function to update fonts
+            function updateFonts(optionIndex) {
+                const option = fontOptions[optionIndex];
+                
+                // Apply fonts to root element
+                document.documentElement.style.setProperty('--font-primary', option.primary);
+                document.documentElement.style.setProperty('--font-display', option.display);
+                document.documentElement.style.setProperty('--font-mono', option.mono);
+                
+                // Save preference
+                localStorage.setItem('fontOption', optionIndex);
+                
+                // Update font switcher text and show current font name
+                const fontName = document.querySelector('#font-switcher .toggle-text');
+                fontName.textContent = option.name.split(' + ')[0]; // Show first font name only
+                
+                // Update dropdown active state
+                const fontOptions = document.querySelectorAll('.font-option');
+                fontOptions.forEach((opt, index) => {
+                    opt.classList.toggle('active', index === optionIndex);
+                });
+                
+                // Show toast notification with full font name
+                showFontToast(option.name);
+            }
+            
+            // Show a toast notification with the font name
+            function showFontToast(fontName) {
+                // Remove any existing toast
+                const existingToast = document.getElementById('font-toast');
+                if (existingToast) {
+                    existingToast.remove();
+                }
+                
+                // Create toast element
+                const toast = document.createElement('div');
+                toast.id = 'font-toast';
+                toast.style.position = 'fixed';
+                toast.style.bottom = '20px';
+                toast.style.left = '50%';
+                toast.style.transform = 'translateX(-50%)';
+                toast.style.background = 'var(--bg-glass)';
+                toast.style.color = 'var(--color-text-primary)';
+                toast.style.padding = '12px 20px';
+                toast.style.borderRadius = '4px';
+                toast.style.boxShadow = 'var(--shadow-md)';
+                toast.style.zIndex = '9999';
+                toast.style.fontFamily = 'var(--font-primary)';
+                toast.style.transition = 'all 0.3s ease-in-out';
+                toast.style.backdropFilter = 'blur(10px)';
+                toast.style.border = '1px solid var(--color-border)';
+                toast.style.opacity = '0';
+                toast.style.transform = 'translate(-50%, 20px)';
+                
+                // Create font preview elements
+                const fontPreview = document.createElement('div');
+                fontPreview.style.display = 'flex';
+                fontPreview.style.flexDirection = 'column';
+                fontPreview.style.gap = '8px';
+                
+                // Primary font
+                const primaryPart = document.createElement('div');
+                primaryPart.style.display = 'flex';
+                primaryPart.style.alignItems = 'center';
+                primaryPart.style.gap = '10px';
+                
+                const primaryLabel = document.createElement('span');
+                primaryLabel.textContent = 'Font:';
+                primaryLabel.style.fontWeight = 'bold';
+                
+                const primaryName = document.createElement('span');
+                primaryName.textContent = fontName;
+                
+                primaryPart.appendChild(primaryLabel);
+                primaryPart.appendChild(primaryName);
+                fontPreview.appendChild(primaryPart);
+                
+                toast.appendChild(fontPreview);
+                
+                // Add to body
+                document.body.appendChild(toast);
+                
+                // Animate in
+                setTimeout(() => {
+                    toast.style.opacity = '1';
+                    toast.style.transform = 'translate(-50%, 0)';
+                }, 10);
+                
+                // Remove after 3 seconds
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translate(-50%, 20px)';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            }
+            
             // Initialize theme from saved preference
             const savedTheme = localStorage.getItem('theme') || 'light';
             updateTheme(savedTheme);
+            
+            // Initialize fonts from saved preference
+            const savedFontOption = parseInt(localStorage.getItem('fontOption') || '0');
+            
+            // Update font switcher text before applying fonts
+            const fontOption = fontOptions[savedFontOption];
+            const fontName = document.querySelector('#font-switcher .toggle-text');
+            if (fontName) {
+                fontName.textContent = fontOption.name.split(' + ')[0]; // Show first font name only
+            }
+            
+            // Apply font settings
+            updateFonts(savedFontOption);
             
             // Toggle theme on click
             if (navThemeToggleBtn) {
@@ -100,6 +349,370 @@
                     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
                     updateTheme(newTheme);
                 });
+            }
+            
+            // Initialize font dropdown
+            function initializeFontDropdown() {
+                const dropdown = document.querySelector('.font-dropdown-content');
+                
+                // Clear existing content
+                dropdown.innerHTML = '';
+                
+                // Create font options
+                fontOptions.forEach((option, index) => {
+                    const fontOption = document.createElement('div');
+                    fontOption.className = `font-option ${option.isUbuntuMono ? 'ubuntu-mono' : ''}`;
+                    if (parseInt(localStorage.getItem('fontOption') || '0') === index) {
+                        fontOption.classList.add('active');
+                    }
+                    
+                    // Apply the font to the option itself
+                    fontOption.style.fontFamily = option.primary;
+                    
+                    const optionName = document.createElement('span');
+                    optionName.className = 'option-name';
+                    optionName.textContent = option.name.split(' + ')[0];
+                    
+                    fontOption.appendChild(optionName);
+                    fontOption.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        updateFonts(index);
+                    });
+                    
+                    dropdown.appendChild(fontOption);
+                });
+            }
+            
+            // Initialize dropdown on page load
+            initializeFontDropdown();
+            
+            // Toggle fonts on click
+            if (fontSwitcherBtn) {
+                fontSwitcherBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                });
+                
+                // Long press to show modal with all font options
+                let pressTimer;
+                fontSwitcherBtn.addEventListener('mousedown', () => {
+                    pressTimer = setTimeout(() => {
+                        showFontModal(fontOptions);
+                    }, 800);
+                });
+                
+                fontSwitcherBtn.addEventListener('mouseup', () => {
+                    clearTimeout(pressTimer);
+                });
+                
+                fontSwitcherBtn.addEventListener('mouseleave', () => {
+                    clearTimeout(pressTimer);
+                });
+            }
+            
+            // Function to show a modal with all font options
+            function showFontModal(options) {
+                // Remove existing modal if it exists
+                const existingModal = document.getElementById('font-modal');
+                if (existingModal) {
+                    existingModal.remove();
+                    return;
+                }
+                
+                // Create modal
+                const modal = document.createElement('div');
+                modal.id = 'font-modal';
+                modal.style.position = 'fixed';
+                modal.style.top = '50%';
+                modal.style.left = '50%';
+                modal.style.transform = 'translate(-50%, -50%)';
+                modal.style.background = 'var(--bg-glass)';
+                modal.style.backdropFilter = 'blur(10px)';
+                modal.style.padding = '20px';
+                modal.style.borderRadius = '8px';
+                modal.style.boxShadow = 'var(--shadow-lg)';
+                modal.style.zIndex = '10000';
+                modal.style.maxWidth = '700px';
+                modal.style.width = '90%';
+                modal.style.maxHeight = '85vh';
+                modal.style.overflowY = 'auto';
+                
+                // Add heading
+                const heading = document.createElement('h3');
+                heading.style.fontFamily = 'var(--font-display)';
+                heading.style.marginBottom = '1rem';
+                heading.textContent = 'Font Options';
+                heading.style.position = 'sticky';
+                heading.style.top = '0';
+                heading.style.background = 'var(--bg-glass)';
+                heading.style.zIndex = '1';
+                heading.style.padding = '5px 0';
+                heading.style.backdropFilter = 'blur(10px)';
+                modal.appendChild(heading);
+                
+                // Create search input
+                const searchContainer = document.createElement('div');
+                searchContainer.style.marginBottom = '15px';
+                searchContainer.style.position = 'sticky';
+                searchContainer.style.top = '50px';
+                searchContainer.style.zIndex = '1';
+                searchContainer.style.backdropFilter = 'blur(10px)';
+                searchContainer.style.background = 'var(--bg-glass)';
+                searchContainer.style.padding = '5px 0';
+                
+                const searchInput = document.createElement('input');
+                searchInput.type = 'text';
+                searchInput.placeholder = 'Search fonts...';
+                searchInput.style.width = '100%';
+                searchInput.style.padding = '8px 12px';
+                searchInput.style.borderRadius = '4px';
+                searchInput.style.border = '1px solid var(--color-border)';
+                searchInput.style.background = 'var(--bg-glass)';
+                searchInput.style.color = 'var(--color-text-primary)';
+                searchInput.style.fontFamily = 'var(--font-primary)';
+                searchContainer.appendChild(searchInput);
+                modal.appendChild(searchContainer);
+                
+                // Group fonts by category
+                const categories = Array.from(new Set(options.map(opt => opt.category)));
+                
+                // Add current font indicator
+                const currentOption = parseInt(localStorage.getItem('fontOption') || '0');
+                
+                // Create container for font options
+                const optionsContainer = document.createElement('div');
+                
+                // Function to render font options
+                function renderOptions(filter = '') {
+                    // Clear previous options
+                    optionsContainer.innerHTML = '';
+                    
+                    // Create font options grouped by category
+                    categories.forEach(category => {
+                        const categoryFonts = options.filter(o => 
+                            o.category === category && 
+                            (filter === '' || 
+                             o.name.toLowerCase().includes(filter.toLowerCase()) ||
+                             category.toLowerCase().includes(filter.toLowerCase())
+                            )
+                        );
+                        
+                        // Skip categories with no matching fonts
+                        if (categoryFonts.length === 0) return;
+                        
+                        // Create category group
+                        const categoryGroup = document.createElement('div');
+                        categoryGroup.style.marginBottom = '20px';
+                        
+                        // Add category header
+                        const categoryHeader = document.createElement('h4');
+                        categoryHeader.textContent = category;
+                        categoryHeader.style.fontFamily = 'var(--font-display)';
+                        categoryHeader.style.fontSize = '1rem';
+                        categoryHeader.style.marginBottom = '10px';
+                        categoryHeader.style.padding = '5px 0';
+                        categoryHeader.style.borderBottom = '1px solid var(--color-border)';
+                        categoryGroup.appendChild(categoryHeader);
+                        
+                        // Create font options list for this category
+                        const categoryList = document.createElement('div');
+                        categoryList.style.display = 'grid';
+                        categoryList.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
+                        categoryList.style.gap = '15px';
+                        
+                        // Add fonts in this category
+                        categoryFonts.forEach((option, idx) => {
+                            const index = options.indexOf(option);
+                            
+                            const fontItem = document.createElement('div');
+                            fontItem.style.padding = '12px';
+                            fontItem.style.cursor = 'pointer';
+                            fontItem.style.borderRadius = '4px';
+                            fontItem.style.transition = 'all 0.2s ease';
+                            fontItem.style.border = '1px solid var(--color-border)';
+                            
+                            // Highlight current font
+                            if (index === currentOption) {
+                                fontItem.style.background = 'var(--bg-black-05)';
+                                fontItem.style.fontWeight = 'bold';
+                                fontItem.style.borderColor = 'var(--color-accent)';
+                                fontItem.style.boxShadow = '0 0 0 1px var(--color-accent)';
+                            }
+                            
+                            // Apply the primary font to the item
+                            fontItem.style.fontFamily = option.primary;
+                            
+                            // Create display font preview
+                            const displayPreview = document.createElement('div');
+                            displayPreview.textContent = 'AaBbCc123';
+                            displayPreview.style.fontFamily = option.display;
+                            displayPreview.style.fontSize = '1.2em';
+                            displayPreview.style.marginBottom = '8px';
+                            displayPreview.style.color = 'var(--color-accent)';
+                            
+                            // Create primary font preview
+                            const primaryPreview = document.createElement('div');
+                            primaryPreview.textContent = 'AaBbCc123';
+                            primaryPreview.style.fontFamily = option.primary;
+                            primaryPreview.style.fontSize = '1em';
+                            primaryPreview.style.marginBottom = '5px';
+                            
+                            // Create mono font preview
+                            const monoPreview = document.createElement('div');
+                            monoPreview.textContent = 'AaBbCc123';
+                            monoPreview.style.fontFamily = option.mono;
+                            monoPreview.style.fontSize = '0.9em';
+                            monoPreview.style.opacity = '0.7';
+                            
+                            // Create header with font name and status
+                            const header = document.createElement('div');
+                            header.style.display = 'flex';
+                            header.style.justifyContent = 'space-between';
+                            header.style.alignItems = 'center';
+                            header.style.marginBottom = '10px';
+                            
+                            const nameSpan = document.createElement('div');
+                            nameSpan.textContent = option.name.split(' + ')[0];
+                            nameSpan.style.fontWeight = 'bold';
+                            
+                            const statusSpan = document.createElement('div');
+                            if (index === currentOption) {
+                                statusSpan.textContent = '✓';
+                                statusSpan.style.color = 'var(--color-accent)';
+                            }
+                            
+                            header.appendChild(nameSpan);
+                            header.appendChild(statusSpan);
+                            
+                            // Add all elements to font item
+                            fontItem.appendChild(header);
+                            fontItem.appendChild(displayPreview);
+                            fontItem.appendChild(primaryPreview);
+                            fontItem.appendChild(monoPreview);
+                            
+                            // Add sample text
+                            const sampleText = document.createElement('div');
+                            sampleText.textContent = 'The quick brown fox jumps over the lazy dog';
+                            sampleText.style.marginTop = '10px';
+                            sampleText.style.fontSize = '0.85em';
+                            sampleText.style.opacity = '0.7';
+                            sampleText.style.fontFamily = option.primary;
+                            fontItem.appendChild(sampleText);
+                            
+                            // Set click handler
+                            fontItem.addEventListener('click', () => {
+                                updateFonts(index);
+                                modal.remove();
+                            });
+                            
+                            // Hover effect
+                            fontItem.addEventListener('mouseenter', () => {
+                                fontItem.style.background = 'var(--bg-black-05)';
+                                fontItem.style.transform = 'translateY(-2px)';
+                                fontItem.style.boxShadow = 'var(--shadow-md)';
+                            });
+                            
+                            fontItem.addEventListener('mouseleave', () => {
+                                if (index !== currentOption) {
+                                    fontItem.style.background = 'transparent';
+                                    fontItem.style.transform = 'translateY(0)';
+                                    fontItem.style.boxShadow = 'none';
+                                } else {
+                                    fontItem.style.transform = 'translateY(0)';
+                                    fontItem.style.boxShadow = '0 0 0 1px var(--color-accent)';
+                                }
+                            });
+                            
+                            categoryList.appendChild(fontItem);
+                        });
+                        
+                        categoryGroup.appendChild(categoryList);
+                        optionsContainer.appendChild(categoryGroup);
+                    });
+                    
+                    // Show no results message if needed
+                    if (optionsContainer.children.length === 0 && filter !== '') {
+                        const noResults = document.createElement('div');
+                        noResults.textContent = `No fonts matching "${filter}"`;
+                        noResults.style.textAlign = 'center';
+                        noResults.style.padding = '20px';
+                        noResults.style.color = 'var(--color-text-secondary)';
+                        optionsContainer.appendChild(noResults);
+                    }
+                }
+                
+                // Add search functionality
+                searchInput.addEventListener('input', () => {
+                    renderOptions(searchInput.value);
+                });
+                
+                // Initial render
+                renderOptions();
+                modal.appendChild(optionsContainer);
+                
+                // Add buttons container
+                const buttonsContainer = document.createElement('div');
+                buttonsContainer.style.display = 'flex';
+                buttonsContainer.style.justifyContent = 'space-between';
+                buttonsContainer.style.marginTop = '20px';
+                buttonsContainer.style.position = 'sticky';
+                buttonsContainer.style.bottom = '0';
+                buttonsContainer.style.padding = '10px 0';
+                buttonsContainer.style.background = 'var(--bg-glass)';
+                buttonsContainer.style.backdropFilter = 'blur(10px)';
+                buttonsContainer.style.zIndex = '1';
+                
+                // Add random button
+                const randomBtn = document.createElement('button');
+                randomBtn.textContent = 'Random Font';
+                randomBtn.style.padding = '8px 16px';
+                randomBtn.style.marginRight = '10px';
+                randomBtn.style.border = 'none';
+                randomBtn.style.borderRadius = '4px';
+                randomBtn.style.background = 'var(--bg-black-05)';
+                randomBtn.style.cursor = 'pointer';
+                randomBtn.style.fontFamily = 'var(--font-primary)';
+                randomBtn.style.color = 'var(--color-text-primary)';
+                
+                randomBtn.addEventListener('click', () => {
+                    const randomIndex = Math.floor(Math.random() * options.length);
+                    updateFonts(randomIndex);
+                    modal.remove();
+                });
+                
+                // Add close button
+                const closeBtn = document.createElement('button');
+                closeBtn.textContent = 'Close';
+                closeBtn.style.padding = '8px 16px';
+                closeBtn.style.border = 'none';
+                closeBtn.style.borderRadius = '4px';
+                closeBtn.style.background = 'var(--bg-black-05)';
+                closeBtn.style.cursor = 'pointer';
+                closeBtn.style.fontFamily = 'var(--font-primary)';
+                closeBtn.style.color = 'var(--color-text-primary)';
+                
+                closeBtn.addEventListener('click', () => {
+                    modal.remove();
+                });
+                
+                buttonsContainer.appendChild(randomBtn);
+                buttonsContainer.appendChild(closeBtn);
+                modal.appendChild(buttonsContainer);
+                
+                // Close modal when clicking outside
+                document.addEventListener('click', function closeModalOnOutsideClick(e) {
+                    if (!modal.contains(e.target) && e.target !== fontSwitcherBtn) {
+                        modal.remove();
+                        document.removeEventListener('click', closeModalOnOutsideClick);
+                    }
+                });
+                
+                // Add to body
+                document.body.appendChild(modal);
+                
+                // Focus search input
+                setTimeout(() => {
+                    searchInput.focus();
+                }, 100);
             }
         });
 
@@ -145,6 +758,47 @@
             if (!verticalName) return;
             
             morphVerticalName("cybrdelic");
+            
+            // Initialize text transform options
+            const transformOptions = document.querySelectorAll('.transform-option');
+            if (transformOptions.length > 0) {
+                transformOptions.forEach(option => {
+                    option.addEventListener('click', function() {
+                        // Remove active class from all options
+                        transformOptions.forEach(opt => opt.classList.remove('active'));
+                        
+                        // Add active class to clicked option
+                        this.classList.add('active');
+                        
+                        // Get transform type
+                        const transform = this.getAttribute('data-transform');
+                        
+                        // Get hero name element
+                        const heroName = document.getElementById('hero-name');
+                        
+                        // Remove all existing transform classes
+                        heroName.classList.remove('uppercase', 'lowercase', 'text-outline', 'text-shadow', 'text-glow');
+                        
+                        // Add selected transform class if not 'none'
+                        if (transform !== 'none') {
+                            heroName.classList.add(transform);
+                        }
+                        
+                        // Save preference
+                        localStorage.setItem('textTransform', transform);
+                    });
+                });
+                
+                // Apply saved preference if exists
+                const savedTransform = localStorage.getItem('textTransform');
+                if (savedTransform) {
+                    transformOptions.forEach(option => {
+                        if (option.getAttribute('data-transform') === savedTransform) {
+                            option.click();
+                        }
+                    });
+                }
+            }
             
             // Section navigation mapping
             const displayMap = {
