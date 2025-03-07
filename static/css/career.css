@@ -8,8 +8,10 @@
     font-family: var(--font-primary);
     overflow: visible !important;
     padding: var(--space-xl) 0;
-    will-change: transform; /* Performance optimization */
-    transform: translateZ(0); /* Force GPU acceleration */
+    will-change: transform;
+    /* Performance optimization */
+    transform: translateZ(0);
+    /* Force GPU acceleration */
     position: relative;
     z-index: 1;
 }
@@ -25,7 +27,8 @@
     max-width: 1400px;
     width: 100%;
     overflow: visible !important;
-    contain: content; /* Improve rendering performance */
+    contain: content;
+    /* Improve rendering performance */
 }
 
 /* Section header to match other sections */
@@ -59,7 +62,8 @@
 /* timeline on the left, sticky so it remains visible while scrolling detail panel */
 #career .timeline {
     position: sticky;
-    top: var(--header-height); /* Pin below the header */
+    top: var(--header-height);
+    /* Pin below the header */
     align-self: flex-start;
     flex: 0 0 30%;
     /* 30% width, can tweak */
@@ -67,8 +71,10 @@
     padding-right: var(--space-lg);
     transition: all var(--transition-base);
     overflow: visible !important;
-    padding-top: var(--space-md); /* Space from top */
-    contain: layout; /* Performance optimization */
+    padding-top: var(--space-md);
+    /* Space from top */
+    contain: layout;
+    /* Performance optimization */
 }
 
 /* vertical line in the timeline – shifted for more space from the text */
@@ -95,7 +101,8 @@
     opacity: 0.7;
     transition: transform var(--transition-base), opacity var(--transition-base);
     letter-spacing: var(--letter-spacing-tight);
-    will-change: transform, opacity; /* Performance optimization */
+    will-change: transform, opacity;
+    /* Performance optimization */
     overflow: visible !important;
     /* No border to maintain original timeline look */
 }
@@ -147,13 +154,13 @@
         box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5);
         opacity: 0.8;
     }
-    
+
     70% {
         transform: translateX(-50%) scale(2);
         box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
         opacity: 0;
     }
-    
+
     100% {
         transform: translateX(-50%) scale(1);
         box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
@@ -186,11 +193,11 @@
     0% {
         box-shadow: 0 0 0 0 rgba(39, 201, 63, 0.3);
     }
-    
+
     70% {
         box-shadow: 0 0 0 4px rgba(39, 201, 63, 0);
     }
-    
+
     100% {
         box-shadow: 0 0 0 0 rgba(39, 201, 63, 0);
     }
@@ -295,7 +302,8 @@
     padding-left: var(--space-lg);
     background-color: transparent;
     overflow: visible !important;
-    position: relative; /* Support for card effect */
+    position: relative;
+    /* Support for card effect */
 }
 
 /* Add subtle card effect to detail panel */
@@ -383,9 +391,9 @@
 }
 
 #career .job-description {
-    font-size: var(--font-size-fluid-base);
-    font-family: var(--font-display);
-    line-height: var(--font-size-fluid-base);
+    font-size: var(--font-size-md);
+    font-family: var(--font-md);
+    line-height: var(--font-size-md);
     margin-bottom: var(--space-lg);
     color: var(--color-text-primary);
     background-color: transparent;
