@@ -1,298 +1,250 @@
 <!-- templates/sections/projects.html -->
 <section id="PROJECTS">
     <div class="container">
-        
-        <div class="projects-layout">
-            <!-- Projects list -->
+
+        <div class="projects-container">
+            <!-- Project Details Panel (Left Side - Sticky) -->
+            <div class="project-details-panel">
+                <!-- Default state when no project is selected -->
+                <div class="default-project-view">
+                    <h3 class="details-header">Select a project</h3>
+                    <p class="details-description">
+                        I build tools that enhance developer productivity and create elegant solutions to complex
+                        problems.
+                        My work spans CLI utilities to AI-powered tools, focusing on performance and usability.
+                    </p>
+
+                    <div class="details-stats">
+                        <div class="stat-box">
+                            <div class="stat-number">10+</div>
+                            <div class="stat-label">Projects</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">4</div>
+                            <div class="stat-label">Core Tech</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">7+</div>
+                            <div class="stat-label">Years Exp</div>
+                        </div>
+                    </div>
+
+                    <div class="expertise-section">
+                        <h3 class="details-subheader">Areas of Focus</h3>
+                        <div class="expertise-tags">
+                            <span class="expertise-tag">Developer Tools</span>
+                            <span class="expertise-tag">AI Integration</span>
+                            <span class="expertise-tag">CLI Apps</span>
+                            <span class="expertise-tag">Data Viz</span>
+                            <span class="expertise-tag">Automation</span>
+                            <span class="expertise-tag">Web Apps</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project-specific details that show when a project is selected -->
+                <div class="selected-project-view">
+                    <h3 class="details-header"><span class="selected-project-title">Project Name</span></h3>
+                    <div class="details-subtitle"><span class="selected-project-subtitle">Project Type</span></div>
+
+                    <p class="details-description selected-project-description">
+                        Select a project to view details.
+                    </p>
+
+                    <div class="details-meta">
+                        <div class="stat-box">
+                            <div class="stat-label">Status</div>
+                            <div class="selected-project-status">-</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">Year</div>
+                            <div class="selected-project-year">-</div>
+                        </div>
+                    </div>
+
+                    <div class="tech-section">
+                        <h3 class="details-subheader">Technologies</h3>
+                        <div class="selected-project-tech-tags"></div>
+                    </div>
+
+                    <a href="#" class="details-link">
+                        <span class="details-link-text">View Full Details</span>
+                        <span class="details-link-icon">→</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Projects List (Right Side) -->
             <div class="projects-list">
                 {% for project in projects %}
-                <div class="project-card" data-id="{{ project.id }}" data-project="{{ project.id }}" tabindex="0">
-                    <div class="project-content">
-                        <h3 class="project-title">{{ project.title }}</h3>
-                        <div class="project-type">{{ project.subtitle }}</div>
-                        <div class="project-description">
-                            <p>{{ project.description }}</p>
-                        </div>
-                        <div class="project-tech">
+                <div class="project-list-item" data-id="{{ project.id }}" data-subtitle="{{ project.subtitle }}"
+                    data-year="{{ project.year | default(value='2023') }}"
+                    data-status="{{ project.status | default(value='Active') }}" tabindex="0"
+                    aria-label="Project: {{ project.title }}">
+                    <h3 class="project-list-title">{{ project.title }}</h3>
+
+                    <!-- Hidden data for JavaScript to use -->
+                    <div class="hidden-project-data">
+                        <div class="hidden-description">{{ project.description }}</div>
+                        <div class="hidden-tech-stack">
                             {% for tech in project.tech_stack %}
-                            <span class="project-tech-item">{{ tech }}</span>
+                            <span class="tech-item">{{ tech }}</span>
                             {% endfor %}
-                        </div>
-                        <div class="project-more">
-                            <span class="more-icon">→</span>
-                            <span class="more-text">View Details</span>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
-            </div>
-            
-            <!-- Project visualization -->
-            <div class="project-visualization">
-                <div class="project-panel-header">
-                    <div class="project-panel-controls">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                    <div class="project-panel-title">
-                        <span class="terminal-prefix">~/projects</span>
-                        <span class="terminal-cursor">▋</span>
-                    </div>
-                </div>
-                <div class="project-icon-container" id="project-icon-container">
-                    <!-- Fixed static illustration as default -->
-                    <div class="icon-wrapper active" data-icon="default">
-                        <div class="project-default-icon">
-                            <div class="code-snippet">
-                                <div class="code-line"></div>
-                                <div class="code-line"></div>
-                                <div class="code-line"></div>
-                                <div class="code-line"></div>
-                                <div class="code-line"></div>
-                                <div class="code-line"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Project-specific icons -->
-                    <div class="icon-wrapper" data-icon="jjugg">
-                        <div class="icon-scaling-wrapper">
-                            {% include "components/animated_icons/jjugg.html" %}
-                        </div>
-                        <div class="project-tech-tags">
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">HTML</span>
-                            <span class="tech-tag">LocalStorage</span>
-                        </div>
-                    </div>
-                    <div class="icon-wrapper" data-icon="sagacity">
-                        <div class="icon-scaling-wrapper">
-                            {% include "components/animated_icons/sagacity.html" %}
-                        </div>
-                        <div class="project-tech-tags">
-                            <span class="tech-tag">Rust</span>
-                            <span class="tech-tag">NLP</span>
-                            <span class="tech-tag">AI</span>
-                        </div>
-                    </div>
-                    <div class="icon-wrapper" data-icon="commitaura">
-                        <div class="icon-scaling-wrapper">
-                            {% include "components/animated_icons/commitaura.html" %}
-                        </div>
-                        <div class="project-tech-tags">
-                            <span class="tech-tag">Rust</span>
-                            <span class="tech-tag">Git</span>
-                            <span class="tech-tag">AI</span>
-                        </div>
-                    </div>
-                    <div class="icon-wrapper" data-icon="resumatyk">
-                        <div class="icon-scaling-wrapper">
-                            {% include "components/animated_icons/resumatyk.html" %}
-                        </div>
-                        <div class="project-tech-tags">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">LaTeX</span>
-                            <span class="tech-tag">AI</span>
-                        </div>
-                    </div>
-                    <div class="icon-wrapper" data-icon="cybrdelic_portfolio">
-                        <div class="icon-scaling-wrapper">
-                            {% include "components/animated_icons/cybrdelic_portfolio.html" %}
-                        </div>
-                        <div class="project-tech-tags">
-                            <span class="tech-tag">Rust</span>
-                            <span class="tech-tag">HTML</span>
-                            <span class="tech-tag">CSS</span>
-                        </div>
-                    </div>
-                    <div class="icon-wrapper" data-icon="lester">
-                        <div class="icon-scaling-wrapper">
-                            {% include "components/animated_icons/lester.html" %}
-                        </div>
-                        <div class="project-tech-tags">
-                            <span class="tech-tag">Rust</span>
-                            <span class="tech-tag">P2P</span>
-                            <span class="tech-tag">Cryptography</span>
-                        </div>
-                    </div>
-                    <div class="icon-wrapper" data-icon="browsealizer">
-                        <div class="icon-scaling-wrapper">
-                            {% include "components/animated_icons/browsealizer.html" %}
-                        </div>
-                        <div class="project-tech-tags">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">GitHub API</span>
-                            <span class="tech-tag">TypeScript</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-status-bar">
-                    <div class="status-indicator">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Ready</span>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const projectCards = document.querySelectorAll('#PROJECTS .project-card');
-            const iconWrappers = document.querySelectorAll('#project-icon-container .icon-wrapper');
-            let currentProject = null;
-            let iconChangeTimeout = null;
-            
-            // Card reveal animation
-            projectCards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.classList.add('reveal');
-                }, 120 * index);
+            const projectsSection = document.getElementById('PROJECTS');
+            const projectItems = document.querySelectorAll('.project-list-item');
+            const defaultView = document.querySelector('.default-project-view');
+            const selectedView = document.querySelector('.selected-project-view');
+            const detailsLink = document.querySelector('.details-link');
+            const detailsPanel = document.querySelector('.project-details-panel');
+
+            const isTouchDevice = ('ontouchstart' in window) ||
+                (navigator.maxTouchPoints > 0) ||
+                (navigator.msMaxTouchPoints > 0);
+
+            // Initially hide the selected project view
+            selectedView.style.display = 'none';
+            defaultView.style.display = 'block';
+
+            // Add tabindex to details panel for better accessibility
+            detailsPanel.setAttribute('tabindex', '-1');
+
+            // Setup animation for list items
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const item = entry.target;
+                        const index = Array.from(projectItems).indexOf(item);
+                        setTimeout(() => {
+                            item.classList.add('reveal');
+                        }, 80 * index);
+
+                        observer.unobserve(item);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            // Observe each project item
+            projectItems.forEach((item) => {
+                observer.observe(item);
             });
 
-            // Function to show the corresponding project icon
-            function showProjectIcon(projectId) {
-                // Clear any pending timeout
-                if (iconChangeTimeout) {
-                    clearTimeout(iconChangeTimeout);
-                }
-                
-                // Save current project
-                currentProject = projectId;
-                
-                // Update status text
-                const statusText = document.querySelector('.status-text');
-                if (statusText) {
-                    statusText.textContent = `Viewing: ${projectId}`;
-                }
-                
-                // Hide all icons first with staggered animation
-                iconWrappers.forEach(wrapper => {
-                    wrapper.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
-                    wrapper.classList.remove('active');
+            // Function to update project details
+            function updateProjectDetails(item) {
+                // Get data from the selected project
+                const title = item.querySelector('.project-list-title').textContent;
+                const subtitle = item.getAttribute('data-subtitle');
+                const year = item.getAttribute('data-year');
+                const status = item.getAttribute('data-status');
+                const description = item.querySelector('.hidden-description').textContent;
+                const techItems = item.querySelectorAll('.tech-item');
+                const projectId = item.getAttribute('data-id');
+
+                // Update the details panel
+                document.querySelector('.selected-project-title').textContent = title;
+                document.querySelector('.selected-project-subtitle').textContent = subtitle;
+                document.querySelector('.selected-project-description').textContent = description;
+                document.querySelector('.selected-project-status').textContent = status;
+                document.querySelector('.selected-project-year').textContent = year;
+
+                // Update tech tags
+                const techTagsContainer = document.querySelector('.selected-project-tech-tags');
+                techTagsContainer.innerHTML = '';
+                techItems.forEach(item => {
+                    const techTag = document.createElement('span');
+                    techTag.className = 'tech-tag';
+                    techTag.textContent = item.textContent;
+                    techTagsContainer.appendChild(techTag);
                 });
-                
-                // Try to find a matching icon for the project after a brief delay for smooth transition
-                setTimeout(() => {
-                    const matchingIcon = document.querySelector(`.icon-wrapper[data-icon="${projectId}"]`);
-                    
-                    if (matchingIcon) {
-                        matchingIcon.classList.add('active');
-                    } else {
-                        // Fall back to default if no matching icon
-                        document.querySelector('.icon-wrapper[data-icon="default"]').classList.add('active');
-                    }
-                }, 150);
+
+                // Update the "View Full Details" link
+                detailsLink.href = `/projects/${projectId}`;
+
+                // Show the selected view, hide the default view
+                defaultView.style.display = 'none';
+                selectedView.style.display = 'block';
             }
 
-            // Reset to default icon
-            function resetToDefaultIcon() {
-                // Set a delay to avoid flickering when moving between cards
-                iconChangeTimeout = setTimeout(() => {
-                    // Only reset if no active project
-                    if (!currentProject) {
-                        // Update status text
-                        const statusText = document.querySelector('.status-text');
-                        if (statusText) {
-                            statusText.textContent = 'Ready';
-                        }
-                        
-                        // Fade animation for smoother transition
-                        iconWrappers.forEach(wrapper => {
-                            wrapper.classList.remove('active');
+            // Handle project item interactions
+            projectItems.forEach(item => {
+                // Click/tap handler
+                item.addEventListener('click', () => {
+                    // Remove active class from all items
+                    projectItems.forEach(p => p.classList.remove('active'));
+
+                    // Add active class to clicked item
+                    item.classList.add('active');
+
+                    // Update the details panel
+                    updateProjectDetails(item);
+                });
+
+                // Hover effect for non-touch devices
+                if (!isTouchDevice) {
+                    item.addEventListener('mouseenter', () => {
+                        projectItems.forEach(p => {
+                            if (p !== item) p.classList.add('dim');
                         });
-                        
-                        // Small delay before showing default
-                        setTimeout(() => {
-                            document.querySelector('.icon-wrapper[data-icon="default"]').classList.add('active');
-                        }, 150);
-                    }
-                }, 200);
-            }
-
-            // Card hover handler for icon change
-            projectCards.forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    const projectId = card.getAttribute('data-project');
-                    showProjectIcon(projectId);
-                    
-                    // Highlight the active card - remove active from others first
-                    projectCards.forEach(c => {
-                        if (c !== card) c.classList.remove('active');
                     });
-                    
-                    // Add active class with slight delay for smooth transition
-                    setTimeout(() => {
-                        card.classList.add('active');
-                    }, 50);
-                    
-                    // Add active dot to status
-                    const statusDot = document.querySelector('.status-dot');
-                    if (statusDot) {
-                        statusDot.classList.add('active');
-                    }
-                });
 
-                card.addEventListener('mouseleave', () => {
-                    // Set current project to null
-                    currentProject = null;
-                    
-                    // Remove active with delay for smooth transition
-                    setTimeout(() => {
-                        card.classList.remove('active');
-                    }, 100);
-                    
-                    resetToDefaultIcon();
-                    
-                    // Remove active dot from status
-                    const statusDot = document.querySelector('.status-dot');
-                    if (statusDot) {
-                        statusDot.classList.remove('active');
-                    }
-                });
-
-                // Card click handler
-                card.addEventListener('click', () => {
-                    const projectId = card.getAttribute('data-id');
-                    window.location.href = `/projects/${projectId}`;
-                });
+                    item.addEventListener('mouseleave', () => {
+                        projectItems.forEach(p => p.classList.remove('dim'));
+                    });
+                }
 
                 // Keyboard accessibility
-                card.addEventListener('keydown', (e) => {
+                item.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
-                        const projectId = card.getAttribute('data-id');
-                        window.location.href = `/projects/${projectId}`;
+
+                        // Simulate click
+                        item.click();
+
+                        // Focus on the details panel for better accessibility
+                        document.querySelector('.project-details-panel').focus();
                     }
                 });
             });
 
-            // Animation for default code snippet
-            function animateCodeSnippet() {
-                const codeLines = document.querySelectorAll('.code-snippet .code-line');
-                codeLines.forEach((line, index) => {
-                    // Random width for each line
-                    const width = 50 + Math.random() * 40;
-                    line.style.width = `${width}%`;
-                    
-                    // Staggered animation
+            // Set first project as active by default with a smooth animation
+            if (projectItems.length > 0) {
+                // Add a small delay to ensure everything is loaded first
+                setTimeout(() => {
+                    const firstProject = projectItems[0];
+                    firstProject.classList.add('active');
+                    // Add a subtle animation to draw attention to the first selection
+                    firstProject.style.transition = 'all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1)';
+                    firstProject.style.background = 'rgba(255, 255, 255, 0.05)';
+
+                    updateProjectDetails(firstProject);
+
+                    // Reset the background after animation
                     setTimeout(() => {
-                        line.classList.add('animate');
-                        
-                        // Reset animation periodically
-                        setTimeout(() => {
-                            line.classList.remove('animate');
-                            setTimeout(() => {
-                                animateCodeSnippet();
-                            }, 100);
-                        }, 3000);
-                    }, index * 200);
-                });
+                        firstProject.style.transition = '';
+                        firstProject.style.background = '';
+                    }, 1200);
+                }, 300);
             }
-            
-            // Start code snippet animation
-            animateCodeSnippet();
+
+            // Handle focus management for accessibility
+            projectsSection.addEventListener('focusin', (e) => {
+                if (e.target.classList.contains('project-list-item')) {
+                    projectItems.forEach(p => {
+                        if (p !== e.target) p.classList.remove('active');
+                    });
+                    e.target.classList.add('active');
+                    updateProjectDetails(e.target);
+                }
+            });
         });
     </script>
 </section>
