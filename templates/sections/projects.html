@@ -1,29 +1,29 @@
 <!-- templates/sections/projects.html -->
 <section id="projects">
-    <div class="container">
+    <div class="container fade-in">
 
         <div class="projects-container">
             <!-- Project Details Panel (Left Side - Sticky) -->
-            <div class="project-details-panel">
+            <div class="project-details-panel animate-in-view">
                 <!-- Default state when no project is selected -->
                 <div class="default-project-view">
-                    <h3 class="details-header">Select a project</h3>
+                    <h3 class="details-header typing-cursor">Select a project</h3>
                     <p class="details-description">
                         I build tools that enhance developer productivity and create elegant solutions to complex
                         problems.
                         My work spans CLI utilities to AI-powered tools, focusing on performance and usability.
                     </p>
 
-                    <div class="details-stats">
-                        <div class="stat-box">
+                    <div class="details-stats stagger-children">
+                        <div class="stat-box card-hover">
                             <div class="stat-number">10+</div>
                             <div class="stat-label">Projects</div>
                         </div>
-                        <div class="stat-box">
+                        <div class="stat-box card-hover">
                             <div class="stat-number">4</div>
                             <div class="stat-label">Core Tech</div>
                         </div>
-                        <div class="stat-box">
+                        <div class="stat-box card-hover">
                             <div class="stat-number">7+</div>
                             <div class="stat-label">Years Exp</div>
                         </div>
@@ -31,32 +31,32 @@
 
                     <div class="expertise-section">
                         <h3 class="details-subheader">Areas of Focus</h3>
-                        <div class="expertise-tags">
-                            <span class="expertise-tag">Developer Tools</span>
-                            <span class="expertise-tag">AI Integration</span>
-                            <span class="expertise-tag">CLI Apps</span>
-                            <span class="expertise-tag">Data Viz</span>
-                            <span class="expertise-tag">Automation</span>
-                            <span class="expertise-tag">Web Apps</span>
+                        <div class="expertise-tags stagger-children">
+                            <span class="expertise-tag highlight-on-hover">Developer Tools</span>
+                            <span class="expertise-tag highlight-on-hover">AI Integration</span>
+                            <span class="expertise-tag highlight-on-hover">CLI Apps</span>
+                            <span class="expertise-tag highlight-on-hover">Data Viz</span>
+                            <span class="expertise-tag highlight-on-hover">Automation</span>
+                            <span class="expertise-tag highlight-on-hover">Web Apps</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Project-specific details that show when a project is selected -->
                 <div class="selected-project-view">
-                    <h3 class="details-header"><span class="selected-project-title">Project Name</span></h3>
+                    <h3 class="details-header"><span class="selected-project-title scramble-on-hover">Project Name</span></h3>
                     <div class="details-subtitle"><span class="selected-project-subtitle">Project Type</span></div>
 
                     <p class="details-description selected-project-description">
                         Select a project to view details.
                     </p>
 
-                    <div class="details-meta">
-                        <div class="stat-box">
+                    <div class="details-meta stagger-children">
+                        <div class="stat-box card-hover">
                             <div class="stat-label">Status</div>
                             <div class="selected-project-status">-</div>
                         </div>
-                        <div class="stat-box">
+                        <div class="stat-box card-hover">
                             <div class="stat-label">Year</div>
                             <div class="selected-project-year">-</div>
                         </div>
@@ -64,12 +64,12 @@
 
                     <div class="tech-section">
                         <h3 class="details-subheader">Technologies</h3>
-                        <div class="selected-project-tech-tags"></div>
+                        <div class="selected-project-tech-tags stagger-children"></div>
                     </div>
 
-                    <a href="#" class="details-link">
+                    <a href="#" class="details-link btn-interaction">
                         <span class="details-link-text">View Full Details</span>
-                        <span class="details-link-icon">→</span>
+                        <span class="details-link-icon transition-transform">→</span>
                     </a>
                 </div>
             </div>
@@ -77,11 +77,11 @@
             <!-- Projects List (Right Side) -->
             <div class="projects-list">
                 {% for project in projects %}
-                <div class="project-list-item" data-id="{{ project.id }}" data-subtitle="{{ project.subtitle }}"
+                <div class="project-list-item animate-in-view" data-id="{{ project.id }}" data-subtitle="{{ project.subtitle }}"
                     data-year="{{ project.year | default(value='2023') }}"
                     data-status="{{ project.status | default(value='Active') }}" tabindex="0"
                     aria-label="Project: {{ project.title }}">
-                    <h3 class="project-list-title">{{ project.title }}</h3>
+                    <h3 class="project-list-title link-underline">{{ project.title }}</h3>
 
                     <!-- Hidden data for JavaScript to use -->
                     <div class="hidden-project-data">
@@ -100,7 +100,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const projectsSection = document.getElementById('PROJECTS');
+            const projectsSection = document.getElementById('projects');
             const projectItems = document.querySelectorAll('.project-list-item');
             const defaultView = document.querySelector('.default-project-view');
             const selectedView = document.querySelector('.selected-project-view');
@@ -118,27 +118,23 @@
             // Add tabindex to details panel for better accessibility
             detailsPanel.setAttribute('tabindex', '-1');
 
-            // Setup animation for list items
-            const observer = new IntersectionObserver((entries) => {
+            // Setup animation for list items and other animated elements
+            const animationObserver = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        const item = entry.target;
-                        const index = Array.from(projectItems).indexOf(item);
-                        setTimeout(() => {
-                            item.classList.add('reveal');
-                        }, 80 * index);
-
-                        observer.unobserve(item);
+                        // Add visible class to trigger our CSS animations
+                        entry.target.classList.add('visible');
+                        animationObserver.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.1 });
 
-            // Observe each project item
-            projectItems.forEach((item) => {
-                observer.observe(item);
+            // Observe all elements with animate-in-view class
+            document.querySelectorAll('.animate-in-view').forEach((el) => {
+                animationObserver.observe(el);
             });
 
-            // Function to update project details
+            // Function to update project details with animation
             function updateProjectDetails(item) {
                 // Get data from the selected project
                 const title = item.querySelector('.project-list-title').textContent;
@@ -149,33 +145,58 @@
                 const techItems = item.querySelectorAll('.tech-item');
                 const projectId = item.getAttribute('data-id');
 
+                // Apply glitch effect to title as it changes
+                const titleElement = document.querySelector('.selected-project-title');
+                if (titleElement.textContent !== title) {
+                    // Use our textScramble animation for a cool effect
+                    titleElement.classList.add('scramble-on-hover');
+                    // Force animation by removing and adding the class
+                    titleElement.classList.remove('scramble-on-hover');
+                    setTimeout(() => {
+                        titleElement.classList.add('scramble-on-hover');
+                    }, 10);
+                }
+
                 // Update the details panel
-                document.querySelector('.selected-project-title').textContent = title;
+                titleElement.textContent = title;
                 document.querySelector('.selected-project-subtitle').textContent = subtitle;
                 document.querySelector('.selected-project-description').textContent = description;
                 document.querySelector('.selected-project-status').textContent = status;
                 document.querySelector('.selected-project-year').textContent = year;
 
-                // Update tech tags
+                // Update tech tags with staggered animation
                 const techTagsContainer = document.querySelector('.selected-project-tech-tags');
                 techTagsContainer.innerHTML = '';
-                techItems.forEach(item => {
+                
+                techItems.forEach((item, index) => {
                     const techTag = document.createElement('span');
-                    techTag.className = 'tech-tag';
+                    techTag.className = 'tech-tag highlight-on-hover';
                     techTag.textContent = item.textContent;
+                    techTag.style.animationDelay = `${index * 100}ms`;
                     techTagsContainer.appendChild(techTag);
                 });
 
                 // Update the "View Full Details" link
                 detailsLink.href = `/projects/${projectId}`;
 
-                // Show the selected view, hide the default view
-                defaultView.style.display = 'none';
-                selectedView.style.display = 'block';
+                // Animate transition between views
+                if (defaultView.style.display !== 'none') {
+                    // First time switching to project view
+                    defaultView.classList.add('fade-out');
+                    
+                    setTimeout(() => {
+                        defaultView.style.display = 'none';
+                        selectedView.style.display = 'block';
+                        selectedView.classList.add('fade-in');
+                    }, 200);
+                }
             }
 
             // Handle project item interactions
-            projectItems.forEach(item => {
+            projectItems.forEach((item, index) => {
+                // Add staggered reveal animation 
+                item.style.transitionDelay = `${index * 50}ms`;
+                
                 // Click handler - navigate to details page
                 item.addEventListener('click', () => {
                     const projectId = item.getAttribute('data-id');
@@ -185,6 +206,9 @@
                 // Hover effect to show project details for non-touch devices
                 if (!isTouchDevice) {
                     item.addEventListener('mouseenter', () => {
+                        // Add subtle glitch effect on hover
+                        item.classList.add('glitch-hover');
+                        
                         // Remove active class from all items
                         projectItems.forEach(p => {
                             p.classList.remove('active');
@@ -197,6 +221,11 @@
                         
                         // Update the details panel
                         updateProjectDetails(item);
+                        
+                        // Remove glitch class after effect completes
+                        setTimeout(() => {
+                            item.classList.remove('glitch-hover');
+                        }, 500);
                     });
                     
                     item.addEventListener('mouseleave', () => {
@@ -216,6 +245,9 @@
                             // First tap - show details
                             e.preventDefault();
                             
+                            // Add pulse effect on tap
+                            item.classList.add('pulse');
+                            
                             // Remove active class from all items
                             projectItems.forEach(p => p.classList.remove('active'));
                             
@@ -228,8 +260,9 @@
                             // Remember last tapped item
                             lastTappedItem = item;
                             
-                            // Reset after delay
+                            // Reset animation and last tapped item after delay
                             setTimeout(() => {
+                                item.classList.remove('pulse');
                                 lastTappedItem = null;
                             }, 1500);
                         }
@@ -241,15 +274,20 @@
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
                         
-                        // Show details first
+                        // Show details first with focus animation
                         projectItems.forEach(p => p.classList.remove('active'));
                         item.classList.add('active');
+                        item.classList.add('pulse');
+                        
                         updateProjectDetails(item);
                         
                         // Focus on the details panel for better accessibility
                         detailsPanel.focus();
                         
-                        // Navigate on second Enter key press (handled by link in details panel)
+                        // Remove animation class after effect
+                        setTimeout(() => {
+                            item.classList.remove('pulse');
+                        }, 1000);
                     }
                 });
             });
@@ -260,30 +298,32 @@
                 setTimeout(() => {
                     const firstProject = projectItems[0];
                     firstProject.classList.add('active');
-                    // Add a subtle animation to draw attention to the first selection
-                    firstProject.style.transition = 'all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1)';
-                    firstProject.style.background = 'rgba(255, 255, 255, 0.05)';
-
+                    
+                    // Add a subtle highlight animation
+                    firstProject.classList.add('card-hover');
+                    firstProject.style.transform = 'translateY(-5px)';
+                    
                     updateProjectDetails(firstProject);
 
-                    // Reset the background after animation
+                    // Reset the animation after a short delay
                     setTimeout(() => {
-                        firstProject.style.transition = '';
-                        firstProject.style.background = '';
-                    }, 1200);
-                }, 300);
+                        firstProject.style.transform = '';
+                    }, 1000);
+                }, 600);
             }
 
             // Handle focus management for accessibility
-            projectsSection.addEventListener('focusin', (e) => {
-                if (e.target.classList.contains('project-list-item')) {
-                    projectItems.forEach(p => {
-                        if (p !== e.target) p.classList.remove('active');
-                    });
-                    e.target.classList.add('active');
-                    updateProjectDetails(e.target);
-                }
-            });
+            if (projectsSection) {
+                projectsSection.addEventListener('focusin', (e) => {
+                    if (e.target.classList.contains('project-list-item')) {
+                        projectItems.forEach(p => {
+                            if (p !== e.target) p.classList.remove('active');
+                        });
+                        e.target.classList.add('active');
+                        updateProjectDetails(e.target);
+                    }
+                });
+            }
         });
     </script>
 </section>
