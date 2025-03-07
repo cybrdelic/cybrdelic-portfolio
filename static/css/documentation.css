@@ -7,9 +7,10 @@
     border: 1px solid var(--border-light);
     border-radius: var(--border-radius);
     overflow: hidden;
-    margin: var(--space-2xl) auto;
+    margin: 0 0;
     /* Remove max-height constraint from the parent */
-    max-height: none;
+    max-height: 90vh;
+    min-width: 100%;
 }
 
 .documentation-navigation.is-sticky {
@@ -39,6 +40,7 @@
     overflow-y: visible;
     max-height: none;
     background: var(--bg-white-02);
+    min-height: 90vh;
 }
 
 .documentation-navigation .nav-item {

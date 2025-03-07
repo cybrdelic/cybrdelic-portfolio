@@ -132,6 +132,31 @@
         </div>
     </section>
 
+
+
+
+
+    {% include "sections/future_section.html" %}
+    <!-- Related Projects Section -->
+    {% if related_projects and related_projects|length > 0 %}
+    <section class="related-section">
+        <h2 class="section-heading">Related Projects</h2>
+        <div class="related-grid">
+            {% for related in related_projects %}
+            <a href="/projects/{{ related.id }}" class="related-card card-hover">
+                <div class="related-image-container">
+                    <img src="{{ related.image_url }}" alt="{{ related.title }}" />
+                </div>
+                <div class="related-content">
+                    <h3 class="related-title">{{ related.title }}</h3>
+                    <p class="related-subtitle">{{ related.subtitle }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
     <!-- Documentation Section -->
     {% if project.user_flows and project.user_flows|length > 0 %}
     <section class="documentation-section" id="DOCS">
@@ -156,26 +181,6 @@
                 </div>
                 {% endfor %}
             </div>
-        </div>
-    </section>
-    {% endif %}
-
-    <!-- Related Projects Section -->
-    {% if related_projects and related_projects|length > 0 %}
-    <section class="related-section">
-        <h2 class="section-heading">Related Projects</h2>
-        <div class="related-grid">
-            {% for related in related_projects %}
-            <a href="/projects/{{ related.id }}" class="related-card card-hover">
-                <div class="related-image-container">
-                    <img src="{{ related.image_url }}" alt="{{ related.title }}" />
-                </div>
-                <div class="related-content">
-                    <h3 class="related-title">{{ related.title }}</h3>
-                    <p class="related-subtitle">{{ related.subtitle }}</p>
-                </div>
-            </a>
-            {% endfor %}
         </div>
     </section>
     {% endif %}
