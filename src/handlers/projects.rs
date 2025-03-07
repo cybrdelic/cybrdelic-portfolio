@@ -207,8 +207,10 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
     let sagacity_flow_configs = scan_flow_configs("sagacity")?;
     let commitaura_flow_configs = scan_flow_configs("commitaura")?;
     let cybrdelic_flow_configs = scan_flow_configs("cybrdelic-portfolio")?;
-    // For new projects, we'll use empty flow configs until we create proper documentation
-    let empty_flow_configs = Vec::new();
+    let jjugg_flow_configs = scan_flow_configs("jjugg")?;
+    let resumatyk_flow_configs = scan_flow_configs("resumatyk")?;
+    let browsealizer_flow_configs = scan_flow_configs("browsealizer")?;
+    let lester_flow_configs = scan_flow_configs("lester")?;
     
     Ok(vec![
         Project::new(
@@ -247,7 +249,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
                 "Handling inconsistent application status formats across different platforms and maintaining data integrity."
             ),
             vec!["automated", "data-driven", "insightful", "time-saving"],
-            empty_flow_configs.clone(),
+            jjugg_flow_configs,
         )?,
         
         Project::new(
@@ -364,7 +366,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
                 "Maintaining consistent formatting across different resume types and ensuring compatibility with various job application systems."
             ),
             vec!["automated", "professional", "dynamic", "tailored"],
-            empty_flow_configs.clone(),
+            resumatyk_flow_configs,
         )?,
         
         Project::new(
@@ -442,7 +444,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
                 "Ensuring trustless verification across different programming languages and maintaining security in a decentralized system."
             ),
             vec!["decentralized", "trustless", "efficient", "innovative"],
-            empty_flow_configs.clone(),
+            lester_flow_configs,
         )?,
         
         Project::new(
@@ -481,7 +483,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
                 "Efficiently handling API rate limits, ensuring responsive performance on mobile devices, and delivering a smooth infinite scrolling experience."
             ),
             vec!["discovery", "mobile-friendly", "continuous", "user-friendly"],
-            empty_flow_configs.clone(),
+            browsealizer_flow_configs,
         )?,
     ])
 }

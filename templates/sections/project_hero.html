@@ -5,10 +5,21 @@
 
     <!-- Project Preview Section -->
     <div class="project-preview slide-in">
-        <div class="image-container">
+        <div class="image-container glitch-on-hover">
             <img src="{{ project.image_url }}" alt="{{ project.title }} preview" class="preview-image"
                 onclick="openModal(this)" />
             <div class="image-caption">{{ project.image_caption }}</div>
+            <!-- Image overlay with interactive elements -->
+            <div class="image-overlay">
+                <div class="overlay-content">
+                    <div class="overlay-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 15l6 6m-6-6v4.8m0-4.8h4.8"/>
+                        </svg>
+                    </div>
+                    <span class="overlay-text">Click to enlarge</span>
+                </div>
+            </div>
         </div>
 
         <!-- Technical Overview -->
@@ -16,7 +27,9 @@
             {% if project.tech_stack %}
             <div class="tech-stack">
                 {% for tech in project.tech_stack %}
-                <span class="tech-tag">{{ tech }}</span>
+                <span class="tech-tag highlight-on-hover">
+                    <span class="tag-icon">◆</span>{{ tech }}
+                </span>
                 {% endfor %}
             </div>
             {% endif %}
@@ -85,7 +98,8 @@
         {% for flow in project.user_flows %}
         <button class="nav-item {% if loop.first %}active{% endif %}" data-tab="section-{{loop.index}}">
             <span class="nav-highlight"></span>
-            {{ flow.title }}
+            <span class="nav-number">{{ loop.index }}</span>
+            <span class="nav-text">{{ flow.title }}</span>
         </button>
         {% endfor %}
     </div>
@@ -178,58 +192,7 @@
         button.classList.add('error');
         setTimeout(() => button.classList.remove('error'), 2000);
     }
-    function switchSection(selectedTab) {
-        // Get the target id from data-tab
-        const targetId = selectedTab.getAttribute('data-tab');
-        // Find the closest user flows container
-        const container = selectedTab.closest('.user-flows');
-        if (!container) return;
-
-        // Remove active from all tabs in this container
-        container.querySelectorAll('.flow-tab').forEach(tab => {
-            tab.classList.remove('active');
-        });
-        // Add active class to the clicked tab
-        selectedTab.classList.add('active');
-
-        // Hide all flow content sections
-        container.querySelectorAll('.flow-content').forEach(content => {
-            content.classList.remove('active');
-        });
-
-        // Show the selected content section (using the matching id)
-        const targetContent = container.querySelector(`#${targetId}`);
-        if (targetContent) {
-            targetContent.classList.add('active');
-        }
-    }
-
-
-    function openModal(imgElement) {
-        const modal = document.getElementById('imageModal');
-        const modalImg = document.getElementById('modalImage');
-        const modalCaption = document.getElementById('modalCaption');
-        const caption = imgElement.closest('.image-container').querySelector('.image-caption');
-
-        modal.style.display = "flex";
-        modal.classList.add('modal-fade-in');
-        modalImg.src = imgElement.src;
-        modalCaption.textContent = caption ? caption.textContent : '';
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-        const modal = document.getElementById('imageModal');
-        modal.classList.remove('modal-fade-in');
-        modal.classList.add('modal-fade-out');
-
-        // Wait for fade-out before hiding
-        setTimeout(() => {
-            modal.style.display = "none";
-            modal.classList.remove('modal-fade-out');
-            document.body.style.overflow = 'auto';
-        }, 300);
-    }
+    
     // Fix for project_hero.html
     // Replace the existing switchSection function with this one
     function switchSection(selectedTab) {
@@ -301,4 +264,29 @@
         window.addEventListener('resize', handleStickyNavigation);
     });
 
+    function openModal(imgElement) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+        const caption = imgElement.closest('.image-container').querySelector('.image-caption');
+
+        modal.style.display = "flex";
+        modal.classList.add('modal-fade-in');
+        modalImg.src = imgElement.src;
+        modalCaption.textContent = caption ? caption.textContent : '';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.remove('modal-fade-in');
+        modal.classList.add('modal-fade-out');
+
+        // Wait for fade-out before hiding
+        setTimeout(() => {
+            modal.style.display = "none";
+            modal.classList.remove('modal-fade-out');
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
 </script>

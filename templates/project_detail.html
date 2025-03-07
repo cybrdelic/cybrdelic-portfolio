@@ -2,15 +2,276 @@
 
 {% block content %}
 <main class="project-detail-container">
+    <!-- Project Header Section -->
+    <header class="project-header-section">
+        <div class="project-headline">
+            <div class="project-title-container">
+                <h1 class="project-title glitch-hover">{{ project.title }}</h1>
+                <div class="project-badge">{{ project.subtitle }}</div>
+            </div>
+            <div class="project-links">
+                {% for link in project.links %}
+                <a href="{{ link.url }}" class="cmd highlight-on-hover" target="_blank" rel="noopener noreferrer">
+                    {{ link.title }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </header>
 
+    <!-- Project Showcase Section -->
+    <section class="project-showcase">
+        <div class="showcase-container">
+            <div class="showcase-image-container glitch-on-hover">
+                <img src="{{ project.image_url }}" alt="{{ project.title }}" class="showcase-image"
+                    onclick="openModal(this)" />
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <div class="overlay-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M15 15l6 6m-6-6v4.8m0-4.8h4.8" />
+                            </svg>
+                        </div>
+                        <span class="overlay-text">Click to enlarge</span>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-caption">{{ project.image_caption }}</div>
+        </div>
 
-    <div class="vertical-project-detail-name-block">
-        <h1 class="vertical-project-name slide-up">commit fast. commit often. commit without a thought</h1>
-        <span class="project-subtitle fade-in">{{ project.subtitle }}</span>
-    </div>
+        <div class="project-overview">
+            <div class="overview-content">
+                <div class="overview-description">{{ project.description }}</div>
 
-    <div class="project-detail-content">
-        {% include "sections/project_hero.html" %}
-    </div>
+                <div class="tech-stack">
+                    <h3 class="tech-stack-title">Technology Stack</h3>
+                    <div class="tech-tags">
+                        {% for tech in project.tech_stack %}
+                        <span class="tech-tag highlight-on-hover">
+                            <span class="tag-icon">◆</span>{{ tech }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="install-terminal">
+                <div class="terminal-header">
+                    <div class="window-controls">
+                        <span class="window-control close"></span>
+                        <span class="window-control minimize"></span>
+                        <span class="window-control maximize"></span>
+                    </div>
+                    <div class="terminal-title">Installation</div>
+                </div>
+                <div class="terminal-content">
+                    <div class="command-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-command">cargo install {{ project.id }}</span>
+                        <button class="copy-button" onclick="copyToClipboard(this)">
+                            <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M8 4v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7.242a2 2 0 0 0-.602-1.43L16.083 2.57A2 2 0 0 0 14.685 2H10a2 2 0 0 0-2 2z" />
+                                <path d="M16 18v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2" />
+                            </svg>
+                            <div class="confetti-container"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <h2 class="section-heading">Key Features</h2>
+        <div class="features-grid">
+            {% for feature in project.features %}
+            <div class="feature-card card-hover">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="{{ feature.icon_path }}" />
+                    </svg>
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">{{ feature.title }}</h3>
+                    <p class="feature-description">{{ feature.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Technical Section -->
+    <section class="technical-section">
+        <h2 class="section-heading">Technical Details</h2>
+        <div class="technical-grid">
+            <div class="technical-card">
+                <h3>Architecture</h3>
+                <p>{{ project.technical.architecture }}</p>
+            </div>
+            <div class="technical-card">
+                <h3>Implementation</h3>
+                <p>{{ project.technical.implementation }}</p>
+            </div>
+            <div class="technical-card">
+                <h3>Challenges</h3>
+                <p>{{ project.technical.challenges }}</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation Section -->
+    {% if project.user_flows and project.user_flows|length > 0 %}
+    <section class="documentation-section">
+        <div class="docs-container">
+            <div class="docs-sidebar">
+                {% for flow in project.user_flows %}
+                <button class="docs-nav-item {% if loop.first %}active{% endif %}" data-tab="section-{{loop.index}}">
+                    <span class="docs-nav-number">{{ loop.index }}</span>
+                    <span class="docs-nav-text">{{ flow.title }}</span>
+                </button>
+                {% endfor %}
+            </div>
+
+            <div class="docs-content">
+                {% for flow in project.user_flows %}
+                <div class="docs-panel {% if loop.first %}active{% else %}hidden{% endif %}"
+                    id="section-{{loop.index}}">
+                    <div class="markdown-content">
+                        {{ flow.content | safe }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Related Projects Section -->
+    {% if related_projects and related_projects|length > 0 %}
+    <section class="related-section">
+        <h2 class="section-heading">Related Projects</h2>
+        <div class="related-grid">
+            {% for related in related_projects %}
+            <a href="/projects/{{ related.id }}" class="related-card card-hover">
+                <div class="related-image-container">
+                    <img src="{{ related.image_url }}" alt="{{ related.title }}" />
+                </div>
+                <div class="related-content">
+                    <h3 class="related-title">{{ related.title }}</h3>
+                    <p class="related-subtitle">{{ related.subtitle }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
 </main>
+
+<!-- Modal for image preview -->
+<div id="imageModal" class="modal" onclick="if(event.target === this) closeModal();">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img id="modalImage" src="" alt="">
+        <p id="modalCaption" class="modal-caption"></p>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        initDocumentationTabs();
+    });
+
+    function initDocumentationTabs() {
+        const navItems = document.querySelectorAll('.docs-nav-item');
+        if (navItems.length === 0) return;
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Remove active class from all nav items
+                document.querySelectorAll('.docs-nav-item').forEach(navItem => {
+                    navItem.classList.remove('active');
+                });
+
+                // Add active class to clicked item
+                item.classList.add('active');
+
+                // Hide all content panels
+                document.querySelectorAll('.docs-panel').forEach(panel => {
+                    panel.classList.add('hidden');
+                    panel.classList.remove('active');
+                });
+
+                // Show selected panel
+                const targetId = item.getAttribute('data-tab');
+                const targetPanel = document.getElementById(targetId);
+                if (targetPanel) {
+                    targetPanel.classList.remove('hidden');
+                    targetPanel.classList.add('active');
+                }
+            });
+        });
+    }
+
+    function copyToClipboard(button) {
+        const command = button.closest('.command-line').querySelector('.terminal-command').innerText;
+        navigator.clipboard.writeText(command)
+            .then(() => showCopySuccess(button))
+            .catch(() => console.error('Failed to copy'));
+    }
+
+    function showCopySuccess(button) {
+        button.classList.add('copied');
+        const originalHTML = button.innerHTML;
+
+        // Confetti animation
+        const confettiContainer = button.querySelector('.confetti-container');
+        if (confettiContainer) {
+            confettiContainer.innerHTML = '';
+            for (let i = 0; i < 10; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+                confettiContainer.appendChild(confetti);
+            }
+        }
+
+        button.innerHTML = `<svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 6L9 17l-5-5"/>
+        </svg><div class="confetti-container"></div>`;
+
+        setTimeout(() => {
+            button.classList.remove('copied');
+            button.innerHTML = originalHTML;
+        }, 2000);
+    }
+
+    function openModal(imgElement) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+        const caption = document.querySelector('.showcase-caption');
+
+        modal.style.display = "flex";
+        modal.classList.add('modal-fade-in');
+        modalImg.src = imgElement.src;
+        modalCaption.textContent = caption ? caption.textContent : '';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.remove('modal-fade-in');
+        modal.classList.add('modal-fade-out');
+
+        setTimeout(() => {
+            modal.style.display = "none";
+            modal.classList.remove('modal-fade-out');
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+</script>
 {% endblock %}

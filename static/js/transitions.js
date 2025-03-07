@@ -75,14 +75,21 @@ function initPageTransitions() {
         
         // Start transition
         overlay.classList.add('active');
-        await new Promise(r => setTimeout(r, 300));
+        
+        // Reduced wait time to 50ms - just enough for the visual effect to start
+        await new Promise(r => setTimeout(r, 50));
         
         try {
-            // Fetch new content
-            const response = await fetch(url);
+            // Fetch new content - use Promise.race to limit waiting time
+            const fetchPromise = fetch(url);
+            const timeoutPromise = new Promise((_, reject) => 
+                setTimeout(() => reject(new Error('Fetch timeout')), 2000)
+            );
+            
+            const response = await Promise.race([fetchPromise, timeoutPromise]);
             const html = await response.text();
             
-            // Parse new content
+            // Parse new content - optimize by only selecting what we need
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
             const newContent = doc.querySelector('#content').innerHTML;
@@ -99,10 +106,14 @@ function initPageTransitions() {
             initializePageScripts();
         } catch (error) {
             console.error('Navigation error:', error);
+            // If there's an error, try a traditional navigation
+            window.location.href = url;
         }
         
-        // End transition
-        overlay.classList.remove('active');
+        // End transition - remove with a slight delay to ensure the content is ready
+        requestAnimationFrame(() => {
+            overlay.classList.remove('active');
+        });
     }
     
     // Handle navigation events
@@ -113,28 +124,44 @@ function initPageTransitions() {
         if (!overlay || !content) return;
         
         overlay.classList.add('active');
-        await new Promise(r => setTimeout(r, 300));
+        await new Promise(r => setTimeout(r, 50)); // Reduced time to 50ms
         
         try {
-            const response = await fetch(window.location.href);
-            const html = await response.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
+            // Use Promise.race to limit waiting time
+            const fetchPromise = fetch(window.location.href);
+            const timeoutPromise = new Promise((_, reject) => 
+                setTimeout(() => reject(new Error('Fetch timeout')), 2000)
+            );
             
-            if (doc.querySelector('#content')) {
-                content.innerHTML = doc.querySelector('#content').innerHTML;
+            const response = await Promise.race([fetchPromise, timeoutPromise]);
+            const html = await response.text();
+            
+            // Use createRange and createContextualFragment for faster parsing
+            const range = document.createRange();
+            range.setStart(document.body, 0);
+            const fragment = range.createContextualFragment(html);
+            
+            const newContent = fragment.querySelector('#content');
+            if (newContent) {
+                content.innerHTML = newContent.innerHTML;
             }
             
-            if (doc.querySelector('body')) {
-                document.body.className = doc.querySelector('body').className;
+            const newBodyClass = fragment.querySelector('body')?.className;
+            if (newBodyClass) {
+                document.body.className = newBodyClass;
             }
             
             initializePageScripts();
         } catch (error) {
             console.error('Navigation error on popstate:', error);
+            // If there's an error, just reload the page
+            window.location.reload();
         }
         
-        overlay.classList.remove('active');
+        // Use requestAnimationFrame for smoother transition
+        requestAnimationFrame(() => {
+            overlay.classList.remove('active');
+        });
     });
 }
 
