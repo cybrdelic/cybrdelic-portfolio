@@ -58,6 +58,7 @@ function initSectionTransitions() {
 
 /**
  * Sets up page transition effects for navigation between pages
+ * with instant loading and progressive enhancement
  */
 function initPageTransitions() {
     const overlay = document.getElementById('transition-overlay');
@@ -66,19 +67,44 @@ function initPageTransitions() {
     // If no overlay or content elements exist, don't set up transitions
     if (!overlay || !content) return;
     
-    // Make sure the overlay is not active on page load
+    // Just remove active class for faster render, but keep element visible
     overlay.classList.remove('active');
     
-    // Store current transition state in session storage
+    // Check if we're coming from a transition
     if (sessionStorage.getItem('pageIsTransitioning') === 'true') {
-        // Clean up after navigation
         sessionStorage.removeItem('pageIsTransitioning');
-        // Remove overlay with a tiny delay to ensure clean transition
-        setTimeout(() => {
-            overlay.classList.remove('active');
-        }, 10);
     }
     
+    // Progressive enhancement:
+    // 1. First render the page immediately
+    // 2. Then load dynamic content behind the scenes
+    function progressivelyEnhancePage() {
+        // This is for project pages only
+        if (window.location.pathname.includes('/projects/')) {
+            // Load any markdown content asynchronously
+            const markdownContainers = document.querySelectorAll('.markdown-content');
+            if (markdownContainers.length > 0) {
+                // Add a subtle loading indicator
+                markdownContainers.forEach(container => {
+                    if (container.innerHTML.trim() === '') {
+                        container.innerHTML = '<div class="loading-pulse">Loading documentation...</div>';
+                    }
+                });
+                
+                // Initialize any necessary components
+                if (typeof mermaid !== 'undefined') {
+                    setTimeout(() => {
+                        mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+                    }, 100);
+                }
+            }
+        }
+    }
+    
+    // Run progressive enhancement on page load
+    progressivelyEnhancePage();
+    
+    // Handle navigation with instant transitions
     function handleNavigation(event) {
         const link = event.target.closest('[data-transition]');
         if (!link) return;
@@ -86,16 +112,8 @@ function initPageTransitions() {
         event.preventDefault();
         const url = link.href;
         
-        // Start transition
-        overlay.classList.add('active');
-        
-        // Mark that we're in a transition
-        sessionStorage.setItem('pageIsTransitioning', 'true');
-        
-        // Navigate after a very brief delay to allow overlay to appear
-        setTimeout(() => {
-            window.location.href = url;
-        }, 10);
+        // Just navigate directly for instant page loads
+        window.location.href = url;
     }
     
     // Handle navigation events

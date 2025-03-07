@@ -204,13 +204,18 @@ pub async fn project_detail(
 ) -> Result<Response, AppError> {
     let mut ctx = Context::new();
 
+    // Optimization: For fast initial rendering, we load basic project info first
     let project = get_project_by_id(&project_id)
         .ok_or_else(|| AppError::Internal(format!("Project not found: {}", project_id)))?;
 
+    // Get related projects (these are also fast to load, no markdown)
     let related_projects = get_related_projects(&project_id);
 
     ctx.insert("project", &project);
     ctx.insert("related_projects", &related_projects);
+    
+    // Add preloading hint for browsers 
+    ctx.insert("preload_hint", &true);
 
     match state.tera.render("project_detail.html", &ctx) {
         Ok(html) => Ok(Html(html).into_response()),

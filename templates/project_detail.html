@@ -139,7 +139,8 @@
                 {% for flow in project.user_flows %}
                 <div class="docs-panel {% if loop.first %}active{% else %}hidden{% endif %}"
                     id="section-{{loop.index}}">
-                    <div class="markdown-content">
+                    <div class="markdown-content" data-flow-name="{{ flow.title }}">
+                        <!-- Content will load instantly but might be further enhanced by JavaScript -->
                         {{ flow.content | safe }}
                     </div>
                 </div>

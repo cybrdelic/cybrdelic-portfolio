@@ -19,10 +19,16 @@
     
     <!-- Centralized CSS file that imports all modules -->
     <link rel="stylesheet" href="/static/css/main.css" />
-    <!-- External dependencies -->
+    <!-- External dependencies - critical ones load normally, non-critical ones load async -->
     <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.3.0/mermaid.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.3.0/mermaid.min.js" defer></script>
+    
+    {% if preload_hint %}
+    <!-- Add preload hints for critical resources when coming to project pages -->
+    <link rel="preload" href="/static/css/project-detail.css" as="style">
+    <link rel="preload" href="/static/js/documentation.js" as="script">
+    {% endif %}
 </head>
 
 <body>
@@ -78,12 +84,33 @@
 
     <!-- Core functionality -->
     <script>
-        // Initialize Mermaid diagrams
-        mermaid.initialize({
-            startOnLoad: true,
-            theme: 'neutral',
-            flowchart: { curve: 'basis' }
-        });
+        // Apply theme from localStorage immediately to avoid FOUC
+        (function() {
+          const savedTheme = localStorage.getItem('theme');
+          if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+          }
+        })();
+        
+        // Initialize Mermaid diagrams - safely check if loaded
+        if (typeof mermaid !== 'undefined') {
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'neutral',
+                flowchart: { curve: 'basis' }
+            });
+        } else {
+            // Add event listener for when mermaid loads
+            document.addEventListener('DOMContentLoaded', () => {
+                if (typeof mermaid !== 'undefined') {
+                    mermaid.initialize({
+                        startOnLoad: true,
+                        theme: 'neutral',
+                        flowchart: { curve: 'basis' }
+                    });
+                }
+            });
+        }
 
         // Theme management system
         document.addEventListener('DOMContentLoaded', () => {
@@ -335,8 +362,11 @@
                 }, 3000);
             }
             
-            // Initialize theme from saved preference
+            // Initialize theme from saved preference immediately
             const savedTheme = localStorage.getItem('theme') || 'light';
+            // Apply theme without animation for initial load
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            // Then pass to the update function for icon updates
             updateTheme(savedTheme);
             
             // Reset global fonts to IBM Plex defaults
