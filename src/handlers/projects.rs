@@ -267,7 +267,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             "JJugg",
             "Job Application Tracker",
             "A local web application for managing job applications that transforms a traditionally manual process into a data-driven workflow with automated tracking, rich analytics, and interactive dashboards.",
-            "/static/images/default-project.jpg",
+            "/static/images/jjugg.jpg",
             "Job application tracking simplified with automation and analytics",
             "m5 5h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z m13 3l-5 5-5-5",
             vec!["JavaScript", "HTML", "CSS", "LocalStorage", "User Scripts"],

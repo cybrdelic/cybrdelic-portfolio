@@ -444,16 +444,7 @@
     background: #27c93f;
 }
 
-/* Adjust the documentation section to use flex layout */
-.documentation-section {
-    width: var(--width-main);
-    margin: var(--space-2xl) auto;
-    border: 1px solid var(--border-light);
-    border-radius: var(--border-radius);
-    display: flex;
-    flex-direction: row;
-    background: var(--bg-white-02);
-}
+
 
 .nav-item {
     width: 100%;
@@ -493,14 +484,7 @@
 }
 
 /* Adjust the content to take remaining height */
-.documentation-content {
-    flex-grow: 1;
-    overflow-y: auto;
-    max-height: calc(100vh - var(--header-height));
-    padding: var(--space-xl);
-    background: var(--bg-white-02);
-    position: relative;
-}
+
 
 .content-section {
     width: 100% !important;

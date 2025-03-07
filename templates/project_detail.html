@@ -115,28 +115,27 @@
 
     {% if project.user_flows and project.user_flows|length > 0 %}
     <section class="documentation-section" id="DOCS">
-        <div class="docs-container">
-            <div class="docs-sidebar">
-                {% for flow in project.user_flows %}
-                <button class="docs-nav-item {% if loop.first %}active{% endif %}" data-tab="section-{{loop.index}}">
-                    <span class="docs-nav-number">{{ loop.index }}</span>
-                    <span class="docs-nav-text">{{ flow.title }}</span>
-                </button>
-                {% endfor %}
-            </div>
-
-            <div class="docs-content">
-                {% for flow in project.user_flows %}
-                <div class="docs-panel {% if loop.first %}active{% else %}hidden{% endif %}"
-                    id="section-{{loop.index}}">
-                    <div class="markdown-content" data-flow-name="{{ flow.title }}">
-                        <!-- Content will load instantly but might be further enhanced by JavaScript -->
-                        {{ flow.content | safe }}
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
+        <div class="docs-sidebar">
+            {% for flow in project.user_flows %}
+            <button class="docs-nav-item {% if loop.first %}active{% endif %}" data-tab="section-{{loop.index}}">
+                <span class="docs-nav-number">{{ loop.index }}</span>
+                <span class="docs-nav-text">{{ flow.title }}</span>
+            </button>
+            {% endfor %}
         </div>
+
+
+        <div class="docs-content">
+            {% for flow in project.user_flows %}
+            <div class="docs-panel {% if loop.first %}active{% else %}hidden{% endif %}" id="section-{{loop.index}}">
+                <div class="markdown-content" data-flow-name="{{ flow.title }}">
+                    <!-- Content will load instantly but might be further enhanced by JavaScript -->
+                    {{ flow.content | safe }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
     </section>
     {% endif %}
 

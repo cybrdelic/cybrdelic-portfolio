@@ -13,6 +13,7 @@
     min-height: 100%;
     /* Allow full document height */
     min-width: 100%;
+    margin-top: 20px;
 }
 
 .documentation-navigation.is-sticky {
