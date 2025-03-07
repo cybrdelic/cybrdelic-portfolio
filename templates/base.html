@@ -159,83 +159,116 @@
     // morphVerticalName triggers the scramble animation if text changes
     function morphVerticalName(newText) {
         const vn = document.querySelector('.vertical-name');
-        if (vn.textContent !== newText) {
+        if (vn && vn.textContent !== newText) {
             scrambleText(vn, newText, 200);
         }
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-        // use <main> as observer root if available; otherwise, viewport
-        const mainContainer = document.querySelector("main") || null;
         const verticalName = document.querySelector(".vertical-name");
-
+        if (!verticalName) return;
+        
+        // Set default text
+        morphVerticalName("cybrdelic");
+        
+        // Create intersection observer to detect which section is in view
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
-                if (entry.isIntersecting && verticalName.textContent !== entry.target.id) {
-                    morphVerticalName(entry.target.id);
+                // If this section is more than 50% visible
+                if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+                    const sectionId = entry.target.getAttribute('id');
+                    if (sectionId && verticalName.textContent !== sectionId) {
+                        // Map section IDs to display names if needed
+                        const displayMap = {
+                            'hero': 'cybrdelic',
+                            'projects': 'projects',
+                            'career': 'timeline',
+                            'contact': 'contact'
+                        };
+                        
+                        const displayText = displayMap[sectionId] || sectionId;
+                        morphVerticalName(displayText);
+                    }
                 }
             });
-        }, { root: mainContainer, rootMargin: "-50% 0px -50% 0px", threshold: 0 });
+        }, { 
+            threshold: [0.3, 0.6],  // Check when section is 30% or 60% visible
+            rootMargin: "-10% 0px"  // Adjust trigger area slightly
+        });
 
-        function observeSections() {
-            const sections = document.querySelectorAll("section");
-            sections.forEach(section => observer.observe(section));
-        }
-
-        observeSections();
-
+        // Observe all sections with IDs
+        document.querySelectorAll("section[id]").forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Update after any dynamic content changes
         document.body.addEventListener("htmx:afterSwap", () => {
-            observeSections();
+            document.querySelectorAll("section[id]").forEach(section => {
+                observer.observe(section);
+            });
         });
     });
 </script>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const mainContainer = document.querySelector('main');
-        if (!mainContainer) return;
-
-        // Track scroll position and velocity
-        let lastScrollTop = 0;
-        let scrollVelocity = 0;
-        let scrollTimeout;
-
-        mainContainer.addEventListener('scroll', () => {
-            // Clear any pending timeout
-            clearTimeout(scrollTimeout);
-
-            const currentScrollTop = mainContainer.scrollTop;
-            scrollVelocity = currentScrollTop - lastScrollTop;
-            lastScrollTop = currentScrollTop;
-
-            // Set a timeout to detect when scrolling has stopped
-            scrollTimeout = setTimeout(() => {
-                // Only apply snapping behavior if scrolling has almost stopped
-                // and we're not in the middle of a section
-                if (Math.abs(scrollVelocity) < 5) {
-                    const sections = document.querySelectorAll('section');
-
-                    // Find the current section and its boundaries
-                    let currentSection = null;
-                    let closestDistance = Infinity;
-
-                    sections.forEach(section => {
-                        const rect = section.getBoundingClientRect();
-                        const distance = Math.abs(rect.top);
-
-                        if (distance < closestDistance) {
-                            closestDistance = distance;
-                            currentSection = section;
-                        }
+        // Force scroll to top on page load
+        window.scrollTo(0, 0);
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        
+        // Handle navigation clicks
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Calculate offset to account for fixed header
+                    const headerHeight = document.querySelector('.nav')?.offsetHeight || 0;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+                    
+                    // Scroll to the element
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
                     });
-
-                    // If we're very close to the start of a section, snap to it
-                    if (currentSection && closestDistance < 50) {
-                        currentSection.scrollIntoView({ behavior: 'smooth' });
-                    }
+                    
+                    // Update URL hash without scrolling
+                    history.pushState(null, null, targetId);
                 }
-            }, 150); // Wait for scrolling to finish
+            });
         });
+        
+        // Highlight current section in navigation
+        const sections = document.querySelectorAll('section[id]');
+        if (sections.length) {
+            // Create an intersection observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                        // Get current section id
+                        const id = entry.target.getAttribute('id');
+                        // Update active nav link
+                        document.querySelectorAll('.nav a').forEach(link => {
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            } else {
+                                link.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            // Observe all sections
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        }
     });
 </script>
 

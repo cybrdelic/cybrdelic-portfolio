@@ -2,7 +2,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-<main class="hero-container">
+<main class="site-main">
+    <!-- All sections with proper IDs -->
     {% include "sections/hero.html" %}
     {% include "sections/projects.html" %}
     {% include "sections/career.html" %}
@@ -12,4 +13,56 @@
         <span>scroll</span>
     </div>
 </main>
+<script>
+    // Force scroll to top on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        window.scrollTo(0, 0);
+        history.scrollRestoration = 'manual';
+        
+        // Setup career timeline interactions
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const detailContent = document.getElementById('detail-content');
+        
+        // Activate the first timeline item by default
+        if (timelineItems.length > 0) {
+            const firstItem = timelineItems[0];
+            firstItem.classList.add('active');
+            
+            // Get the template content from the matching template
+            const jobId = firstItem.getAttribute('data-id');
+            const template = document.getElementById(`job-details-${jobId}`);
+            
+            if (template && detailContent) {
+                detailContent.innerHTML = template.innerHTML;
+                detailContent.classList.add('content-fade-in');
+            }
+        }
+        
+        // Add click handlers to all timeline items
+        timelineItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all items
+                timelineItems.forEach(i => i.classList.remove('active'));
+                
+                // Add active class to clicked item
+                this.classList.add('active');
+                
+                // Get the template content from the matching template
+                const jobId = this.getAttribute('data-id');
+                const template = document.getElementById(`job-details-${jobId}`);
+                
+                if (template && detailContent) {
+                    // Replace content with animation
+                    detailContent.classList.remove('content-fade-in');
+                    
+                    // Small delay for animation
+                    setTimeout(() => {
+                        detailContent.innerHTML = template.innerHTML;
+                        detailContent.classList.add('content-fade-in');
+                    }, 300);
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}

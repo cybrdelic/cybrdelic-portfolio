@@ -12,9 +12,13 @@
 }
 
 /* Set core body defaults */
-html,
-body {
+html {
   height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100%;
   font-family: var(--font-primary);
   font-size: var(--font-size-base);
   line-height: var(--line-height-base);
@@ -23,6 +27,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: var(--font-weight-medium);
+  overflow-x: hidden;
+  overflow-y: auto; /* Explicitly allow vertical scrolling */
+  position: relative;
 }
 
 /* Make images easier to work with */

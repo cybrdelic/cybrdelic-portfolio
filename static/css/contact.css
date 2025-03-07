@@ -1,5 +1,5 @@
 /* Contact section styles */
-#CONTACT {
+#contact {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -7,11 +7,11 @@
     color: var(--color-text-primary);
     font-family: var(--font-primary);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     padding: var(--space-xl) 0;
 }
 
-#CONTACT .container {
+#contact .container {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -328,7 +328,7 @@
 
 /* Responsive styles */
 @media (max-width: 1200px) {
-    #CONTACT .container {
+    #contact .container {
         padding: 0 var(--space-lg);
     }
 }
@@ -345,11 +345,11 @@
 }
 
 @media (max-width: 768px) {
-    #CONTACT {
+    #contact {
         padding: var(--space-lg) 0;
     }
     
-    #CONTACT .container {
+    #contact .container {
         padding: 0 var(--space-md);
     }
     
@@ -359,7 +359,7 @@
 }
 
 @media (max-width: 480px) {
-    #CONTACT .container {
+    #contact .container {
         padding: 0 var(--space-sm);
     }
     
