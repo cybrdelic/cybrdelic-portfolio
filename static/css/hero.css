@@ -120,7 +120,7 @@
 }
 
 .hero-name {
-    font-family: var(--font-display);
+    /* font-family specified inline via JavaScript to allow font switching */
     font-weight: 800;
     font-size: clamp(3rem, 5vw, 4.5rem);
     line-height: 1.1;

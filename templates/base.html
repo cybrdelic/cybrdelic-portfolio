@@ -229,21 +229,23 @@
                 });
             }
             
-            // Function to update fonts
+            // Function to update fonts - now only affects hero name
             function updateFonts(optionIndex) {
                 const option = fontOptions[optionIndex];
                 
-                // Apply fonts to root element
-                document.documentElement.style.setProperty('--font-primary', option.primary);
-                document.documentElement.style.setProperty('--font-display', option.display);
-                document.documentElement.style.setProperty('--font-mono', option.mono);
+                // Find the hero name element
+                const heroName = document.getElementById('hero-name');
+                if (heroName) {
+                    // Apply the display font directly to the hero name only
+                    heroName.style.fontFamily = option.display;
+                }
                 
                 // Save preference
                 localStorage.setItem('fontOption', optionIndex);
                 
                 // Update font switcher text and show current font name
                 const fontName = document.querySelector('#font-switcher .toggle-text');
-                fontName.textContent = option.name.split(' + ')[0]; // Show first font name only
+                fontName.textContent = option.name.split(' + ')[1] || option.name.split(' + ')[0]; // Show display font name
                 
                 // Update dropdown active state
                 const fontOptionElements = document.querySelectorAll('.font-option');
@@ -259,7 +261,8 @@
                 }
                 
                 // Show toast notification with full font name
-                showFontToast(option.name);
+                const displayFont = option.name.split(' + ')[1] || option.name.split(' + ')[0];
+                showFontToast("Name font: " + displayFont);
             }
             
             // Show a toast notification with the font name
@@ -336,17 +339,22 @@
             const savedTheme = localStorage.getItem('theme') || 'light';
             updateTheme(savedTheme);
             
-            // Initialize fonts from saved preference
+            // Reset global fonts to IBM Plex defaults
+            document.documentElement.style.setProperty('--font-primary', 'var(--font-option1-primary)');
+            document.documentElement.style.setProperty('--font-display', 'var(--font-option1-display)');
+            document.documentElement.style.setProperty('--font-mono', 'var(--font-option1-mono)');
+            
+            // Initialize fonts for hero name only from saved preference
             const savedFontOption = parseInt(localStorage.getItem('fontOption') || '0');
             
             // Update font switcher text before applying fonts
             const fontOption = fontOptions[savedFontOption];
             const fontName = document.querySelector('#font-switcher .toggle-text');
             if (fontName) {
-                fontName.textContent = fontOption.name.split(' + ')[0]; // Show first font name only
+                fontName.textContent = fontOption.name.split(' + ')[1] || fontOption.name.split(' + ')[0]; // Show display font name
             }
             
-            // Apply font settings
+            // Apply font settings to hero name only
             updateFonts(savedFontOption);
             
             // Toggle theme on click
@@ -374,12 +382,13 @@
                         fontOption.classList.add('active');
                     }
                     
-                    // Apply the font to the option itself
-                    fontOption.style.fontFamily = option.primary;
+                    // Apply the display font to the option itself (since that's what we'll use for the name)
+                    fontOption.style.fontFamily = option.display;
                     
                     const optionName = document.createElement('span');
                     optionName.className = 'option-name';
-                    optionName.textContent = option.name.split(' + ')[0];
+                    // Show the display font name instead
+                    optionName.textContent = option.name.split(' + ')[1] || option.name.split(' + ')[0];
                     
                     fontOption.appendChild(optionName);
                     fontOption.addEventListener('click', (e) => {
