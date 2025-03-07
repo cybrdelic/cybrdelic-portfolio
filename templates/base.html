@@ -53,6 +53,7 @@
                     <a href="#" class="cmd highlight-on-hover" id="font-switcher">
                         <span class="toggle-icon">Aa</span>
                         <span class="toggle-text">font</span>
+                        <span class="dropdown-arrow">▼</span>
                     </a>
                     <div class="font-dropdown-content">
                         <!-- Font options will be dynamically populated here -->
@@ -245,10 +246,17 @@
                 fontName.textContent = option.name.split(' + ')[0]; // Show first font name only
                 
                 // Update dropdown active state
-                const fontOptions = document.querySelectorAll('.font-option');
-                fontOptions.forEach((opt, index) => {
+                const fontOptionElements = document.querySelectorAll('.font-option');
+                fontOptionElements.forEach((opt, index) => {
                     opt.classList.toggle('active', index === optionIndex);
                 });
+                
+                // Hide dropdown if open
+                const dropdown = document.querySelector('.font-dropdown-content');
+                if (dropdown) {
+                    // We don't actually hide it - the CSS hover will handle this
+                    // Just adding this comment for clarity
+                }
                 
                 // Show toast notification with full font name
                 showFontToast(option.name);
@@ -383,15 +391,8 @@
                 });
             }
             
-            // Initialize dropdown on page load
-            initializeFontDropdown();
-            
             // Toggle fonts on click
             if (fontSwitcherBtn) {
-                fontSwitcherBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                });
-                
                 // Long press to show modal with all font options
                 let pressTimer;
                 fontSwitcherBtn.addEventListener('mousedown', () => {
@@ -408,6 +409,9 @@
                     clearTimeout(pressTimer);
                 });
             }
+            
+            // Initialize dropdown on page load
+            initializeFontDropdown();
             
             // Function to show a modal with all font options
             function showFontModal(options) {

@@ -8,6 +8,19 @@
   transition: transform 0.3s ease;
 }
 
+.dropdown-arrow {
+  display: inline-block;
+  font-size: 10px;
+  margin-left: 4px;
+  opacity: 0.6;
+  transition: transform 0.3s ease;
+}
+
+.cmd-dropdown:hover .dropdown-arrow {
+  opacity: 1;
+  transform: rotate(180deg);
+}
+
 /* Theme toggle animations */
 #nav-theme-toggle:hover .toggle-icon {
   transform: rotate(30deg);
@@ -31,7 +44,7 @@
   top: 100%;
   background: var(--bg-glass);
   backdrop-filter: blur(10px);
-  min-width: 160px;
+  min-width: 200px;
   box-shadow: var(--shadow-md);
   z-index: var(--z-above);
   border-radius: var(--border-radius);
@@ -41,8 +54,7 @@
   margin-top: 8px;
 }
 
-.cmd-dropdown:hover .font-dropdown-content,
-.font-dropdown-content:hover {
+.cmd-dropdown:hover .font-dropdown-content {
   display: block;
 }
 
@@ -50,7 +62,7 @@
   padding: 10px 15px;
   display: block;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -60,17 +72,21 @@
 
 .font-option:hover {
   background-color: var(--bg-glass-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .font-option .option-name {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .font-option.active {
   background-color: var(--bg-black-05);
   font-weight: bold;
+  border-left: 3px solid var(--color-accent);
 }
 
 .font-option.ubuntu-mono::after {
