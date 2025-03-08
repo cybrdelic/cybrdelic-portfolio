@@ -84,17 +84,16 @@
     justify-content: center;
 }
 
-/* Main Row for Two-Column Layout */
 .hero-main-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: row;
     /* Two equal columns */
     gap: var(--space-lg);
     /* Reduced gap between columns */
     align-items: flex-start;
+    justify-content: space-evenly;
     height: 100%;
     max-height: 80vh;
-    /* Make more compact */
     overflow: visible;
 }
 
@@ -109,6 +108,7 @@
     padding: var(--space-md) var(--space-md) var(--space-md) 0;
     /* Reduced padding */
     height: 100%;
+    max-width: 50%;
     overflow: visible;
 }
 
@@ -117,19 +117,14 @@
 }
 
 .hero-name {
-    /* font-family specified inline via JavaScript to allow font switching */
-    font-weight: 800;
-    font-size: clamp(3rem, 5vw, 4.5rem);
+    font-size: 1.5rem;
     line-height: 1.1;
     margin: 0;
-    background: linear-gradient(90deg,
-            var(--color-text-primary) 0%,
-            var(--color-text-secondary) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     text-fill-color: transparent;
-    letter-spacing: -0.03em;
+    opacity: 50%;
     animation: fadeInUp 0.8s ease-out forwards;
     transition: all 0.3s ease;
 }
@@ -140,27 +135,12 @@
 .hero-name {
     background: none;
     color: transparent;
-    -webkit-text-stroke: 2px var(--color-text-primary);
-    text-stroke: 2px var(--color-text-primary);
+    -webkit-text-stroke: 0.05rem var(--color-text-tertiary);
+    text-stroke: 0.05rem var(--color-text-tertiary);
     -webkit-text-fill-color: transparent;
     text-fill-color: transparent;
 }
 
-.hero-name.text-shadow {
-    background: none;
-    -webkit-text-fill-color: var(--color-text-primary);
-    text-fill-color: var(--color-text-primary);
-    text-shadow: 3px 3px 0 var(--color-accent);
-}
-
-.hero-name.text-glow {
-    background: none;
-    -webkit-text-fill-color: var(--color-text-primary);
-    text-fill-color: var(--color-text-primary);
-    text-shadow: 0 0 10px var(--color-accent),
-        0 0 20px var(--color-accent),
-        0 0 30px var(--color-accent);
-}
 
 /* Text transformation controls */
 .text-transform-controls {
@@ -194,10 +174,10 @@
 
 .hero-title {
     font-family: var(--font-display);
-    font-size: clamp(var(--font-size-xs), 2vw, var(--font-size-sm));
+    font-size: 0.8rem;
     color: var(--color-text-secondary);
     letter-spacing: 0.1em;
-    font-weight: 500;
+    font-weight: 100;
     position: relative;
     display: inline-block;
     animation: fadeInUp 0.8s ease-out 0.2s forwards;
@@ -219,7 +199,7 @@
 
 .hero-tagline {
     font-family: var(--font-display);
-    font-size: clamp(var(--font-size-lg), 2vw, var(--font-size-xl));
+    font-size: 4rem;
     line-height: 1.4;
     color: var(--color-text-primary);
     max-width: 700px;
@@ -282,9 +262,9 @@
     fill: currentColor;
 }
 
-/* Expertise Section */
 .expertise-container {
     width: 100%;
+    /* Set left padding to 0 */
     position: relative;
     animation: fadeIn 1s ease-out 0.8s forwards;
     opacity: 0;
@@ -295,7 +275,6 @@
     justify-content: flex-start;
     align-items: flex-start;
     border-left: 1px solid var(--color-border);
-    /* Use theme variable */
     height: 100%;
     overflow: visible;
 }
@@ -308,9 +287,9 @@
 
 .expertise-header h2 {
     font-family: var(--font-display);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-md);
     /* Smaller fixed size */
-    font-weight: 700;
+    font-weight: 300;
     color: var(--color-text-primary);
     margin: 0 0 var(--space-xs) 0;
     /* Smaller bottom margin */
@@ -340,19 +319,16 @@
 .expertise-cards {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-sm);
+    gap: var(--space-xs);
     /* Much smaller gap between cards */
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-xs);
     /* Smaller bottom margin */
     width: 100%;
 }
 
 .expertise-card {
-    background: var(--bg-glass);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
-    padding: var(--space-md);
+    padding: var(--space-sm);
     /* Smaller padding */
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
@@ -370,7 +346,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 3px;
+    height: 1px;
     background: linear-gradient(90deg,
             var(--color-text-primary) 0%,
             var(--color-text-secondary) 100%);
@@ -381,8 +357,6 @@
 
 .expertise-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-    border-color: var(--color-text-quaternary);
 }
 
 .expertise-card:hover::before {
@@ -410,9 +384,9 @@
 
 .expertise-card h3 {
     font-family: var(--font-display);
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-xs);
     /* Smaller text */
-    font-weight: 600;
+    font-weight: 300;
     color: var(--color-text-primary);
     margin: 0 0 var(--space-2xs) 0;
     /* Smaller margin */
@@ -424,7 +398,7 @@
     /* Smaller text */
     line-height: 1.4;
     /* Tighter line height */
-    color: var(--color-text-secondary);
+    color: var(--color-text-tertiary);
     margin: 0;
 }
 
@@ -500,9 +474,6 @@
 }
 
 .stat-card {
-    background: var(--bg-glass);
-    backdrop-filter: blur(5px);
-    border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
     padding: var(--space-sm);
     /* Smaller padding */
@@ -512,8 +483,6 @@
 
 .stat-card:hover {
     transform: translateY(-5px);
-    background: var(--bg-glass-hover);
-    border-color: var(--color-text-tertiary);
     box-shadow: var(--shadow-glass-hover);
 }
 

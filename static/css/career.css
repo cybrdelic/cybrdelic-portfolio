@@ -404,17 +404,17 @@
 }
 
 /* tech icons section */
-#career .tech-icons-container {
+.tech-icons-container {
     display: block;
     position: relative;
     overflow: hidden;
     margin: var(--space-md) 0;
     height: 80px;
+    max-width: 50%;
 }
 
-#career .tech-icons-scroll {
+.tech-icons-scroll {
     display: flex;
-    width: max-content;
     align-items: center;
     height: 100%;
     animation: scrollIcons 30s linear infinite;
@@ -430,7 +430,7 @@
     }
 }
 
-#career .tech-icon {
+.tech-icon {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -443,8 +443,8 @@
     position: relative;
 }
 
-#career .tech-icon svg,
-#career .tech-icon span.iconify {
+.tech-icon svg,
+.tech-icon span.iconify {
     width: 80px;
     height: 80px;
     margin-bottom: var(--space-xs);
@@ -452,7 +452,7 @@
     color: var(--color-text-secondary);
 }
 
-#career .tech-icon-name {
+.tech-icon-name {
     font-size: var(--font-size-xs);
     color: var(--color-text-tertiary);
     font-weight: 500;
