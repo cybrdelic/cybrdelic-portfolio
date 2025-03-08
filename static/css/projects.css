@@ -1050,7 +1050,6 @@
     letter-spacing: var(--letter-spacing-tight);
     position: relative;
     display: inline-block;
-    background-color: blue;
 }
 
 .project-title::after {
