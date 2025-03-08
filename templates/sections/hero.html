@@ -1,144 +1,167 @@
-{# hero.html - reimagined hero section #}
-<section id="hero">
-    <div class="hero-background">
-        <div class="grain-overlay"></div>
-        <div class="grid-lines"></div>
-        <div class="hero-glow"></div>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
 
-    <div class="hero-content">
-        <div class="hero-main-row">
-            <!-- Left Side: Introduction + Tech Stack -->
-            <div class="intro-container stagger-children">
-                <div class="name-title">
-                    <div class="hero-title">ALEJANDRO FIGUEROA, SOFTWARE ENGINEER</div>
-                    <div class="title-accent"></div>
-                </div>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hero Section</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
 
-                <p class="hero-tagline">
-                    Building exceptional developer tooling and AI-powered systems.
-                </p>
+<body>
+    <section id="hero">
+        <div class="hero-background">
+            <div class="grain-overlay"></div>
+            <div class="grid-lines"></div>
+            <div class="hero-glow"></div>
+        </div>
 
-                <div class="tech-stack">
-                    <div class="tech-icons-container">
-                        <div class="tech-icons-scroll">
-                            <div class="tech-icon">
-                                <span class="iconify" data-icon="simple-icons:graphql" data-inline="false"></span>
-                                <span class="tech-icon-name">graphql</span>
-                            </div>
-                            <div class="tech-icon">
-                                <span class="iconify" data-icon="simple-icons:react" data-inline="false"></span>
-                                <span class="tech-icon-name">react</span>
-                            </div>
-                            <div class="tech-icon">
-                                <span class="iconify" data-icon="simple-icons:typescript" data-inline="false"></span>
-                                <span class="tech-icon-name">typescript</span>
-                            </div>
-                            <div class="tech-icon">
-                                <span class="iconify" data-icon="mdi:chart-line" data-inline="false"></span>
-                                <span class="tech-icon-name">recharts</span>
-                            </div>
-                            <div class="tech-icon">
-                                <span class="iconify" data-icon="simple-icons:postgresql" data-inline="false"></span>
-                                <span class="tech-icon-name">postgresql</span>
-                            </div>
-                            <div class="tech-icon">
-                                <span class="iconify" data-icon="simple-icons:flask" data-inline="false"></span>
-                                <span class="tech-icon-name">flask</span>
-                            </div>
-                            <div class="tech-icon">
-                                <span class="iconify" data-icon="mdi:server" data-inline="false"></span>
-                                <span class="tech-icon-name">pgadmin</span>
-                            </div>
-                            <div class="tech-icon">
-                                <span class="iconify" data-icon="simple-icons:elasticsearch" data-inline="false"></span>
-                                <span class="tech-icon-name">elasticsearch</span>
+        <div class="hero-content">
+            <div class="hero-main-row">
+                <!-- Left Side: Introduction + Tech Stack -->
+                <div class="intro-container">
+                    <div class="name-title">
+                        <div class="hero-title common-hero-typography">
+                            ALEJANDRO FIGUEROA, SOFTWARE ENGINEER
+                        </div>
+                        <div class="title-accent"></div>
+                    </div>
+
+                    <p class="hero-tagline">
+                        Building exceptional developer tooling and AI-powered systems.
+                    </p>
+
+                    <div class="tech-stack">
+                        <div class="tech-icons-container">
+                            <div class="tech-icons-scroll">
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:graphql" data-inline="false"></span>
+                                    <span class="tech-icon-name">graphql</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:react" data-inline="false"></span>
+                                    <span class="tech-icon-name">react</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:typescript"
+                                        data-inline="false"></span>
+                                    <span class="tech-icon-name">typescript</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="mdi:chart-line" data-inline="false"></span>
+                                    <span class="tech-icon-name">recharts</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:postgresql"
+                                        data-inline="false"></span>
+                                    <span class="tech-icon-name">postgresql</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:flask" data-inline="false"></span>
+                                    <span class="tech-icon-name">flask</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="mdi:server" data-inline="false"></span>
+                                    <span class="tech-icon-name">pgadmin</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:elasticsearch"
+                                        data-inline="false"></span>
+                                    <span class="tech-icon-name">elasticsearch</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-
-
-
-
+                <!-- Right Side: Expertise Cards -->
+                <div class="expertise-container">
+                    <div class="expertise-cards">
+                        <!-- Stats Section -->
+                        <div class="stats-container">
+                            <div class="stat-card card-hover">
+                                <div class="stat-number">4+</div>
+                                <div class="stat-label common-hero-typography">Years Professional</div>
+                            </div>
+                            <div class="stat-card card-hover">
+                                <div class="stat-number">7+</div>
+                                <div class="stat-label common-hero-typography">Years Coding</div>
+                            </div>
+                            <div class="stat-card card-hover">
+                                <div class="stat-number">10+</div>
+                                <div class="stat-label common-hero-typography">Projects</div>
+                            </div>
+                        </div>
+                        <!-- Expertise Cards -->
+                        <div class="expertise-card card-hover">
+                            <div class="card-icon">
+                                <!-- Icon SVG -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 10L12 16L6 10" />
+                                    <path d="M12 16V4" />
+                                    <rect x="2" y="18" width="20" height="2" rx="1" />
+                                </svg>
+                            </div>
+                            <div class="expertise-card-content">
+                                <h3 class="link-underline common-hero-typography">Developer Tools</h3>
+                                <p class="common-hero-typography">
+                                    High-performance CLI applications built with Rust and TypeScript.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="expertise-card card-hover">
+                            <div class="card-icon">
+                                <!-- Icon SVG -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8" />
+                                    <path d="M12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16" />
+                                    <circle cx="16" cy="8" r="2" />
+                                    <circle cx="8" cy="16" r="2" />
+                                </svg>
+                            </div>
+                            <div class="expertise-card-content">
+                                <h3 class="link-underline common-hero-typography">AI Integration</h3>
+                                <p class="common-hero-typography">
+                                    Systems with intelligent interfaces and context-aware assistance.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="expertise-card card-hover">
+                            <div class="card-icon">
+                                <!-- Icon SVG -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" />
+                                    <path d="M7 7h10M7 12h10M7 17h10" />
+                                </svg>
+                            </div>
+                            <div class="expertise-card-content">
+                                <h3 class="link-underline common-hero-typography">Data Systems</h3>
+                                <p class="common-hero-typography">
+                                    Streamlined data pipelines with elegant visualizations.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="expertise-card card-hover">
+                            <div class="card-icon">
+                                <!-- Icon SVG -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 10L12 16L6 10" />
+                                    <path d="M12 16V4" />
+                                    <rect x="2" y="18" width="20" height="2" rx="1" />
+                                </svg>
+                            </div>
+                            <div class="expertise-card-content">
+                                <h3 class="link-underline common-hero-typography">Automation System</h3>
+                                <p class="common-hero-typography">
+                                    End-to-End Automation for Efficiency Gains
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <!-- Right Side: Expertise Cards (Horizontal Layout) -->
-            <div class="expertise-container fade-in-right">
-
-                <div class="expertise-cards stagger-children">
-                    <!-- Stats Section condensed into one line -->
-                    <div class="stats-container">
-                        <div class="stat-card card-hover">
-                            <div class="stat-number">4+</div>
-                            <div class="stat-label">Years Professional</div>
-                        </div>
-                        <div class="stat-card card-hover">
-                            <div class="stat-number">7+</div>
-                            <div class="stat-label">Years Coding</div>
-                        </div>
-                        <div class="stat-card card-hover">
-                            <div class="stat-number">10+</div>
-                            <div class="stat-label">Projects</div>
-                        </div>
-                    </div>
-                    <div class="expertise-card card-hover">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M18 10L12 16L6 10" />
-                                <path d="M12 16V4" />
-                                <rect x="2" y="18" width="20" height="2" rx="1" />
-                            </svg>
-                        </div>
-                        <div class="expertise-card-content">
-                            <h3 class="link-underline">Developer Tools</h3>
-                            <p>High-performance CLI applications built with Rust and TypeScript.</p>
-                        </div>
-                    </div>
-
-                    <div class="expertise-card card-hover">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10" />
-                                <path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8" />
-                                <path d="M12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16" />
-                                <circle cx="16" cy="8" r="2" />
-                                <circle cx="8" cy="16" r="2" />
-                            </svg>
-                        </div>
-                        <div class="expertise-card-content">
-                            <h3 class="link-underline">AI Integration</h3>
-                            <p>Systems with intelligent interfaces and context-aware assistance.</p>
-                        </div>
-                    </div>
-
-                    <div class="expertise-card card-hover">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" />
-                                <path d="M7 7h10M7 12h10M7 17h10" />
-                            </svg>
-                        </div>
-                        <div class="expertise-card-content">
-                            <h3 class="link-underline">Data Systems</h3>
-                            <p>Streamlined data pipelines with elegant visualizations.</p>
-                        </div>
-                    </div>
-                    <div class="expertise-card card-hover">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M18 10L12 16L6 10" />
-                                <path d="M12 16V4" />
-                                <rect x="2" y="18" width="20" height="2" rx="1" />
-                            </svg>
-                        </div>
-                        <div class="expertise-card-content">
-                            <h3 class="link-underline">Automation System</h3>
-                            <p>HEnd-to-End Automation for Efficiency Gains</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="cta-buttons-wrapper">
                 <div class="cta-buttons">
                     <a href="#projects" class="primary-button btn-interaction">View Projects</a>
                     <a href="https://github.com/cybrdelic" class="secondary-button btn-interaction" target="_blank">
@@ -150,9 +173,9 @@
                         GitHub
                     </a>
                 </div>
-
-
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</body>
+
+</html>

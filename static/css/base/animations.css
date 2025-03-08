@@ -12,8 +12,13 @@
 
 /* Fade in animation */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /* Fade in from bottom */
@@ -22,6 +27,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -34,6 +40,7 @@
         opacity: 0;
         transform: translateX(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -46,6 +53,7 @@
         opacity: 0;
         transform: translateX(20px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -54,10 +62,13 @@
 
 /* Pulse animation */
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 1;
         transform: scale(1);
     }
+
     50% {
         opacity: 0.8;
         transform: scale(1.05);
@@ -69,9 +80,11 @@
     0% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(10px);
     }
+
     100% {
         transform: translateY(0);
     }
@@ -82,9 +95,11 @@
     0% {
         transform: scaleX(0);
     }
+
     50% {
         transform: scaleX(1);
     }
+
     100% {
         transform: scaleX(0);
     }
@@ -96,6 +111,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -104,53 +120,145 @@
 
 /* Cursor blink animation */
 @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
 }
 
 /* Horizontal shake (glitch effect) */
 @keyframes horizontalShake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-1px); }
-    20%, 40%, 60%, 80% { transform: translateX(1px); }
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-1px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(1px);
+    }
 }
 
 /* Subtle text scramble effect */
 @keyframes textScramble {
-    0% { filter: blur(0px); transform: translateX(0); }
-    20% { filter: blur(1px); transform: translateX(-1px); }
-    40% { filter: blur(0px); transform: translateX(1px); }
-    60% { filter: blur(0.5px); transform: translateX(-0.5px); }
-    80% { filter: blur(0px); transform: translateX(0.5px); }
-    100% { filter: blur(0px); transform: translateX(0); }
+    0% {
+        filter: blur(0px);
+        transform: translateX(0);
+    }
+
+    20% {
+        filter: blur(1px);
+        transform: translateX(-1px);
+    }
+
+    40% {
+        filter: blur(0px);
+        transform: translateX(1px);
+    }
+
+    60% {
+        filter: blur(0.5px);
+        transform: translateX(-0.5px);
+    }
+
+    80% {
+        filter: blur(0px);
+        transform: translateX(0.5px);
+    }
+
+    100% {
+        filter: blur(0px);
+        transform: translateX(0);
+    }
 }
 
 /* Gradient background shift */
 @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 /* Typing animation */
 @keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
 }
 
 /* Noise animation */
 @keyframes noiseAnimation {
-    0% { transform: translate(0, 0); }
-    10% { transform: translate(-1%, -1%); }
-    20% { transform: translate(-2%, 1%); }
-    30% { transform: translate(1%, -2%); }
-    40% { transform: translate(-1%, 2%); }
-    50% { transform: translate(-2%, 1%); }
-    60% { transform: translate(2%, 0); }
-    70% { transform: translate(0, 2%); }
-    80% { transform: translate(-2%, 0); }
-    90% { transform: translate(1%, 1%); }
-    100% { transform: translate(0, 0); }
+    0% {
+        transform: translate(0, 0);
+    }
+
+    10% {
+        transform: translate(-1%, -1%);
+    }
+
+    20% {
+        transform: translate(-2%, 1%);
+    }
+
+    30% {
+        transform: translate(1%, -2%);
+    }
+
+    40% {
+        transform: translate(-1%, 2%);
+    }
+
+    50% {
+        transform: translate(-2%, 1%);
+    }
+
+    60% {
+        transform: translate(2%, 0);
+    }
+
+    70% {
+        transform: translate(0, 2%);
+    }
+
+    80% {
+        transform: translate(-2%, 0);
+    }
+
+    90% {
+        transform: translate(1%, 1%);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
 }
 
 /* ========== ANIMATION CLASSES ========== */
@@ -201,9 +309,9 @@
     border-right: 2px solid var(--color-accent);
     white-space: nowrap;
     margin: 0;
-    animation: 
-      typing 3.5s steps(40, end),
-      blink 0.75s step-end infinite;
+    animation:
+        typing 3.5s steps(40, end),
+        blink 0.75s step-end infinite;
 }
 
 /* Scramble text on hover */
@@ -213,9 +321,9 @@
 
 /* Project card effects */
 .card-hover {
-    transition: transform 0.3s var(--transition-slow), 
-              box-shadow 0.3s var(--transition-slow),
-              background-color 0.3s var(--transition-slow);
+    transition: transform 0.3s var(--transition-slow),
+        box-shadow 0.3s var(--transition-slow),
+        background-color 0.3s var(--transition-slow);
 }
 
 .card-hover:hover {
@@ -281,21 +389,38 @@
 }
 
 /* Staggered children animations */
-.stagger-children > * {
+.stagger-children>* {
     opacity: 0;
     transform: translateY(10px);
 }
 
-.stagger-children > *:nth-child(1) { animation: fadeInUp 0.5s ease 0.1s forwards; }
-.stagger-children > *:nth-child(2) { animation: fadeInUp 0.5s ease 0.2s forwards; }
-.stagger-children > *:nth-child(3) { animation: fadeInUp 0.5s ease 0.3s forwards; }
-.stagger-children > *:nth-child(4) { animation: fadeInUp 0.5s ease 0.4s forwards; }
-.stagger-children > *:nth-child(5) { animation: fadeInUp 0.5s ease 0.5s forwards; }
-.stagger-children > *:nth-child(n+6) { animation: fadeInUp 0.5s ease 0.6s forwards; }
+.stagger-children>*:nth-child(1) {
+    animation: fadeInUp 0.5s ease 0.1s forwards;
+}
+
+.stagger-children>*:nth-child(2) {
+    animation: fadeInUp 0.5s ease 0.2s forwards;
+}
+
+.stagger-children>*:nth-child(3) {
+    animation: fadeInUp 0.5s ease 0.3s forwards;
+}
+
+.stagger-children>*:nth-child(4) {
+    animation: fadeInUp 0.5s ease 0.4s forwards;
+}
+
+.stagger-children>*:nth-child(5) {
+    animation: fadeInUp 0.5s ease 0.5s forwards;
+}
+
+.stagger-children>*:nth-child(n+6) {
+    animation: fadeInUp 0.5s ease 0.6s forwards;
+}
 
 /* Glitch effect on hover */
 .glitch-hover:hover {
-    animation: horizontalShake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    animation: horizontalShake 0.5s cubic-bezier(.36, .07, .19, .97) both;
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     perspective: 1000px;
@@ -314,7 +439,7 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: left 0.5s ease;
 }
 
@@ -347,7 +472,7 @@
 }
 
 .transition-colors {
-    transition: 
+    transition:
         color var(--transition-base),
         background-color var(--transition-base),
         border-color var(--transition-base);
@@ -377,14 +502,37 @@
 }
 
 /* Delay classes for staggered animations */
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
-.delay-500 { animation-delay: 500ms; }
-.delay-600 { animation-delay: 600ms; }
-.delay-700 { animation-delay: 700ms; }
-.delay-800 { animation-delay: 800ms; }
+.delay-100 {
+    animation-delay: 100ms;
+}
+
+.delay-200 {
+    animation-delay: 200ms;
+}
+
+.delay-300 {
+    animation-delay: 300ms;
+}
+
+.delay-400 {
+    animation-delay: 400ms;
+}
+
+.delay-500 {
+    animation-delay: 500ms;
+}
+
+.delay-600 {
+    animation-delay: 600ms;
+}
+
+.delay-700 {
+    animation-delay: 700ms;
+}
+
+.delay-800 {
+    animation-delay: 800ms;
+}
 
 /* ========== PREFERS-REDUCED-MOTION ========== */
 @media (prefers-reduced-motion: reduce) {
@@ -394,18 +542,18 @@
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
-    
+
     .fade-in,
     .fade-in-up,
     .fade-in-left,
     .fade-in-right,
-    .stagger-children > *,
+    .stagger-children>*,
     .animate-in-view {
         opacity: 1;
         transform: none;
         animation: none;
     }
-    
+
     .scroll-line,
     .scroll-line-x,
     .pulse {
