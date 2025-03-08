@@ -4,7 +4,6 @@
     width: 100%;
     min-height: 100vh;
     padding: var(--space-2xl) 0 var(--space-xl) 0;
-    /* Reduced top padding */
     font-family: var(--font-primary);
     color: var(--color-text-primary);
     background-color: var(--body-bg);
@@ -14,9 +13,7 @@
     flex-direction: column;
     scroll-margin-top: var(--header-height);
     will-change: transform;
-    /* Performance optimization */
     transform: translateZ(0);
-    /* Force GPU acceleration */
 }
 
 #projects .container {
@@ -27,11 +24,9 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-lg);
-    /* Reduced gap */
     flex: 1;
     overflow: visible !important;
     contain: content;
-    /* Improve rendering performance */
 }
 
 .projects-container {
@@ -40,11 +35,8 @@
     gap: var(--space-xl);
     min-height: 80vh;
     overflow: visible !important;
-    /* Ensure no scrollbar */
     contain: layout;
-    /* Performance optimization */
     border: none !important;
-    /* No invisible borders that could cause scrollbars */
 }
 
 /* Section header */
@@ -63,6 +55,8 @@
     margin: 0;
 }
 
+/* --- Existing styles for overview, project details, list, etc. --- */
+
 /* Projects Overview */
 .projects-overview {
     background: transparent;
@@ -74,7 +68,6 @@
     background-color: var(--body-bg);
     transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
     min-height: 240px;
-    /* Increased height for better readability */
     backdrop-filter: blur(5px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -90,7 +83,7 @@
     pointer-events: none;
 }
 
-/* Default overview that shows initially */
+/* Default overview */
 .overview-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -100,7 +93,7 @@
     transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-/* Project-specific overview that shows on hover */
+/* Project-specific overview */
 .project-specific-overview {
     position: absolute;
     top: 0;
@@ -112,13 +105,11 @@
     transform: translateY(10px);
     padding: var(--space-lg) 0;
     pointer-events: none;
-    /* Allow clicks to pass through to the projects below */
 }
 
 .project-specific-details {
     display: grid;
     grid-template-columns: 3fr 2fr;
-    /* Give more space to the description */
     grid-gap: var(--space-lg);
     width: 100%;
 }
@@ -135,7 +126,6 @@
     line-height: 1.5;
     color: var(--color-text-secondary);
     max-width: 100%;
-    /* Ensure text can use full width */
 }
 
 .project-specific-stats {
@@ -151,31 +141,7 @@
     margin-top: var(--space-sm);
 }
 
-.project-specific-tech-tags .project-tech-item {
-    font-size: var(--font-size-2xs);
-    color: var(--color-text-secondary);
-    background-color: rgba(255, 255, 255, 0.03);
-    padding: 2px var(--space-xs);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--color-border);
-    transition: all 0.2s ease;
-}
-
-/* Show project-specific overview when a project card is hovered - managed by JS */
-.projects-overview.show-project-details .default-overview {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-}
-
-.projects-overview.show-project-details .project-specific-overview {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    pointer-events: all;
-    /* Re-enable interactions when visible */
-}
-
+/* Section title for overview */
 .overview-title {
     font-family: var(--font-display);
     font-size: var(--font-size-xl);
@@ -256,92 +222,7 @@
     gap: var(--space-xs);
 }
 
-.expertise-tag {
-    font-family: var(--font-primary);
-    font-size: var(--font-size-2xs);
-    color: var(--color-text-secondary);
-    background-color: rgba(255, 255, 255, 0.05);
-    padding: calc(var(--space-xs) / 2) var(--space-xs);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--color-border);
-    transition: all 0.2s ease;
-}
-
-.expertise-tag:hover {
-    transform: translateY(-2px);
-    border-color: var(--color-text-secondary);
-    color: var(--color-text-primary);
-}
-
-.tech-showcase {
-    margin-top: 0;
-    grid-column: 2 / 3;
-}
-
-.tech-title {
-    font-family: var(--font-display);
-    font-size: var(--font-size-md);
-    font-weight: 600;
-    color: var(--color-text-primary);
-    margin-bottom: var(--space-sm);
-}
-
-.tech-icons {
-    display: flex;
-    gap: var(--space-md);
-    flex-wrap: wrap;
-    justify-content: flex-end;
-}
-
-.tech-icon-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-xs);
-    transition: transform 0.2s ease;
-}
-
-.tech-icon-item:hover {
-    transform: translateY(-5px);
-}
-
-.tech-icon {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text-secondary);
-    transition: color 0.2s ease;
-}
-
-.tech-icon-item:hover .tech-icon {
-    color: var(--color-text-primary);
-}
-
-.tech-icon svg,
-.tech-icon .iconify {
-    width: 30px;
-    height: 30px;
-}
-
-.tech-name {
-    font-family: var(--font-primary);
-    font-size: var(--font-size-xs);
-    color: var(--color-text-tertiary);
-}
-
-/* Projects layout */
-.projects-layout {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding-top: var(--space-md);
-    flex: 1;
-    overflow: hidden;
-}
-
-/* Project Details Panel */
+/* Projects Details Panel */
 .project-details-panel {
     position: sticky;
     top: var(--space-xl);
@@ -356,12 +237,10 @@
     flex-direction: column;
     gap: var(--space-md);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    /* Remove scrollbars completely */
     overflow: visible !important;
     max-height: none !important;
     transition: all 0.3s ease;
     z-index: 5;
-    /* Handle theme-specific styling */
     background-color: var(--bg-glass);
 }
 
@@ -370,21 +249,18 @@
     border-color: rgba(255, 255, 255, 0.15);
 }
 
-/* Remove all scrollbars and ensure proper display */
 .project-details-panel::-webkit-scrollbar,
 .project-details-panel *::-webkit-scrollbar {
     display: none !important;
     width: 0 !important;
 }
 
-/* Ensure all child elements don't create scrollbars */
 .project-details-panel * {
     overflow: visible !important;
     max-height: none !important;
     scrollbar-width: none !important;
 }
 
-/* Add a subtle glow effect to the panel */
 .project-details-panel::before {
     content: "";
     position: absolute;
@@ -463,11 +339,8 @@
     position: relative;
     padding-left: var(--space-xs);
     border-left: 1px solid var(--color-border);
-    /* Use theme variable */
     max-height: none !important;
-    /* Prevent scrollbar */
     overflow: visible !important;
-    /* Prevent scrollbar */
 }
 
 .details-stats {
@@ -502,26 +375,15 @@
     font-family: var(--font-primary);
     font-size: var(--font-size-2xs);
     color: var(--color-text-secondary);
-    background-color: var(--bg-white-08);
+    background-color: rgba(255, 255, 255, 0.03);
     padding: calc(var(--space-xs) / 2) var(--space-xs);
     border-radius: var(--border-radius);
     border: 1px solid var(--color-border);
     transition: all 0.2s ease;
 }
 
-/* Theme-specific styles */
-[data-theme='dark'] .expertise-tag,
-[data-theme='dark'] .tech-tag {
-    background-color: rgba(255, 255, 255, 0.03);
-}
-
-[data-theme='light'] .expertise-tag,
-[data-theme='light'] .tech-tag {
-    background-color: rgba(0, 0, 0, 0.03);
-}
-
-.tech-tag:hover,
-.expertise-tag:hover {
+.expertise-tag:hover,
+.tech-tag:hover {
     transform: translateY(-2px);
     border-color: var(--color-text-secondary);
     color: var(--color-text-primary);
@@ -551,10 +413,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg,
-            rgba(255, 255, 255, 0.1),
-            rgba(255, 255, 255, 0.03),
-            rgba(255, 255, 255, 0));
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
     transform: translateX(-100%);
     transition: transform 0.6s ease;
 }
@@ -598,14 +457,10 @@
     padding: var(--space-md) 0;
     background-color: transparent;
     overflow: visible !important;
-    /* Prevent scrollbars */
     height: auto;
-    /* Let it size naturally */
     max-height: none !important;
-    /* Prevent scrollbar */
 }
 
-/* Ensure all children never have scrollbars */
 .projects-list * {
     overflow: visible !important;
     max-height: none !important;
@@ -629,7 +484,6 @@
     position: relative;
     overflow: hidden;
     border-left: 3px solid transparent;
-    /* Fix layout shift by pre-setting border */
 }
 
 .project-list-item.reveal {
@@ -699,7 +553,6 @@
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
-/* Add a subtle indicator for active project */
 .project-list-item.active::after {
     content: '→';
     position: absolute;
@@ -719,7 +572,6 @@
 .project-visualization {
     position: sticky;
     top: 80px;
-    /* Adjust based on your header height */
     width: 100%;
     height: 380px;
     border: 1px solid var(--color-border);
@@ -739,7 +591,6 @@
     transform: translateY(-5px);
 }
 
-/* Terminal-like header for visualization */
 .project-panel-header {
     display: flex;
     align-items: center;
@@ -797,7 +648,6 @@
     }
 }
 
-/* Status bar at the bottom */
 .project-status-bar {
     border-top: 1px solid var(--color-border);
     padding: var(--space-xs) var(--space-sm);
@@ -861,7 +711,6 @@
     }
 }
 
-/* Project tech tags */
 .project-tech-tags {
     position: absolute;
     bottom: var(--space-md);
@@ -881,7 +730,7 @@
     padding: var(--space-xs) var(--space-sm);
     border-radius: var(--border-radius);
     border: 1px solid var(--color-border);
-    transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition: all 0.3s ease;
 }
 
 .tech-tag:hover {
@@ -897,7 +746,6 @@
     position: relative;
 }
 
-/* Icon wrapper */
 .icon-wrapper {
     position: absolute;
     top: 0;
@@ -917,7 +765,6 @@
     visibility: visible;
 }
 
-/* Scaling wrapper to control icon size */
 .icon-scaling-wrapper {
     width: 100%;
     height: 100%;
@@ -929,7 +776,6 @@
     max-height: 90%;
 }
 
-/* Default icon animation */
 .project-default-icon {
     width: 70%;
     height: 70%;
@@ -998,7 +844,6 @@
     }
 }
 
-/* Subtle group hover effect - highlight card when hovering on containing element */
 .projects-list:hover .project-card:not(:hover) {
     opacity: 0.85;
     transition: opacity 0.3s ease;
@@ -1032,7 +877,6 @@
     box-shadow: 0 0 0 2px var(--color-text-primary);
 }
 
-/* Project content */
 .project-content {
     display: flex;
     flex-direction: column;
@@ -1040,7 +884,6 @@
     height: 100%;
 }
 
-/* Project title */
 .project-title {
     font-size: var(--font-size-md);
     color: var(--color-text-primary);
@@ -1068,7 +911,6 @@
     width: 100%;
 }
 
-/* Project type */
 .project-type {
     font-family: var(--font-display);
     font-size: var(--font-size-sm);
@@ -1076,7 +918,6 @@
     margin-bottom: var(--space-xs);
 }
 
-/* Project description */
 .project-description {
     margin: var(--space-xs) 0;
     max-height: 0;
@@ -1105,7 +946,6 @@
     margin-bottom: var(--space-md);
 }
 
-/* Always show description on mobile for better UX */
 @media (max-width: 768px) {
     .project-description {
         max-height: 150px;
@@ -1115,7 +955,6 @@
     }
 }
 
-/* Project tech */
 .project-tech {
     display: flex;
     flex-wrap: wrap;
@@ -1152,7 +991,6 @@
     margin-bottom: var(--space-xs);
 }
 
-/* Always show tech stack on mobile */
 @media (max-width: 768px) {
     .project-tech {
         opacity: 1;
@@ -1161,7 +999,6 @@
     }
 }
 
-/* Project more indicator */
 .project-more {
     margin-top: var(--space-xs);
     opacity: 0.5;
@@ -1202,7 +1039,7 @@
 .project-card.active .more-icon,
 .project-card:focus .more-icon {
     color: var(--color-text-primary);
-    transform: translateX(var(--space-2xs));
+    transform: translateX(var(--space-xs));
 }
 
 .project-card:hover .more-text,
@@ -1212,7 +1049,6 @@
     transform: translateX(0);
 }
 
-/* Show more text on mobile for better UX */
 @media (max-width: 768px) {
     .more-text {
         opacity: 1;
@@ -1370,3 +1206,58 @@
         white-space: nowrap;
     }
 }
+
+/* --- NEW: Animate-on-Scroll Animations --- */
+.animate-on-scroll {
+    opacity: 0;
+}
+
+.animate-on-scroll.load {
+    animation: loadInAnim 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-on-scroll.scroll-down {
+    animation: scrollDownAnim 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-on-scroll.scroll-up {
+    animation: scrollUpAnim 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes loadInAnim {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scrollDownAnim {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scrollUpAnim {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* End of projects.css */

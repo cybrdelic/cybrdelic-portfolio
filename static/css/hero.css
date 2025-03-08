@@ -13,17 +13,24 @@
 
 /* Main Hero Container */
 #hero {
-    height: calc(90vh - var(--header-height, 60px));
+    min-height: 100vh;
     width: 100%;
     position: relative;
     background-color: var(--body-bg);
-    margin-top: var(--header-height, 60px);
     color: var(--color-text-primary);
     display: flex;
     flex-direction: column;
     justify-content: center;
     scroll-margin-top: 60px;
     box-sizing: border-box;
+    /* Initial state for transition out */
+    transition: min-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Special full-viewport state */
+.hero-active {
+    margin-top: 0;
+    padding-top: var(--header-height, 60px);
 }
 
 /* Background Layers */
@@ -33,6 +40,7 @@
     left: 0;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 .grain-overlay {
@@ -76,6 +84,72 @@
     z-index: 1;
 }
 
+/* Dynamic background elements */
+.dynamic-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.hero-active .dynamic-bg {
+    opacity: 1;
+}
+
+.bg-particle {
+    position: absolute;
+    background: linear-gradient(45deg, var(--color-accent), var(--color-accent-hover));
+    border-radius: 50%;
+    filter: blur(20px);
+    opacity: 0;
+    animation: float 8s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+        opacity: 0.3;
+    }
+    25% {
+        transform: translateY(-20px) translateX(10px);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translateY(-10px) translateX(20px);
+        opacity: 0.3;
+    }
+    75% {
+        transform: translateY(20px) translateX(-10px);
+        opacity: 0.5;
+    }
+}
+
+/* Digital circuit lines */
+.circuit-line {
+    position: absolute;
+    background: var(--color-accent);
+    height: 1px;
+    width: 0;
+    opacity: 0.2;
+    transform-origin: left;
+    animation: circuitGrow 3s infinite alternate ease-in-out;
+}
+
+@keyframes circuitGrow {
+    0% {
+        width: 0;
+        opacity: 0;
+    }
+    100% {
+        width: 100%;
+        opacity: 0.2;
+    }
+}
+
 /* Hero Content Layout */
 .hero-content {
     position: relative;
@@ -114,11 +188,34 @@
     position: relative;
 }
 
-/* Hero Title inherits typography */
+/* Original Animations (unchanged design) */
+/* These keyframes define your initial load effect */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes expandWidth {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/* Hero Title & Tagline using your original keyframes */
 .hero-title {
     animation: fadeInUp 0.8s ease-out 0.2s forwards;
     opacity: 0;
-    transform: translateY(20px);
 }
 
 .title-accent {
@@ -132,7 +229,6 @@
     transform-origin: left;
 }
 
-/* Hero Tagline */
 .hero-tagline {
     font-family: var(--font-display);
     font-size: 4rem;
@@ -161,6 +257,11 @@
     flex-direction: column;
     align-items: center;
     gap: 4px;
+    transition: transform 0.3s ease;
+}
+
+.tech-icon:hover {
+    transform: scale(1.05);
 }
 
 .tech-icon-name {
@@ -174,7 +275,7 @@
     width: 100%;
     padding: var(--space-md);
     border-left: 1px solid var(--color-border);
-    animation: fadeIn 1s ease-out 0.8s forwards;
+    animation: fadeInUp 1s ease-out 0.8s forwards;
     opacity: 0;
 }
 
@@ -192,7 +293,7 @@
     margin-top: var(--space-sm);
     padding-top: var(--space-md);
     border-top: 1px solid rgba(255, 255, 255, 0.08);
-    animation: fadeIn 1s ease-out 1s forwards;
+    animation: fadeInUp 1s ease-out 1s forwards;
     opacity: 0;
     margin-bottom: var(--space-sm);
 }
@@ -224,7 +325,6 @@
 }
 
 .stat-label {
-    /* Inherits shared typography */
     animation: fadeInUp 0.8s ease-out 0.2s forwards;
     opacity: 0;
     transform: translateY(20px);
@@ -283,10 +383,10 @@
 }
 
 .expertise-card h3 {
-    /* Shared typography applied */
     margin-bottom: var(--space-2xs);
     text-transform: uppercase;
     font-weight: 500;
+    font-family: var(--font-display);
 }
 
 .expertise-card p {
@@ -359,40 +459,63 @@
     fill: currentColor;
 }
 
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
+/* Base for elements to animate */
+.animate-on-scroll {
+    opacity: 0;
 }
 
-@keyframes fadeInUp {
-    from {
+/* --- Distinct Animation States --- */
+/* These keyframes are precise, robotic, and intentionally "accurate" */
+@keyframes loadInAnim {
+    0% {
         opacity: 0;
         transform: translateY(20px);
     }
 
-    to {
+    100% {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-@keyframes expandWidth {
-    from {
-        transform: scaleX(0);
+@keyframes scrollDownAnim {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
     }
 
-    to {
-        transform: scaleX(1);
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-/* Media Queries */
+@keyframes scrollUpAnim {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply animations via state classes */
+.animate-on-scroll.load {
+    animation: loadInAnim 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-on-scroll.scroll-down {
+    animation: scrollDownAnim 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-on-scroll.scroll-up {
+    animation: scrollUpAnim 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Media Queries (unchanged) */
 @media (prefers-reduced-motion: reduce) {
 
     .hero-title,

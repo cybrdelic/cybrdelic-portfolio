@@ -39,7 +39,7 @@
     {% for event in career_timeline %}
     <template id="job-details-{{ loop.index }}">
         <div class="timeline-content">
-            <div class="job-description">
+            <div class="common-hero-typography">
                 <p>{{ event.description }}</p>
                 <div class="tech-stack">
                     <div class="tech-icons-container">
@@ -94,31 +94,26 @@
             {% for topic in event.topics %}
             <div class="topic-card" tabindex="0">
                 <div class="topic-header">
-                    <h3 class="topic-name">{{ topic.name }}</h3>
-                    <div class="animated-terminal-icon">
-                        <div class="terminal-header">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <div class="terminal-content">
-                            <span class="typed-text"></span>
-                            <span class="terminal-cursor"></span>
-                        </div>
-                    </div>
+                    <h3 class="common-hero-typography">{{ topic.name }}</h3>
                 </div>
-                <div class="topic-details">
-                    <p>{{ topic.description }}</p>
-                    {% if topic.tags and topic.tags|length > 0 %}
-                    <div class="topic-tags">
-                        {% for tag in topic.tags %}
-                        <span class="topic-tag">{{ tag }}</span>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
+                <div class=" terminal-content">
+                    <span class="typed-text"></span>
+                    <span class="terminal-cursor"></span>
                 </div>
             </div>
-            {% endfor %}
+        </div>
+        <div class="topic-details">
+            <p class="common-hero-typography">{{ topic.description }}</p>
+            {% if topic.tags and topic.tags|length > 0 %}
+            <div class="topic-tags">
+                {% for tag in topic.tags %}
+                <span class="topic-tag">{{ tag }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        </div>
+        {% endfor %}
         </div>
         {% endif %}
     </template>

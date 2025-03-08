@@ -1,10 +1,9 @@
-<!-- templates/sections/projects.html -->
 <section id="projects">
     <div class="container fade-in">
 
         <div class="projects-container">
             <!-- Project Details Panel (Left Side - Sticky) -->
-            <div class="project-details-panel animate-in-view">
+            <div class="project-details-panel animate-on-scroll">
                 <!-- Default state when no project is selected -->
                 <div class="default-project-view">
                     <h3 class="details-header typing-cursor">Select a project</h3>
@@ -44,8 +43,12 @@
 
                 <!-- Project-specific details that show when a project is selected -->
                 <div class="selected-project-view">
-                    <h3 class="details-header"><span class="selected-project-title scramble-on-hover">Project Name</span></h3>
-                    <div class="details-subtitle"><span class="selected-project-subtitle">Project Type</span></div>
+                    <h3 class="details-header">
+                        <span class="selected-project-title scramble-on-hover">Project Name</span>
+                    </h3>
+                    <div class="details-subtitle">
+                        <span class="selected-project-subtitle">Project Type</span>
+                    </div>
 
                     <p class="details-description selected-project-description">
                         Select a project to view details.
@@ -77,8 +80,8 @@
             <!-- Projects List (Right Side) -->
             <div class="projects-list">
                 {% for project in projects %}
-                <div class="project-list-item animate-in-view" data-id="{{ project.id }}" data-subtitle="{{ project.subtitle }}"
-                    data-year="{{ project.year | default(value='2023') }}"
+                <div class="project-list-item animate-on-scroll" data-id="{{ project.id }}"
+                    data-subtitle="{{ project.subtitle }}" data-year="{{ project.year | default(value='2023') }}"
                     data-status="{{ project.status | default(value='Active') }}" tabindex="0"
                     aria-label="Project: {{ project.title }}">
                     <h3 class="project-list-title link-underline">{{ project.title }}</h3>
@@ -98,6 +101,7 @@
         </div>
     </div>
 
+    <!-- Existing project interactions script (unchanged) -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const projectsSection = document.getElementById('projects');
@@ -118,25 +122,21 @@
             // Add tabindex to details panel for better accessibility
             detailsPanel.setAttribute('tabindex', '-1');
 
-            // Setup animation for list items and other animated elements
+            // Setup basic reveal for elements (once only)
             const animationObserver = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        // Add visible class to trigger our CSS animations
                         entry.target.classList.add('visible');
                         animationObserver.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.1 });
 
-            // Observe all elements with animate-in-view class
-            document.querySelectorAll('.animate-in-view').forEach((el) => {
+            document.querySelectorAll('.animate-on-scroll').forEach((el) => {
                 animationObserver.observe(el);
             });
 
-            // Function to update project details with animation
             function updateProjectDetails(item) {
-                // Get data from the selected project
                 const title = item.querySelector('.project-list-title').textContent;
                 const subtitle = item.getAttribute('data-subtitle');
                 const year = item.getAttribute('data-year');
@@ -145,29 +145,23 @@
                 const techItems = item.querySelectorAll('.tech-item');
                 const projectId = item.getAttribute('data-id');
 
-                // Apply glitch effect to title as it changes
                 const titleElement = document.querySelector('.selected-project-title');
                 if (titleElement.textContent !== title) {
-                    // Use our textScramble animation for a cool effect
                     titleElement.classList.add('scramble-on-hover');
-                    // Force animation by removing and adding the class
                     titleElement.classList.remove('scramble-on-hover');
                     setTimeout(() => {
                         titleElement.classList.add('scramble-on-hover');
                     }, 10);
                 }
 
-                // Update the details panel
                 titleElement.textContent = title;
                 document.querySelector('.selected-project-subtitle').textContent = subtitle;
                 document.querySelector('.selected-project-description').textContent = description;
                 document.querySelector('.selected-project-status').textContent = status;
                 document.querySelector('.selected-project-year').textContent = year;
 
-                // Update tech tags with staggered animation
                 const techTagsContainer = document.querySelector('.selected-project-tech-tags');
                 techTagsContainer.innerHTML = '';
-                
                 techItems.forEach((item, index) => {
                     const techTag = document.createElement('span');
                     techTag.className = 'tech-tag highlight-on-hover';
@@ -176,14 +170,10 @@
                     techTagsContainer.appendChild(techTag);
                 });
 
-                // Update the "View Full Details" link
                 detailsLink.href = `/projects/${projectId}`;
 
-                // Animate transition between views
                 if (defaultView.style.display !== 'none') {
-                    // First time switching to project view
                     defaultView.classList.add('fade-out');
-                    
                     setTimeout(() => {
                         defaultView.style.display = 'none';
                         selectedView.style.display = 'block';
@@ -192,75 +182,44 @@
                 }
             }
 
-            // Handle project item interactions
             projectItems.forEach((item, index) => {
-                // Add staggered reveal animation 
                 item.style.transitionDelay = `${index * 50}ms`;
-                
-                // Click handler - navigate to details page
+
                 item.addEventListener('click', () => {
                     const projectId = item.getAttribute('data-id');
                     window.location.href = `/projects/${projectId}`;
                 });
-                
-                // Hover effect to show project details for non-touch devices
+
                 if (!isTouchDevice) {
                     item.addEventListener('mouseenter', () => {
-                        // Add subtle glitch effect on hover
                         item.classList.add('glitch-hover');
-                        
-                        // Remove active class from all items
                         projectItems.forEach(p => {
                             p.classList.remove('active');
                             p.classList.add('dim');
                         });
-                        
-                        // Add active class to hovered item and remove dim
                         item.classList.add('active');
                         item.classList.remove('dim');
-                        
-                        // Update the details panel
                         updateProjectDetails(item);
-                        
-                        // Remove glitch class after effect completes
                         setTimeout(() => {
                             item.classList.remove('glitch-hover');
                         }, 500);
                     });
-                    
                     item.addEventListener('mouseleave', () => {
-                        // Only remove dim class, keep active state for last hovered item
                         projectItems.forEach(p => p.classList.remove('dim'));
                     });
                 } else {
-                    // For touch devices, show details on tap and navigate on second tap
                     let lastTappedItem = null;
-                    
                     item.addEventListener('touchstart', (e) => {
                         if (lastTappedItem === item) {
-                            // Second tap on same item - navigate to details
                             const projectId = item.getAttribute('data-id');
                             window.location.href = `/projects/${projectId}`;
                         } else {
-                            // First tap - show details
                             e.preventDefault();
-                            
-                            // Add pulse effect on tap
                             item.classList.add('pulse');
-                            
-                            // Remove active class from all items
                             projectItems.forEach(p => p.classList.remove('active'));
-                            
-                            // Add active class to tapped item
                             item.classList.add('active');
-                            
-                            // Update the details panel
                             updateProjectDetails(item);
-                            
-                            // Remember last tapped item
                             lastTappedItem = item;
-                            
-                            // Reset animation and last tapped item after delay
                             setTimeout(() => {
                                 item.classList.remove('pulse');
                                 lastTappedItem = null;
@@ -268,23 +227,14 @@
                         }
                     });
                 }
-                
-                // Keyboard accessibility
                 item.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
-                        
-                        // Show details first with focus animation
                         projectItems.forEach(p => p.classList.remove('active'));
                         item.classList.add('active');
                         item.classList.add('pulse');
-                        
                         updateProjectDetails(item);
-                        
-                        // Focus on the details panel for better accessibility
                         detailsPanel.focus();
-                        
-                        // Remove animation class after effect
                         setTimeout(() => {
                             item.classList.remove('pulse');
                         }, 1000);
@@ -292,27 +242,19 @@
                 });
             });
 
-            // Set first project as active by default with a smooth animation
             if (projectItems.length > 0) {
-                // Add a small delay to ensure everything is loaded first
                 setTimeout(() => {
                     const firstProject = projectItems[0];
                     firstProject.classList.add('active');
-                    
-                    // Add a subtle highlight animation
                     firstProject.classList.add('card-hover');
                     firstProject.style.transform = 'translateY(-5px)';
-                    
                     updateProjectDetails(firstProject);
-
-                    // Reset the animation after a short delay
                     setTimeout(() => {
                         firstProject.style.transform = '';
                     }, 1000);
                 }, 600);
             }
 
-            // Handle focus management for accessibility
             if (projectsSection) {
                 projectsSection.addEventListener('focusin', (e) => {
                     if (e.target.classList.contains('project-list-item')) {
@@ -324,6 +266,47 @@
                     }
                 });
             }
+        });
+    </script>
+
+    <!-- New Animation Observer for distinct load/scroll animations -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let initialLoad = true;
+            setTimeout(() => { initialLoad = false; }, 1000);
+
+            const animatedElements = document.querySelectorAll("#projects .animate-on-scroll");
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        let animClass = "";
+                        if (initialLoad) {
+                            animClass = "load";
+                        } else if (document.body.classList.contains("scrolling-down")) {
+                            animClass = "scroll-down";
+                        } else if (document.body.classList.contains("scrolling-up")) {
+                            animClass = "scroll-up";
+                        }
+                        entry.target.classList.remove("load", "scroll-down", "scroll-up");
+                        void entry.target.offsetWidth;
+                        entry.target.classList.add(animClass);
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(el => observer.observe(el));
+
+            let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            window.addEventListener("scroll", () => {
+                let st = window.pageYOffset || document.documentElement.scrollTop;
+                if (st > lastScrollTop) {
+                    document.body.classList.remove("scrolling-up");
+                    document.body.classList.add("scrolling-down");
+                } else {
+                    document.body.classList.remove("scrolling-down");
+                    document.body.classList.add("scrolling-up");
+                }
+                lastScrollTop = st <= 0 ? 0 : st;
+            });
         });
     </script>
 </section>
