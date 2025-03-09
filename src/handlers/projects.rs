@@ -253,20 +253,18 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
     }
 
     // If not cached, build the projects list
-    let sagacity_flow_configs = scan_flow_configs("sagacity")?;
+    let myriad_flow_configs = scan_flow_configs("myriad")?;
     let commitaura_flow_configs = scan_flow_configs("commitaura")?;
     let cybrdelic_flow_configs = scan_flow_configs("cybrdelic-portfolio")?;
     let jjugg_flow_configs = scan_flow_configs("jjugg")?;
     let resumatyk_flow_configs = scan_flow_configs("resumatyk")?;
     let browsealizer_flow_configs = scan_flow_configs("browsealizer")?;
-    let lester_flow_configs = scan_flow_configs("lester")?;
-
     let projects_result = vec![
         Project::new(
             "jjugg",
             "JJugg",
-            "Job Application Tracker",
-            "A local web application for managing job applications that transforms a traditionally manual process into a data-driven workflow with automated tracking, rich analytics, and interactive dashboards.",
+            "Autonomous Job Application Tracker",
+            "A local web application for autonomously tracking job applications that transforms a traditionally manual process into a data-driven workflow with automated tracking (via userscripts and email scanning), rich analytics, and interactive dashboards.Think of it like JARVIS for job hunters.",
             "/static/images/jjugg.jpg",
             "Job application tracking simplified with automation and analytics",
             "m5 5h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z m13 3l-5 5-5-5",
@@ -278,7 +276,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             vec![
                 (
                     "Automated Tracking",
-                    "Uses userscripts with localStorage and email scanning to automatically update application statuses",
+                    "Uses userscripts with localStorage and email scanning to automatically update application statuses, so you don't need ot manually enter any data - just apply and your data will be autonomously tracked.",
                     "m9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
                 ),
                 (
@@ -302,17 +300,17 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
         )?,
 
         Project::new(
-            "sagacity",
-            "Sagacity",
+            "myriad",
+            "Myriad.ai",
             "Intelligent Software Copilot",
-            "An AI-powered code exploration tool that helps developers navigate and understand complex codebases through contextual code analysis and natural language interaction.",
-            "/static/images/sagacity.jpg",
+            "An AI-powered code exploration tool that helps developers navigate and understand complex codebases, and produce project planning/documentation through contextual code analysis and natural language interaction.",
+            "/static/images/myriad.jpg",
             "Intelligent codebase exploration tool powered by Claude API",
             "m20 21v-2a4 4 0 0 0-4-4h8a4 4 0 0 0-4 4v2 m12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z",
             vec!["Rust", "Claude API", "NLP", "Git"],
             vec![
-                ("Crates.io", "https://crates.io/crates/sagacity"),
-                ("GitHub", "https://github.com/cybrdelic/sagacity"),
+                ("Crates.io", "https://crates.io/crates/myriad"),
+                ("GitHub", "https://github.com/cybrdelic/myriad"),
             ],
             vec![
                 (
@@ -326,18 +324,19 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
                     "m12 6.253v13m0-13c10.832 5.477 9.246 5 7.5 5s4.168 5.477 3 6.253v13c4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253"
                 ),
                 (
-                    "AI-Powered Indexing",
-                    "Smart indexing system that understands code semantics",
+                    "AI-Powered Contextual Indexing",
+                    "Smart indexing system that understands user prompts and where the related code is",
                     "m9 12h6m-6 4h6m2 5h7a2 2 0 01-2-2v5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707v19a2 2 0 01-2 2z"
                 ),
             ],
             (
-                "Built with a microservices architecture using Rust for performance and reliability. Integrates with Claude API for intelligent processing.",
-                "Uses advanced NLP techniques and custom indexing algorithms. Implements persistent storage with SQLite.",
-                "Optimizing response times while maintaining context. Balancing memory usage with search performance."
+                "Built as a TUI using Rust for performance. Integrates with Claude API for intelligent processing.",
+                "Uses custom indexing and contextual ranking algorithms. Implements persistent storage with SQLite.",
+                "Optimizing response times while maintaining context. Balancing memory usage with search performance.",
+
             ),
             vec!["intelligent search", "code understanding", "developer focus", "efficiency"],
-            sagacity_flow_configs,
+            myriad_flow_configs,
         )?,
 
         Project::new(
@@ -382,9 +381,9 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
         Project::new(
             "resumatyk",
             "Resumatyk",
-            "AI Resume Generator",
-            "A resume management system that automates the creation of tailored, professional resumes using AI and LaTeX, with dynamic generation for specific job requirements.",
-            "/static/images/default-project.jpg",
+            "AI Resume Management TUI",
+            "A resume management system (written in Bash using fzf) that allows the creation, editing, compilation, and viewing of resumes. Also enables resume style variant generation using LaTeX code generation, OCR, and fully autonomous, multimodal, LLM-based, recursive QA flows.",
+            "/static/images/resumatyk.jpg",
             "Generate professional LaTeX resumes tailored to specific job requirements",
             "m4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4",
             vec!["Python", "LaTeX", "OCR", "AI"],
@@ -422,7 +421,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             "cybrdelic-portfolio",
             "Cybrdelic Portfolio",
             "Interactive Developer Portfolio",
-            "A full-stack portfolio and interactive web app built with Rust, featuring dynamic routing, interactive UI elements, and markdown-driven documentation. Integrates Axum, Tera, and modern JavaScript to deliver a cutting-edge, terminal-inspired experience.",
+            "A full-stack portfolio and interactive web app built with Rust, featuring dynamic routing, interactive UI elements, and markdown-driven documentation. Integrates Axum, Tera, and modern JavaScript to deliver a cutting-edge, cyberpunk-inspired experience.",
             "/static/images/cybrdelic-portfolio.jpg",
             "An interactive showcase of cutting-edge developer projects with terminal vibes",
             "m10 10h4v4h-4z",
@@ -455,45 +454,6 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             ),
             vec!["cutting-edge", "interactive", "modern", "modular"],
             cybrdelic_flow_configs,
-        )?,
-
-        Project::new(
-            "lester",
-            "Lester",
-            "Decentralized Bounty System",
-            "A decentralized, trustless bounty system for software development tasks designed to revolutionize how projects outsource work, with language-agnostic verification and secure operations.",
-            "/static/images/default-project.jpg",
-            "Revolutionizing software development outsourcing with trustless verification",
-            "m13 10V3L4 14h7v7l9-11h-7z",
-            vec!["Rust", "Python", "Textual", "Cryptography", "P2P"],
-            vec![
-                ("GitHub", "https://github.com/cybrdelic/lester"),
-                ("Documentation", "https://docs.lester.dev"),
-            ],
-            vec![
-                (
-                    "Decentralized Platform",
-                    "Enables users to post and claim bounties for development tasks without centralized authorities",
-                    "m13 10V3L4 14h7v7l9-11h-7z"
-                ),
-                (
-                    "Verification Engine",
-                    "Language-agnostic verification system to validate code submissions and maintain quality",
-                    "m9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                ),
-                (
-                    "Terminal UI",
-                    "Features a terminal-based UI built with Textual for an intuitive, developer-friendly experience",
-                    "m5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-                ),
-            ],
-            (
-                "Peer-to-peer architecture with decentralized verification nodes and cryptographic security protocols.",
-                "Rust for performance-critical components, Python with Textual for UI, and custom cryptographic implementations.",
-                "Ensuring trustless verification across different programming languages and maintaining security in a decentralized system."
-            ),
-            vec!["decentralized", "trustless", "efficient", "innovative"],
-            lester_flow_configs,
         )?,
 
         Project::new(
