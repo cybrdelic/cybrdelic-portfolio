@@ -53,6 +53,51 @@
     box-shadow: var(--shadow-glass-hover);
 }
 
+/* Tech Stack */
+.tech-stack {
+    display: flex;
+    overflow-x: auto;
+    gap: var(--space-sm);
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+    padding: var(--space-xs) 0;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    max-width: 100%;
+    margin-bottom: var(--space-lg);
+}
+
+.tech-stack::-webkit-scrollbar {
+    height: 6px;
+}
+
+.tech-stack::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.tech-stack::-webkit-scrollbar-thumb {
+    background-color: var(--color-border);
+    border-radius: var(--border-radius-full);
+}
+
+.tech-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--bg-glass);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-xs);
+    font-family: var(--font-mono);
+    color: var(--color-text-secondary);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+}
+
 /* Image Container and Hover Effects */
 .image-container {
     position: relative;
@@ -629,10 +674,35 @@
 
     .tech-stack {
         padding: var(--space-md);
+        display: flex;
+        overflow-x: auto;
+        gap: var(--space-sm);
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-border) transparent;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        max-width: 100%;
+    }
+    
+    .tech-stack::-webkit-scrollbar {
+        height: 6px;
+    }
+    
+    .tech-stack::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .tech-stack::-webkit-scrollbar-thumb {
+        background-color: var(--color-border);
+        border-radius: var(--border-radius-full);
     }
 
     .tech-tag {
         font-size: var(--font-size-3xs);
+        white-space: nowrap;
+        scroll-snap-align: start;
+        flex-shrink: 0;
     }
 
     .modal-content img {

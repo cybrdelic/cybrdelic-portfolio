@@ -191,8 +191,29 @@
 
 .tech-tags {
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-xs);
+    overflow-x: auto;
+    gap: var(--space-sm);
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+    padding: var(--space-xs) 0;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    margin-bottom: var(--space-xs);
+    max-width: 100%;
+}
+
+.tech-tags::-webkit-scrollbar {
+    height: 6px;
+}
+
+.tech-tags::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.tech-tags::-webkit-scrollbar-thumb {
+    background-color: var(--color-border);
+    border-radius: var(--border-radius-full);
 }
 
 .tech-tag {
@@ -207,6 +228,9 @@
     font-family: var(--font-mono);
     color: var(--color-text-secondary);
     transition: all 0.2s ease;
+    white-space: nowrap;
+    scroll-snap-align: start;
+    flex-shrink: 0;
 }
 
 .tech-tag:hover {

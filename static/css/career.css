@@ -175,7 +175,6 @@
     top: var(--space-sm);
     width: var(--space-md);
     height: var(--space-md);
-    border-radius: var(--border-radius-full);
     border: 2px solid var(--color-border);
     background-color: var(--bg-white-30);
     transform: translateX(-50%);
@@ -190,7 +189,6 @@
     top: var(--space-sm);
     width: var(--space-md);
     height: var(--space-md);
-    border-radius: var(--border-radius-full);
     transform: translateX(-50%);
     z-index: 1;
     background-color: transparent;
@@ -323,12 +321,9 @@
     font-size: var(--font-size-xs);
     margin-bottom: var(--space-xs);
     color: var(--color-text-secondary);
-    border: 1px solid var(--color-border);
     display: inline-block;
     padding: calc(var(--space-xs) / 2) var(--space-sm);
-    border-radius: var(--border-radius);
     transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-    background-color: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(3px);
     position: relative;
     overflow: hidden;

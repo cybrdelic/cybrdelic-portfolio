@@ -1,14 +1,10 @@
 <section id="contact">
     <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Contact</h2>
-        </div>
-        
         <div class="contact-layout">
             <!-- Contact info -->
             <div class="contact-info">
                 <div class="contact-intro">
-                    <p>Let's collaborate on something amazing. Connect with me through any of these channels:</p>
+                    <p>Let's collaborate on something amazing</p>
                 </div>
                 
                 <div class="contact-methods">
@@ -40,73 +36,51 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="contact-terminal">
-                    <div class="terminal-header">
-                        <div class="terminal-buttons">
-                            <span class="terminal-button close"></span>
-                            <span class="terminal-button minimize"></span>
-                            <span class="terminal-button expand"></span>
-                        </div>
-                        <div class="terminal-title">cybrdelic:~</div>
-                    </div>
-                    <div class="terminal-body">
-                        <div class="terminal-line">
-                            <span class="prompt">~$</span> <span class="command typing-text">echo "Thanks for visiting!"</span>
-                        </div>
-                    </div>
-                </div>
             </div>
             
             <!-- Contact form -->
             <div class="contact-form-container">
-                <form class="contact-form">
+                <form class="contact-form" aria-label="Contact form">
                     <div class="form-field">
                         <label for="name">Name</label>
-                        <input type="text" id="name" name="name" placeholder="_" required>
+                        <input type="text" id="name" name="name" placeholder="_" required aria-required="true" aria-label="Your name">
                     </div>
                     <div class="form-field">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="_" required>
+                        <input type="email" id="email" name="email" placeholder="_" required aria-required="true" aria-label="Your email address">
                     </div>
                     <div class="form-field">
                         <label for="message">Message</label>
-                        <textarea id="message" name="message" placeholder="_" required></textarea>
+                        <textarea id="message" name="message" placeholder="_" required aria-required="true" aria-label="Your message"></textarea>
                     </div>
-                    <button type="submit" class="submit-btn">
+                    <button type="submit" class="submit-btn" aria-label="Send message">
                         <span class="btn-text">Send Message</span>
-                        <span class="btn-icon">→</span>
+                        <span class="btn-icon" aria-hidden="true">→</span>
                     </button>
                 </form>
             </div>
         </div>
     </div>
+    
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-logo">cybrdelic</div>
+            <div class="footer-links">
+                <a href="#projects">Projects</a>
+                <a href="#career">Career</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; <span id="current-year"></span> cybrdelic. All rights reserved.
+            </div>
+        </div>
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Animate typing effect
-            const typingText = document.querySelector('.typing-text');
-            const text = typingText.textContent;
-            typingText.textContent = '';
-            
-            function typeText(i = 0) {
-                if (i < text.length) {
-                    typingText.textContent += text.charAt(i);
-                    setTimeout(() => typeText(i + 1), 50 + Math.random() * 50);
-                }
-            }
-            
-            // Start typing animation when section becomes visible
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        setTimeout(typeText, 500);
-                        observer.disconnect();
-                    }
-                });
-            }, { threshold: 0.3 });
-            
-            observer.observe(document.getElementById('CONTACT'));
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
             
             // Form submission handling
             const contactForm = document.querySelector('.contact-form');

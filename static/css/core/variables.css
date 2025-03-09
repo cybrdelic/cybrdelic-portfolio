@@ -10,16 +10,16 @@
     
     /* Text colors */
     --color-text-primary: #111;
-    --color-text-secondary: #444;
-    --color-text-tertiary: #666;
-    --color-text-quaternary: #888;
+    --color-text-secondary: #333;
+    --color-text-tertiary: #555;
+    --color-text-quaternary: #777;
     
     /* UI colors */
-    --color-border: #ddd;
+    --color-border: #ccc;
     --color-success: #22c55e;
-    --color-accent: #55aaff;
-    --color-accent-hover: #3399ff;
-    --color-accent-rgb: 85, 170, 255;
+    --color-accent: #4477ff;
+    --color-accent-hover: #3366ee;
+    --color-accent-rgb: 68, 119, 255;
     
     /* =========================================
     * BACKGROUNDS
@@ -33,8 +33,8 @@
     --bg-black-05: rgba(0, 0, 0, 0.05);
     
     /* Glass effects */
-    --bg-glass: rgba(255, 255, 255, 0.15);
-    --bg-glass-hover: rgba(255, 255, 255, 0.2);
+    --bg-glass: rgba(0, 0, 0, 0.05);
+    --bg-glass-hover: rgba(0, 0, 0, 0.08);
     --bg-code-block: #f5f5f5;
     
     /* =========================================
@@ -169,4 +169,14 @@
     --color-accent: #55aaff;
     --color-accent-hover: #3399ff;
     --color-accent-rgb: 85, 170, 255;
+    --shadow-glass: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.2),
+        0 2px 4px -1px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    --shadow-glass-hover:
+        0 8px 12px -1px rgba(0, 0, 0, 0.25),
+        0 4px 6px -1px rgba(0, 0, 0, 0.15),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
 }
