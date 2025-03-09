@@ -17,11 +17,15 @@
             <!-- Dynamic background elements -->
             <div class="dynamic-bg">
                 <!-- Floating particles -->
-                <div class="bg-particle" style="width: 100px; height: 100px; top: 20%; left: 10%; animation-delay: 0s;"></div>
-                <div class="bg-particle" style="width: 80px; height: 80px; top: 50%; left: 85%; animation-delay: 1s;"></div>
-                <div class="bg-particle" style="width: 60px; height: 60px; top: 70%; left: 25%; animation-delay: 2s;"></div>
-                <div class="bg-particle" style="width: 120px; height: 120px; top: 30%; left: 70%; animation-delay: 3s;"></div>
-                
+                <div class="bg-particle" style="width: 100px; height: 100px; top: 20%; left: 10%; animation-delay: 0s;">
+                </div>
+                <div class="bg-particle" style="width: 80px; height: 80px; top: 50%; left: 85%; animation-delay: 1s;">
+                </div>
+                <div class="bg-particle" style="width: 60px; height: 60px; top: 70%; left: 25%; animation-delay: 2s;">
+                </div>
+                <div class="bg-particle" style="width: 120px; height: 120px; top: 30%; left: 70%; animation-delay: 3s;">
+                </div>
+
                 <!-- Circuit-like lines -->
                 <div class="circuit-line" style="top: 25%; left: 0; width: 30%; animation-delay: 0.5s;"></div>
                 <div class="circuit-line" style="top: 45%; left: 20%; width: 40%; animation-delay: 1.2s;"></div>
@@ -102,7 +106,7 @@
                                 <div class="stat-label common-hero-typography">Years Coding</div>
                             </div>
                             <div class="stat-card card-hover">
-                                <div class="stat-number">10+</div>
+                                <div class="stat-number">4+</div>
                                 <div class="stat-label common-hero-typography">Projects</div>
                             </div>
                         </div>
@@ -119,7 +123,7 @@
                             <div class="expertise-card-content">
                                 <h3 class="link-underline common-hero-typography">Developer Tools</h3>
                                 <p class="common-hero-typography">
-                                    High-performance CLI applications built with Rust and TypeScript.
+                                    High-performance CLI applications built with Rust, Bash, and/or Python
                                 </p>
                             </div>
                         </div>
@@ -198,28 +202,28 @@
 
             // Get the hero section element
             const heroSection = document.getElementById('hero');
-            
+
             // Set initial active state for hero
             heroSection.classList.add('hero-active');
-            
+
             // Handle scroll transitions
             let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
             let ticking = false;
-            
+
             function updateHeroState() {
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                
+
                 // Calculate how far we've scrolled as a percentage
                 const viewportHeight = window.innerHeight;
                 const scrollProgress = Math.min(scrollTop / viewportHeight, 1);
-                
+
                 // If we're at the top, make hero full height and active
                 if (scrollTop < 50) {
                     heroSection.classList.add('hero-active');
                 } else {
                     heroSection.classList.remove('hero-active');
                 }
-                
+
                 // Update scroll direction classes on body for animations
                 if (scrollTop > lastScrollTop) {
                     document.body.classList.remove("scrolling-up");
@@ -228,18 +232,18 @@
                     document.body.classList.remove("scrolling-down");
                     document.body.classList.add("scrolling-up");
                 }
-                
+
                 lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
                 ticking = false;
             }
-            
+
             window.addEventListener("scroll", () => {
                 if (!ticking) {
                     window.requestAnimationFrame(updateHeroState);
                     ticking = true;
                 }
             });
-            
+
             // Initial call to set correct state
             updateHeroState();
 

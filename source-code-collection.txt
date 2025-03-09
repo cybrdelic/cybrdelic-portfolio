@@ -385,9 +385,9 @@ pub async fn index(State(state): State<AppState>) -> Result<Response, AppError> 
 }
 
 pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
-    let sagacity_flow_configs = scan_flow_configs("sagacity")?;
+    let myriad_flow_configs = scan_flow_configs("myriad")?;
 
-    let sagacity_installation_steps = vec![
+    let myriad_installation_steps = vec![
     FlowStep {
             title: "Install Rust".to_string(),
             description: "Install the Rust programming language and Cargo package manager".to_string(),
@@ -398,31 +398,31 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             },
         },
         FlowStep {
-            title: "Install Sagacity".to_string(),
-            description: "Install Sagacity using Cargo, Rust's package manager".to_string(),
+            title: "Install myriad".to_string(),
+            description: "Install myriad using Cargo, Rust's package manager".to_string(),
             command: Command {
-                text: "cargo install sagacity".to_string(),
-                description: "Install Sagacity via Cargo".to_string(),
+                text: "cargo install myriad".to_string(),
+                description: "Install myriad via Cargo".to_string(),
                 icon_path: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10".to_string(),
             },
         },
         FlowStep {
             title: "Initialize Project".to_string(),
-            description: "Set up Sagacity in your development environment".to_string(),
+            description: "Set up myriad in your development environment".to_string(),
             command: Command {
-                text: "sagacity init".to_string(),
-                description: "Initialize Sagacity in your project".to_string(),
+                text: "myriad init".to_string(),
+                description: "Initialize myriad in your project".to_string(),
                 icon_path: "M12 6v6m0 0v6m0-6h6m-6 0H6".to_string(),
             },
         },
     ];
 
-    let sagacity_usage_steps = vec![
+    let myriad_usage_steps = vec![
         FlowStep {
             title: "Search Codebase".to_string(),
             description: "Search through your codebase using natural language queries".to_string(),
             command: Command {
-                text: "sagacity search \"find error handling patterns\"".to_string(),
+                text: "myriad search \"find error handling patterns\"".to_string(),
                 description: "Search codebase for patterns".to_string(),
                 icon_path: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z".to_string(),
             },
@@ -431,7 +431,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             title: "Analyze Code".to_string(),
             description: "Get detailed analysis of specific functionality".to_string(),
             command: Command {
-                text: "sagacity analyze \"explain auth flow\"".to_string(),
+                text: "myriad analyze \"explain auth flow\"".to_string(),
                 description: "Analyze specific functionality".to_string(),
                 icon_path: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2".to_string(),
             },
@@ -440,14 +440,14 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             title: "Use Context".to_string(),
             description: "Leverage contextual understanding for better insights".to_string(),
             command: Command {
-                text: "sagacity context \"how does this relate to user model?\"".to_string(),
+                text: "myriad context \"how does this relate to user model?\"".to_string(),
                 description: "Get contextual information".to_string(),
                 icon_path: "M13 10V3L4 14h7v7l9-11h-7z".to_string(),
             },
         },
     ];
 
-    let sagacity_architecture_steps = vec![
+    let myriad_architecture_steps = vec![
         FlowStep {
             title: "Core Components".to_string(),
             description: "Review the core architectural components".to_string(),
@@ -523,17 +523,17 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
 
     Ok(vec![
         Project::new(
-            "sagacity",
-            "Sagacity",
+            "myriad",
+            "myriad",
             "Rust / Claude API",
             "Intelligent codebase exploration tool using natural language interaction. Features novel summarizational indexing system and persistent context memory.",
-            "/static/images/sagacity.jpg",
+            "/static/images/myriad.jpg",
             "Intelligent codebase exploration tool powered by Claude API",
             "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z",
             vec!["Rust", "Claude API", "NLP", "Git"],
             vec![
-                ("crates.io", "https://crates.io/crates/sagacity"),
-                ("github", "https://github.com/cybrdelic/sagacity"),
+                ("crates.io", "https://crates.io/crates/myriad"),
+                ("github", "https://github.com/cybrdelic/myriad"),
             ],
             vec![
                 (
@@ -558,7 +558,7 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
                 "Optimizing response times while maintaining context. Balancing memory usage with search performance.",
             ),
             vec!["Intelligent Search", "Code Understanding", "Developer Focus", "Efficiency"],
-            sagacity_flow_configs,
+            myriad_flow_configs,
         )?,
         Project::new(
             "commitaura",
@@ -5128,62 +5128,62 @@ function setupTocNavigation() {
 document.addEventListener('DOMContentLoaded', () => {
     const overlay = document.getElementById('transition-overlay');
     const content = document.getElementById('content');
-    
+
     async function handleNavigation(event) {
         const link = event.target.closest('[data-transition]');
         if (!link) return;
-        
+
         event.preventDefault();
         const url = link.href;
-        
+
         // Start transition
         overlay.classList.add('active');
         await new Promise(r => setTimeout(r, 300));
-        
+
         try {
             // Fetch new content
             const response = await fetch(url);
             const html = await response.text();
-            
+
             // Parse new content
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
             const newContent = doc.querySelector('#content').innerHTML;
-            
+
             // Update URL and content
             window.history.pushState({}, '', url);
             content.innerHTML = newContent;
-            
+
             // Update page class
             const newPageClass = doc.querySelector('body').className;
             document.body.className = newPageClass;
-            
+
             // Initialize any scripts for new content
             initializePageScripts();
         } catch (error) {
             console.error('Navigation error:', error);
         }
-        
+
         // End transition
         overlay.classList.remove('active');
     }
-    
+
     // Handle navigation events
     document.addEventListener('click', handleNavigation);
-    
+
     // Handle browser back/forward buttons
     window.addEventListener('popstate', async () => {
         overlay.classList.add('active');
         await new Promise(r => setTimeout(r, 300));
-        
+
         const response = await fetch(window.location.href);
         const html = await response.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
-        
+
         content.innerHTML = doc.querySelector('#content').innerHTML;
         document.body.className = doc.querySelector('body').className;
-        
+
         initializePageScripts();
         overlay.classList.remove('active');
     });
