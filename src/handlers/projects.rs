@@ -75,6 +75,13 @@ impl UserFlow {
 }
 
 #[derive(Serialize, Clone)]
+pub struct WhatsNextItem {
+    title: String,
+    description: String,
+    timeline: String,
+}
+
+#[derive(Serialize, Clone)]
 pub struct Project {
     id: String,
     title: String,
@@ -89,6 +96,7 @@ pub struct Project {
     technical: TechnicalDetails,
     catchphrases: Vec<String>,
     user_flows: Vec<UserFlow>,
+    whats_next: Vec<WhatsNextItem>,
 }
 
 #[derive(Serialize, Clone)]
@@ -127,6 +135,7 @@ impl Project {
         technical: (&str, &str, &str),
         catchphrases: Vec<&str>,
         flow_configs: Vec<(String, Vec<FlowStep>)>,
+        whats_next: Vec<(&str, &str, &str)>,
     ) -> Result<Self, std::io::Error> {
         let user_flows = flow_configs
             .into_iter()
@@ -171,6 +180,14 @@ impl Project {
             },
             catchphrases: catchphrases.iter().map(|&s| s.to_string()).collect(),
             user_flows,
+            whats_next: whats_next
+                .into_iter()
+                .map(|(title, description, timeline)| WhatsNextItem {
+                    title: title.to_string(),
+                    description: description.to_string(),
+                    timeline: timeline.to_string(),
+                })
+                .collect(),
         })
     }
 }
@@ -297,6 +314,23 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             ),
             vec!["automated", "data-driven", "insightful", "time-saving"],
             jjugg_flow_configs,
+            vec![
+                (
+                    "Email Integration API",
+                    "Seamless email processing to automatically detect application updates and interview scheduling.",
+                    "April 2024"
+                ),
+                (
+                    "AI Resume Analysis",
+                    "Intelligent matching between job descriptions and your resume for targeted application strategies.",
+                    "May 2024"
+                ),
+                (
+                    "Chrome Extension",
+                    "One-click job application tracking directly within your browser on all major job platforms.",
+                    "June 2024"
+                ),
+            ],
         )?,
 
         Project::new(
@@ -337,6 +371,23 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             ),
             vec!["intelligent search", "code understanding", "developer focus", "efficiency"],
             myriad_flow_configs,
+            vec![
+                (
+                    "Team Collaboration",
+                    "Multi-user mode enabling shared codebase exploration and knowledge transfer between teams.",
+                    "April 2024"
+                ),
+                (
+                    "Integration with GitHub Copilot",
+                    "Seamless workflow between Myriad's contextual understanding and GitHub Copilot's code generation.",
+                    "May 2024"
+                ),
+                (
+                    "Custom LLM Fine-tuning",
+                    "Domain-specific models fine-tuned for particular programming languages and frameworks.",
+                    "July 2024"
+                ),
+            ],
         )?,
 
         Project::new(
@@ -376,6 +427,23 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             ),
             vec!["git integration", "AI-powered", "developer workflow", "productivity"],
             commitaura_flow_configs,
+            vec![
+                (
+                    "IDE Integration",
+                    "Built-in VSCode and JetBrains plugins for seamless commit message generation right in your editor.",
+                    "March 2024"
+                ),
+                (
+                    "PR Summary Generation",
+                    "Smart pull request descriptions that accurately summarize all changes across commits.",
+                    "April 2024"
+                ),
+                (
+                    "Team Consistency Templates",
+                    "Organization-wide commit message style enforcement with customizable templates.",
+                    "June 2024"
+                ),
+            ],
         )?,
 
         Project::new(
@@ -415,6 +483,23 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             ),
             vec!["automated", "professional", "dynamic", "tailored"],
             resumatyk_flow_configs,
+            vec![
+                (
+                    "Web Interface",
+                    "Browser-based workflow for creating and managing resumes without command line knowledge.",
+                    "May 2024"
+                ),
+                (
+                    "ATS Optimization",
+                    "Automatic resume analysis against Applicant Tracking Systems with improvement suggestions.",
+                    "June 2024"
+                ),
+                (
+                    "Multi-format Export",
+                    "Export resumes to various formats including JSON, Markdown, and interactive web portfolios.",
+                    "July 2024"
+                ),
+            ],
         )?,
 
         Project::new(
@@ -454,6 +539,23 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             ),
             vec!["cutting-edge", "interactive", "modern", "modular"],
             cybrdelic_flow_configs,
+            vec![
+                (
+                    "Dynamic Theme Creator",
+                    "Interactive theme customization allowing visitors to create and save their own color schemes.",
+                    "April 2024"
+                ),
+                (
+                    "Interactive Project Demos",
+                    "Embedded mini-demos for each project allowing hands-on interaction right in the portfolio.",
+                    "May 2024"
+                ),
+                (
+                    "Contextual Code Explorer",
+                    "Browse through source code with AI-powered explanations of key architectural decisions.",
+                    "July 2024"
+                ),
+            ],
         )?,
 
         Project::new(
@@ -493,6 +595,23 @@ pub fn get_all_projects() -> Result<Vec<Project>, std::io::Error> {
             ),
             vec!["discovery", "mobile-friendly", "continuous", "user-friendly"],
             browsealizer_flow_configs,
+            vec![
+                (
+                    "AI Project Recommendations",
+                    "Smart recommendations based on your interests, technologies, and browsing history.",
+                    "March 2024"
+                ),
+                (
+                    "Code Quality Analyzer",
+                    "Automatic assessment of repository code quality and maintainability metrics.",
+                    "May 2024"
+                ),
+                (
+                    "Contributor Insights",
+                    "Detailed analytics on project contributors, commit patterns, and community health.",
+                    "June 2024"
+                ),
+            ],
         )?,
     ];
 

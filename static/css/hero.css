@@ -250,6 +250,7 @@
 .tech-icons-scroll {
     display: flex;
     gap: var(--space-md);
+    flex-wrap: wrap;
 }
 
 .tech-icon {
@@ -258,6 +259,13 @@
     align-items: center;
     gap: 4px;
     transition: transform 0.3s ease;
+    width: 60px; /* Fixed width for consistent spacing */
+    margin-bottom: var(--space-sm);
+}
+
+.tech-icon .iconify {
+    width: var(--space-lg);
+    height: var(--space-lg);
 }
 
 .tech-icon:hover {
@@ -268,6 +276,11 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: var(--font-size-xs);
     color: var(--color-text-secondary);
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* Expertise Container & Cards */

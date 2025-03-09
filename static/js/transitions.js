@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set up page transitions
     initPageTransitions();
     
+    // Initialize navbar scroll behavior
+    initNavbarScrollBehavior();
+    
     // Initialize page-specific scripts
     initializePageScripts();
 });
@@ -176,6 +179,48 @@ function initializePageScripts() {
     
     // Add any other page-specific initialization here
     // This will be called on both initial load and after navigation
+}
+
+/**
+ * Handle navbar scroll behavior - hide on scroll down, show on scroll up
+ */
+function initNavbarScrollBehavior() {
+    const navbar = document.querySelector('.nav');
+    if (!navbar) return;
+    
+    // Add visible class initially
+    navbar.classList.add('nav-visible');
+    
+    let lastScrollTop = 0;
+    let scrollThreshold = 50; // Minimum scroll amount to trigger change
+    let scrollTimeout;
+    
+    // Throttled scroll handler
+    window.addEventListener('scroll', () => {
+        // Clear existing timeout
+        if (scrollTimeout) clearTimeout(scrollTimeout);
+        
+        // Set a new timeout to run code after scrolling stops for 50ms
+        scrollTimeout = setTimeout(() => {
+            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Skip if not scrolled enough to meet threshold
+            if (Math.abs(lastScrollTop - currentScrollTop) < scrollThreshold) return;
+            
+            // If scrolled down and past the threshold, hide the navbar
+            if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+                navbar.classList.add('nav-hidden');
+                navbar.classList.remove('nav-visible');
+            } 
+            // If scrolled up, show the navbar
+            else if (currentScrollTop < lastScrollTop) {
+                navbar.classList.remove('nav-hidden');
+                navbar.classList.add('nav-visible');
+            }
+            
+            lastScrollTop = currentScrollTop;
+        }, 50);
+    });
 }
 
 // Expose utility functions to global scope

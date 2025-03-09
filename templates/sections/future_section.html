@@ -4,14 +4,14 @@
         <div class="future-projects-container">
             <!-- Left Panel - Future Details -->
             <div class="future-details-panel">
-                <h3 class="details-header">What's Next?</h3>
+                <h3 class="details-header">What's Next For {{ project.title }}?</h3>
                 <p class="details-description">
-                    *I'm always scheming new tech marvels—these are the next projects in the pipeline.*
+                    *Coming updates and improvements for this project in our development pipeline.*
                 </p>
                 <div class="details-stats">
                     <div class="stat-box">
-                        <div class="stat-number">3+</div>
-                        <div class="stat-label">Concepts</div>
+                        <div class="stat-number">{{ project.whats_next|length }}+</div>
+                        <div class="stat-label">Updates</div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-number">100%</div>
@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="collaborate-section">
-                    <h3 class="details-subheader">Wanna Collab?</h3>
+                    <h3 class="details-subheader">Want to Collaborate?</h3>
                     <p class="collab-description">
                         *If these ideas spark your interest, let's connect and disrupt the norm together.*
                     </p>
@@ -35,42 +35,18 @@
             </div>
             <!-- Right Panel - Future Timeline -->
             <div class="future-timeline">
-                <!-- Timeline Item 1 -->
+                {% for item in project.whats_next %}
                 <div class="timeline-item" tabindex="0">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
-                        <h3 class="timeline-title">Feature Update: Real-Time Analytics</h3>
-                        <span class="timeline-date">March 2024</span>
+                        <h3 class="timeline-title">{{ item.title }}</h3>
+                        <span class="timeline-date">{{ item.timeline }}</span>
                         <p class="timeline-description">
-                            Introducing dynamic real-time analytics powered by Rust and TypeScript to reveal your dev
-                            patterns.
+                            {{ item.description }}
                         </p>
                     </div>
                 </div>
-                <!-- Timeline Item 2 -->
-                <div class="timeline-item" tabindex="0">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3 class="timeline-title">Integration: GitHub & GitLab Sync</h3>
-                        <span class="timeline-date">April 2024</span>
-                        <p class="timeline-description">
-                            Seamless integration with Git platforms to streamline version control and boost
-                            collaboration.
-                        </p>
-                    </div>
-                </div>
-                <!-- Timeline Item 3 -->
-                <div class="timeline-item" tabindex="0">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3 class="timeline-title">News: Partnership with OpenAI</h3>
-                        <span class="timeline-date">May 2024</span>
-                        <p class="timeline-description">
-                            Exciting collab news—merging our tech with OpenAI to supercharge AI-powered features across
-                            the board.
-                        </p>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
