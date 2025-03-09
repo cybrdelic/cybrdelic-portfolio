@@ -14,6 +14,14 @@
     /* Allow full document height */
     min-width: 100%;
     margin-top: 20px;
+    opacity: 0.3;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.documentation-section.in-view {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .documentation-navigation.is-sticky {

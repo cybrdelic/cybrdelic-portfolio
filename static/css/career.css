@@ -9,10 +9,17 @@
     overflow: visible !important;
     padding: var(--space-xl) 0;
     will-change: transform;
-    transform: translateZ(0);
     position: relative;
     z-index: 1;
     scroll-margin-top: var(--header-height);
+    opacity: 0.3;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+#career.in-view {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 
@@ -46,6 +53,14 @@
     overflow: visible !important;
     contain: content;
     position: relative;
+    opacity: 0.5;
+    transform: translateY(5px);
+    transition: opacity 0.3s ease-out 0.1s, transform 0.3s ease-out 0.1s;
+}
+
+#career.in-view .container {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Section header to match other sections */

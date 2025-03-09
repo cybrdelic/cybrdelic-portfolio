@@ -179,6 +179,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         initDocumentationTabs();
+        initDocumentationAnimations();
     });
 
     function initDocumentationTabs() {
@@ -280,6 +281,35 @@
             modal.classList.remove('modal-fade-out');
             document.body.style.overflow = 'auto';
         }, 300);
+    }
+    
+    function initDocumentationAnimations() {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -5% 0px',
+            threshold: 0.01
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    requestAnimationFrame(() => {
+                        entry.target.classList.add('in-view');
+                    });
+                }
+            });
+        }, observerOptions);
+
+        // Observe and immediately activate the documentation section if in viewport
+        const docSection = document.querySelector('.documentation-section');
+        if (docSection) {
+            const rect = docSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight) {
+                docSection.classList.add('in-view');
+            } else {
+                sectionObserver.observe(docSection);
+            }
+        }
     }
 </script>
 {% endblock %}

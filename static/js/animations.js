@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMicrointeractions();
     initCursorEffects();
     initThemeTransition();
+    initSectionAnimations();
 });
 
 /**
@@ -198,6 +199,42 @@ function initThemeTransition() {
             });
         });
     }
+}
+
+/**
+ * Initialize section scroll animations for career and whats-next sections
+ */
+function initSectionAnimations() {
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -5% 0px',
+        threshold: 0.01
+    };
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add in-view class immediately for visible sections
+                if (entry.boundingClientRect.top < window.innerHeight) {
+                    requestAnimationFrame(() => {
+                        entry.target.classList.add('in-view');
+                    });
+                } else {
+                    entry.target.classList.add('in-view');
+                }
+            }
+        });
+    }, observerOptions);
+
+    // Apply in-view class to all sections that are already in the viewport on page load
+    const sectionsToAnimate = document.querySelectorAll('#career, #whats-next, .documentation-section');
+    sectionsToAnimate.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+            section.classList.add('in-view');
+        }
+        sectionObserver.observe(section);
+    });
 }
 
 /**
