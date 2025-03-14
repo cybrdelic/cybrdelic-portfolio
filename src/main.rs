@@ -1,47 +1,13 @@
-// main.rs
+// src/main.rs
 use axum::{
     extract::State,
-    http::StatusCode,
-    response::{IntoResponse, Response},
     routing::{get, post},
     Router,
 };
+use cybrdelic_portfolio::{home_index, project_detail, AppError, AppState};
 use std::sync::Arc;
 use tera::Tera;
 use tower_http::services::ServeDir;
-
-mod handlers;
-mod markdown;
-
-#[derive(Debug)]
-pub enum AppError {
-    Template(tera::Error),
-    Internal(String),
-}
-
-impl IntoResponse for AppError {
-    fn into_response(self) -> Response {
-        let (status, error_message) = match self {
-            AppError::Template(err) => {
-                eprintln!("Template error: {:?}", err);
-                (
-                    StatusCode::INTERNAL_SERVER_ERROR,
-                    format!("Template error: {}", err),
-                )
-            }
-            AppError::Internal(err) => {
-                eprintln!("Internal error: {}", err);
-                (StatusCode::INTERNAL_SERVER_ERROR, err)
-            }
-        };
-        (status, error_message).into_response()
-    }
-}
-
-#[derive(Clone)]
-pub struct AppState {
-    tera: Arc<Tera>,
-}
 
 #[tokio::main]
 async fn main() {
@@ -55,13 +21,11 @@ async fn main() {
         }
     };
 
-    // Add debug logging for Tera
     tera.full_reload().unwrap_or_else(|e| {
         eprintln!("Error reloading templates: {}", e);
         std::process::exit(1);
     });
 
-    // Print all registered templates
     println!("Registered templates:");
     for template in tera.get_template_names() {
         println!("  - {}", template);
@@ -72,9 +36,12 @@ async fn main() {
     };
 
     let app = Router::new()
-        .route("/", get(handlers::home::index))
-        .route("/projects", get(handlers::projects::index))
-        .route("/projects/:id", get(handlers::projects::project_detail))
+        .route("/", get(home_index))
+        .route(
+            "/projects",
+            get(cybrdelic_portfolio::handlers::projects::index),
+        )
+        .route("/projects/:id", get(project_detail))
         .nest_service("/static", ServeDir::new("static"))
         .with_state(state);
 

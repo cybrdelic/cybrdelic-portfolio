@@ -83,7 +83,7 @@ pub struct WhatsNextItem {
 
 #[derive(Serialize, Clone)]
 pub struct Project {
-    id: String,
+    pub id: String,
     title: String,
     subtitle: String,
     description: String,
