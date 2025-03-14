@@ -1,0 +1,435 @@
+<section id="projects">
+    <div class="container fade-in">
+
+        <div class="projects-container">
+            <!-- Project Details Panel (Left Side - Sticky) -->
+            <div class="project-details-panel animate-on-scroll">
+                <!-- Default state when no project is selected -->
+                <div class="default-project-view">
+                    <h3 class="details-header typing-cursor">Select a project</h3>
+                    <p class="details-description">
+                        I build tools that enhance developer productivity and create elegant solutions to complex
+                        problems.
+                        My work spans CLI utilities to AI-powered tools, focusing on performance and usability.
+                    </p>
+
+                    <div class="details-stats stagger-children">
+                        <div class="stat-box card-hover">
+                            <div class="stat-number">10+</div>
+                            <div class="stat-label">Projects</div>
+                        </div>
+                        <div class="stat-box card-hover">
+                            <div class="stat-number">4</div>
+                            <div class="stat-label">Core Tech</div>
+                        </div>
+                        <div class="stat-box card-hover">
+                            <div class="stat-number">7+</div>
+                            <div class="stat-label">Years Exp</div>
+                        </div>
+                    </div>
+
+                    <div class="expertise-section">
+                        <h3 class="details-subheader">Areas of Focus</h3>
+                        <div class="expertise-tags stagger-children">
+                            <span class="expertise-tag highlight-on-hover">Developer Tools</span>
+                            <span class="expertise-tag highlight-on-hover">AI Integration</span>
+                            <span class="expertise-tag highlight-on-hover">CLI Apps</span>
+                            <span class="expertise-tag highlight-on-hover">Data Viz</span>
+                            <span class="expertise-tag highlight-on-hover">Automation</span>
+                            <span class="expertise-tag highlight-on-hover">Web Apps</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project-specific details that show when a project is selected -->
+                <div class="selected-project-view">
+                    <h3 class="details-header">
+                        <span class="selected-project-title scramble-on-hover">Project Name</span>
+                    </h3>
+                    <div class="details-subtitle">
+                        <span class="selected-project-subtitle">Project Type</span>
+                    </div>
+
+                    <p class="details-description selected-project-description">
+                        Select a project to view details.
+                    </p>
+
+                    <div class="details-meta stagger-children">
+                        <div class="stat-box card-hover">
+                            <div class="stat-label">Status</div>
+                            <div class="selected-project-status">-</div>
+                        </div>
+                        <div class="stat-box card-hover">
+                            <div class="stat-label">Year</div>
+                            <div class="selected-project-year">-</div>
+                        </div>
+                    </div>
+
+                    <div class="tech-section">
+                        <h3 class="details-subheader">Technologies</h3>
+                        <div class="selected-project-tech-tags stagger-children"></div>
+                    </div>
+
+                    <a href="#" class="details-link btn-interaction">
+                        <span class="details-link-text">View Full Details</span>
+                        <span class="details-link-icon transition-transform">→</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Projects List (Right Side) -->
+            <div class="projects-list">
+                
+                <div class="project-list-item animate-on-scroll" data-id="jjugg"
+                    data-subtitle="Autonomous Job Application Tracker" data-year="2023"
+                    data-status="Active" tabindex="0"
+                    aria-label="Project: JJugg">
+                    <h3 class="project-list-title link-underline">JJugg</h3>
+
+                    <!-- Hidden data for JavaScript to use -->
+                    <div class="hidden-project-data">
+                        <div class="hidden-description">A local web application for autonomously tracking job applications that transforms a traditionally manual process into a data-driven workflow with automated tracking (via userscripts and email scanning), rich analytics, and interactive dashboards.Think of it like JARVIS for job hunters.</div>
+                        <div class="hidden-tech-stack">
+                            
+                            <span class="tech-item">JavaScript</span>
+                            
+                            <span class="tech-item">HTML</span>
+                            
+                            <span class="tech-item">CSS</span>
+                            
+                            <span class="tech-item">LocalStorage</span>
+                            
+                            <span class="tech-item">User Scripts</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-list-item animate-on-scroll" data-id="myriad"
+                    data-subtitle="Intelligent Software Copilot" data-year="2023"
+                    data-status="Active" tabindex="0"
+                    aria-label="Project: Myriad.ai">
+                    <h3 class="project-list-title link-underline">Myriad.ai</h3>
+
+                    <!-- Hidden data for JavaScript to use -->
+                    <div class="hidden-project-data">
+                        <div class="hidden-description">An AI-powered code exploration tool that helps developers navigate and understand complex codebases, and produce project planning&#x2F;documentation through contextual code analysis and natural language interaction.</div>
+                        <div class="hidden-tech-stack">
+                            
+                            <span class="tech-item">Rust</span>
+                            
+                            <span class="tech-item">Claude API</span>
+                            
+                            <span class="tech-item">NLP</span>
+                            
+                            <span class="tech-item">Git</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-list-item animate-on-scroll" data-id="commitaura"
+                    data-subtitle="AI-Powered Commit Message Generator" data-year="2023"
+                    data-status="Active" tabindex="0"
+                    aria-label="Project: CommitAura">
+                    <h3 class="project-list-title link-underline">CommitAura</h3>
+
+                    <!-- Hidden data for JavaScript to use -->
+                    <div class="hidden-project-data">
+                        <div class="hidden-description">A Rust-based CLI tool that analyzes Git commit patterns, streamlines version control workflows, and autonomously generates meaningful commit messages based on code changes.</div>
+                        <div class="hidden-tech-stack">
+                            
+                            <span class="tech-item">Rust</span>
+                            
+                            <span class="tech-item">Claude API</span>
+                            
+                            <span class="tech-item">Git</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-list-item animate-on-scroll" data-id="resumatyk"
+                    data-subtitle="AI Resume Management TUI" data-year="2023"
+                    data-status="Active" tabindex="0"
+                    aria-label="Project: Resumatyk">
+                    <h3 class="project-list-title link-underline">Resumatyk</h3>
+
+                    <!-- Hidden data for JavaScript to use -->
+                    <div class="hidden-project-data">
+                        <div class="hidden-description">A resume management system (written in Bash using fzf) that allows the creation, editing, compilation, and viewing of resumes. Also enables resume style variant generation using LaTeX code generation, OCR, and fully autonomous, multimodal, LLM-based, recursive QA flows.</div>
+                        <div class="hidden-tech-stack">
+                            
+                            <span class="tech-item">Python</span>
+                            
+                            <span class="tech-item">LaTeX</span>
+                            
+                            <span class="tech-item">OCR</span>
+                            
+                            <span class="tech-item">AI</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-list-item animate-on-scroll" data-id="cybrdelic-portfolio"
+                    data-subtitle="Interactive Developer Portfolio" data-year="2023"
+                    data-status="Active" tabindex="0"
+                    aria-label="Project: Cybrdelic Portfolio">
+                    <h3 class="project-list-title link-underline">Cybrdelic Portfolio</h3>
+
+                    <!-- Hidden data for JavaScript to use -->
+                    <div class="hidden-project-data">
+                        <div class="hidden-description">A full-stack portfolio and interactive web app built with Rust, featuring dynamic routing, interactive UI elements, and markdown-driven documentation. Integrates Axum, Tera, and modern JavaScript to deliver a cutting-edge, cyberpunk-inspired experience.</div>
+                        <div class="hidden-tech-stack">
+                            
+                            <span class="tech-item">Rust</span>
+                            
+                            <span class="tech-item">Axum</span>
+                            
+                            <span class="tech-item">Tera</span>
+                            
+                            <span class="tech-item">JavaScript</span>
+                            
+                            <span class="tech-item">CSS</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-list-item animate-on-scroll" data-id="browsealizer"
+                    data-subtitle="GitHub Project Explorer" data-year="2023"
+                    data-status="Active" tabindex="0"
+                    aria-label="Project: Browsealizer">
+                    <h3 class="project-list-title link-underline">Browsealizer</h3>
+
+                    <!-- Hidden data for JavaScript to use -->
+                    <div class="hidden-project-data">
+                        <div class="hidden-description">A tool designed to enhance the GitHub browsing experience by offering an unlimited, continuously updated feed of projects with mobile optimization and intuitive filtering.</div>
+                        <div class="hidden-tech-stack">
+                            
+                            <span class="tech-item">React</span>
+                            
+                            <span class="tech-item">TypeScript</span>
+                            
+                            <span class="tech-item">GitHub API</span>
+                            
+                            <span class="tech-item">CSS</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Existing project interactions script (unchanged) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const projectsSection = document.getElementById('projects');
+            const projectItems = document.querySelectorAll('.project-list-item');
+            const defaultView = document.querySelector('.default-project-view');
+            const selectedView = document.querySelector('.selected-project-view');
+            const detailsLink = document.querySelector('.details-link');
+            const detailsPanel = document.querySelector('.project-details-panel');
+
+            const isTouchDevice = ('ontouchstart' in window) ||
+                (navigator.maxTouchPoints > 0) ||
+                (navigator.msMaxTouchPoints > 0);
+
+            // Initially hide the selected project view
+            selectedView.style.display = 'none';
+            defaultView.style.display = 'block';
+
+            // Add tabindex to details panel for better accessibility
+            detailsPanel.setAttribute('tabindex', '-1');
+
+            // Setup basic reveal for elements (once only)
+            const animationObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        animationObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+                animationObserver.observe(el);
+            });
+
+            function updateProjectDetails(item) {
+                const title = item.querySelector('.project-list-title').textContent;
+                const subtitle = item.getAttribute('data-subtitle');
+                const year = item.getAttribute('data-year');
+                const status = item.getAttribute('data-status');
+                const description = item.querySelector('.hidden-description').textContent;
+                const techItems = item.querySelectorAll('.tech-item');
+                const projectId = item.getAttribute('data-id');
+
+                const titleElement = document.querySelector('.selected-project-title');
+                if (titleElement.textContent !== title) {
+                    titleElement.classList.add('scramble-on-hover');
+                    titleElement.classList.remove('scramble-on-hover');
+                    setTimeout(() => {
+                        titleElement.classList.add('scramble-on-hover');
+                    }, 10);
+                }
+
+                titleElement.textContent = title;
+                document.querySelector('.selected-project-subtitle').textContent = subtitle;
+                document.querySelector('.selected-project-description').textContent = description;
+                document.querySelector('.selected-project-status').textContent = status;
+                document.querySelector('.selected-project-year').textContent = year;
+
+                const techTagsContainer = document.querySelector('.selected-project-tech-tags');
+                techTagsContainer.innerHTML = '';
+                techItems.forEach((item, index) => {
+                    const techTag = document.createElement('span');
+                    techTag.className = 'tech-tag highlight-on-hover';
+                    techTag.textContent = item.textContent;
+                    techTag.style.animationDelay = `${index * 100}ms`;
+                    techTagsContainer.appendChild(techTag);
+                });
+
+                detailsLink.href = `/projects/${projectId}`;
+
+                if (defaultView.style.display !== 'none') {
+                    defaultView.classList.add('fade-out');
+                    setTimeout(() => {
+                        defaultView.style.display = 'none';
+                        selectedView.style.display = 'block';
+                        selectedView.classList.add('fade-in');
+                    }, 200);
+                }
+            }
+
+            projectItems.forEach((item, index) => {
+                item.style.transitionDelay = `${index * 50}ms`;
+
+                item.addEventListener('click', () => {
+                    const projectId = item.getAttribute('data-id');
+                    window.location.href = `/projects/${projectId}`;
+                });
+
+                if (!isTouchDevice) {
+                    item.addEventListener('mouseenter', () => {
+                        item.classList.add('glitch-hover');
+                        projectItems.forEach(p => {
+                            p.classList.remove('active');
+                            p.classList.add('dim');
+                        });
+                        item.classList.add('active');
+                        item.classList.remove('dim');
+                        updateProjectDetails(item);
+                        setTimeout(() => {
+                            item.classList.remove('glitch-hover');
+                        }, 500);
+                    });
+                    item.addEventListener('mouseleave', () => {
+                        projectItems.forEach(p => p.classList.remove('dim'));
+                    });
+                } else {
+                    let lastTappedItem = null;
+                    item.addEventListener('touchstart', (e) => {
+                        if (lastTappedItem === item) {
+                            const projectId = item.getAttribute('data-id');
+                            window.location.href = `/projects/${projectId}`;
+                        } else {
+                            e.preventDefault();
+                            item.classList.add('pulse');
+                            projectItems.forEach(p => p.classList.remove('active'));
+                            item.classList.add('active');
+                            updateProjectDetails(item);
+                            lastTappedItem = item;
+                            setTimeout(() => {
+                                item.classList.remove('pulse');
+                                lastTappedItem = null;
+                            }, 1500);
+                        }
+                    });
+                }
+                item.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        projectItems.forEach(p => p.classList.remove('active'));
+                        item.classList.add('active');
+                        item.classList.add('pulse');
+                        updateProjectDetails(item);
+                        detailsPanel.focus();
+                        setTimeout(() => {
+                            item.classList.remove('pulse');
+                        }, 1000);
+                    }
+                });
+            });
+
+            if (projectItems.length > 0) {
+                setTimeout(() => {
+                    const firstProject = projectItems[0];
+                    firstProject.classList.add('active');
+                    firstProject.classList.add('card-hover');
+                    firstProject.style.transform = 'translateY(-5px)';
+                    updateProjectDetails(firstProject);
+                    setTimeout(() => {
+                        firstProject.style.transform = '';
+                    }, 1000);
+                }, 600);
+            }
+
+            if (projectsSection) {
+                projectsSection.addEventListener('focusin', (e) => {
+                    if (e.target.classList.contains('project-list-item')) {
+                        projectItems.forEach(p => {
+                            if (p !== e.target) p.classList.remove('active');
+                        });
+                        e.target.classList.add('active');
+                        updateProjectDetails(e.target);
+                    }
+                });
+            }
+        });
+    </script>
+
+    <!-- New Animation Observer for distinct load/scroll animations -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let initialLoad = true;
+            setTimeout(() => { initialLoad = false; }, 1000);
+
+            const animatedElements = document.querySelectorAll("#projects .animate-on-scroll");
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        let animClass = "";
+                        if (initialLoad) {
+                            animClass = "load";
+                        } else if (document.body.classList.contains("scrolling-down")) {
+                            animClass = "scroll-down";
+                        } else if (document.body.classList.contains("scrolling-up")) {
+                            animClass = "scroll-up";
+                        }
+                        entry.target.classList.remove("load", "scroll-down", "scroll-up");
+                        void entry.target.offsetWidth;
+                        entry.target.classList.add(animClass);
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(el => observer.observe(el));
+
+            let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            window.addEventListener("scroll", () => {
+                let st = window.pageYOffset || document.documentElement.scrollTop;
+                if (st > lastScrollTop) {
+                    document.body.classList.remove("scrolling-up");
+                    document.body.classList.add("scrolling-down");
+                } else {
+                    document.body.classList.remove("scrolling-down");
+                    document.body.classList.add("scrolling-up");
+                }
+                lastScrollTop = st <= 0 ? 0 : st;
+            });
+        });
+    </script>
+</section>

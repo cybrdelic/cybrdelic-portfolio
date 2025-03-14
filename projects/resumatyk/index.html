@@ -1,0 +1,1956 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cybrdelic</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Base monospace and display fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cascadia+Code:wght@400;500;600;700&family=Courier+Prime:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inconsolata:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600;700;800&family=Ubuntu+Mono:wght@400;700&family=Fira+Code:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Fun and unique display fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Audiowide&family=Bungee&family=Bungee+Hairline&family=Bungee+Inline&family=Bungee+Shade&family=Chakra+Petch:wght@400;500;600;700&family=Comfortaa:wght@400;500;600;700&family=Geologica:wght@400;500;700&family=Gugi&family=Josefin+Sans:wght@400;500;600;700&family=Major+Mono+Display&family=Megrim&family=Monofett&family=Monoton&family=Montserrat:wght@400;500;600;700;800&family=Nova+Mono&family=Orbitron:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Oxanium:wght@400;500;600;700&family=Poiret+One&family=Press+Start+2P&family=Quantico:wght@400;700&family=Rajdhani:wght@400;500;600;700&family=Righteous&family=Silkscreen&family=Smooch+Sans:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Syncopate:wght@400;700&family=Syne:wght@400;500;600;700;800&family=VT323&family=Wallpoet&family=Xanh+Mono&family=Yatra+One&family=Tourney:wght@400;500;700&family=Teko:wght@400;500;600;700&family=Exo+2:wght@400;500;600;700;800&family=Rubik+Glitch&family=Rubik+Mono+One&family=Rubik+Pixels&family=Rubik+Spray+Paint&family=Rubik+Vinyl&family=Goldman&display=swap"
+        rel="stylesheet">
+
+    <!-- Additional creative fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Moirai+One&family=Nabla&family=Noto+Sans+Mono:wght@400;500;600;700&family=Share+Tech+Mono&family=Silkscreen&family=Sometype+Mono:wght@400;500;600;700&family=Faster+One&family=Flow+Circular&family=Flow+Rounded&family=Gruppo&family=Keania+One&family=Kenia&family=Londrina+Outline&family=Plaster&display=swap"
+        rel="stylesheet">
+
+    <!-- Centralized CSS file that imports all modules -->
+    <link rel="stylesheet" href="/static/css/main.css" />
+    <!-- External dependencies - critical ones load normally, non-critical ones load async -->
+    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.3.0/mermaid.min.js" defer></script>
+
+    
+    <!-- Add preload hints for critical resources when coming to project pages -->
+    <link rel="preload" href="/static/css/project-detail.css" as="style">
+    <link rel="preload" href="/static/js/documentation.js" as="script">
+    
+</head>
+
+<body>
+    <!-- Cyberpunk corner effects -->
+    <div class="corner-effect corner-top-right"></div>
+    <div class="corner-effect corner-bottom-left"></div>
+
+    <div id="terminal">
+        <nav class="nav">
+            <a href="/" class="home-link">
+                <div class="home-button">
+                    <span class="icon">⌂</span>
+                    <span class="text">home</span>
+                </div>
+            </a>
+            <div class="nav-left stagger-children">
+                <a href="#projects" class="cmd cmd-prompt">ls projects/</a>
+                <a href="#whats-next" class="cmd cmd-prompt">./future</a>
+                <a href="#contact" class="cmd cmd-prompt">./contact</a>
+            </div>
+            <div class="nav-right">
+                <a href="https://github.com/cybrdelic" target="_blank" class="nav-action-button github-button">
+                    <svg class="action-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                        <path
+                            d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1.01.07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z">
+                        </path>
+                    </svg>
+                    <span class="action-text">GitHub</span>
+                </a>
+                <a href="#" class="nav-action-button theme-button" id="nav-theme-toggle">
+                    <span class="action-icon theme-icon">☀️</span>
+                    <span class="action-text">Theme</span>
+                </a>
+            </div>
+        </nav>
+        
+<main class="project-detail-container">
+    <!-- Project Header Section -->
+    <header class="project-header-section">
+        <div class="project-headline">
+            <div class="project-title-container">
+                <h1 class="project-title glitch-hover">Resumatyk</h1>
+                <div class="project-badge">AI Resume Management TUI</div>
+            </div>
+            <div class="project-links">
+                
+                <a href="https:&#x2F;&#x2F;github.com&#x2F;cybrdelic&#x2F;resumatyk" class="cmd highlight-on-hover" target="_blank" rel="noopener noreferrer">
+                    GitHub
+                </a>
+                
+                <a href="https:&#x2F;&#x2F;resumatyk.example.com" class="cmd highlight-on-hover" target="_blank" rel="noopener noreferrer">
+                    Demo
+                </a>
+                
+            </div>
+        </div>
+    </header>
+
+    <!-- Project Showcase Section -->
+    <section class="project-showcase" id="" Resumatyk>
+        <div class="showcase-container">
+            <div class="showcase-image-container glitch-on-hover">
+                <img src="&#x2F;static&#x2F;images&#x2F;resumatyk.jpg" alt="Resumatyk" class="showcase-image"
+                    onclick="openModal(this)" />
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <div class="overlay-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M15 15l6 6m-6-6v4.8m0-4.8h4.8" />
+                            </svg>
+                        </div>
+                        <span class="overlay-text">Click to enlarge</span>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-caption">Generate professional LaTeX resumes tailored to specific job requirements</div>
+        </div>
+
+        <div class="project-overview">
+            <div class="overview-content">
+                <div class="overview-description">A resume management system (written in Bash using fzf) that allows the creation, editing, compilation, and viewing of resumes. Also enables resume style variant generation using LaTeX code generation, OCR, and fully autonomous, multimodal, LLM-based, recursive QA flows.</div>
+
+                <div class="tech-stack">
+                    <h3 class="tech-stack-title">Technology Stack</h3>
+                    <div class="tech-tags">
+                        
+                        <span class="tech-tag highlight-on-hover">
+                            <span class="tag-icon">◆</span>Python
+                        </span>
+                        
+                        <span class="tech-tag highlight-on-hover">
+                            <span class="tag-icon">◆</span>LaTeX
+                        </span>
+                        
+                        <span class="tech-tag highlight-on-hover">
+                            <span class="tag-icon">◆</span>OCR
+                        </span>
+                        
+                        <span class="tech-tag highlight-on-hover">
+                            <span class="tag-icon">◆</span>AI
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="install-terminal">
+                <div class="terminal-header">
+                    <div class="window-controls">
+                        <span class="window-control close"></span>
+                        <span class="window-control minimize"></span>
+                        <span class="window-control maximize"></span>
+                    </div>
+                    <div class="terminal-title">Installation</div>
+                </div>
+                <div class="terminal-content">
+                    <div class="command-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-command">cargo install resumatyk</span>
+                        <button class="copy-button" onclick="copyToClipboard(this)">
+                            <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M8 4v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7.242a2 2 0 0 0-.602-1.43L16.083 2.57A2 2 0 0 0 14.685 2H10a2 2 0 0 0-2 2z" />
+                                <path d="M16 18v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2" />
+                            </svg>
+                            <div class="confetti-container"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <div class="features-grid">
+        
+        <div class="feature-card card-hover">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m8 7v8a2 2 0 002 2h6m8 7v5a2 2 0 012-2h.93l.57-4H2.5l.57 4H4a2 2 0 012 2v5a2 2 0 01-2 2H2a2 2 0 01-2-2v-5a2 2 0 012-2h2.93l.57-4H20.5l.57 4H22a2 2 0 012 2v5a2 2 0 01-2 2h-2a2 2 0 01-2-2v-5a2 2 0 012-2h1.93l.57-4" />
+                </svg>
+            </div>
+            <div class="feature-content">
+                <h3 class="feature-title">Dynamic Resume Generation</h3>
+                <p class="feature-description">Creates AI-styled resume variants on the fly to match specific job requirements</p>
+            </div>
+        </div>
+        
+        <div class="feature-card card-hover">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+                </svg>
+            </div>
+            <div class="feature-content">
+                <h3 class="feature-title">LaTeX Styling</h3>
+                <p class="feature-description">Ensures professional formatting and high-quality typesetting for polished resumes</p>
+            </div>
+        </div>
+        
+        <div class="feature-card card-hover">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+            </div>
+            <div class="feature-content">
+                <h3 class="feature-title">OCR Integration</h3>
+                <p class="feature-description">Integrates OCR tools and structured content extraction to adapt resumes dynamically</p>
+            </div>
+        </div>
+        
+        <div class="cta-button-container-wrapper">
+            <div class="cta-button-container">
+                <a href="http://localhost:8080/#" class="primary-button" target="_blank">
+                    View Landing Page
+                    <svg class="button-icon" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+                <a href="https://github.com/cybrdelic" class="secondary-button btn-interaction" target="_blank">
+                    <svg viewBox="0 0 24 24" class="button-icon">
+                        <path
+                            d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1.01.07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z">
+                        </path>
+                    </svg>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+
+    
+    <section class="documentation-section" id="DOCS">
+        <div class="docs-sidebar">
+            
+            <button class="docs-nav-item active" data-tab="section-1">
+                <span class="docs-nav-number">1</span>
+                <span class="docs-nav-text">templates</span>
+            </button>
+            
+            <button class="docs-nav-item " data-tab="section-2">
+                <span class="docs-nav-number">2</span>
+                <span class="docs-nav-text">api</span>
+            </button>
+            
+            <button class="docs-nav-item " data-tab="section-3">
+                <span class="docs-nav-number">3</span>
+                <span class="docs-nav-text">architecture</span>
+            </button>
+            
+            <button class="docs-nav-item " data-tab="section-4">
+                <span class="docs-nav-number">4</span>
+                <span class="docs-nav-text">usage</span>
+            </button>
+            
+            <button class="docs-nav-item " data-tab="section-5">
+                <span class="docs-nav-number">5</span>
+                <span class="docs-nav-text">ai-integration</span>
+            </button>
+            
+        </div>
+
+
+        <div class="docs-content">
+            
+            <div class="docs-panel active" id="section-1">
+                <div class="markdown-content" data-flow-name="templates">
+                    <!-- Content will load instantly but might be further enhanced by JavaScript -->
+                    <h2 id="latex-templates" class="markdown-heading-1 markdown-heading">LaTeX Templates<a class="heading-anchor" href="#latex-templates">&#xB6;</a></h2><p class="markdown-paragraph">Resumatyk offers a wide range of professionally designed LaTeX templates to make your resume stand out. This guide explains how to work with our template system.</p><h3 id="template-categories" class="markdown-heading-2 markdown-heading">Template Categories<a class="heading-anchor" href="#template-categories">&#xB6;</a></h3><p class="markdown-paragraph">Our templates are organized into five main categories:</p><h4 id="classic" class="markdown-heading-3 markdown-heading">Classic<a class="heading-anchor" href="#classic">&#xB6;</a></h4><p class="markdown-paragraph">Traditional templates with timeless designs, perfect for:</p><ul class="unordered-list"><li class="list-item">Banking and finance</li><li class="list-item">Law</li><li class="list-item">Healthcare</li><li class="list-item">Government positions</li></ul><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">┌───────────────────────────────┐
+│ JOHN DOE                      │
+│ ───────────────────────────── │
+│                               │
+│ EXPERIENCE                    │
+│ ───────────────────────────── │
+│ Company A | 2018-Present      │
+│ Position: Senior Manager      │
+│ • Achievement one             │
+│ • Achievement two             │
+│                               │
+│ EDUCATION                     │
+│ ───────────────────────────── │
+│ University | Degree           │
+└───────────────────────────────┘
+
+</span></div></div></div><h4 id="modern" class="markdown-heading-3 markdown-heading">Modern<a class="heading-anchor" href="#modern">&#xB6;</a></h4><p class="markdown-paragraph">Clean, contemporary designs featuring:</p><ul class="unordered-list"><li class="list-item">Subtle color accents</li><li class="list-item">Creative layouts</li><li class="list-item">Modern typography</li><li class="list-item">Balanced whitespace</li></ul><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">┌───────────────────────────────┐
+│      ┌──────┐                 │
+│      │ JD   │  JOHN DOE       │
+│      └──────┘  Product Manager│
+│                               │
+│ ─────────── EXPERIENCE ────── │
+│                               │
+│ COMPANY A         2018-Present│
+│ Senior Product Manager        │
+│ • Led development of X        │
+│ • Increased revenue by Y      │
+└───────────────────────────────┘
+
+</span></div></div></div><h4 id="creative" class="markdown-heading-3 markdown-heading">Creative<a class="heading-anchor" href="#creative">&#xB6;</a></h4><p class="markdown-paragraph">Bold, distinctive templates for:</p><ul class="unordered-list"><li class="list-item">Design professions</li><li class="list-item">Creative arts</li><li class="list-item">Marketing</li><li class="list-item">Digital media</li></ul><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">┌───────────────────────────────┐
+│                               │
+│ JOHN     ███████  SKILLS      │
+│ DOE      █      █ ███████████ │
+│          █      █ Photoshop 90│
+│ DESIGNER █      █ Illustrator │
+│          ███████ InDesign     │
+│                               │
+│ EXPERIENCE                    │
+│ ▶ Creative Studio 2018-Present│
+└───────────────────────────────┘
+
+</span></div></div></div><h4 id="technical" class="markdown-heading-3 markdown-heading">Technical<a class="heading-anchor" href="#technical">&#xB6;</a></h4><p class="markdown-paragraph">Specialized templates for technical fields featuring:</p><ul class="unordered-list"><li class="list-item">Skills visualization</li><li class="list-item">Project showcases</li><li class="list-item">Technical certifications</li><li class="list-item">GitHub and portfolio links</li></ul><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">┌───────────────────────────────┐
+│ JOHN DOE                      │
+│ Software Engineer             │
+│ github.com/johndoe            │
+│ ───────────────────────────── │
+│                               │
+│ SKILLS                        │
+│ Python      [█████████  ] 90% │
+│ JavaScript  [████████   ] 80% │
+│ Kubernetes  [█████████  ] 90% │
+│                               │
+│ EXPERIENCE                    │
+└───────────────────────────────┘
+
+</span></div></div></div><h4 id="academic" class="markdown-heading-3 markdown-heading">Academic<a class="heading-anchor" href="#academic">&#xB6;</a></h4><p class="markdown-paragraph">Comprehensive templates for CVs and academic positions with:</p><ul class="unordered-list"><li class="list-item">Publication sections</li><li class="list-item">Teaching experience</li><li class="list-item">Research projects</li><li class="list-item">Conference presentations</li></ul><h3 id="customizing-templates" class="markdown-heading-2 markdown-heading">Customizing Templates<a class="heading-anchor" href="#customizing-templates">&#xB6;</a></h3><p class="markdown-paragraph">Each template can be customized in multiple ways:</p><h4 id="typography" class="markdown-heading-3 markdown-heading">Typography<a class="heading-anchor" href="#typography">&#xB6;</a></h4><p class="markdown-paragraph">Adjust font settings:</p><ul class="unordered-list"><li class="list-item">Font family (select from ATS-friendly options)</li><li class="list-item">Font size (<span class="count-up" data-final-value="10">0</span>-12pt recommended)</li><li class="list-item">Line spacing (<span class="count-up" data-final-value="1">0</span>.<span class="count-up" data-final-value="0">0</span>-<span class="count-up" data-final-value="1">0</span>.<span class="count-up" data-final-value="15">0</span> recommended)</li><li class="list-item">Emphasis style (bold, italic, or underline)</li></ul><h4 id="colors" class="markdown-heading-3 markdown-heading">Colors<a class="heading-anchor" href="#colors">&#xB6;</a></h4><p class="markdown-paragraph">Modify color schemes:</p><ul class="unordered-list"><li class="list-item">Primary color (used for headings and section markers)</li><li class="list-item">Secondary color (used for accents and highlights)</li><li class="list-item">Text color (default is black for maximum readability)</li></ul><h4 id="spacing" class="markdown-heading-3 markdown-heading">Spacing<a class="heading-anchor" href="#spacing">&#xB6;</a></h4><p class="markdown-paragraph">Control document layout:</p><ul class="unordered-list"><li class="list-item">Margins (<span class="count-up" data-final-value="0">0</span>.<span class="count-up" data-final-value="5">0</span>-<span class="count-up" data-final-value="1">0</span> inch recommended)</li><li class="list-item">Section spacing (consistent throughout)</li><li class="list-item">Paragraph spacing (avoid excessive whitespace)</li><li class="list-item">Header and footer spacing</li></ul><h4 id="sections" class="markdown-heading-3 markdown-heading">Sections<a class="heading-anchor" href="#sections">&#xB6;</a></h4><p class="markdown-paragraph">Customize section organization:</p><ul class="unordered-list"><li class="list-item">Add or remove sections</li><li class="list-item">Change section ordering</li><li class="list-item">Rename section headings</li><li class="list-item">Adjust section styling</li></ul><h3 id="template-best-practices" class="markdown-heading-2 markdown-heading">Template Best Practices<a class="heading-anchor" href="#template-best-practices">&#xB6;</a></h3><p class="markdown-paragraph">For optimal results with Resumatyk templates:</p><ol class="ordered-list"><li class="list-item"><strong class="markdown-strong">Choose Appropriate Complexity</strong>: More complex designs work best for positions where design matters</li><li class="list-item"><strong class="markdown-strong">Prioritize Readability</strong>: Ensure text remains easy to read</li><li class="list-item"><strong class="markdown-strong">Maintain Consistency</strong>: Use the same style throughout</li><li class="list-item"><strong class="markdown-strong">Consider ATS Compatibility</strong>: For online applications, use simpler templates</li><li class="list-item"><strong class="markdown-strong">Test Print Appearance</strong>: Ensure templates look good both on screen and when printed</li></ol>
+                </div>
+            </div>
+            
+            <div class="docs-panel hidden" id="section-2">
+                <div class="markdown-content" data-flow-name="api">
+                    <!-- Content will load instantly but might be further enhanced by JavaScript -->
+                    <h2 id="api-documentation" class="markdown-heading-1 markdown-heading">API Documentation<a class="heading-anchor" href="#api-documentation">&#xB6;</a></h2><p class="markdown-paragraph">Resumatyk offers a comprehensive REST API that allows developers to integrate resume generation capabilities into their applications. This documentation covers all available endpoints, authentication methods, and usage examples.</p><h3 id="authentication" class="markdown-heading-2 markdown-heading">Authentication<a class="heading-anchor" href="#authentication">&#xB6;</a></h3><h4 id="api-keys" class="markdown-heading-3 markdown-heading">API Keys<a class="heading-anchor" href="#api-keys">&#xB6;</a></h4><p class="markdown-paragraph">To use the Resumatyk API, you need an API key:</p><ol class="ordered-list"><li class="list-item">Register at <a href="https://developer.resumatyk.com" class="markdown-link">developer.resumatyk.com</a></li><li class="list-item">Create a new API key in your developer dashboard</li><li class="list-item">Use the key in all API requests</li></ol><p class="markdown-paragraph">Example authentication:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">curl -X GET https://api.resumatyk.com/v1/templates \
+  -H "Authorization: Bearer YOUR_API_KEY"
+
+</span></div></div></div><h4 id="rate-limiting" class="markdown-heading-3 markdown-heading">Rate Limiting<a class="heading-anchor" href="#rate-limiting">&#xB6;</a></h4><p class="markdown-paragraph">Standard API plans have the following limits:</p>PlanRequests/minuteResumes/dayTemplatesFree<span class="count-up" data-final-value="10">0</span><span class="count-up" data-final-value="5">0</span>Standard onlyBasic<span class="count-up" data-final-value="50">0</span><span class="count-up" data-final-value="100">0</span>All publicPremium<span class="count-up" data-final-value="200">0</span>UnlimitedAll + customEnterpriseCustomCustomCustom<p class="markdown-paragraph">Rate limit headers are included in all responses:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">X-RateLimit-Limit: 50
+X-RateLimit-Remaining: 49
+X-RateLimit-Reset: 1625097600
+
+</span></div></div></div><h3 id="core-endpoints" class="markdown-heading-2 markdown-heading">Core Endpoints<a class="heading-anchor" href="#core-endpoints">&#xB6;</a></h3><h4 id="resume-operations" class="markdown-heading-3 markdown-heading">Resume Operations<a class="heading-anchor" href="#resume-operations">&#xB6;</a></h4><h5 id="create-resume" class="markdown-heading-4 markdown-heading">Create Resume<a class="heading-anchor" href="#create-resume">&#xB6;</a></h5><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">POST /v1/resumes
+
+</span></div></div></div><p class="markdown-paragraph">Create a new resume from provided content:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{
+  "name": "John Doe Resume",
+  "template_id": "modern-professional",
+  "content": {
+    "personal_info": {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1 555-123-4567",
+      "location": "San Francisco, CA",
+      "linkedin": "linkedin.com/in/johndoe"
+    },
+    "summary": "Experienced software engineer with 8 years...",
+    "experience": [
+      {
+        "company": "Tech Corp",
+        "position": "Senior Developer",
+        "location": "San Francisco, CA",
+        "dates": "2018-Present",
+        "achievements": [
+          "Led development of microservice architecture...",
+          "Improved system performance by 40%..."
+        ]
+      }
+    ],
+    "education": [
+      {
+        "institution": "University of California",
+        "degree": "B.S. Computer Science",
+        "dates": "2010-2014"
+      }
+    ],
+    "skills": [
+      "JavaScript", "React", "Node.js", "Python"
+    ]
+  }
+}
+
+</span></div></div></div><p class="markdown-paragraph">Response:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{
+  "resume_id": "f7c2a4d1-b8e5-4b9c-8e76-2e4f8cb4b23a",
+  "created_at": "2023-07-23T14:32:10Z",
+  "status": "processing",
+  "links": {
+    "self": "/v1/resumes/f7c2a4d1-b8e5-4b9c-8e76-2e4f8cb4b23a",
+    "status": "/v1/resumes/f7c2a4d1-b8e5-4b9c-8e76-2e4f8cb4b23a/status"
+  }
+}
+
+</span></div></div></div><h5 id="get-resume-status" class="markdown-heading-4 markdown-heading">Get Resume Status<a class="heading-anchor" href="#get-resume-status">&#xB6;</a></h5><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">GET /v1/resumes/{resume_id}/status
+
+</span></div></div></div><p class="markdown-paragraph">Check the status of a resume generation request:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{
+  "resume_id": "f7c2a4d1-b8e5-4b9c-8e76-2e4f8cb4b23a",
+  "status": "completed",
+  "progress": 100,
+  "links": {
+    "download": "/v1/resumes/f7c2a4d1-b8e5-4b9c-8e76-2e4f8cb4b23a/download"
+  }
+}
+
+</span></div></div></div><p class="markdown-paragraph">Possible status values:</p><ul class="unordered-list"><li class="list-item">: Resume is being generated</li><li class="list-item">: Resume is ready for download</li><li class="list-item">: Generation failed (see  field)</li><li class="list-item">: Request is waiting for processing</li></ul><h5 id="download-resume" class="markdown-heading-4 markdown-heading">Download Resume<a class="heading-anchor" href="#download-resume">&#xB6;</a></h5><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">GET /v1/resumes/{resume_id}/download?format={format}
+
+</span></div></div></div><p class="markdown-paragraph">Download a generated resume in the specified format:</p><p class="markdown-paragraph">Supported formats:</p><ul class="unordered-list"><li class="list-item"> (default)</li><li class="list-item"></li><li class="list-item"> (LaTeX source)</li><li class="list-item"> (structured data)</li></ul><p class="markdown-paragraph">Response:</p><ul class="unordered-list"><li class="list-item">Binary file download</li><li class="list-item">Content-Type depends on format requested</li></ul><h5 id="list-resumes" class="markdown-heading-4 markdown-heading">List Resumes<a class="heading-anchor" href="#list-resumes">&#xB6;</a></h5><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">GET /v1/resumes?page={page}&limit={limit}
+
+</span></div></div></div><p class="markdown-paragraph">List all resumes created by your account:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{
+  "page": 1,
+  "limit": 10,
+  "total": 42,
+  "resumes": [
+    {
+      "resume_id": "f7c2a4d1-b8e5-4b9c-8e76-2e4f8cb4b23a",
+      "name": "John Doe Resume",
+      "created_at": "2023-07-23T14:32:10Z",
+      "template_id": "modern-professional",
+      "status": "completed"
+    },
+    {
+      "resume_id": "a1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p6",
+      "name": "John Doe Technical Resume",
+      "created_at": "2023-07-22T09:15:30Z",
+      "template_id": "tech-minimal",
+      "status": "completed"
+    }
+  ]
+}
+
+</span></div></div></div><h4 id="template-operations" class="markdown-heading-3 markdown-heading">Template Operations<a class="heading-anchor" href="#template-operations">&#xB6;</a></h4><h5 id="list-templates" class="markdown-heading-4 markdown-heading">List Templates<a class="heading-anchor" href="#list-templates">&#xB6;</a></h5><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">GET /v1/templates?category={category}
+
+</span></div></div></div><p class="markdown-paragraph">List available resume templates:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{
+  "templates": [
+    {
+      "id": "modern-professional",
+      "name": "Modern Professional",
+      "category": "professional",
+      "thumbnail_url": "https://api.resumatyk.com/thumbnails/modern-professional.png",
+      "description": "Clean, professional template with modern typography"
+    },
+    {
+      "id": "tech-minimal",
+      "name": "Tech Minimal",
+      "category": "technical",
+      "thumbnail_url": "https://api.resumatyk.com/thumbnails/tech-minimal.png",
+      "description": "Minimalist template optimized for technical roles"
+    }
+  ]
+}
+
+</span></div></div></div><p class="markdown-paragraph">Optional query parameters:</p><ul class="unordered-list"><li class="list-item">: Filter by template category (professional, creative, academic, technical)</li></ul><h5 id="get-template-details" class="markdown-heading-4 markdown-heading">Get Template Details<a class="heading-anchor" href="#get-template-details">&#xB6;</a></h5><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">GET /v1/templates/{template_id}
+
+</span></div></div></div><p class="markdown-paragraph">Get detailed information about a specific template:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{
+  "id": "modern-professional",
+  "name": "Modern Professional",
+  "category": "professional",
+  "thumbnail_url": "https://api.resumatyk.com/thumbnails/modern-professional.png",
+  "description": "Clean, professional template with modern typography",
+  "features": [
+    "Two-column layout",
+    "Custom header with contact information",
+    "Skill visualization",
+    "ATS-friendly"
+  ],
+  "recommended_for": [
+    "Business professionals",
+    "Mid-career candidates",
+    "Corporate applications"
+  ],
+  "preview_url": "https://api.resumatyk.com/previews/modern-professional.pdf"
+}
+
+</span></div></div></div><h4 id="ai-enhancement" class="markdown-heading-3 markdown-heading">AI Enhancement<a class="heading-anchor" href="#ai-enhancement">&#xB6;</a></h4><h5 id="enhance-description" class="markdown-heading-4 markdown-heading">Enhance Description<a class="heading-anchor" href="#enhance-description">&#xB6;</a></h5><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">POST /v1/enhance/description
+
+</span></div></div></div><p class="markdown-paragraph">Transform a basic job description into an achievement-focused bullet point:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{
+  "description": "Managed a team of developers",
+  "tone": "professional",
+  "include_metrics": true
+}
+
+</span></div></div></div><p class="markdown-paragraph">Response:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{
+  "enhanced": [
+    "Led a high-performing team of 5 developers, delivering 12 projects on time and under budget with a 98% client satisfaction rate",
+    "Directed cross-functional development team, increasing productivity by 34% through implementation of agile methodologies and improved workflows",
+    "Managed team of developers to successfully deliver mission-critical applications, reducing time-to-market by 40% compared to previous releases"
+  ]
+}
+
+</span></div></div></div><h5 id="analyze-job-description" class="markdown-heading-4 markdown-heading">Analyze Job Description<a class="heading-anchor" href="#analyze-job-description">&#xB6;</a></h5><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">POST /v1/analyze/job
+
+</span></div></div></div><p class="markdown-paragraph">Extract key requirements and keywords from a job description:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{
+  "job_description": "We are looking for a Senior Software Engineer with 5+ years of experience in Python and cloud technologies. The ideal candidate has experience with AWS, microservices architecture, and CI/CD pipelines. Experience with machine learning is a plus."
+}
+
+</span></div></div></div><p class="markdown-paragraph">Response:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{
+  "required_skills": [
+    {"skill": "Python", "importance": 0.9},
+    {"skill": "AWS", "importance": 0.8},
+    {"skill": "Microservices", "importance": 0.7},
+    {"skill": "CI/CD", "importance": 0.7}
+  ],
+  "preferred_skills": [
+    {"skill": "Machine Learning", "importance": 0.5}
+  ],
+  "experience_level": "Senior",
+  "years_required": 5,
+  "keywords": [
+    "cloud technologies",
+    "software engineer",
+    "microservices architecture",
+    "pipelines"
+  ]
+}
+
+</span></div></div></div><h5 id="resume-optimization" class="markdown-heading-4 markdown-heading">Resume Optimization<a class="heading-anchor" href="#resume-optimization">&#xB6;</a></h5><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">POST /v1/optimize
+
+</span></div></div></div><p class="markdown-paragraph">Optimize a resume for a specific job description:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{
+  "resume_id": "f7c2a4d1-b8e5-4b9c-8e76-2e4f8cb4b23a",
+  "job_description": "We are looking for a Senior Software Engineer...",
+  "optimization_level": "high"
+}
+
+</span></div></div></div><p class="markdown-paragraph">Response:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{
+  "optimization_id": "o1p2q3r4-s5t6-u7v8-w9x0-y1z2a3b4c5d6",
+  "status": "processing",
+  "links": {
+    "status": "/v1/optimize/o1p2q3r4-s5t6-u7v8-w9x0-y1z2a3b4c5d6"
+  }
+}
+
+</span></div></div></div><h3 id="error-handling" class="markdown-heading-2 markdown-heading">Error Handling<a class="heading-anchor" href="#error-handling">&#xB6;</a></h3><p class="markdown-paragraph">All API errors follow this format:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{
+  "error": {
+    "code": "invalid_template",
+    "message": "The requested template ID does not exist",
+    "details": {
+      "template_id": "non-existent-template"
+    }
+  }
+}
+
+</span></div></div></div><p class="markdown-paragraph">Common error codes:</p>CodeDescriptionHTTP StatusInvalid or missing API key<span class="count-up" data-final-value="401">0</span>Too many requests<span class="count-up" data-final-value="429">0</span>Malformed request<span class="count-up" data-final-value="400">0</span>Resource does not exist<span class="count-up" data-final-value="404">0</span>Error during resume generation<span class="count-up" data-final-value="500">0</span>Plan does not allow this operation<span class="count-up" data-final-value="403">0</span><h3 id="webhooks" class="markdown-heading-2 markdown-heading">Webhooks<a class="heading-anchor" href="#webhooks">&#xB6;</a></h3><p class="markdown-paragraph">For asynchronous operations, set up webhooks:</p><h4 id="register-webhook" class="markdown-heading-3 markdown-heading">Register Webhook<a class="heading-anchor" href="#register-webhook">&#xB6;</a></h4><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">POST /v1/webhooks
+
+</span></div></div></div><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{
+  "url": "https://your-app.com/webhook",
+  "events": ["resume.completed", "resume.failed"]
+}
+
+</span></div></div></div><p class="markdown-paragraph">Response:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{
+  "webhook_id": "wh_123456",
+  "url": "https://your-app.com/webhook",
+  "events": ["resume.completed", "resume.failed"],
+  "created_at": "2023-07-23T14:32:10Z"
+}
+
+</span></div></div></div><h4 id="webhook-events" class="markdown-heading-3 markdown-heading">Webhook Events<a class="heading-anchor" href="#webhook-events">&#xB6;</a></h4><p class="markdown-paragraph">When an event occurs, we'll send a POST request to your webhook URL:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{
+  "event": "resume.completed",
+  "created_at": "2023-07-23T14:40:23Z",
+  "data": {
+    "resume_id": "f7c2a4d1-b8e5-4b9c-8e76-2e4f8cb4b23a",
+    "status": "completed",
+    "links": {
+      "download": "/v1/resumes/f7c2a4d1-b8e5-4b9c-8e76-2e4f8cb4b23a/download"
+    }
+  }
+}
+
+</span></div></div></div><h3 id="sdk-support" class="markdown-heading-2 markdown-heading">SDK Support<a class="heading-anchor" href="#sdk-support">&#xB6;</a></h3><p class="markdown-paragraph">Official client libraries:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">JavaScript/TypeScript</strong>: <a href="https://www.npmjs.com/package/resumatyk-client" class="markdown-link">npm package</a></li><li class="list-item"><strong class="markdown-strong">Python</strong>: <a href="https://pypi.org/project/resumatyk/" class="markdown-link">PyPI package</a></li><li class="list-item"><strong class="markdown-strong">Ruby</strong>: <a href="https://rubygems.org/gems/resumatyk" class="markdown-link">RubyGems package</a></li><li class="list-item"><strong class="markdown-strong">PHP</strong>: <a href="https://packagist.org/packages/resumatyk/client" class="markdown-link">Composer package</a></li></ul><h3 id="example-integration" class="markdown-heading-2 markdown-heading">Example Integration<a class="heading-anchor" href="#example-integration">&#xB6;</a></h3><p class="markdown-paragraph">Simple Node.js example for generating a resume:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">const Resumatyk = require('resumatyk-client');
+
+const client = new Resumatyk('YOUR_API_KEY');
+
+async function generateResume() {
+  try {
+    // Create resume
+    const resumeData = {
+      name: "John Doe Resume",
+      template_id: "modern-professional",
+      content: {
+        personal_info: {
+          name: "John Doe",
+          email: "john@example.com",
+          // ...other fields
+        },
+        // ...other sections
+      }
+    };
+    
+    const { resume_id } = await client.resumes.create(resumeData);
+    
+    // Poll for completion
+    let status;
+    do {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      status = await client.resumes.getStatus(resume_id);
+    } while (status.status === 'processing' || status.status === 'queued');
+    
+    if (status.status === 'completed') {
+      // Download the PDF
+      const pdfBuffer = await client.resumes.download(resume_id, 'pdf');
+      console.log(`Resume generated! Size: ${pdfBuffer.length} bytes`);
+      return pdfBuffer;
+    } else {
+      console.error('Resume generation failed:', status.error);
+    }
+  } catch (error) {
+    console.error('API Error:', error);
+  }
+}
+
+generateResume();
+
+</span></div></div></div>
+                </div>
+            </div>
+            
+            <div class="docs-panel hidden" id="section-3">
+                <div class="markdown-content" data-flow-name="architecture">
+                    <!-- Content will load instantly but might be further enhanced by JavaScript -->
+                    <h2 id="architecture" class="markdown-heading-1 markdown-heading">Architecture<a class="heading-anchor" href="#architecture">&#xB6;</a></h2><p class="markdown-paragraph">Resumatyk employs a modern, modular architecture designed for flexibility and extensibility. The system consists of several independent components that work together to generate tailored resumes.</p><h3 id="system-overview" class="markdown-heading-2 markdown-heading">System Overview<a class="heading-anchor" href="#system-overview">&#xB6;</a></h3><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">graph TD
+    A[Document Parser] --> B[Content Analyzer]
+    C[Job Description Parser] --> B
+    B --> D[Content Generator]
+    D --> E[LaTeX Renderer]
+    E --> F[PDF Output]
+    G[User Interface] --> H[Template Manager]
+    H --> E
+    I[AI Engine] --> D
+
+</span></div></div></div><h4 id="core-components" class="markdown-heading-3 markdown-heading">Core Components<a class="heading-anchor" href="#core-components">&#xB6;</a></h4><h5 id="document-parser" class="markdown-heading-4 markdown-heading">Document Parser<a class="heading-anchor" href="#document-parser">&#xB6;</a></h5><p class="markdown-paragraph">The Document Parser is responsible for extracting structured data from existing resumes and CVs:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">OCR Engine</strong>: Converts scanned documents to text</li><li class="list-item"><strong class="markdown-strong">Structure Analyzer</strong>: Identifies sections and formats</li><li class="list-item"><strong class="markdown-strong">Content Extractor</strong>: Pulls out skills, experience, and education details</li><li class="list-item"><strong class="markdown-strong">Metadata Handler</strong>: Extracts dates, locations, and other metadata</li></ul><h5 id="job-description-parser" class="markdown-heading-4 markdown-heading">Job Description Parser<a class="heading-anchor" href="#job-description-parser">&#xB6;</a></h5><p class="markdown-paragraph">This component analyzes job postings to identify key requirements:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Keyword Extractor</strong>: Identifies important skills and qualifications</li><li class="list-item"><strong class="markdown-strong">Responsibility Analyzer</strong>: Determines primary job functions</li><li class="list-item"><strong class="markdown-strong">Cultural Indicators</strong>: Identifies company culture signals</li><li class="list-item"><strong class="markdown-strong">Requirement Prioritizer</strong>: Ranks requirements by importance</li></ul><h5 id="content-generator" class="markdown-heading-4 markdown-heading">Content Generator<a class="heading-anchor" href="#content-generator">&#xB6;</a></h5><p class="markdown-paragraph">The AI-powered Content Generator tailors resume content to match job requirements:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Content Matcher</strong>: Aligns your experience with job requirements</li><li class="list-item"><strong class="markdown-strong">Skill Highlighter</strong>: Emphasizes relevant skills</li><li class="list-item"><strong class="markdown-strong">Achievement Reframer</strong>: Contextualizes achievements for specific roles</li><li class="list-item"><strong class="markdown-strong">Gap Analyzer</strong>: Suggests additions for missing requirements</li></ul><h5 id="latex-renderer" class="markdown-heading-4 markdown-heading">LaTeX Renderer<a class="heading-anchor" href="#latex-renderer">&#xB6;</a></h5><p class="markdown-paragraph">The LaTeX Renderer produces professionally formatted documents:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Template Engine</strong>: Applies styling based on selected templates</li><li class="list-item"><strong class="markdown-strong">Typography Module</strong>: Ensures optimal font usage and spacing</li><li class="list-item"><strong class="markdown-strong">Layout Manager</strong>: Handles page breaks and section positioning</li><li class="list-item"><strong class="markdown-strong">ATS Compatibility Layer</strong>: Ensures compatibility with Applicant Tracking Systems</li></ul><h3 id="technical-implementation" class="markdown-heading-2 markdown-heading">Technical Implementation<a class="heading-anchor" href="#technical-implementation">&#xB6;</a></h3><p class="markdown-paragraph">Resumatyk is built using a combination of Python for backend processes and a modern web frontend:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Python Core</strong>: Handles document processing and AI integration</li><li class="list-item"><strong class="markdown-strong">React Frontend</strong>: Provides an intuitive user interface</li><li class="list-item"><strong class="markdown-strong">PostgreSQL Database</strong>: Stores templates and user data</li><li class="list-item"><strong class="markdown-strong">Redis Cache</strong>: Improves performance for repeat operations</li><li class="list-item"><strong class="markdown-strong">Docker Containers</strong>: Ensures consistent deployment across environments</li></ul><h3 id="data-flow" class="markdown-heading-2 markdown-heading">Data Flow<a class="heading-anchor" href="#data-flow">&#xB6;</a></h3><ol class="ordered-list"><li class="list-item">User uploads their existing resume and a job description</li><li class="list-item">Document Parser extracts structured data from the resume</li><li class="list-item">Job Description Parser identifies key requirements</li><li class="list-item">Content Generator creates tailored content with AI assistance</li><li class="list-item">User selects a template and customizes formatting</li><li class="list-item">LaTeX Renderer produces the final document</li><li class="list-item">User downloads the professionally formatted PDF</li></ol>
+                </div>
+            </div>
+            
+            <div class="docs-panel hidden" id="section-4">
+                <div class="markdown-content" data-flow-name="usage">
+                    <!-- Content will load instantly but might be further enhanced by JavaScript -->
+                    <h2 id="usage-guide" class="markdown-heading-1 markdown-heading">Usage Guide<a class="heading-anchor" href="#usage-guide">&#xB6;</a></h2><p class="markdown-paragraph">This guide explains how to use Resumatyk to create tailored, professional resumes for specific job applications.</p><h3 id="getting-started" class="markdown-heading-2 markdown-heading">Getting Started<a class="heading-anchor" href="#getting-started">&#xB6;</a></h3><p class="markdown-paragraph">After installation, follow these steps to create your first resume:</p><ol class="ordered-list"><li class="list-item">Log in to your Resumatyk account</li><li class="list-item">Click "Create New Resume" from the dashboard</li><li class="list-item">Choose your starting point:<ul class="unordered-list"><li class="list-item">Import existing resume</li><li class="list-item">Start from a template</li><li class="list-item">Import from LinkedIn</li></ul></li><li class="list-item">Complete your profile with skills, experience, and education</li></ol><h3 id="creating-a-tailored-resume" class="markdown-heading-2 markdown-heading">Creating a Tailored Resume<a class="heading-anchor" href="#creating-a-tailored-resume">&#xB6;</a></h3><h4 id="step-1--job-analysis" class="markdown-heading-3 markdown-heading">Step <span class="count-up" data-final-value="1">0</span>: Job Analysis<a class="heading-anchor" href="#step-1--job-analysis">&#xB6;</a></h4><p class="markdown-paragraph">Copy and paste the job description into Resumatyk:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">Paste job description here...
+
+</span></div></div></div><p class="markdown-paragraph">Resumatyk will automatically:</p><ul class="unordered-list"><li class="list-item">Identify key skills and requirements</li><li class="list-item">Highlight important keywords</li><li class="list-item">Suggest content modifications</li></ul><h4 id="step-2--content-customization" class="markdown-heading-3 markdown-heading">Step <span class="count-up" data-final-value="2">0</span>: Content Customization<a class="heading-anchor" href="#step-2--content-customization">&#xB6;</a></h4><p class="markdown-paragraph">Adjust your resume content based on the job analysis:</p><ul class="unordered-list"><li class="list-item">Reorder sections to prioritize relevant experience</li><li class="list-item">Highlight skills that match the job requirements</li><li class="list-item">Adjust achievement descriptions to emphasize relevant outcomes</li><li class="list-item">Add or remove sections as needed</li></ul><h4 id="step-3--choose-a-template" class="markdown-heading-3 markdown-heading">Step <span class="count-up" data-final-value="3">0</span>: Choose a Template<a class="heading-anchor" href="#step-3--choose-a-template">&#xB6;</a></h4><p class="markdown-paragraph">Select from our library of ATS-friendly templates:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Classic</strong>: Traditional, conservative designs for corporate environments</li><li class="list-item"><strong class="markdown-strong">Modern</strong>: Clean, contemporary layouts with subtle design elements</li><li class="list-item"><strong class="markdown-strong">Creative</strong>: Bold designs for creative industries</li><li class="list-item"><strong class="markdown-strong">Technical</strong>: Specialized layouts for technical fields</li><li class="list-item"><strong class="markdown-strong">Academic</strong>: Templates for CVs and academic positions</li></ul><h4 id="step-4--fine-tune-formatting" class="markdown-heading-3 markdown-heading">Step <span class="count-up" data-final-value="4">0</span>: Fine-Tune Formatting<a class="heading-anchor" href="#step-4--fine-tune-formatting">&#xB6;</a></h4><p class="markdown-paragraph">Adjust the visual presentation of your resume:</p><ul class="unordered-list"><li class="list-item">Font selection and sizing</li><li class="list-item">Spacing and margins</li><li class="list-item">Section headings and dividers</li><li class="list-item">Color accents (when appropriate)</li><li class="list-item">Page count optimization</li></ul><h4 id="step-5--generate-and-review" class="markdown-heading-3 markdown-heading">Step <span class="count-up" data-final-value="5">0</span>: Generate and Review<a class="heading-anchor" href="#step-5--generate-and-review">&#xB6;</a></h4><p class="markdown-paragraph">Click "Generate Resume" to create your document:</p><ul class="unordered-list"><li class="list-item">Review for grammar and spelling</li><li class="list-item">Check formatting consistency</li><li class="list-item">Verify all information is accurate</li><li class="list-item">Ensure ATS compatibility</li></ul><h3 id="advanced-features" class="markdown-heading-2 markdown-heading">Advanced Features<a class="heading-anchor" href="#advanced-features">&#xB6;</a></h3><h4 id="ai-content-enhancement" class="markdown-heading-3 markdown-heading">AI Content Enhancement<a class="heading-anchor" href="#ai-content-enhancement">&#xB6;</a></h4><p class="markdown-paragraph">Use our AI tools to improve your resume content:</p><ol class="ordered-list"><li class="list-item">Select any section of your resume</li><li class="list-item">Click "Enhance with AI"</li><li class="list-item">Choose from enhancement options:<ul class="unordered-list"><li class="list-item">Strengthen action verbs</li><li class="list-item">Quantify achievements</li><li class="list-item">Improve clarity</li><li class="list-item">Add industry-specific terminology</li></ul></li></ol><h4 id="version-management" class="markdown-heading-3 markdown-heading">Version Management<a class="heading-anchor" href="#version-management">&#xB6;</a></h4><p class="markdown-paragraph">Create and manage multiple versions of your resume:</p><ul class="unordered-list"><li class="list-item">Save different versions for different job types</li><li class="list-item">Track changes between versions</li><li class="list-item">A/B test different formats with employers</li><li class="list-item">Clone and modify existing resumes</li></ul><h4 id="collaboration" class="markdown-heading-3 markdown-heading">Collaboration<a class="heading-anchor" href="#collaboration">&#xB6;</a></h4><p class="markdown-paragraph">Share your resume with others for feedback:</p><ol class="ordered-list"><li class="list-item">Click "Share" on any resume</li><li class="list-item">Enter email addresses of reviewers</li><li class="list-item">Set permission levels (view, comment, edit)</li><li class="list-item">Receive and implement feedback directly in the platform</li></ol>
+                </div>
+            </div>
+            
+            <div class="docs-panel hidden" id="section-5">
+                <div class="markdown-content" data-flow-name="ai-integration">
+                    <!-- Content will load instantly but might be further enhanced by JavaScript -->
+                    <h2 id="ai-integration" class="markdown-heading-1 markdown-heading">AI Integration<a class="heading-anchor" href="#ai-integration">&#xB6;</a></h2><p class="markdown-paragraph">Resumatyk leverages AI technology throughout the resume creation process to deliver a smart, adaptive experience that produces professional results. This document explains how AI is integrated into the platform.</p><h3 id="ai-capabilities-overview" class="markdown-heading-2 markdown-heading">AI Capabilities Overview<a class="heading-anchor" href="#ai-capabilities-overview">&#xB6;</a></h3><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">graph TD
+    A[Resume Input] --> B[AI Analysis]
+    B --> C[Content Enhancement]
+    B --> D[Personalization]
+    B --> E[Format Optimization]
+    F[Job Description] --> G[Requirement Analysis]
+    G --> D
+    G --> H[Keyword Identification]
+    H --> I[Optimization Suggestions]
+
+</span></div></div></div><h3 id="content-analysis" class="markdown-heading-2 markdown-heading">Content Analysis<a class="heading-anchor" href="#content-analysis">&#xB6;</a></h3><h4 id="resume-parsing" class="markdown-heading-3 markdown-heading">Resume Parsing<a class="heading-anchor" href="#resume-parsing">&#xB6;</a></h4><p class="markdown-paragraph">When a user uploads an existing resume, our AI:</p><ol class="ordered-list"><li class="list-item"><strong class="markdown-strong">Structure Recognition</strong>: Identifies sections (experience, education, skills)</li><li class="list-item"><strong class="markdown-strong">Entity Extraction</strong>: Identifies companies, roles, dates, and technologies</li><li class="list-item"><strong class="markdown-strong">Sentiment Analysis</strong>: Evaluates tone and impact of achievement statements</li><li class="list-item"><strong class="markdown-strong">Grammar & Style Check</strong>: Identifies potential language improvements</li></ol><h4 id="job-description-analysis" class="markdown-heading-3 markdown-heading">Job Description Analysis<a class="heading-anchor" href="#job-description-analysis">&#xB6;</a></h4><p class="markdown-paragraph">For targeted resume creation:</p><ol class="ordered-list"><li class="list-item"><strong class="markdown-strong">Requirement Extraction</strong>: Identifies must-have and nice-to-have requirements</li><li class="list-item"><strong class="markdown-strong">Keyword Identification</strong>: Extracts industry-specific and role-specific terms</li><li class="list-item"><strong class="markdown-strong">Cultural Indicators</strong>: Identifies company values and culture markers</li><li class="list-item"><strong class="markdown-strong">Priority Assessment</strong>: Ranks requirements by importance and frequency</li></ol><h3 id="content-generation" class="markdown-heading-2 markdown-heading">Content Generation<a class="heading-anchor" href="#content-generation">&#xB6;</a></h3><h4 id="achievement-enhancement" class="markdown-heading-3 markdown-heading">Achievement Enhancement<a class="heading-anchor" href="#achievement-enhancement">&#xB6;</a></h4><p class="markdown-paragraph">AI improves the impact of achievement statements:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">Original: "Managed a team that built a new customer portal"
+
+AI Enhanced: "Led cross-functional team of 8 developers to deliver customer 
+portal that increased user engagement by 27% and reduced support tickets by 35%"
+
+</span></div></div></div><p class="markdown-paragraph">Key enhancements include:</p><ol class="ordered-list"><li class="list-item"><strong class="markdown-strong">Quantification</strong>: Adding metrics and numbers</li><li class="list-item"><strong class="markdown-strong">Action Verbs</strong>: Using stronger, more specific verbs</li><li class="list-item"><strong class="markdown-strong">Outcome Focus</strong>: Emphasizing results, not just activities</li><li class="list-item"><strong class="markdown-strong">Specificity</strong>: Adding concrete details and context</li></ol><h4 id="skill-gap-analysis" class="markdown-heading-3 markdown-heading">Skill Gap Analysis<a class="heading-anchor" href="#skill-gap-analysis">&#xB6;</a></h4><p class="markdown-paragraph">The AI identifies potential skills gaps between your experience and job requirements:</p><ol class="ordered-list"><li class="list-item"><strong class="markdown-strong">Gap Detection</strong>: Comparing your skills against job requirements</li><li class="list-item"><strong class="markdown-strong">Suggestion Generation</strong>: Recommending ways to address or reframe gaps</li><li class="list-item"><strong class="markdown-strong">Alternative Phrasing</strong>: Finding equivalent skills you may have</li><li class="list-item"><strong class="markdown-strong">Prioritization</strong>: Focusing on the most critical missing elements</li></ol><h3 id="personalization-engine" class="markdown-heading-2 markdown-heading">Personalization Engine<a class="heading-anchor" href="#personalization-engine">&#xB6;</a></h3><h4 id="tailoring-algorithm" class="markdown-heading-3 markdown-heading">Tailoring Algorithm<a class="heading-anchor" href="#tailoring-algorithm">&#xB6;</a></h4><p class="markdown-paragraph">The AI tailors your resume to specific positions through:</p><ol class="ordered-list"><li class="list-item"><strong class="markdown-strong">Priority Reordering</strong>: Presenting most relevant experience first</li><li class="list-item"><strong class="markdown-strong">Emphasis Adjustment</strong>: Highlighting skills matching the job description</li><li class="list-item"><strong class="markdown-strong">Terminology Alignment</strong>: Using industry-specific language from the posting</li><li class="list-item"><strong class="markdown-strong">Experience Framing</strong>: Contextualizing past roles for the target position</li></ol><h4 id="learning-system" class="markdown-heading-3 markdown-heading">Learning System<a class="heading-anchor" href="#learning-system">&#xB6;</a></h4><p class="markdown-paragraph">The AI improves over time through:</p><ol class="ordered-list"><li class="list-item"><strong class="markdown-strong">Feedback Loop</strong>: Learning from user acceptance/rejection of suggestions</li><li class="list-item"><strong class="markdown-strong">Success Tracking</strong>: Analyzing which resumes lead to interviews</li><li class="list-item"><strong class="markdown-strong">Industry Trends</strong>: Staying current with changing terminology and skills</li><li class="list-item"><strong class="markdown-strong">A/B Testing</strong>: Comparing different approaches for similar positions</li></ol><h3 id="technical-implementation" class="markdown-heading-2 markdown-heading">Technical Implementation<a class="heading-anchor" href="#technical-implementation">&#xB6;</a></h3><h4 id="ai-models" class="markdown-heading-3 markdown-heading">AI Models<a class="heading-anchor" href="#ai-models">&#xB6;</a></h4><p class="markdown-paragraph">Resumatyk uses multiple specialized models:</p>ModelPurposeTechnologyDocument ParserResume structure analysisTransformer-based NERContent EnhancerImproving achievement statementsFine-tuned GPT modelKeyword ExtractorIdentifying important termsDomain-specific BERTFormatterLayout optimizationRule-based system with ML componentsRecommenderSuggesting improvementsHybrid collaborative filtering<h4 id="training-data" class="markdown-heading-3 markdown-heading">Training Data<a class="heading-anchor" href="#training-data">&#xB6;</a></h4><p class="markdown-paragraph">Our models are trained on diverse datasets:</p><ol class="ordered-list"><li class="list-item"><strong class="markdown-strong">Resume Corpus</strong>: Thousands of anonymized professional resumes</li><li class="list-item"><strong class="markdown-strong">Job Postings</strong>: Millions of job descriptions across industries</li><li class="list-item"><strong class="markdown-strong">Recruiter Feedback</strong>: Input from HR professionals and recruiters</li><li class="list-item"><strong class="markdown-strong">Success Patterns</strong>: Resumes with confirmed interview outcomes</li></ol><h3 id="using-ai-features" class="markdown-heading-2 markdown-heading">Using AI Features<a class="heading-anchor" href="#using-ai-features">&#xB6;</a></h3><h4 id="manual-vs--automatic" class="markdown-heading-3 markdown-heading">Manual vs. Automatic<a class="heading-anchor" href="#manual-vs--automatic">&#xB6;</a></h4><p class="markdown-paragraph">Users can choose their AI assistance level:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Full Automation</strong>: AI handles entire tailoring process</li><li class="list-item"><strong class="markdown-strong">Suggestion Mode</strong>: AI offers changes for user approval</li><li class="list-item"><strong class="markdown-strong">Manual with Tips</strong>: User maintains full control with AI suggestions</li><li class="list-item"><strong class="markdown-strong">Off</strong>: No AI assistance</li></ul><h4 id="specific-ai-tools" class="markdown-heading-3 markdown-heading">Specific AI Tools<a class="heading-anchor" href="#specific-ai-tools">&#xB6;</a></h4><h5 id="smart-bullet-points" class="markdown-heading-4 markdown-heading">Smart Bullet Points<a class="heading-anchor" href="#smart-bullet-points">&#xB6;</a></h5><p class="markdown-paragraph">Transforms basic job descriptions into compelling achievements:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">Input: "Responsible for customer service and handling complaints"
+
+Output: "Delivered exceptional customer service with 98% satisfaction rate, 
+resolving complex complaints and reducing escalation rate by 23%"
+
+</span></div></div></div><p class="markdown-paragraph">Usage:</p><ol class="ordered-list"><li class="list-item">Enter basic job description</li><li class="list-item">Click "Enhance" button</li><li class="list-item">Select preferred version or request alternatives</li></ol><h5 id="skill-matcher" class="markdown-heading-4 markdown-heading">Skill Matcher<a class="heading-anchor" href="#skill-matcher">&#xB6;</a></h5><p class="markdown-paragraph">Aligns your skills with job requirements:</p><ol class="ordered-list"><li class="list-item">Upload job description</li><li class="list-item">AI highlights skills matches and gaps</li><li class="list-item">System suggests phrasing to emphasize matching skills</li><li class="list-item">Recommends addressing critical skill gaps</li></ol><h5 id="summary-generator" class="markdown-heading-4 markdown-heading">Summary Generator<a class="heading-anchor" href="#summary-generator">&#xB6;</a></h5><p class="markdown-paragraph">Creates professional summaries tailored to target positions:</p><ol class="ordered-list"><li class="list-item">Select target job type</li><li class="list-item">Choose desired tone (formal, confident, etc.)</li><li class="list-item">AI generates <span class="count-up" data-final-value="3">0</span>-<span class="count-up" data-final-value="5">0</span> summary options</li><li class="list-item">Edit or accept preferred version</li></ol><h3 id="ethical-considerations" class="markdown-heading-2 markdown-heading">Ethical Considerations<a class="heading-anchor" href="#ethical-considerations">&#xB6;</a></h3><p class="markdown-paragraph">We implement several safeguards around our AI system:</p><h4 id="accuracy---honesty" class="markdown-heading-3 markdown-heading">Accuracy & Honesty<a class="heading-anchor" href="#accuracy---honesty">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item">AI will not fabricate experience or credentials</li><li class="list-item">All suggestions maintain factual accuracy</li><li class="list-item">System encourages honest representation</li></ul><h4 id="privacy" class="markdown-heading-3 markdown-heading">Privacy<a class="heading-anchor" href="#privacy">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item">All uploaded documents are processed with strict privacy controls</li><li class="list-item">User data is not used to train models without explicit consent</li><li class="list-item">Personal identifiers are removed from any training data</li></ul><h4 id="bias-mitigation" class="markdown-heading-3 markdown-heading">Bias Mitigation<a class="heading-anchor" href="#bias-mitigation">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item">Models are regularly audited for bias in suggestions</li><li class="list-item">Diverse training data helps ensure fairness</li><li class="list-item">Users can report potentially biased suggestions</li></ul><h3 id="future-ai-developments" class="markdown-heading-2 markdown-heading">Future AI Developments<a class="heading-anchor" href="#future-ai-developments">&#xB6;</a></h3><p class="markdown-paragraph">Upcoming AI features include:</p><ol class="ordered-list"><li class="list-item"><strong class="markdown-strong">Visual Design AI</strong>: Suggest layout improvements based on position type</li><li class="list-item"><strong class="markdown-strong">Interview Prep</strong>: Generate likely interview questions based on resume</li><li class="list-item"><strong class="markdown-strong">Career Path AI</strong>: Suggest skills to develop for desired career progression</li><li class="list-item"><strong class="markdown-strong">Industry-Specific Models</strong>: Specialized models for fields like tech, finance, healthcare</li></ol><h3 id="feedback-system" class="markdown-heading-2 markdown-heading">Feedback System<a class="heading-anchor" href="#feedback-system">&#xB6;</a></h3><p class="markdown-paragraph">Help improve our AI:</p><ol class="ordered-list"><li class="list-item">Rate suggestions with thumbs up/down</li><li class="list-item">Provide specific feedback on AI-generated content</li><li class="list-item">Report any issues with AI suggestions</li><li class="list-item">Share success stories for system improvement</li></ol>
+                </div>
+            </div>
+            
+        </div>
+
+    </section>
+    
+
+    
+<section id="FUTURE">
+    <div class="container">
+        <div class="future-projects-container">
+            <!-- Left Panel - Future Details -->
+            <div class="future-details-panel">
+                <h3 class="details-header">What's Next For Resumatyk?</h3>
+                <p class="details-description">
+                    *Coming updates and improvements for this project in our development pipeline.*
+                </p>
+                <div class="details-stats">
+                    <div class="stat-box">
+                        <div class="stat-number">3+</div>
+                        <div class="stat-label">Updates</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Open Source</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">2024</div>
+                        <div class="stat-label">Roadmap</div>
+                    </div>
+                </div>
+                <div class="collaborate-section">
+                    <h3 class="details-subheader">Want to Collaborate?</h3>
+                    <p class="collab-description">
+                        *If these ideas spark your interest, let's connect and disrupt the norm together.*
+                    </p>
+                    <a href="#contact" class="details-link">
+                        <span class="details-link-text">Connect Now</span>
+                        <span class="details-link-icon">→</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Right Panel - Future Timeline -->
+            <div class="future-timeline">
+                
+                <div class="timeline-item" tabindex="0">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Web Interface</h3>
+                        <span class="timeline-date">May 2024</span>
+                        <p class="timeline-description">
+                            Browser-based workflow for creating and managing resumes without command line knowledge.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" tabindex="0">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">ATS Optimization</h3>
+                        <span class="timeline-date">June 2024</span>
+                        <p class="timeline-description">
+                            Automatic resume analysis against Applicant Tracking Systems with improvement suggestions.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" tabindex="0">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Multi-format Export</h3>
+                        <span class="timeline-date">July 2024</span>
+                        <p class="timeline-description">
+                            Export resumes to various formats including JSON, Markdown, and interactive web portfolios.
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Related Projects Section -->
+    
+    <section class="related-section">
+        <h2 class="section-heading">Related Projects</h2>
+        <div class="related-grid">
+            
+            <a href="/projects/jjugg" class="related-card card-hover">
+                <div class="related-image-container">
+                    <img src="&#x2F;static&#x2F;images&#x2F;jjugg.jpg" alt="JJugg" />
+                </div>
+                <div class="related-content">
+                    <h3 class="related-title">JJugg</h3>
+                    <p class="related-subtitle">Autonomous Job Application Tracker</p>
+                </div>
+            </a>
+            
+            <a href="/projects/myriad" class="related-card card-hover">
+                <div class="related-image-container">
+                    <img src="&#x2F;static&#x2F;images&#x2F;myriad.jpg" alt="Myriad.ai" />
+                </div>
+                <div class="related-content">
+                    <h3 class="related-title">Myriad.ai</h3>
+                    <p class="related-subtitle">Intelligent Software Copilot</p>
+                </div>
+            </a>
+            
+            <a href="/projects/commitaura" class="related-card card-hover">
+                <div class="related-image-container">
+                    <img src="&#x2F;static&#x2F;images&#x2F;commitaura.gif" alt="CommitAura" />
+                </div>
+                <div class="related-content">
+                    <h3 class="related-title">CommitAura</h3>
+                    <p class="related-subtitle">AI-Powered Commit Message Generator</p>
+                </div>
+            </a>
+            
+        </div>
+    </section>
+    
+</main>
+
+<!-- Modal for image preview -->
+<div id="imageModal" class="modal" onclick="if(event.target === this) closeModal();">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img id="modalImage" src="" alt="">
+        <p id="modalCaption" class="modal-caption"></p>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        initDocumentationTabs();
+        initDocumentationAnimations();
+    });
+
+    function initDocumentationTabs() {
+        const navItems = document.querySelectorAll('.docs-nav-item');
+        if (navItems.length === 0) return;
+
+        // Preload all documentation content
+        document.querySelectorAll('.docs-panel').forEach(panel => {
+            // Create a flag to track initialization
+            panel.dataset.initialized = 'true';
+        });
+
+        // Event delegation for tab switching
+        const sidebar = document.querySelector('.docs-sidebar');
+        if (sidebar) {
+            sidebar.addEventListener('click', (e) => {
+                const item = e.target.closest('.docs-nav-item');
+                if (!item) return;
+
+                // Remove active class from all nav items
+                document.querySelectorAll('.docs-nav-item').forEach(navItem => {
+                    navItem.classList.remove('active');
+                });
+
+                // Add active class to clicked item
+                item.classList.add('active');
+
+                // Hide all content panels efficiently
+                document.querySelectorAll('.docs-panel.active').forEach(panel => {
+                    panel.classList.add('hidden');
+                    panel.classList.remove('active');
+                });
+
+                // Show selected panel
+                const targetId = item.getAttribute('data-tab');
+                const targetPanel = document.getElementById(targetId);
+                if (targetPanel) {
+                    targetPanel.classList.remove('hidden');
+                    targetPanel.classList.add('active');
+                }
+            });
+        }
+    }
+
+    function copyToClipboard(button) {
+        const command = button.closest('.command-line').querySelector('.terminal-command').innerText;
+        navigator.clipboard.writeText(command)
+            .then(() => showCopySuccess(button))
+            .catch(() => console.error('Failed to copy'));
+    }
+
+    function showCopySuccess(button) {
+        button.classList.add('copied');
+        const originalHTML = button.innerHTML;
+
+        // Confetti animation
+        const confettiContainer = button.querySelector('.confetti-container');
+        if (confettiContainer) {
+            confettiContainer.innerHTML = '';
+            for (let i = 0; i < 10; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+                confettiContainer.appendChild(confetti);
+            }
+        }
+
+        button.innerHTML = `<svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 6L9 17l-5-5"/>
+        </svg><div class="confetti-container"></div>`;
+
+        setTimeout(() => {
+            button.classList.remove('copied');
+            button.innerHTML = originalHTML;
+        }, 2000);
+    }
+
+    function openModal(imgElement) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+        const caption = document.querySelector('.showcase-caption');
+
+        modal.style.display = "flex";
+        modal.classList.add('modal-fade-in');
+        modalImg.src = imgElement.src;
+        modalCaption.textContent = caption ? caption.textContent : '';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.remove('modal-fade-in');
+        modal.classList.add('modal-fade-out');
+
+        setTimeout(() => {
+            modal.style.display = "none";
+            modal.classList.remove('modal-fade-out');
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+    
+    function initDocumentationAnimations() {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -5% 0px',
+            threshold: 0.01
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    requestAnimationFrame(() => {
+                        entry.target.classList.add('in-view');
+                    });
+                }
+            });
+        }, observerOptions);
+
+        // Observe and immediately activate the documentation section if in viewport
+        const docSection = document.querySelector('.documentation-section');
+        if (docSection) {
+            const rect = docSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight) {
+                docSection.classList.add('in-view');
+            } else {
+                sectionObserver.observe(docSection);
+            }
+        }
+    }
+</script>
+
+        <div class="vertical-name"></div>
+    </div>
+
+    <!-- Site scripts -->
+    <script src="/static/js/animations.js"></script>
+    <script src="/static/js/documentation.js"></script>
+    <script src="/static/js/projects.js"></script>
+    <script src="/static/js/glitch.js"></script>
+    <script src="/static/js/transitions.js"></script>
+
+    <!-- Core functionality -->
+    <script>
+        // Apply theme from localStorage immediately to avoid FOUC
+        (function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            }
+        })();
+
+        // Initialize Mermaid diagrams - safely check if loaded
+        if (typeof mermaid !== 'undefined') {
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'neutral',
+                flowchart: { curve: 'basis' }
+            });
+        } else {
+            // Add event listener for when mermaid loads
+            document.addEventListener('DOMContentLoaded', () => {
+                if (typeof mermaid !== 'undefined') {
+                    mermaid.initialize({
+                        startOnLoad: true,
+                        theme: 'neutral',
+                        flowchart: { curve: 'basis' }
+                    });
+                }
+            });
+        }
+
+        // Theme management system
+        document.addEventListener('DOMContentLoaded', () => {
+            const navThemeToggleBtn = document.getElementById('nav-theme-toggle');
+            const cornerEffects = document.querySelectorAll('.corner-effect');
+
+            // Function to update theme
+            function updateTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+
+                // Update toggle icon
+                const themeIcon = document.querySelector('.theme-icon');
+                if (themeIcon) {
+                    themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
+                }
+
+                // Apply subtle animation to corner effects
+                cornerEffects.forEach(corner => {
+                    corner.style.transition = 'opacity 0.5s ease';
+                    corner.style.opacity = '0.5';
+                    setTimeout(() => {
+                        corner.style.opacity = '0.3';
+                    }, 300);
+                });
+            }
+
+            // Initialize theme from saved preference immediately
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            // Apply theme without animation for initial load
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            // Then pass to the update function for icon updates
+            updateTheme(savedTheme);
+
+            // Toggle theme on click
+            if (navThemeToggleBtn) {
+                navThemeToggleBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const currentTheme = document.documentElement.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    updateTheme(newTheme);
+                });
+            }
+
+            // Initialize font dropdown
+            function initializeFontDropdown() {
+                const dropdown = document.querySelector('.font-dropdown-content');
+
+                // Clear existing content
+                dropdown.innerHTML = '';
+
+                // Create font options
+                fontOptions.forEach((option, index) => {
+                    const fontOption = document.createElement('div');
+                    fontOption.className = `font-option ${option.isUbuntuMono ? 'ubuntu-mono' : ''}`;
+                    if (parseInt(localStorage.getItem('fontOption') || '0') === index) {
+                        fontOption.classList.add('active');
+                    }
+
+                    // Apply the display font to the option itself (since that's what we'll use for the name)
+                    fontOption.style.fontFamily = option.display;
+
+                    const optionName = document.createElement('span');
+                    optionName.className = 'option-name';
+                    // Show the display font name instead
+                    optionName.textContent = option.name.split(' + ')[1] || option.name.split(' + ')[0];
+
+                    fontOption.appendChild(optionName);
+                    fontOption.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        updateFonts(index);
+                    });
+
+                    dropdown.appendChild(fontOption);
+                });
+            }
+
+            // Toggle fonts on click
+            if (fontSwitcherBtn) {
+                // Long press to show modal with all font options
+                let pressTimer;
+                fontSwitcherBtn.addEventListener('mousedown', () => {
+                    pressTimer = setTimeout(() => {
+                        showFontModal(fontOptions);
+                    }, 800);
+                });
+
+                fontSwitcherBtn.addEventListener('mouseup', () => {
+                    clearTimeout(pressTimer);
+                });
+
+                fontSwitcherBtn.addEventListener('mouseleave', () => {
+                    clearTimeout(pressTimer);
+                });
+            }
+
+            // Initialize dropdown on page load
+            initializeFontDropdown();
+
+            // Function to show a modal with all font options
+            function showFontModal(options) {
+                // Remove existing modal if it exists
+                const existingModal = document.getElementById('font-modal');
+                if (existingModal) {
+                    existingModal.remove();
+                    return;
+                }
+
+                // Create modal
+                const modal = document.createElement('div');
+                modal.id = 'font-modal';
+                modal.style.position = 'fixed';
+                modal.style.top = '50%';
+                modal.style.left = '50%';
+                modal.style.transform = 'translate(-50%, -50%)';
+                modal.style.background = 'var(--bg-glass)';
+                modal.style.backdropFilter = 'blur(10px)';
+                modal.style.padding = '20px';
+                modal.style.borderRadius = '8px';
+                modal.style.boxShadow = 'var(--shadow-lg)';
+                modal.style.zIndex = '10000';
+                modal.style.maxWidth = '700px';
+                modal.style.width = '90%';
+                modal.style.maxHeight = '85vh';
+                modal.style.overflowY = 'auto';
+
+                // Add heading
+                const heading = document.createElement('h3');
+                heading.style.fontFamily = 'var(--font-display)';
+                heading.style.marginBottom = '1rem';
+                heading.textContent = 'Font Options';
+                heading.style.position = 'sticky';
+                heading.style.top = '0';
+                heading.style.background = 'var(--bg-glass)';
+                heading.style.zIndex = '1';
+                heading.style.padding = '5px 0';
+                heading.style.backdropFilter = 'blur(10px)';
+                modal.appendChild(heading);
+
+                // Create search input
+                const searchContainer = document.createElement('div');
+                searchContainer.style.marginBottom = '15px';
+                searchContainer.style.position = 'sticky';
+                searchContainer.style.top = '50px';
+                searchContainer.style.zIndex = '1';
+                searchContainer.style.backdropFilter = 'blur(10px)';
+                searchContainer.style.background = 'var(--bg-glass)';
+                searchContainer.style.padding = '5px 0';
+
+                const searchInput = document.createElement('input');
+                searchInput.type = 'text';
+                searchInput.placeholder = 'Search fonts...';
+                searchInput.style.width = '100%';
+                searchInput.style.padding = '8px 12px';
+                searchInput.style.borderRadius = '4px';
+                searchInput.style.border = '1px solid var(--color-border)';
+                searchInput.style.background = 'var(--bg-glass)';
+                searchInput.style.color = 'var(--color-text-primary)';
+                searchInput.style.fontFamily = 'var(--font-primary)';
+                searchContainer.appendChild(searchInput);
+                modal.appendChild(searchContainer);
+
+                // Group fonts by category
+                const categories = Array.from(new Set(options.map(opt => opt.category)));
+
+                // Add current font indicator
+                const currentOption = parseInt(localStorage.getItem('fontOption') || '0');
+
+                // Create container for font options
+                const optionsContainer = document.createElement('div');
+
+                // Function to render font options
+                function renderOptions(filter = '') {
+                    // Clear previous options
+                    optionsContainer.innerHTML = '';
+
+                    // Create font options grouped by category
+                    categories.forEach(category => {
+                        const categoryFonts = options.filter(o =>
+                            o.category === category &&
+                            (filter === '' ||
+                                o.name.toLowerCase().includes(filter.toLowerCase()) ||
+                                category.toLowerCase().includes(filter.toLowerCase())
+                            )
+                        );
+
+                        // Skip categories with no matching fonts
+                        if (categoryFonts.length === 0) return;
+
+                        // Create category group
+                        const categoryGroup = document.createElement('div');
+                        categoryGroup.style.marginBottom = '20px';
+
+                        // Add category header
+                        const categoryHeader = document.createElement('h4');
+                        categoryHeader.textContent = category;
+                        categoryHeader.style.fontFamily = 'var(--font-display)';
+                        categoryHeader.style.fontSize = '1rem';
+                        categoryHeader.style.marginBottom = '10px';
+                        categoryHeader.style.padding = '5px 0';
+                        categoryHeader.style.borderBottom = '1px solid var(--color-border)';
+                        categoryGroup.appendChild(categoryHeader);
+
+                        // Create font options list for this category
+                        const categoryList = document.createElement('div');
+                        categoryList.style.display = 'grid';
+                        categoryList.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
+                        categoryList.style.gap = '15px';
+
+                        // Add fonts in this category
+                        categoryFonts.forEach((option, idx) => {
+                            const index = options.indexOf(option);
+
+                            const fontItem = document.createElement('div');
+                            fontItem.style.padding = '12px';
+                            fontItem.style.cursor = 'pointer';
+                            fontItem.style.borderRadius = '4px';
+                            fontItem.style.transition = 'all 0.2s ease';
+                            fontItem.style.border = '1px solid var(--color-border)';
+
+                            // Highlight current font
+                            if (index === currentOption) {
+                                fontItem.style.background = 'var(--bg-black-05)';
+                                fontItem.style.fontWeight = 'bold';
+                                fontItem.style.borderColor = 'var(--color-accent)';
+                                fontItem.style.boxShadow = '0 0 0 1px var(--color-accent)';
+                            }
+
+                            // Apply the primary font to the item
+                            fontItem.style.fontFamily = option.primary;
+
+                            // Create display font preview
+                            const displayPreview = document.createElement('div');
+                            displayPreview.textContent = 'AaBbCc123';
+                            displayPreview.style.fontFamily = option.display;
+                            displayPreview.style.fontSize = '1.2em';
+                            displayPreview.style.marginBottom = '8px';
+                            displayPreview.style.color = 'var(--color-accent)';
+
+                            // Create primary font preview
+                            const primaryPreview = document.createElement('div');
+                            primaryPreview.textContent = 'AaBbCc123';
+                            primaryPreview.style.fontFamily = option.primary;
+                            primaryPreview.style.fontSize = '1em';
+                            primaryPreview.style.marginBottom = '5px';
+
+                            // Create mono font preview
+                            const monoPreview = document.createElement('div');
+                            monoPreview.textContent = 'AaBbCc123';
+                            monoPreview.style.fontFamily = option.mono;
+                            monoPreview.style.fontSize = '0.9em';
+                            monoPreview.style.opacity = '0.7';
+
+                            // Create header with font name and status
+                            const header = document.createElement('div');
+                            header.style.display = 'flex';
+                            header.style.justifyContent = 'space-between';
+                            header.style.alignItems = 'center';
+                            header.style.marginBottom = '10px';
+
+                            const nameSpan = document.createElement('div');
+                            nameSpan.textContent = option.name.split(' + ')[0];
+                            nameSpan.style.fontWeight = 'bold';
+
+                            const statusSpan = document.createElement('div');
+                            if (index === currentOption) {
+                                statusSpan.textContent = '✓';
+                                statusSpan.style.color = 'var(--color-accent)';
+                            }
+
+                            header.appendChild(nameSpan);
+                            header.appendChild(statusSpan);
+
+                            // Add all elements to font item
+                            fontItem.appendChild(header);
+                            fontItem.appendChild(displayPreview);
+                            fontItem.appendChild(primaryPreview);
+                            fontItem.appendChild(monoPreview);
+
+                            // Add sample text
+                            const sampleText = document.createElement('div');
+                            sampleText.textContent = 'The quick brown fox jumps over the lazy dog';
+                            sampleText.style.marginTop = '10px';
+                            sampleText.style.fontSize = '0.85em';
+                            sampleText.style.opacity = '0.7';
+                            sampleText.style.fontFamily = option.primary;
+                            fontItem.appendChild(sampleText);
+
+                            // Set click handler
+                            fontItem.addEventListener('click', () => {
+                                updateFonts(index);
+                                modal.remove();
+                            });
+
+                            // Hover effect
+                            fontItem.addEventListener('mouseenter', () => {
+                                fontItem.style.background = 'var(--bg-black-05)';
+                                fontItem.style.transform = 'translateY(-2px)';
+                                fontItem.style.boxShadow = 'var(--shadow-md)';
+                            });
+
+                            fontItem.addEventListener('mouseleave', () => {
+                                if (index !== currentOption) {
+                                    fontItem.style.background = 'transparent';
+                                    fontItem.style.transform = 'translateY(0)';
+                                    fontItem.style.boxShadow = 'none';
+                                } else {
+                                    fontItem.style.transform = 'translateY(0)';
+                                    fontItem.style.boxShadow = '0 0 0 1px var(--color-accent)';
+                                }
+                            });
+
+                            categoryList.appendChild(fontItem);
+                        });
+
+                        categoryGroup.appendChild(categoryList);
+                        optionsContainer.appendChild(categoryGroup);
+                    });
+
+                    // Show no results message if needed
+                    if (optionsContainer.children.length === 0 && filter !== '') {
+                        const noResults = document.createElement('div');
+                        noResults.textContent = `No fonts matching "${filter}"`;
+                        noResults.style.textAlign = 'center';
+                        noResults.style.padding = '20px';
+                        noResults.style.color = 'var(--color-text-secondary)';
+                        optionsContainer.appendChild(noResults);
+                    }
+                }
+
+                // Add search functionality
+                searchInput.addEventListener('input', () => {
+                    renderOptions(searchInput.value);
+                });
+
+                // Initial render
+                renderOptions();
+                modal.appendChild(optionsContainer);
+
+                // Add buttons container
+                const buttonsContainer = document.createElement('div');
+                buttonsContainer.style.display = 'flex';
+                buttonsContainer.style.justifyContent = 'space-between';
+                buttonsContainer.style.marginTop = '20px';
+                buttonsContainer.style.position = 'sticky';
+                buttonsContainer.style.bottom = '0';
+                buttonsContainer.style.padding = '10px 0';
+                buttonsContainer.style.background = 'var(--bg-glass)';
+                buttonsContainer.style.backdropFilter = 'blur(10px)';
+                buttonsContainer.style.zIndex = '1';
+
+                // Add random button
+                const randomBtn = document.createElement('button');
+                randomBtn.textContent = 'Random Font';
+                randomBtn.style.padding = '8px 16px';
+                randomBtn.style.marginRight = '10px';
+                randomBtn.style.border = 'none';
+                randomBtn.style.borderRadius = '4px';
+                randomBtn.style.background = 'var(--bg-black-05)';
+                randomBtn.style.cursor = 'pointer';
+                randomBtn.style.fontFamily = 'var(--font-primary)';
+                randomBtn.style.color = 'var(--color-text-primary)';
+
+                randomBtn.addEventListener('click', () => {
+                    const randomIndex = Math.floor(Math.random() * options.length);
+                    updateFonts(randomIndex);
+                    modal.remove();
+                });
+
+                // Add close button
+                const closeBtn = document.createElement('button');
+                closeBtn.textContent = 'Close';
+                closeBtn.style.padding = '8px 16px';
+                closeBtn.style.border = 'none';
+                closeBtn.style.borderRadius = '4px';
+                closeBtn.style.background = 'var(--bg-black-05)';
+                closeBtn.style.cursor = 'pointer';
+                closeBtn.style.fontFamily = 'var(--font-primary)';
+                closeBtn.style.color = 'var(--color-text-primary)';
+
+                closeBtn.addEventListener('click', () => {
+                    modal.remove();
+                });
+
+                buttonsContainer.appendChild(randomBtn);
+                buttonsContainer.appendChild(closeBtn);
+                modal.appendChild(buttonsContainer);
+
+                // Close modal when clicking outside
+                document.addEventListener('click', function closeModalOnOutsideClick(e) {
+                    if (!modal.contains(e.target) && e.target !== fontSwitcherBtn) {
+                        modal.remove();
+                        document.removeEventListener('click', closeModalOnOutsideClick);
+                    }
+                });
+
+                // Add to body
+                document.body.appendChild(modal);
+
+                // Focus search input
+                setTimeout(() => {
+                    searchInput.focus();
+                }, 100);
+            }
+        });
+
+        // Text scramble effect
+        function scrambleText(element, newText, duration = 1000) {
+            const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            const oldText = element.textContent;
+            const maxLength = Math.max(oldText.length, newText.length);
+            const startTime = performance.now();
+
+            function update() {
+                const now = performance.now();
+                const progress = Math.min((now - startTime) / duration, 1);
+                let output = "";
+                for (let i = 0; i < maxLength; i++) {
+                    if (i < newText.length && progress > i / maxLength) {
+                        output += newText[i];
+                    } else {
+                        output += letters[Math.floor(Math.random() * letters.length)];
+                    }
+                }
+                element.textContent = output;
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    element.textContent = newText;
+                }
+            }
+            update();
+        }
+
+        // Vertical name management
+        function morphVerticalName(newText) {
+            const vn = document.querySelector('.vertical-name');
+            if (vn && vn.textContent !== newText) {
+                scrambleText(vn, newText, 200);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Initialize vertical name
+            const verticalName = document.querySelector(".vertical-name");
+            if (!verticalName) return;
+
+            morphVerticalName("cybrdelic");
+
+            // Initialize text transform options
+            const transformOptions = document.querySelectorAll('.transform-option');
+            if (transformOptions.length > 0) {
+                transformOptions.forEach(option => {
+                    option.addEventListener('click', function () {
+                        // Remove active class from all options
+                        transformOptions.forEach(opt => opt.classList.remove('active'));
+
+                        // Add active class to clicked option
+                        this.classList.add('active');
+
+                        // Get transform type
+                        const transform = this.getAttribute('data-transform');
+
+                        // Get hero name element
+                        const heroName = document.getElementById('hero-name');
+
+                        // Remove all existing transform classes
+                        heroName.classList.remove('uppercase', 'lowercase', 'text-outline', 'text-shadow', 'text-glow');
+
+                        // Add selected transform class if not 'none'
+                        if (transform !== 'none') {
+                            heroName.classList.add(transform);
+                        }
+
+                        // Save preference
+                        localStorage.setItem('textTransform', transform);
+                    });
+                });
+
+                // Apply saved preference if exists
+                const savedTransform = localStorage.getItem('textTransform');
+                if (savedTransform) {
+                    transformOptions.forEach(option => {
+                        if (option.getAttribute('data-transform') === savedTransform) {
+                            option.click();
+                        }
+                    });
+                }
+            }
+
+            // Section navigation mapping
+            const displayMap = {
+                'hero': 'cybrdelic',
+                'projects': 'projects',
+                'career': 'timeline',
+                'whats-next': 'future',
+                'contact': 'contact'
+            };
+
+            // Create intersection observer to detect visible section
+            const sectionObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+                        const sectionId = entry.target.getAttribute('id');
+                        if (sectionId && verticalName.textContent !== sectionId) {
+                            const displayText = displayMap[sectionId] || sectionId;
+                            morphVerticalName(displayText);
+                        }
+                    }
+                });
+            }, {
+                threshold: [0.3, 0.6],
+                rootMargin: "-10% 0px"
+            });
+
+            // Force scroll to top on page load
+            window.scrollTo(0, 0);
+
+            // Smooth scroll navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('.nav')?.offsetHeight || 0;
+                        const offsetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+
+                        history.pushState(null, null, targetId);
+                    }
+                });
+            });
+
+            // Active section highlighting in navigation
+            const navObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                        const id = entry.target.getAttribute('id');
+                        document.querySelectorAll('.nav a').forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            // Observe all sections for both effects
+            document.querySelectorAll("section[id]").forEach(section => {
+                sectionObserver.observe(section);
+                navObserver.observe(section);
+            });
+
+            // Update after any dynamic content changes
+            document.body.addEventListener("htmx:afterSwap", () => {
+                document.querySelectorAll("section[id]").forEach(section => {
+                    sectionObserver.observe(section);
+                    navObserver.observe(section);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
