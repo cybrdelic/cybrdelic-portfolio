@@ -23,16 +23,16 @@ pub struct TimelineEvent {
 pub fn get_career_timeline() -> Result<Vec<TimelineEvent>, io::Error> {
     let timeline = vec![
         TimelineEvent {
-            title: "Junior Developer".to_string(),
-            description: "Role at ABC Corp with emphasis on full stack web development.".to_string(),
-            location: "New York, NY".to_string(),
-            start_date: "January 2021".to_string(),
-            end_date: "December 2021".to_string(),
-            company_name: "ABC Corp".to_string(),
+            title: "Associate Software Developer".to_string(),
+            description: "Remote full-stack web development role at TalentNow with emphasis on Talent Management".to_string(),
+            location: "Remote".to_string(),
+            start_date: "December 2021".to_string(),
+            end_date: "Feb 2025".to_string(),
+            company_name: "TalentNow".to_string(),
             topics: vec![
                 Topic {
                     name: "Full Stack Web Development".to_string(),
-                    description: "Comprehensive skill set in both frontend and backend technologies, with responsive designs and scalable services.".to_string(),
+                    description: "Maintained and iterated on a full-stack, multi-tenant, microservice enterprise web application".to_string(),
                 },
                 Topic {
                     name: "CRUD API Development".to_string(),
@@ -42,28 +42,36 @@ pub fn get_career_timeline() -> Result<Vec<TimelineEvent>, io::Error> {
                     name: "Complex Forms and Fields".to_string(),
                     description: "Dynamic forms with real-time validations and adaptive field management.".to_string(),
                 },
+                Topic {
+                    name: "Highly Interactive Tables".to_string(),
+                    description: "Developed and maintained various tables with a myriad of filtering, sorting, and quick action requirements.".to_string()
+                }
             ],
         },
         TimelineEvent {
             title: "Software Engineer".to_string(),
-            description: "Expanded responsibilities for internal tooling and automation projects at ABC Corp.".to_string(),
-            location: "New York, NY".to_string(),
-            start_date: "January 2022".to_string(),
-            end_date: "December 2022".to_string(),
-            company_name: "ABC Corp".to_string(),
+            description: "Expanded responsibilities for internal tooling and automation projects at TalentNow.".to_string(),
+            location: "Remote".to_string(),
+            start_date: "Feb 2025".to_string(),
+            end_date: "Current".to_string(),
+            company_name: "TalentNow".to_string(),
             topics: vec![
                 Topic {
                     name: "Cross-Service Authentication".to_string(),
-                    description: "Secure authentication mechanisms across distributed microservices.".to_string(),
+                    description: "Implemented secure authentication mechanisms across distributed microservices, in various environments. ".to_string(),
                 },
                 Topic {
                     name: "Internal Developer CLI".to_string(),
-                    description: "Command-line tools that streamline development workflows and internal processes.".to_string(),
+                    description: " Took initiative to create an internal developer command-line tool to automate user flows during development, increasing developer productivity.".to_string(),
                 },
                 Topic {
                     name: "Role Based Permissions".to_string(),
-                    description: "Systems for user permission management across platforms.".to_string(),
+                    description: "Implemented systems for user permission management across the entire platform and a plethora of user roles.".to_string(),
                 },
+                Topic {
+                    name: "Email and In-App Notification Systems".to_string(),
+                    description: "Took ownership over the project's email and in-app notifications system, sprawling across over 10 microservices, over 20 user types with different permissions and contextual requirements.".to_string(),
+                }
             ],
         },
     ];

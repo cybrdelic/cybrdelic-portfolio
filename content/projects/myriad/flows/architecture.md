@@ -1,10 +1,10 @@
 # Architectural Overview
 
-Understanding Sagacity's technical architecture and implementation details.
+Understanding myriad's technical architecture and implementation details.
 
 ## Core Components
 
-Sagacity is built with a modular architecture that emphasizes performance, reliability, and extensibility:
+myriad is built with a modular architecture that emphasizes performance, reliability, and extensibility:
 
 ### 1. Query Engine
 - Natural language processing pipeline

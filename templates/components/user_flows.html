@@ -1,32 +1,24 @@
-<!-- components/user_flows.html -->
 {% macro user_flows(project) %}
 <section class="user-flows">
     <h3 class="vertical-section-name">User Flows</h3>
-
     <!-- Tab Navigation -->
-    <div class="flow-tabs" hx-target="#flow-content-panel">
+    <div class="flow-tabs">
         {% for flow in project.user_flows %}
-        <button class="flow-tab {% if loop.first %}active{% endif %}" hx-get="/api/flows/{{ flow.id }}"
-            hx-trigger="click" hx-swap="innerHTML" data-tab="{{ loop.index }}">
+        <button class="nav-item {% if loop.first %}active{% endif %}" data-tab="section-{{ loop.index }}">
             <span class="flow-number">{{ loop.index }}</span>
             <h3 class="flow-tab-title">{{ flow.title }}</h3>
         </button>
         {% endfor %}
     </div>
-
-    <!-- Content Panel -->
-    <div id="flow-content-panel" class="flow-content-panel">
-        {% if project.user_flows and project.user_flows|length > 0 %}
-        {% set first_flow = project.user_flows|first %}
-        <div class="flow-content active">
-            <!-- Flow Description -->
+    <!-- Content Panels -->
+    <div class="flow-content-panel">
+        {% for flow in project.user_flows %}
+        <div id="section-{{ loop.index }}" class="content-section {% if not loop.first %}hidden{% endif %}">
             <div class="flow-description">
-                <p>{{ first_flow.description }}</p>
+                <p>{{ flow.description }}</p>
             </div>
-
-            <!-- Flow Steps -->
             <div class="flow-steps">
-                {% for step in first_flow.steps %}
+                {% for step in flow.steps %}
                 <div class="flow-step">
                     <div class="step-number">{{ loop.index }}</div>
                     <div class="step-content">
@@ -45,7 +37,7 @@
                 {% endfor %}
             </div>
         </div>
-        {% endif %}
+        {% endfor %}
     </div>
 </section>
 {% endmacro %}

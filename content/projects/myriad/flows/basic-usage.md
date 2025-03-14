@@ -1,14 +1,14 @@
 # Basic Usage Guide
 
-Learn how to use Sagacity's core features for exploring and understanding your codebase.
+Learn how to use myriad's core features for exploring and understanding your codebase.
 
 ## Getting Started
 
-Sagacity provides an intuitive interface for interacting with your codebase using natural language. This guide covers the fundamental operations and best practices for effective usage.
+myriad provides an intuitive interface for interacting with your codebase using natural language. This guide covers the fundamental operations and best practices for effective usage.
 
 ### Natural Language Search
 
-Sagacity's search functionality understands natural language queries and provides contextually relevant results. When searching:
+myriad's search functionality understands natural language queries and provides contextually relevant results. When searching:
 
 1. Be specific about what you're looking for
 2. Include relevant technical terms
@@ -27,7 +27,7 @@ The analysis feature provides detailed insights into your codebase:
 
 ### Using Context
 
-Sagacity maintains context throughout your session, enabling more intelligent and relevant interactions:
+myriad maintains context throughout your session, enabling more intelligent and relevant interactions:
 
 1. Previous queries inform future results
 2. Related code segments are automatically linked
@@ -36,7 +36,7 @@ Sagacity maintains context throughout your session, enabling more intelligent an
 
 ## Best Practices
 
-To get the most out of Sagacity:
+To get the most out of myriad:
 
 1. Start with broad queries and narrow down
 2. Use the context feature to build understanding
