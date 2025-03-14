@@ -1,0 +1,263 @@
+/* =========================================
+* CARDS AND CONTAINERS
+========================================= */
+
+/* Basic card */
+.card {
+    background: var(--bg-glass);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-glass);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glass-hover);
+}
+
+/* Block styles */
+[class^="block-"] {
+    background: var(--bg-white-70);
+    backdrop-filter: var(--blur-sm);
+    -webkit-backdrop-filter: var(--blur-sm);
+    padding: var(--space-2xl);
+    border-bottom: 1px solid var(--border-light);
+    position: relative;
+}
+
+[class^="block-"]::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, rgba(241, 241, 241, 0.5), transparent);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Project card */
+.project-card {
+    position: relative;
+    /* Transparent border to prevent layout shift when hovering */
+    border-bottom: 1px solid transparent;
+    /* Include the actual visible border in a pseudo-element */
+    background-clip: padding-box;
+    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 var(--space-md) 0;
+    opacity: 0;
+    transform: translateY(20px);
+    margin-left: var(--space-lg);
+    will-change: transform; /* GPU acceleration hint */
+    /* Fixed overflow issues */
+    overflow: visible !important;
+    contain: paint; /* Performance improvement without causing overflow issues */
+}
+
+/* Visible border in after pseudo-element to prevent layout shift */
+.project-card::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.project-card.reveal {
+    animation: cardReveal 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+.project-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Change border color on hover via the pseudo-element */
+.project-card:hover::after {
+    background-color: var(--color-text-primary);
+}
+
+/* Reset background color for dark/light theme compatibility */
+[data-theme='dark'] .project-card:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+[data-theme='light'] .project-card:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.project-card:focus {
+    outline: none;
+}
+
+/* Project card components */
+.project-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.project-type {
+    font-family: var(--font-display);
+    font-size: var(--font-size-xl);
+    color: var(--color-text-primary);
+    line-height: var(--line-height-tight);
+    font-weight: 600;
+    letter-spacing: 0px;
+    text-transform: capitalize;
+    display: block;
+    transition: all 0.3s ease;
+    transform-origin: left;
+}
+
+.project-card:hover .project-type {
+    transform: translateX(var(--space-xs));
+}
+
+.project-title {
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    margin-bottom: var(--space-sm);
+    color: var(--color-text-tertiary);
+    font-family: var(--font-display);
+    transition: transform 0.3s ease;
+    position: relative;
+    order: -1;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.project-card:hover .project-title {
+    color: var(--color-text-primary);
+}
+
+.project-description {
+    font-size: var(--font-size-2xs);
+    line-height: var(--line-height-tight);
+    max-width: 100%;
+    color: var(--color-text-tertiary);
+    transition: color 0.3s ease;
+    margin-top: var(--space-xs);
+}
+
+.project-card:hover .project-description {
+    color: var(--color-text-secondary);
+}
+
+/* Project footer */
+.project-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-sm);
+}
+
+.project-links {
+    display: flex;
+    gap: var(--space-md);
+}
+
+.project-link {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.project-link:hover {
+    color: var(--color-text-primary);
+}
+
+.project-link::before {
+    content: '>';
+    margin-right: 4px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.project-link:hover::before {
+    transform: translateX(2px);
+}
+
+.project-more {
+    font-family: var(--font-mono);
+    opacity: 0.5;
+    transition: all 0.3s ease;
+    right: 0;
+}
+
+.project-card:hover .project-more {
+    opacity: 1;
+    transform: translateX(var(--space-xs));
+}
+
+.project-title::before {
+    content: '•';
+    position: absolute;
+    left: calc(-1 * var(--space-lg));
+    top: 0;
+    font-size: var(--font-size-md);
+    color: var(--color-text-secondary);
+    transition: all 0.3s ease;
+}
+
+.project-card:hover::before {
+    color: var(--color-text-primary);
+    transform: scale(1.2);
+}
+
+/* Console description */
+.console-description {
+    font-size: var(--font-size-md);
+    color: var(--color-text-secondary);
+    align-self: flex-start;
+    width: 400px;
+    min-height: 150px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-left: 2px solid var(--color-border);
+    font-family: var(--font-display);
+    line-height: var(--line-height-tight);
+    padding: var(--space-md);
+    position: sticky;
+    top: var(--space-xl);
+    transition: all 0.3s ease;
+}
+
+.console-description.active {
+    border-left-color: var(--color-text-primary);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Media queries */
+@media (max-width: 992px) {
+    .console-description {
+        width: 100%;
+        position: static;
+        margin-bottom: var(--space-lg);
+    }
+    
+    .project-card {
+        margin-left: var(--space-md);
+    }
+    
+    .project-card::before {
+        left: calc(-1 * var(--space-md));
+    }
+}
+
+@media (max-width: 480px) {
+    .project-type {
+        font-size: var(--font-size-lg);
+    }
+    
+    .card {
+        padding: var(--space-md);
+    }
+}

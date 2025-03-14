@@ -1,0 +1,2206 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cybrdelic</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Base monospace and display fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cascadia+Code:wght@400;500;600;700&family=Courier+Prime:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inconsolata:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600;700;800&family=Ubuntu+Mono:wght@400;700&family=Fira+Code:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Fun and unique display fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Audiowide&family=Bungee&family=Bungee+Hairline&family=Bungee+Inline&family=Bungee+Shade&family=Chakra+Petch:wght@400;500;600;700&family=Comfortaa:wght@400;500;600;700&family=Geologica:wght@400;500;700&family=Gugi&family=Josefin+Sans:wght@400;500;600;700&family=Major+Mono+Display&family=Megrim&family=Monofett&family=Monoton&family=Montserrat:wght@400;500;600;700;800&family=Nova+Mono&family=Orbitron:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Oxanium:wght@400;500;600;700&family=Poiret+One&family=Press+Start+2P&family=Quantico:wght@400;700&family=Rajdhani:wght@400;500;600;700&family=Righteous&family=Silkscreen&family=Smooch+Sans:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Syncopate:wght@400;700&family=Syne:wght@400;500;600;700;800&family=VT323&family=Wallpoet&family=Xanh+Mono&family=Yatra+One&family=Tourney:wght@400;500;700&family=Teko:wght@400;500;600;700&family=Exo+2:wght@400;500;600;700;800&family=Rubik+Glitch&family=Rubik+Mono+One&family=Rubik+Pixels&family=Rubik+Spray+Paint&family=Rubik+Vinyl&family=Goldman&display=swap"
+        rel="stylesheet">
+
+    <!-- Additional creative fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Moirai+One&family=Nabla&family=Noto+Sans+Mono:wght@400;500;600;700&family=Share+Tech+Mono&family=Silkscreen&family=Sometype+Mono:wght@400;500;600;700&family=Faster+One&family=Flow+Circular&family=Flow+Rounded&family=Gruppo&family=Keania+One&family=Kenia&family=Londrina+Outline&family=Plaster&display=swap"
+        rel="stylesheet">
+
+    <!-- Centralized CSS file that imports all modules -->
+    <link rel="stylesheet" href="/static/css/main.css" />
+    <!-- External dependencies - critical ones load normally, non-critical ones load async -->
+    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.3.0/mermaid.min.js" defer></script>
+
+    
+</head>
+
+<body>
+    <!-- Cyberpunk corner effects -->
+    <div class="corner-effect corner-top-right"></div>
+    <div class="corner-effect corner-bottom-left"></div>
+
+    <div id="terminal">
+        <nav class="nav">
+            <a href="/" class="home-link">
+                <div class="home-button">
+                    <span class="icon">⌂</span>
+                    <span class="text">home</span>
+                </div>
+            </a>
+            <div class="nav-left stagger-children">
+                <a href="#projects" class="cmd cmd-prompt">ls projects/</a>
+                <a href="#whats-next" class="cmd cmd-prompt">./future</a>
+                <a href="#contact" class="cmd cmd-prompt">./contact</a>
+            </div>
+            <div class="nav-right">
+                <a href="https://github.com/cybrdelic" target="_blank" class="nav-action-button github-button">
+                    <svg class="action-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                        <path
+                            d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1.01.07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z">
+                        </path>
+                    </svg>
+                    <span class="action-text">GitHub</span>
+                </a>
+                <a href="#" class="nav-action-button theme-button" id="nav-theme-toggle">
+                    <span class="action-icon theme-icon">☀️</span>
+                    <span class="action-text">Theme</span>
+                </a>
+            </div>
+        </nav>
+        
+<main class="site-main">
+    <!-- All sections with proper IDs -->
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hero Section</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <section id="hero">
+        <div class="hero-background">
+            <div class="grain-overlay"></div>
+            <div class="grid-lines"></div>
+            <div class="hero-glow"></div>
+            <!-- Dynamic background elements -->
+            <div class="dynamic-bg">
+                <!-- Floating particles -->
+                <div class="bg-particle" style="width: 100px; height: 100px; top: 20%; left: 10%; animation-delay: 0s;">
+                </div>
+                <div class="bg-particle" style="width: 80px; height: 80px; top: 50%; left: 85%; animation-delay: 1s;">
+                </div>
+                <div class="bg-particle" style="width: 60px; height: 60px; top: 70%; left: 25%; animation-delay: 2s;">
+                </div>
+                <div class="bg-particle" style="width: 120px; height: 120px; top: 30%; left: 70%; animation-delay: 3s;">
+                </div>
+
+                <!-- Circuit-like lines -->
+                <div class="circuit-line" style="top: 25%; left: 0; width: 30%; animation-delay: 0.5s;"></div>
+                <div class="circuit-line" style="top: 45%; left: 20%; width: 40%; animation-delay: 1.2s;"></div>
+                <div class="circuit-line" style="top: 75%; left: 50%; width: 25%; animation-delay: 1.8s;"></div>
+                <div class="circuit-line" style="top: 85%; left: 10%; width: 35%; animation-delay: 2.2s;"></div>
+            </div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-main-row">
+                <!-- Left Side: Introduction + Tech Stack -->
+                <div class="intro-container">
+                    <div class="name-title">
+                        <div class="hero-title common-hero-typography animate-on-scroll">
+                            ALEJANDRO FIGUEROA, SOFTWARE ENGINEER
+                        </div>
+                        <div class="title-accent animate-on-scroll"></div>
+                    </div>
+
+                    <p class="hero-tagline animate-on-scroll">
+                        Building exceptional developer tooling and AI-powered systems.
+                    </p>
+
+                    <div class="tech-stack">
+                        <div class="tech-icons-container">
+                            <div class="tech-icons-scroll">
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:graphql" data-inline="false"></span>
+                                    <span class="tech-icon-name">graphql</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:react" data-inline="false"></span>
+                                    <span class="tech-icon-name">react</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:typescript"
+                                        data-inline="false"></span>
+                                    <span class="tech-icon-name">typescript</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="mdi:chart-line" data-inline="false"></span>
+                                    <span class="tech-icon-name">recharts</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:postgresql"
+                                        data-inline="false"></span>
+                                    <span class="tech-icon-name">postgresql</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:flask" data-inline="false"></span>
+                                    <span class="tech-icon-name">flask</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="mdi:server" data-inline="false"></span>
+                                    <span class="tech-icon-name">pgadmin</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:elasticsearch"
+                                        data-inline="false"></span>
+                                    <span class="tech-icon-name">elasticsearch</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Expertise Cards -->
+                <div class="expertise-container animate-on-scroll">
+                    <div class="expertise-cards">
+                        <!-- Stats Section -->
+                        <div class="stats-container animate-on-scroll">
+                            <div class="stat-card card-hover">
+                                <div class="stat-number">4+</div>
+                                <div class="stat-label common-hero-typography">Years Professional</div>
+                            </div>
+                            <div class="stat-card card-hover">
+                                <div class="stat-number">7+</div>
+                                <div class="stat-label common-hero-typography">Years Coding</div>
+                            </div>
+                            <div class="stat-card card-hover">
+                                <div class="stat-number">4+</div>
+                                <div class="stat-label common-hero-typography">Projects</div>
+                            </div>
+                        </div>
+                        <!-- Expertise Cards -->
+                        <div class="expertise-card card-hover animate-on-scroll">
+                            <div class="card-icon">
+                                <!-- Icon SVG -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 10L12 16L6 10" />
+                                    <path d="M12 16V4" />
+                                    <rect x="2" y="18" width="20" height="2" rx="1" />
+                                </svg>
+                            </div>
+                            <div class="expertise-card-content">
+                                <h3 class="link-underline common-hero-typography">Developer Tools</h3>
+                                <p class="common-hero-typography">
+                                    High-performance CLI applications built with Rust, Bash, and/or Python
+                                </p>
+                            </div>
+                        </div>
+                        <div class="expertise-card card-hover animate-on-scroll">
+                            <div class="card-icon">
+                                <!-- Icon SVG -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8" />
+                                    <path d="M12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16" />
+                                    <circle cx="16" cy="8" r="2" />
+                                    <circle cx="8" cy="16" r="2" />
+                                </svg>
+                            </div>
+                            <div class="expertise-card-content">
+                                <h3 class="link-underline common-hero-typography">AI Integration</h3>
+                                <p class="common-hero-typography">
+                                    Systems with intelligent interfaces and context-aware assistance.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="expertise-card card-hover animate-on-scroll">
+                            <div class="card-icon">
+                                <!-- Icon SVG -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" />
+                                    <path d="M7 7h10M7 12h10M7 17h10" />
+                                </svg>
+                            </div>
+                            <div class="expertise-card-content">
+                                <h3 class="link-underline common-hero-typography">Data Systems</h3>
+                                <p class="common-hero-typography">
+                                    Streamlined data pipelines with elegant visualizations.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="expertise-card card-hover animate-on-scroll">
+                            <div class="card-icon">
+                                <!-- Icon SVG -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 10L12 16L6 10" />
+                                    <path d="M12 16V4" />
+                                    <rect x="2" y="18" width="20" height="2" rx="1" />
+                                </svg>
+                            </div>
+                            <div class="expertise-card-content">
+                                <h3 class="link-underline common-hero-typography">Automation System</h3>
+                                <p class="common-hero-typography">
+                                    End-to-End Automation for Efficiency Gains
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cta-buttons-wrapper">
+                <div class="cta-buttons animate-on-scroll">
+                    <a href="#projects" class="primary-button btn-interaction">View Projects</a>
+                    <a href="https://github.com/cybrdelic" class="secondary-button btn-interaction" target="_blank">
+                        <svg viewBox="0 0 24 24" class="button-icon">
+                            <path
+                                d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1.01.07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z">
+                            </path>
+                        </svg>
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let initialLoad = true;
+            // After 1 second, initial load phase ends.
+            setTimeout(() => { initialLoad = false; }, 1000);
+
+            // Get the hero section element
+            const heroSection = document.getElementById('hero');
+
+            // Set initial active state for hero
+            heroSection.classList.add('hero-active');
+
+            // Handle scroll transitions
+            let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            let ticking = false;
+
+            function updateHeroState() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                // Calculate how far we've scrolled as a percentage
+                const viewportHeight = window.innerHeight;
+                const scrollProgress = Math.min(scrollTop / viewportHeight, 1);
+
+                // If we're at the top, make hero full height and active
+                if (scrollTop < 50) {
+                    heroSection.classList.add('hero-active');
+                } else {
+                    heroSection.classList.remove('hero-active');
+                }
+
+                // Update scroll direction classes on body for animations
+                if (scrollTop > lastScrollTop) {
+                    document.body.classList.remove("scrolling-up");
+                    document.body.classList.add("scrolling-down");
+                } else {
+                    document.body.classList.remove("scrolling-down");
+                    document.body.classList.add("scrolling-up");
+                }
+
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+                ticking = false;
+            }
+
+            window.addEventListener("scroll", () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateHeroState);
+                    ticking = true;
+                }
+            });
+
+            // Initial call to set correct state
+            updateHeroState();
+
+            // Handle animation of elements within the hero
+            const animatedElements = document.querySelectorAll('#hero .animate-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Determine which animation state to use:
+                        let animClass = "";
+                        if (initialLoad) {
+                            animClass = "load";
+                        } else if (document.body.classList.contains("scrolling-down")) {
+                            animClass = "scroll-down";
+                        } else if (document.body.classList.contains("scrolling-up")) {
+                            animClass = "scroll-up";
+                        }
+                        // Remove any previous state classes.
+                        entry.target.classList.remove("load", "scroll-down", "scroll-up");
+                        // Force reflow to re-trigger animation.
+                        void entry.target.offsetWidth;
+                        entry.target.classList.add(animClass);
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+
+</html>
+
+    <section id="projects">
+    <div class="container fade-in">
+
+        <div class="projects-container">
+            <!-- Project Details Panel (Left Side - Sticky) -->
+            <div class="project-details-panel animate-on-scroll">
+                <!-- Default state when no project is selected -->
+                <div class="default-project-view">
+                    <h3 class="details-header typing-cursor">Select a project</h3>
+                    <p class="details-description">
+                        I build tools that enhance developer productivity and create elegant solutions to complex
+                        problems.
+                        My work spans CLI utilities to AI-powered tools, focusing on performance and usability.
+                    </p>
+
+                    <div class="details-stats stagger-children">
+                        <div class="stat-box card-hover">
+                            <div class="stat-number">10+</div>
+                            <div class="stat-label">Projects</div>
+                        </div>
+                        <div class="stat-box card-hover">
+                            <div class="stat-number">4</div>
+                            <div class="stat-label">Core Tech</div>
+                        </div>
+                        <div class="stat-box card-hover">
+                            <div class="stat-number">7+</div>
+                            <div class="stat-label">Years Exp</div>
+                        </div>
+                    </div>
+
+                    <div class="expertise-section">
+                        <h3 class="details-subheader">Areas of Focus</h3>
+                        <div class="expertise-tags stagger-children">
+                            <span class="expertise-tag highlight-on-hover">Developer Tools</span>
+                            <span class="expertise-tag highlight-on-hover">AI Integration</span>
+                            <span class="expertise-tag highlight-on-hover">CLI Apps</span>
+                            <span class="expertise-tag highlight-on-hover">Data Viz</span>
+                            <span class="expertise-tag highlight-on-hover">Automation</span>
+                            <span class="expertise-tag highlight-on-hover">Web Apps</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project-specific details that show when a project is selected -->
+                <div class="selected-project-view">
+                    <h3 class="details-header">
+                        <span class="selected-project-title scramble-on-hover">Project Name</span>
+                    </h3>
+                    <div class="details-subtitle">
+                        <span class="selected-project-subtitle">Project Type</span>
+                    </div>
+
+                    <p class="details-description selected-project-description">
+                        Select a project to view details.
+                    </p>
+
+                    <div class="details-meta stagger-children">
+                        <div class="stat-box card-hover">
+                            <div class="stat-label">Status</div>
+                            <div class="selected-project-status">-</div>
+                        </div>
+                        <div class="stat-box card-hover">
+                            <div class="stat-label">Year</div>
+                            <div class="selected-project-year">-</div>
+                        </div>
+                    </div>
+
+                    <div class="tech-section">
+                        <h3 class="details-subheader">Technologies</h3>
+                        <div class="selected-project-tech-tags stagger-children"></div>
+                    </div>
+
+                    <a href="#" class="details-link btn-interaction">
+                        <span class="details-link-text">View Full Details</span>
+                        <span class="details-link-icon transition-transform">→</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Projects List (Right Side) -->
+            <div class="projects-list">
+                
+                <div class="project-list-item animate-on-scroll" data-id="jjugg"
+                    data-subtitle="Autonomous Job Application Tracker" data-year="2023"
+                    data-status="Active" tabindex="0"
+                    aria-label="Project: JJugg">
+                    <h3 class="project-list-title link-underline">JJugg</h3>
+
+                    <!-- Hidden data for JavaScript to use -->
+                    <div class="hidden-project-data">
+                        <div class="hidden-description">A local web application for autonomously tracking job applications that transforms a traditionally manual process into a data-driven workflow with automated tracking (via userscripts and email scanning), rich analytics, and interactive dashboards.Think of it like JARVIS for job hunters.</div>
+                        <div class="hidden-tech-stack">
+                            
+                            <span class="tech-item">JavaScript</span>
+                            
+                            <span class="tech-item">HTML</span>
+                            
+                            <span class="tech-item">CSS</span>
+                            
+                            <span class="tech-item">LocalStorage</span>
+                            
+                            <span class="tech-item">User Scripts</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-list-item animate-on-scroll" data-id="myriad"
+                    data-subtitle="Intelligent Software Copilot" data-year="2023"
+                    data-status="Active" tabindex="0"
+                    aria-label="Project: Myriad.ai">
+                    <h3 class="project-list-title link-underline">Myriad.ai</h3>
+
+                    <!-- Hidden data for JavaScript to use -->
+                    <div class="hidden-project-data">
+                        <div class="hidden-description">An AI-powered code exploration tool that helps developers navigate and understand complex codebases, and produce project planning&#x2F;documentation through contextual code analysis and natural language interaction.</div>
+                        <div class="hidden-tech-stack">
+                            
+                            <span class="tech-item">Rust</span>
+                            
+                            <span class="tech-item">Claude API</span>
+                            
+                            <span class="tech-item">NLP</span>
+                            
+                            <span class="tech-item">Git</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-list-item animate-on-scroll" data-id="commitaura"
+                    data-subtitle="AI-Powered Commit Message Generator" data-year="2023"
+                    data-status="Active" tabindex="0"
+                    aria-label="Project: CommitAura">
+                    <h3 class="project-list-title link-underline">CommitAura</h3>
+
+                    <!-- Hidden data for JavaScript to use -->
+                    <div class="hidden-project-data">
+                        <div class="hidden-description">A Rust-based CLI tool that analyzes Git commit patterns, streamlines version control workflows, and autonomously generates meaningful commit messages based on code changes.</div>
+                        <div class="hidden-tech-stack">
+                            
+                            <span class="tech-item">Rust</span>
+                            
+                            <span class="tech-item">Claude API</span>
+                            
+                            <span class="tech-item">Git</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-list-item animate-on-scroll" data-id="resumatyk"
+                    data-subtitle="AI Resume Management TUI" data-year="2023"
+                    data-status="Active" tabindex="0"
+                    aria-label="Project: Resumatyk">
+                    <h3 class="project-list-title link-underline">Resumatyk</h3>
+
+                    <!-- Hidden data for JavaScript to use -->
+                    <div class="hidden-project-data">
+                        <div class="hidden-description">A resume management system (written in Bash using fzf) that allows the creation, editing, compilation, and viewing of resumes. Also enables resume style variant generation using LaTeX code generation, OCR, and fully autonomous, multimodal, LLM-based, recursive QA flows.</div>
+                        <div class="hidden-tech-stack">
+                            
+                            <span class="tech-item">Python</span>
+                            
+                            <span class="tech-item">LaTeX</span>
+                            
+                            <span class="tech-item">OCR</span>
+                            
+                            <span class="tech-item">AI</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-list-item animate-on-scroll" data-id="cybrdelic-portfolio"
+                    data-subtitle="Interactive Developer Portfolio" data-year="2023"
+                    data-status="Active" tabindex="0"
+                    aria-label="Project: Cybrdelic Portfolio">
+                    <h3 class="project-list-title link-underline">Cybrdelic Portfolio</h3>
+
+                    <!-- Hidden data for JavaScript to use -->
+                    <div class="hidden-project-data">
+                        <div class="hidden-description">A full-stack portfolio and interactive web app built with Rust, featuring dynamic routing, interactive UI elements, and markdown-driven documentation. Integrates Axum, Tera, and modern JavaScript to deliver a cutting-edge, cyberpunk-inspired experience.</div>
+                        <div class="hidden-tech-stack">
+                            
+                            <span class="tech-item">Rust</span>
+                            
+                            <span class="tech-item">Axum</span>
+                            
+                            <span class="tech-item">Tera</span>
+                            
+                            <span class="tech-item">JavaScript</span>
+                            
+                            <span class="tech-item">CSS</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-list-item animate-on-scroll" data-id="browsealizer"
+                    data-subtitle="GitHub Project Explorer" data-year="2023"
+                    data-status="Active" tabindex="0"
+                    aria-label="Project: Browsealizer">
+                    <h3 class="project-list-title link-underline">Browsealizer</h3>
+
+                    <!-- Hidden data for JavaScript to use -->
+                    <div class="hidden-project-data">
+                        <div class="hidden-description">A tool designed to enhance the GitHub browsing experience by offering an unlimited, continuously updated feed of projects with mobile optimization and intuitive filtering.</div>
+                        <div class="hidden-tech-stack">
+                            
+                            <span class="tech-item">React</span>
+                            
+                            <span class="tech-item">TypeScript</span>
+                            
+                            <span class="tech-item">GitHub API</span>
+                            
+                            <span class="tech-item">CSS</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Existing project interactions script (unchanged) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const projectsSection = document.getElementById('projects');
+            const projectItems = document.querySelectorAll('.project-list-item');
+            const defaultView = document.querySelector('.default-project-view');
+            const selectedView = document.querySelector('.selected-project-view');
+            const detailsLink = document.querySelector('.details-link');
+            const detailsPanel = document.querySelector('.project-details-panel');
+
+            const isTouchDevice = ('ontouchstart' in window) ||
+                (navigator.maxTouchPoints > 0) ||
+                (navigator.msMaxTouchPoints > 0);
+
+            // Initially hide the selected project view
+            selectedView.style.display = 'none';
+            defaultView.style.display = 'block';
+
+            // Add tabindex to details panel for better accessibility
+            detailsPanel.setAttribute('tabindex', '-1');
+
+            // Setup basic reveal for elements (once only)
+            const animationObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        animationObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+                animationObserver.observe(el);
+            });
+
+            function updateProjectDetails(item) {
+                const title = item.querySelector('.project-list-title').textContent;
+                const subtitle = item.getAttribute('data-subtitle');
+                const year = item.getAttribute('data-year');
+                const status = item.getAttribute('data-status');
+                const description = item.querySelector('.hidden-description').textContent;
+                const techItems = item.querySelectorAll('.tech-item');
+                const projectId = item.getAttribute('data-id');
+
+                const titleElement = document.querySelector('.selected-project-title');
+                if (titleElement.textContent !== title) {
+                    titleElement.classList.add('scramble-on-hover');
+                    titleElement.classList.remove('scramble-on-hover');
+                    setTimeout(() => {
+                        titleElement.classList.add('scramble-on-hover');
+                    }, 10);
+                }
+
+                titleElement.textContent = title;
+                document.querySelector('.selected-project-subtitle').textContent = subtitle;
+                document.querySelector('.selected-project-description').textContent = description;
+                document.querySelector('.selected-project-status').textContent = status;
+                document.querySelector('.selected-project-year').textContent = year;
+
+                const techTagsContainer = document.querySelector('.selected-project-tech-tags');
+                techTagsContainer.innerHTML = '';
+                techItems.forEach((item, index) => {
+                    const techTag = document.createElement('span');
+                    techTag.className = 'tech-tag highlight-on-hover';
+                    techTag.textContent = item.textContent;
+                    techTag.style.animationDelay = `${index * 100}ms`;
+                    techTagsContainer.appendChild(techTag);
+                });
+
+                detailsLink.href = `/projects/${projectId}`;
+
+                if (defaultView.style.display !== 'none') {
+                    defaultView.classList.add('fade-out');
+                    setTimeout(() => {
+                        defaultView.style.display = 'none';
+                        selectedView.style.display = 'block';
+                        selectedView.classList.add('fade-in');
+                    }, 200);
+                }
+            }
+
+            projectItems.forEach((item, index) => {
+                item.style.transitionDelay = `${index * 50}ms`;
+
+                item.addEventListener('click', () => {
+                    const projectId = item.getAttribute('data-id');
+                    window.location.href = `/projects/${projectId}`;
+                });
+
+                if (!isTouchDevice) {
+                    item.addEventListener('mouseenter', () => {
+                        item.classList.add('glitch-hover');
+                        projectItems.forEach(p => {
+                            p.classList.remove('active');
+                            p.classList.add('dim');
+                        });
+                        item.classList.add('active');
+                        item.classList.remove('dim');
+                        updateProjectDetails(item);
+                        setTimeout(() => {
+                            item.classList.remove('glitch-hover');
+                        }, 500);
+                    });
+                    item.addEventListener('mouseleave', () => {
+                        projectItems.forEach(p => p.classList.remove('dim'));
+                    });
+                } else {
+                    let lastTappedItem = null;
+                    item.addEventListener('touchstart', (e) => {
+                        if (lastTappedItem === item) {
+                            const projectId = item.getAttribute('data-id');
+                            window.location.href = `/projects/${projectId}`;
+                        } else {
+                            e.preventDefault();
+                            item.classList.add('pulse');
+                            projectItems.forEach(p => p.classList.remove('active'));
+                            item.classList.add('active');
+                            updateProjectDetails(item);
+                            lastTappedItem = item;
+                            setTimeout(() => {
+                                item.classList.remove('pulse');
+                                lastTappedItem = null;
+                            }, 1500);
+                        }
+                    });
+                }
+                item.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        projectItems.forEach(p => p.classList.remove('active'));
+                        item.classList.add('active');
+                        item.classList.add('pulse');
+                        updateProjectDetails(item);
+                        detailsPanel.focus();
+                        setTimeout(() => {
+                            item.classList.remove('pulse');
+                        }, 1000);
+                    }
+                });
+            });
+
+            if (projectItems.length > 0) {
+                setTimeout(() => {
+                    const firstProject = projectItems[0];
+                    firstProject.classList.add('active');
+                    firstProject.classList.add('card-hover');
+                    firstProject.style.transform = 'translateY(-5px)';
+                    updateProjectDetails(firstProject);
+                    setTimeout(() => {
+                        firstProject.style.transform = '';
+                    }, 1000);
+                }, 600);
+            }
+
+            if (projectsSection) {
+                projectsSection.addEventListener('focusin', (e) => {
+                    if (e.target.classList.contains('project-list-item')) {
+                        projectItems.forEach(p => {
+                            if (p !== e.target) p.classList.remove('active');
+                        });
+                        e.target.classList.add('active');
+                        updateProjectDetails(e.target);
+                    }
+                });
+            }
+        });
+    </script>
+
+    <!-- New Animation Observer for distinct load/scroll animations -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let initialLoad = true;
+            setTimeout(() => { initialLoad = false; }, 1000);
+
+            const animatedElements = document.querySelectorAll("#projects .animate-on-scroll");
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        let animClass = "";
+                        if (initialLoad) {
+                            animClass = "load";
+                        } else if (document.body.classList.contains("scrolling-down")) {
+                            animClass = "scroll-down";
+                        } else if (document.body.classList.contains("scrolling-up")) {
+                            animClass = "scroll-up";
+                        }
+                        entry.target.classList.remove("load", "scroll-down", "scroll-up");
+                        void entry.target.offsetWidth;
+                        entry.target.classList.add(animClass);
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(el => observer.observe(el));
+
+            let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            window.addEventListener("scroll", () => {
+                let st = window.pageYOffset || document.documentElement.scrollTop;
+                if (st > lastScrollTop) {
+                    document.body.classList.remove("scrolling-up");
+                    document.body.classList.add("scrolling-down");
+                } else {
+                    document.body.classList.remove("scrolling-down");
+                    document.body.classList.add("scrolling-up");
+                }
+                lastScrollTop = st <= 0 ? 0 : st;
+            });
+        });
+    </script>
+</section>
+
+    <section id="career">
+    <div class="container">
+        <div class="timeline-container">
+            <div class="timeline">
+                
+                <div class="timeline-item" data-id="1" tabindex="0">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-pulse"></div>
+                    <div class="timeline-header">
+                        <div class="meta">
+                            <div class="date">December 2021</div>
+                            
+                        </div>
+                        <div class="meta">
+                            <div class="company">TalentNow</div>
+                            
+                            <div class="location">• Remote</div>
+                            
+                        </div>
+                        <h2 class="position">Associate Software Developer</h2>
+                        <div class="timeline-preview">
+                            <span class="preview-text">Remote full-stack web development role at TalentNow with emphasis on Talent Management</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-id="2" tabindex="0">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-pulse"></div>
+                    <div class="timeline-header">
+                        <div class="meta">
+                            <div class="date">Feb 2025</div>
+                            
+                        </div>
+                        <div class="meta">
+                            <div class="company">TalentNow</div>
+                            
+                            <div class="location">• Remote</div>
+                            
+                        </div>
+                        <h2 class="position">Software Engineer</h2>
+                        <div class="timeline-preview">
+                            <span class="preview-text">Expanded responsibilities for internal tooling and automation projects at TalentNow.</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="detail-panel">
+                <div class="detail-content" id="detail-content">
+                    <!-- default content - will be replaced by job details -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <template id="job-details-1">
+        <div class="timeline-content">
+
+
+            <div class="common-hero-typography">
+                <div class="tech-stack">
+                    <div class="tech-icons-container">
+                        <div class="tech-icons-scroll">
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="simple-icons:graphql" data-inline="false"></span>
+                                <span class="tech-icon-name">graphql</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="simple-icons:react" data-inline="false"></span>
+                                <span class="tech-icon-name">react</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="simple-icons:typescript" data-inline="false"></span>
+                                <span class="tech-icon-name">typescript</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="mdi:chart-line" data-inline="false"></span>
+                                <span class="tech-icon-name">recharts</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="simple-icons:postgresql" data-inline="false"></span>
+                                <span class="tech-icon-name">postgresql</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="simple-icons:flask" data-inline="false"></span>
+                                <span class="tech-icon-name">flask</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="mdi:server" data-inline="false"></span>
+                                <span class="tech-icon-name">pgadmin</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="simple-icons:elasticsearch" data-inline="false"></span>
+                                <span class="tech-icon-name">elasticsearch</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <h3 class="topics-heading">Key Projects & Responsibilities</h3>
+        <div class="topic-grid">
+            
+            <div class="topic-card" tabindex="0">
+                <div class="topic-header">
+                    <h3 class="topic-name">Full Stack Web Development</h3>
+                    <span class="iconify topic-icon" data-icon="mdi:chevron-down"></span>
+                </div>
+                <div class="topic-details">
+                    <p>Maintained and iterated on a full-stack, multi-tenant, microservice enterprise web application</p>
+                    
+                </div>
+            </div>
+            
+            <div class="topic-card" tabindex="0">
+                <div class="topic-header">
+                    <h3 class="topic-name">CRUD API Development</h3>
+                    <span class="iconify topic-icon" data-icon="mdi:chevron-down"></span>
+                </div>
+                <div class="topic-details">
+                    <p>Robust endpoints for seamless data operations across applications.</p>
+                    
+                </div>
+            </div>
+            
+            <div class="topic-card" tabindex="0">
+                <div class="topic-header">
+                    <h3 class="topic-name">Complex Forms and Fields</h3>
+                    <span class="iconify topic-icon" data-icon="mdi:chevron-down"></span>
+                </div>
+                <div class="topic-details">
+                    <p>Dynamic forms with real-time validations and adaptive field management.</p>
+                    
+                </div>
+            </div>
+            
+            <div class="topic-card" tabindex="0">
+                <div class="topic-header">
+                    <h3 class="topic-name">Highly Interactive Tables</h3>
+                    <span class="iconify topic-icon" data-icon="mdi:chevron-down"></span>
+                </div>
+                <div class="topic-details">
+                    <p>Developed and maintained various tables with a myriad of filtering, sorting, and quick action requirements.</p>
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+    </template>
+    
+    <template id="job-details-2">
+        <div class="timeline-content">
+
+
+            <div class="common-hero-typography">
+                <div class="tech-stack">
+                    <div class="tech-icons-container">
+                        <div class="tech-icons-scroll">
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="simple-icons:graphql" data-inline="false"></span>
+                                <span class="tech-icon-name">graphql</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="simple-icons:react" data-inline="false"></span>
+                                <span class="tech-icon-name">react</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="simple-icons:typescript" data-inline="false"></span>
+                                <span class="tech-icon-name">typescript</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="mdi:chart-line" data-inline="false"></span>
+                                <span class="tech-icon-name">recharts</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="simple-icons:postgresql" data-inline="false"></span>
+                                <span class="tech-icon-name">postgresql</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="simple-icons:flask" data-inline="false"></span>
+                                <span class="tech-icon-name">flask</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="mdi:server" data-inline="false"></span>
+                                <span class="tech-icon-name">pgadmin</span>
+                            </div>
+                            <div class="tech-icon">
+                                <span class="iconify" data-icon="simple-icons:elasticsearch" data-inline="false"></span>
+                                <span class="tech-icon-name">elasticsearch</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <h3 class="topics-heading">Key Projects & Responsibilities</h3>
+        <div class="topic-grid">
+            
+            <div class="topic-card" tabindex="0">
+                <div class="topic-header">
+                    <h3 class="topic-name">Cross-Service Authentication</h3>
+                    <span class="iconify topic-icon" data-icon="mdi:chevron-down"></span>
+                </div>
+                <div class="topic-details">
+                    <p>Implemented secure authentication mechanisms across distributed microservices, in various environments. </p>
+                    
+                </div>
+            </div>
+            
+            <div class="topic-card" tabindex="0">
+                <div class="topic-header">
+                    <h3 class="topic-name">Internal Developer CLI</h3>
+                    <span class="iconify topic-icon" data-icon="mdi:chevron-down"></span>
+                </div>
+                <div class="topic-details">
+                    <p> Took initiative to create an internal developer command-line tool to automate user flows during development, increasing developer productivity.</p>
+                    
+                </div>
+            </div>
+            
+            <div class="topic-card" tabindex="0">
+                <div class="topic-header">
+                    <h3 class="topic-name">Role Based Permissions</h3>
+                    <span class="iconify topic-icon" data-icon="mdi:chevron-down"></span>
+                </div>
+                <div class="topic-details">
+                    <p>Implemented systems for user permission management across the entire platform and a plethora of user roles.</p>
+                    
+                </div>
+            </div>
+            
+            <div class="topic-card" tabindex="0">
+                <div class="topic-header">
+                    <h3 class="topic-name">Email and In-App Notification Systems</h3>
+                    <span class="iconify topic-icon" data-icon="mdi:chevron-down"></span>
+                </div>
+                <div class="topic-details">
+                    <p>Took ownership over the project&#x27;s email and in-app notifications system, sprawling across over 10 microservices, over 20 user types with different permissions and contextual requirements.</p>
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+    </template>
+    
+
+    <script>
+        // Performance optimized career timeline with centralized tech icon macro
+        (function () {
+            // Wait for document to be ready and use requestAnimationFrame for better performance
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initCareer);
+            } else {
+                requestAnimationFrame(initCareer);
+            }
+
+            function initCareer() {
+                const timeline = document.querySelector('#career .timeline');
+                const detailContent = document.getElementById('detail-content');
+                const timelineItems = Array.from(document.querySelectorAll('#career .timeline-item'));
+
+                // Insert optimized styles
+                if (!document.getElementById('career-timeline-styles')) {
+                    const styleEl = document.createElement('style');
+                    styleEl.id = 'career-timeline-styles';
+                    styleEl.textContent = `
+                        #career .timeline { --active-line-height: 0px; }
+                        #career .timeline::after {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 15px;
+                            width: 2px;
+                            height: var(--active-line-height);
+                            background-color: var(--color-text-primary);
+                            z-index: 2;
+                            transition: height 0.3s cubic-bezier(0.165,0.84,0.44,1);
+                            box-shadow: 0 0 10px rgba(255,255,255,0.3);
+                        }
+
+                        /* Tech scroll animation - optimized */
+                        @keyframes techMacroScroll {
+                            0% { transform: translateX(0); }
+                            100% { transform: translateX(-50%); }
+                        }
+
+                        /* Add will-change to elements that need it */
+                        .tech-macro {
+                            display: flex;
+                            gap: 1rem;
+                            will-change: transform;
+                            animation: techMacroScroll 20s linear infinite;
+                        }
+                    `;
+                    document.head.appendChild(styleEl);
+                }
+
+                // Centralized tech icons macro creator - more efficient
+                function createTechMacro(container) {
+                    if (!container) return;
+
+                    const scrollContainer = container.querySelector('.tech-icons-scroll');
+                    if (!scrollContainer) return;
+
+                    // Get all icons
+                    const icons = Array.from(scrollContainer.querySelectorAll('.tech-icon'));
+                    if (!icons.length) return;
+
+                    // Create macro container
+                    scrollContainer.innerHTML = '';
+                    const techMacro = document.createElement('div');
+                    techMacro.className = 'tech-macro';
+
+                    // Add original icons + clone set for continuous scroll
+                    icons.forEach(icon => techMacro.appendChild(icon.cloneNode(true)));
+                    icons.forEach(icon => techMacro.appendChild(icon.cloneNode(true)));
+
+                    // Add to DOM
+                    scrollContainer.appendChild(techMacro);
+                }
+
+                // Simplified terminal text - no animation for better performance
+                function setTerminalText(terminalEls) {
+                    if (!terminalEls.length) return;
+
+                    const prompts = [
+                        'dev@portfolio:~$ ',
+                        'guest@cybrdelic:~$ ',
+                        'user@system:~$ ',
+                        '> executing task_',
+                        'career.sh --project'
+                    ];
+
+                    terminalEls.forEach((el, i) => {
+                        el.textContent = prompts[i % prompts.length];
+                    });
+                }
+
+                // Set active timeline item
+                function setActiveItem(item, animate = true) {
+                    // Performance optimization: only update what changed
+                    const prevActive = document.querySelector('#career .timeline-item.active');
+                    if (prevActive) prevActive.classList.remove('active');
+
+                    item.classList.add('active');
+
+                    // Use requestAnimationFrame for DOM measurements
+                    requestAnimationFrame(() => {
+                        const dotRect = item.querySelector('.timeline-dot').getBoundingClientRect();
+                        const tlRect = timeline.getBoundingClientRect();
+                        const lineHeight = (dotRect.top - tlRect.top) + (dotRect.height / 2);
+                        timeline.style.setProperty('--active-line-height', `${lineHeight}px`);
+                    });
+
+                    // Content swap
+                    const dataId = item.getAttribute('data-id');
+                    const template = document.getElementById(`job-details-${dataId}`);
+                    if (!template) return;
+
+                    // Clone content
+                    const content = template.content.cloneNode(true);
+
+                    // Optional animation flag to reduce jank
+                    if (animate) {
+                        detailContent.classList.add('content-fade-in');
+                        setTimeout(() => detailContent.classList.remove('content-fade-in'), 400);
+                    }
+
+                    // Clear and add new content
+                    detailContent.innerHTML = '';
+                    detailContent.appendChild(content);
+
+                    // Initialize tech macro in new content
+                    const techContainer = detailContent.querySelector('.tech-icons-container');
+                    if (techContainer) createTechMacro(techContainer);
+
+                    // Set terminal text
+                    const terminals = detailContent.querySelectorAll('.terminal-content .typed-text');
+                    setTerminalText(terminals);
+
+                    // Add animate-in class to cards
+                    const cards = detailContent.querySelectorAll('.topic-card');
+                    cards.forEach((card, idx) => {
+                        requestAnimationFrame(() => {
+                            setTimeout(() => card.classList.add('animate-in'), idx * 60);
+                        });
+                    });
+                }
+
+                // Use event delegation for better performance
+                const careerSection = document.querySelector('#career');
+                careerSection.addEventListener('click', e => {
+                    const timelineItem = e.target.closest('.timeline-item');
+                    if (timelineItem) {
+                        setActiveItem(timelineItem, true);
+
+                        // Simple ripple with minimal impact
+                        const ripple = document.createElement('div');
+                        ripple.className = 'ripple-effect';
+                        ripple.style.cssText = `
+                            position: absolute;
+                            width: 5px; height: 5px;
+                            left: 15px; top: 10px;
+                            border-radius: 50%;
+                            background: rgba(255,255,255,0.3);
+                            transform: translate(-50%,-50%);
+                            pointer-events: none;
+                            box-shadow: 0 0 0 0 rgba(255,255,255,0.8);
+                            animation: pulse 1s ease-out;
+                        `;
+                        timelineItem.appendChild(ripple);
+                        setTimeout(() => ripple.remove(), 1000);
+                    }
+                });
+
+                // Debounced resize handler
+                let resizeTimer;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(() => {
+                        const active = document.querySelector('#career .timeline-item.active');
+                        if (active) {
+                            requestAnimationFrame(() => {
+                                const dotRect = active.querySelector('.timeline-dot').getBoundingClientRect();
+                                const tlRect = timeline.getBoundingClientRect();
+                                const lineHeight = (dotRect.top - tlRect.top) + (dotRect.height / 2);
+                                timeline.style.setProperty('--active-line-height', `${lineHeight}px`);
+                            });
+                        }
+                    }, 100);
+                }, { passive: true });
+
+                // Initialization - activate first item
+                if (timelineItems.length) {
+                    requestAnimationFrame(() => {
+                        setActiveItem(timelineItems[0], false);
+                        timeline.classList.add('timeline-enter');
+                    });
+                }
+            }
+        })();
+    </script>
+</section>
+
+    
+<section id="whats-next">
+    <div class="container">
+        <!-- Layout similar to projects section -->
+        <div class="future-projects-container">
+            <!-- Left Panel - Future Projects Details -->
+            <div class="future-details-panel">
+                <h3 class="details-header">What's Next</h3>
+                <p class="details-description">
+                    I'm constantly exploring new ideas and technologies. These are some projects
+                    I'm planning to develop in the near future.
+                </p>
+
+                <div class="details-stats">
+                    <div class="stat-box">
+                        <div class="stat-number">3+</div>
+                        <div class="stat-label">Concepts</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Open Source</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">2024</div>
+                        <div class="stat-label">Roadmap</div>
+                    </div>
+                </div>
+
+                <div class="collaborate-section">
+                    <h3 class="details-subheader">Interested In Collaborating?</h3>
+                    <p class="collab-description">
+                        I'm always open to discussing new project ideas or potential collaborations.
+                        If any of these concepts align with your interests, let's connect!
+                    </p>
+                    <a href="#contact" class="details-link">
+                        <span class="details-link-text">Get In Touch</span>
+                        <span class="details-link-icon">→</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Panel - Future Project List -->
+            <div class="future-projects-list">
+                <!-- TimeTraverse -->
+                <div class="future-project-item" tabindex="0">
+                    <div class="project-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 7v5l3 3" />
+                            <path d="M8 12h8" />
+                        </svg>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Outersense</h3>
+                        <div class="project-type">Autonomous Digital Twinning of Physical Proximity</div>
+                        <div class="project-description">
+                            <p>A smart time-tracking CLI tool that integrates with git history to correlate coding time
+                                with actual commits and generate insights about your development patterns.</p>
+                        </div>
+                        <div class="project-tech">
+                            <span class="project-tech-item">Rust</span>
+                            <span class="project-tech-item">Git API</span>
+                            <span class="project-tech-item">Time Analysis</span>
+                        </div>
+                        <div class="project-more">
+                            <span class="more-text">Status: Planning Stage</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NeuralShell -->
+                <div class="future-project-item" tabindex="0">
+                    <div class="project-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 6v12M6 12h12M3 3l18 18M3 21l18-18" />
+                        </svg>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">DoublePendi</h3>
+                        <div class="project-type">A Double Pendulum Experiment for Predictive Complexity Frameworking
+                        </div>
+                        <div class="project-description">
+                            <p>A terminal environment with integrated LLM capabilities that learns your command patterns
+                                and offers predictive assistance to boost your productivity.</p>
+                        </div>
+                        <div class="project-tech">
+                            <span class="project-tech-item">TypeScript</span>
+                            <span class="project-tech-item">LLMs</span>
+                            <span class="project-tech-item">Shell Integration</span>
+                        </div>
+                        <div class="project-more">
+                            <span class="more-text">Status: Research Phase</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="future-project-item" tabindex="0">
+                    <div class="project-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                            <path d="M7 7h10M7 12h10M7 17h10" />
+                        </svg>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Lester</h3>
+                        <div class="project-type">Decentralized Code Bounty Platform</div>
+                        <div class="project-description">
+                            <p>A decentralized, trustless bounty system for software development tasks designed to
+                                revolutionize how bounty economics, with language-agnostic verification and secure
+                                operations.</p>
+                        </div>
+                        <div class="project-tech">
+                            <span class="project-tech-item">Python</span>
+                            <span class="project-tech-item">AST Analysis</span>
+                            <span class="project-tech-item">ML</span>
+                        </div>
+                        <div class="project-more">
+                            <span class="more-text">Status: Concept Development</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section id="contact">
+    <div class="container">
+        <div class="contact-layout">
+            <!-- Contact info -->
+            <div class="contact-info">
+                <div class="contact-intro">
+                    <p>Let's collaborate on something amazing</p>
+                </div>
+                
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <div class="method-icon">
+                            <span class="iconify" data-icon="mdi:email-outline"></span>
+                        </div>
+                        <div class="method-details">
+                            <h3>Email</h3>
+                            <a href="mailto:hello@cybrdelic.com">hello@cybrdelic.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="method-icon">
+                            <span class="iconify" data-icon="mdi:github"></span>
+                        </div>
+                        <div class="method-details">
+                            <h3>GitHub</h3>
+                            <a href="https://github.com/cybrdelic" target="_blank">@cybrdelic</a>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="method-icon">
+                            <span class="iconify" data-icon="mdi:linkedin"></span>
+                        </div>
+                        <div class="method-details">
+                            <h3>LinkedIn</h3>
+                            <a href="https://linkedin.com/in/cybrdelic" target="_blank">in/cybrdelic</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact form -->
+            <div class="contact-form-container">
+                <form class="contact-form" aria-label="Contact form">
+                    <div class="form-field">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="_" required aria-required="true" aria-label="Your name">
+                    </div>
+                    <div class="form-field">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="_" required aria-required="true" aria-label="Your email address">
+                    </div>
+                    <div class="form-field">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="_" required aria-required="true" aria-label="Your message"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn" aria-label="Send message">
+                        <span class="btn-text">Send Message</span>
+                        <span class="btn-icon" aria-hidden="true">→</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-logo">cybrdelic</div>
+            <div class="footer-links">
+                <a href="#projects">Projects</a>
+                <a href="#career">Career</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; <span id="current-year"></span> cybrdelic. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            
+            // Form submission handling
+            const contactForm = document.querySelector('.contact-form');
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const submitBtn = contactForm.querySelector('.submit-btn');
+                const formData = new FormData(contactForm);
+                
+                // Show sending state
+                submitBtn.classList.add('sending');
+                submitBtn.querySelector('.btn-text').textContent = 'Sending...';
+                
+                // Simulate sending (replace with actual form submission)
+                setTimeout(() => {
+                    submitBtn.classList.remove('sending');
+                    submitBtn.classList.add('sent');
+                    submitBtn.querySelector('.btn-text').textContent = 'Message Sent!';
+                    contactForm.reset();
+                    
+                    // Reset button after delay
+                    setTimeout(() => {
+                        submitBtn.classList.remove('sent');
+                        submitBtn.querySelector('.btn-text').textContent = 'Send Message';
+                    }, 3000);
+                }, 1500);
+                
+                // Add actual form submission code here
+            });
+        });
+    </script>
+</section>
+    <div class="scroll-indicator fade-in delay-3">
+        <div class="scroll-line"></div>
+        <span>scroll</span>
+    </div>
+</main>
+<script>
+    // Force scroll to top on page load and set up interactions
+    document.addEventListener('DOMContentLoaded', function() {
+        // Force scroll to top
+        window.scrollTo(0, 0);
+        history.scrollRestoration = 'manual';
+        
+        // Create helper scroll indicator for first-time users
+        const createScrollHelper = () => {
+            const scrollHelper = document.createElement('div');
+            scrollHelper.className = 'scroll-helper';
+            scrollHelper.innerHTML = `
+                <div class="scroll-helper-inner">
+                    <div class="scroll-arrow">↓</div>
+                    <div class="scroll-text">Scroll down to explore</div>
+                </div>
+            `;
+            document.body.appendChild(scrollHelper);
+            
+            // Add styles for the scroll helper
+            const style = document.createElement('style');
+            style.innerHTML = `
+                .scroll-helper {
+                    position: fixed;
+                    bottom: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: rgba(0, 0, 0, 0.7);
+                    color: white;
+                    padding: 10px 20px;
+                    border-radius: 20px;
+                    z-index: 1000;
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+                    opacity: 0;
+                    animation: fadeInUp 0.5s ease-out 2s forwards, 
+                              bounce 2s infinite 2.5s,
+                              fadeOut 0.5s ease-out 10s forwards;
+                }
+                .scroll-helper-inner {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+                .scroll-arrow {
+                    font-size: 20px;
+                    animation: arrowBounce 1s infinite;
+                }
+                @keyframes arrowBounce {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(5px); }
+                }
+                @keyframes fadeOut {
+                    to { opacity: 0; visibility: hidden; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Remove helper after user scrolls
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    scrollHelper.style.animation = 'fadeOut 0.5s forwards';
+                    setTimeout(() => scrollHelper.remove(), 500);
+                }
+            }, { once: true });
+        };
+        
+        // Create scroll helper with slight delay
+        setTimeout(createScrollHelper, 1000);
+        
+        // Setup career timeline interactions
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const detailContent = document.getElementById('detail-content');
+        
+        // Activate the first timeline item by default
+        if (timelineItems.length > 0) {
+            const firstItem = timelineItems[0];
+            firstItem.classList.add('active');
+            
+            // Get the template content from the matching template
+            const jobId = firstItem.getAttribute('data-id');
+            const template = document.getElementById(`job-details-${jobId}`);
+            
+            if (template && detailContent) {
+                detailContent.innerHTML = template.innerHTML;
+                detailContent.classList.add('content-fade-in');
+            }
+        }
+        
+        // Add click handlers to all timeline items
+        timelineItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all items
+                timelineItems.forEach(i => i.classList.remove('active'));
+                
+                // Add active class to clicked item
+                this.classList.add('active');
+                
+                // Get the template content from the matching template
+                const jobId = this.getAttribute('data-id');
+                const template = document.getElementById(`job-details-${jobId}`);
+                
+                if (template && detailContent) {
+                    // Replace content with animation
+                    detailContent.classList.remove('content-fade-in');
+                    
+                    // Small delay for animation
+                    setTimeout(() => {
+                        detailContent.innerHTML = template.innerHTML;
+                        detailContent.classList.add('content-fade-in');
+                    }, 300);
+                }
+            });
+        });
+    });
+</script>
+
+        <div class="vertical-name"></div>
+    </div>
+
+    <!-- Site scripts -->
+    <script src="/static/js/animations.js"></script>
+    <script src="/static/js/documentation.js"></script>
+    <script src="/static/js/projects.js"></script>
+    <script src="/static/js/glitch.js"></script>
+    <script src="/static/js/transitions.js"></script>
+
+    <!-- Core functionality -->
+    <script>
+        // Apply theme from localStorage immediately to avoid FOUC
+        (function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            }
+        })();
+
+        // Initialize Mermaid diagrams - safely check if loaded
+        if (typeof mermaid !== 'undefined') {
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'neutral',
+                flowchart: { curve: 'basis' }
+            });
+        } else {
+            // Add event listener for when mermaid loads
+            document.addEventListener('DOMContentLoaded', () => {
+                if (typeof mermaid !== 'undefined') {
+                    mermaid.initialize({
+                        startOnLoad: true,
+                        theme: 'neutral',
+                        flowchart: { curve: 'basis' }
+                    });
+                }
+            });
+        }
+
+        // Theme management system
+        document.addEventListener('DOMContentLoaded', () => {
+            const navThemeToggleBtn = document.getElementById('nav-theme-toggle');
+            const cornerEffects = document.querySelectorAll('.corner-effect');
+
+            // Function to update theme
+            function updateTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+
+                // Update toggle icon
+                const themeIcon = document.querySelector('.theme-icon');
+                if (themeIcon) {
+                    themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
+                }
+
+                // Apply subtle animation to corner effects
+                cornerEffects.forEach(corner => {
+                    corner.style.transition = 'opacity 0.5s ease';
+                    corner.style.opacity = '0.5';
+                    setTimeout(() => {
+                        corner.style.opacity = '0.3';
+                    }, 300);
+                });
+            }
+
+            // Initialize theme from saved preference immediately
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            // Apply theme without animation for initial load
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            // Then pass to the update function for icon updates
+            updateTheme(savedTheme);
+
+            // Toggle theme on click
+            if (navThemeToggleBtn) {
+                navThemeToggleBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const currentTheme = document.documentElement.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    updateTheme(newTheme);
+                });
+            }
+
+            // Initialize font dropdown
+            function initializeFontDropdown() {
+                const dropdown = document.querySelector('.font-dropdown-content');
+
+                // Clear existing content
+                dropdown.innerHTML = '';
+
+                // Create font options
+                fontOptions.forEach((option, index) => {
+                    const fontOption = document.createElement('div');
+                    fontOption.className = `font-option ${option.isUbuntuMono ? 'ubuntu-mono' : ''}`;
+                    if (parseInt(localStorage.getItem('fontOption') || '0') === index) {
+                        fontOption.classList.add('active');
+                    }
+
+                    // Apply the display font to the option itself (since that's what we'll use for the name)
+                    fontOption.style.fontFamily = option.display;
+
+                    const optionName = document.createElement('span');
+                    optionName.className = 'option-name';
+                    // Show the display font name instead
+                    optionName.textContent = option.name.split(' + ')[1] || option.name.split(' + ')[0];
+
+                    fontOption.appendChild(optionName);
+                    fontOption.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        updateFonts(index);
+                    });
+
+                    dropdown.appendChild(fontOption);
+                });
+            }
+
+            // Toggle fonts on click
+            if (fontSwitcherBtn) {
+                // Long press to show modal with all font options
+                let pressTimer;
+                fontSwitcherBtn.addEventListener('mousedown', () => {
+                    pressTimer = setTimeout(() => {
+                        showFontModal(fontOptions);
+                    }, 800);
+                });
+
+                fontSwitcherBtn.addEventListener('mouseup', () => {
+                    clearTimeout(pressTimer);
+                });
+
+                fontSwitcherBtn.addEventListener('mouseleave', () => {
+                    clearTimeout(pressTimer);
+                });
+            }
+
+            // Initialize dropdown on page load
+            initializeFontDropdown();
+
+            // Function to show a modal with all font options
+            function showFontModal(options) {
+                // Remove existing modal if it exists
+                const existingModal = document.getElementById('font-modal');
+                if (existingModal) {
+                    existingModal.remove();
+                    return;
+                }
+
+                // Create modal
+                const modal = document.createElement('div');
+                modal.id = 'font-modal';
+                modal.style.position = 'fixed';
+                modal.style.top = '50%';
+                modal.style.left = '50%';
+                modal.style.transform = 'translate(-50%, -50%)';
+                modal.style.background = 'var(--bg-glass)';
+                modal.style.backdropFilter = 'blur(10px)';
+                modal.style.padding = '20px';
+                modal.style.borderRadius = '8px';
+                modal.style.boxShadow = 'var(--shadow-lg)';
+                modal.style.zIndex = '10000';
+                modal.style.maxWidth = '700px';
+                modal.style.width = '90%';
+                modal.style.maxHeight = '85vh';
+                modal.style.overflowY = 'auto';
+
+                // Add heading
+                const heading = document.createElement('h3');
+                heading.style.fontFamily = 'var(--font-display)';
+                heading.style.marginBottom = '1rem';
+                heading.textContent = 'Font Options';
+                heading.style.position = 'sticky';
+                heading.style.top = '0';
+                heading.style.background = 'var(--bg-glass)';
+                heading.style.zIndex = '1';
+                heading.style.padding = '5px 0';
+                heading.style.backdropFilter = 'blur(10px)';
+                modal.appendChild(heading);
+
+                // Create search input
+                const searchContainer = document.createElement('div');
+                searchContainer.style.marginBottom = '15px';
+                searchContainer.style.position = 'sticky';
+                searchContainer.style.top = '50px';
+                searchContainer.style.zIndex = '1';
+                searchContainer.style.backdropFilter = 'blur(10px)';
+                searchContainer.style.background = 'var(--bg-glass)';
+                searchContainer.style.padding = '5px 0';
+
+                const searchInput = document.createElement('input');
+                searchInput.type = 'text';
+                searchInput.placeholder = 'Search fonts...';
+                searchInput.style.width = '100%';
+                searchInput.style.padding = '8px 12px';
+                searchInput.style.borderRadius = '4px';
+                searchInput.style.border = '1px solid var(--color-border)';
+                searchInput.style.background = 'var(--bg-glass)';
+                searchInput.style.color = 'var(--color-text-primary)';
+                searchInput.style.fontFamily = 'var(--font-primary)';
+                searchContainer.appendChild(searchInput);
+                modal.appendChild(searchContainer);
+
+                // Group fonts by category
+                const categories = Array.from(new Set(options.map(opt => opt.category)));
+
+                // Add current font indicator
+                const currentOption = parseInt(localStorage.getItem('fontOption') || '0');
+
+                // Create container for font options
+                const optionsContainer = document.createElement('div');
+
+                // Function to render font options
+                function renderOptions(filter = '') {
+                    // Clear previous options
+                    optionsContainer.innerHTML = '';
+
+                    // Create font options grouped by category
+                    categories.forEach(category => {
+                        const categoryFonts = options.filter(o =>
+                            o.category === category &&
+                            (filter === '' ||
+                                o.name.toLowerCase().includes(filter.toLowerCase()) ||
+                                category.toLowerCase().includes(filter.toLowerCase())
+                            )
+                        );
+
+                        // Skip categories with no matching fonts
+                        if (categoryFonts.length === 0) return;
+
+                        // Create category group
+                        const categoryGroup = document.createElement('div');
+                        categoryGroup.style.marginBottom = '20px';
+
+                        // Add category header
+                        const categoryHeader = document.createElement('h4');
+                        categoryHeader.textContent = category;
+                        categoryHeader.style.fontFamily = 'var(--font-display)';
+                        categoryHeader.style.fontSize = '1rem';
+                        categoryHeader.style.marginBottom = '10px';
+                        categoryHeader.style.padding = '5px 0';
+                        categoryHeader.style.borderBottom = '1px solid var(--color-border)';
+                        categoryGroup.appendChild(categoryHeader);
+
+                        // Create font options list for this category
+                        const categoryList = document.createElement('div');
+                        categoryList.style.display = 'grid';
+                        categoryList.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
+                        categoryList.style.gap = '15px';
+
+                        // Add fonts in this category
+                        categoryFonts.forEach((option, idx) => {
+                            const index = options.indexOf(option);
+
+                            const fontItem = document.createElement('div');
+                            fontItem.style.padding = '12px';
+                            fontItem.style.cursor = 'pointer';
+                            fontItem.style.borderRadius = '4px';
+                            fontItem.style.transition = 'all 0.2s ease';
+                            fontItem.style.border = '1px solid var(--color-border)';
+
+                            // Highlight current font
+                            if (index === currentOption) {
+                                fontItem.style.background = 'var(--bg-black-05)';
+                                fontItem.style.fontWeight = 'bold';
+                                fontItem.style.borderColor = 'var(--color-accent)';
+                                fontItem.style.boxShadow = '0 0 0 1px var(--color-accent)';
+                            }
+
+                            // Apply the primary font to the item
+                            fontItem.style.fontFamily = option.primary;
+
+                            // Create display font preview
+                            const displayPreview = document.createElement('div');
+                            displayPreview.textContent = 'AaBbCc123';
+                            displayPreview.style.fontFamily = option.display;
+                            displayPreview.style.fontSize = '1.2em';
+                            displayPreview.style.marginBottom = '8px';
+                            displayPreview.style.color = 'var(--color-accent)';
+
+                            // Create primary font preview
+                            const primaryPreview = document.createElement('div');
+                            primaryPreview.textContent = 'AaBbCc123';
+                            primaryPreview.style.fontFamily = option.primary;
+                            primaryPreview.style.fontSize = '1em';
+                            primaryPreview.style.marginBottom = '5px';
+
+                            // Create mono font preview
+                            const monoPreview = document.createElement('div');
+                            monoPreview.textContent = 'AaBbCc123';
+                            monoPreview.style.fontFamily = option.mono;
+                            monoPreview.style.fontSize = '0.9em';
+                            monoPreview.style.opacity = '0.7';
+
+                            // Create header with font name and status
+                            const header = document.createElement('div');
+                            header.style.display = 'flex';
+                            header.style.justifyContent = 'space-between';
+                            header.style.alignItems = 'center';
+                            header.style.marginBottom = '10px';
+
+                            const nameSpan = document.createElement('div');
+                            nameSpan.textContent = option.name.split(' + ')[0];
+                            nameSpan.style.fontWeight = 'bold';
+
+                            const statusSpan = document.createElement('div');
+                            if (index === currentOption) {
+                                statusSpan.textContent = '✓';
+                                statusSpan.style.color = 'var(--color-accent)';
+                            }
+
+                            header.appendChild(nameSpan);
+                            header.appendChild(statusSpan);
+
+                            // Add all elements to font item
+                            fontItem.appendChild(header);
+                            fontItem.appendChild(displayPreview);
+                            fontItem.appendChild(primaryPreview);
+                            fontItem.appendChild(monoPreview);
+
+                            // Add sample text
+                            const sampleText = document.createElement('div');
+                            sampleText.textContent = 'The quick brown fox jumps over the lazy dog';
+                            sampleText.style.marginTop = '10px';
+                            sampleText.style.fontSize = '0.85em';
+                            sampleText.style.opacity = '0.7';
+                            sampleText.style.fontFamily = option.primary;
+                            fontItem.appendChild(sampleText);
+
+                            // Set click handler
+                            fontItem.addEventListener('click', () => {
+                                updateFonts(index);
+                                modal.remove();
+                            });
+
+                            // Hover effect
+                            fontItem.addEventListener('mouseenter', () => {
+                                fontItem.style.background = 'var(--bg-black-05)';
+                                fontItem.style.transform = 'translateY(-2px)';
+                                fontItem.style.boxShadow = 'var(--shadow-md)';
+                            });
+
+                            fontItem.addEventListener('mouseleave', () => {
+                                if (index !== currentOption) {
+                                    fontItem.style.background = 'transparent';
+                                    fontItem.style.transform = 'translateY(0)';
+                                    fontItem.style.boxShadow = 'none';
+                                } else {
+                                    fontItem.style.transform = 'translateY(0)';
+                                    fontItem.style.boxShadow = '0 0 0 1px var(--color-accent)';
+                                }
+                            });
+
+                            categoryList.appendChild(fontItem);
+                        });
+
+                        categoryGroup.appendChild(categoryList);
+                        optionsContainer.appendChild(categoryGroup);
+                    });
+
+                    // Show no results message if needed
+                    if (optionsContainer.children.length === 0 && filter !== '') {
+                        const noResults = document.createElement('div');
+                        noResults.textContent = `No fonts matching "${filter}"`;
+                        noResults.style.textAlign = 'center';
+                        noResults.style.padding = '20px';
+                        noResults.style.color = 'var(--color-text-secondary)';
+                        optionsContainer.appendChild(noResults);
+                    }
+                }
+
+                // Add search functionality
+                searchInput.addEventListener('input', () => {
+                    renderOptions(searchInput.value);
+                });
+
+                // Initial render
+                renderOptions();
+                modal.appendChild(optionsContainer);
+
+                // Add buttons container
+                const buttonsContainer = document.createElement('div');
+                buttonsContainer.style.display = 'flex';
+                buttonsContainer.style.justifyContent = 'space-between';
+                buttonsContainer.style.marginTop = '20px';
+                buttonsContainer.style.position = 'sticky';
+                buttonsContainer.style.bottom = '0';
+                buttonsContainer.style.padding = '10px 0';
+                buttonsContainer.style.background = 'var(--bg-glass)';
+                buttonsContainer.style.backdropFilter = 'blur(10px)';
+                buttonsContainer.style.zIndex = '1';
+
+                // Add random button
+                const randomBtn = document.createElement('button');
+                randomBtn.textContent = 'Random Font';
+                randomBtn.style.padding = '8px 16px';
+                randomBtn.style.marginRight = '10px';
+                randomBtn.style.border = 'none';
+                randomBtn.style.borderRadius = '4px';
+                randomBtn.style.background = 'var(--bg-black-05)';
+                randomBtn.style.cursor = 'pointer';
+                randomBtn.style.fontFamily = 'var(--font-primary)';
+                randomBtn.style.color = 'var(--color-text-primary)';
+
+                randomBtn.addEventListener('click', () => {
+                    const randomIndex = Math.floor(Math.random() * options.length);
+                    updateFonts(randomIndex);
+                    modal.remove();
+                });
+
+                // Add close button
+                const closeBtn = document.createElement('button');
+                closeBtn.textContent = 'Close';
+                closeBtn.style.padding = '8px 16px';
+                closeBtn.style.border = 'none';
+                closeBtn.style.borderRadius = '4px';
+                closeBtn.style.background = 'var(--bg-black-05)';
+                closeBtn.style.cursor = 'pointer';
+                closeBtn.style.fontFamily = 'var(--font-primary)';
+                closeBtn.style.color = 'var(--color-text-primary)';
+
+                closeBtn.addEventListener('click', () => {
+                    modal.remove();
+                });
+
+                buttonsContainer.appendChild(randomBtn);
+                buttonsContainer.appendChild(closeBtn);
+                modal.appendChild(buttonsContainer);
+
+                // Close modal when clicking outside
+                document.addEventListener('click', function closeModalOnOutsideClick(e) {
+                    if (!modal.contains(e.target) && e.target !== fontSwitcherBtn) {
+                        modal.remove();
+                        document.removeEventListener('click', closeModalOnOutsideClick);
+                    }
+                });
+
+                // Add to body
+                document.body.appendChild(modal);
+
+                // Focus search input
+                setTimeout(() => {
+                    searchInput.focus();
+                }, 100);
+            }
+        });
+
+        // Text scramble effect
+        function scrambleText(element, newText, duration = 1000) {
+            const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            const oldText = element.textContent;
+            const maxLength = Math.max(oldText.length, newText.length);
+            const startTime = performance.now();
+
+            function update() {
+                const now = performance.now();
+                const progress = Math.min((now - startTime) / duration, 1);
+                let output = "";
+                for (let i = 0; i < maxLength; i++) {
+                    if (i < newText.length && progress > i / maxLength) {
+                        output += newText[i];
+                    } else {
+                        output += letters[Math.floor(Math.random() * letters.length)];
+                    }
+                }
+                element.textContent = output;
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    element.textContent = newText;
+                }
+            }
+            update();
+        }
+
+        // Vertical name management
+        function morphVerticalName(newText) {
+            const vn = document.querySelector('.vertical-name');
+            if (vn && vn.textContent !== newText) {
+                scrambleText(vn, newText, 200);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Initialize vertical name
+            const verticalName = document.querySelector(".vertical-name");
+            if (!verticalName) return;
+
+            morphVerticalName("cybrdelic");
+
+            // Initialize text transform options
+            const transformOptions = document.querySelectorAll('.transform-option');
+            if (transformOptions.length > 0) {
+                transformOptions.forEach(option => {
+                    option.addEventListener('click', function () {
+                        // Remove active class from all options
+                        transformOptions.forEach(opt => opt.classList.remove('active'));
+
+                        // Add active class to clicked option
+                        this.classList.add('active');
+
+                        // Get transform type
+                        const transform = this.getAttribute('data-transform');
+
+                        // Get hero name element
+                        const heroName = document.getElementById('hero-name');
+
+                        // Remove all existing transform classes
+                        heroName.classList.remove('uppercase', 'lowercase', 'text-outline', 'text-shadow', 'text-glow');
+
+                        // Add selected transform class if not 'none'
+                        if (transform !== 'none') {
+                            heroName.classList.add(transform);
+                        }
+
+                        // Save preference
+                        localStorage.setItem('textTransform', transform);
+                    });
+                });
+
+                // Apply saved preference if exists
+                const savedTransform = localStorage.getItem('textTransform');
+                if (savedTransform) {
+                    transformOptions.forEach(option => {
+                        if (option.getAttribute('data-transform') === savedTransform) {
+                            option.click();
+                        }
+                    });
+                }
+            }
+
+            // Section navigation mapping
+            const displayMap = {
+                'hero': 'cybrdelic',
+                'projects': 'projects',
+                'career': 'timeline',
+                'whats-next': 'future',
+                'contact': 'contact'
+            };
+
+            // Create intersection observer to detect visible section
+            const sectionObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+                        const sectionId = entry.target.getAttribute('id');
+                        if (sectionId && verticalName.textContent !== sectionId) {
+                            const displayText = displayMap[sectionId] || sectionId;
+                            morphVerticalName(displayText);
+                        }
+                    }
+                });
+            }, {
+                threshold: [0.3, 0.6],
+                rootMargin: "-10% 0px"
+            });
+
+            // Force scroll to top on page load
+            window.scrollTo(0, 0);
+
+            // Smooth scroll navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('.nav')?.offsetHeight || 0;
+                        const offsetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+
+                        history.pushState(null, null, targetId);
+                    }
+                });
+            });
+
+            // Active section highlighting in navigation
+            const navObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                        const id = entry.target.getAttribute('id');
+                        document.querySelectorAll('.nav a').forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            // Observe all sections for both effects
+            document.querySelectorAll("section[id]").forEach(section => {
+                sectionObserver.observe(section);
+                navObserver.observe(section);
+            });
+
+            // Update after any dynamic content changes
+            document.body.addEventListener("htmx:afterSwap", () => {
+                document.querySelectorAll("section[id]").forEach(section => {
+                    sectionObserver.observe(section);
+                    navObserver.observe(section);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
