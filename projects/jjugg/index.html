@@ -1,0 +1,1202 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cybrdelic</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Base monospace and display fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cascadia+Code:wght@400;500;600;700&family=Courier+Prime:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inconsolata:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600;700;800&family=Ubuntu+Mono:wght@400;700&family=Fira+Code:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Fun and unique display fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Audiowide&family=Bungee&family=Bungee+Hairline&family=Bungee+Inline&family=Bungee+Shade&family=Chakra+Petch:wght@400;500;600;700&family=Comfortaa:wght@400;500;600;700&family=Geologica:wght@400;500;700&family=Gugi&family=Josefin+Sans:wght@400;500;600;700&family=Major+Mono+Display&family=Megrim&family=Monofett&family=Monoton&family=Montserrat:wght@400;500;600;700;800&family=Nova+Mono&family=Orbitron:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Oxanium:wght@400;500;600;700&family=Poiret+One&family=Press+Start+2P&family=Quantico:wght@400;700&family=Rajdhani:wght@400;500;600;700&family=Righteous&family=Silkscreen&family=Smooch+Sans:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Syncopate:wght@400;700&family=Syne:wght@400;500;600;700;800&family=VT323&family=Wallpoet&family=Xanh+Mono&family=Yatra+One&family=Tourney:wght@400;500;700&family=Teko:wght@400;500;600;700&family=Exo+2:wght@400;500;600;700;800&family=Rubik+Glitch&family=Rubik+Mono+One&family=Rubik+Pixels&family=Rubik+Spray+Paint&family=Rubik+Vinyl&family=Goldman&display=swap"
+        rel="stylesheet">
+
+    <!-- Additional creative fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Moirai+One&family=Nabla&family=Noto+Sans+Mono:wght@400;500;600;700&family=Share+Tech+Mono&family=Silkscreen&family=Sometype+Mono:wght@400;500;600;700&family=Faster+One&family=Flow+Circular&family=Flow+Rounded&family=Gruppo&family=Keania+One&family=Kenia&family=Londrina+Outline&family=Plaster&display=swap"
+        rel="stylesheet">
+
+    <!-- Centralized CSS file that imports all modules -->
+    <link rel="stylesheet" href="/static/css/main.css" />
+    <!-- External dependencies - critical ones load normally, non-critical ones load async -->
+    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.3.0/mermaid.min.js" defer></script>
+
+    
+    <!-- Add preload hints for critical resources when coming to project pages -->
+    <link rel="preload" href="/static/css/project-detail.css" as="style">
+    <link rel="preload" href="/static/js/documentation.js" as="script">
+    
+</head>
+
+<body>
+    <!-- Cyberpunk corner effects -->
+    <div class="corner-effect corner-top-right"></div>
+    <div class="corner-effect corner-bottom-left"></div>
+
+    <div id="terminal">
+        <nav class="nav">
+            <a href="/" class="home-link">
+                <div class="home-button">
+                    <span class="icon">⌂</span>
+                    <span class="text">home</span>
+                </div>
+            </a>
+            <div class="nav-left stagger-children">
+                <a href="#projects" class="cmd cmd-prompt">ls projects/</a>
+                <a href="#whats-next" class="cmd cmd-prompt">./future</a>
+                <a href="#contact" class="cmd cmd-prompt">./contact</a>
+            </div>
+            <div class="nav-right">
+                <a href="https://github.com/cybrdelic" target="_blank" class="nav-action-button github-button">
+                    <svg class="action-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                        <path
+                            d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1.01.07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z">
+                        </path>
+                    </svg>
+                    <span class="action-text">GitHub</span>
+                </a>
+                <a href="#" class="nav-action-button theme-button" id="nav-theme-toggle">
+                    <span class="action-icon theme-icon">☀️</span>
+                    <span class="action-text">Theme</span>
+                </a>
+            </div>
+        </nav>
+        
+<main class="project-detail-container">
+    <!-- Project Header Section -->
+    <header class="project-header-section">
+        <div class="project-headline">
+            <div class="project-title-container">
+                <h1 class="project-title glitch-hover">JJugg</h1>
+                <div class="project-badge">Autonomous Job Application Tracker</div>
+            </div>
+            <div class="project-links">
+                
+                <a href="https:&#x2F;&#x2F;github.com&#x2F;cybrdelic&#x2F;jjugg" class="cmd highlight-on-hover" target="_blank" rel="noopener noreferrer">
+                    GitHub
+                </a>
+                
+                <a href="https:&#x2F;&#x2F;jjugg.example.com" class="cmd highlight-on-hover" target="_blank" rel="noopener noreferrer">
+                    Demo
+                </a>
+                
+            </div>
+        </div>
+    </header>
+
+    <!-- Project Showcase Section -->
+    <section class="project-showcase" id="" JJugg>
+        <div class="showcase-container">
+            <div class="showcase-image-container glitch-on-hover">
+                <img src="&#x2F;static&#x2F;images&#x2F;jjugg.jpg" alt="JJugg" class="showcase-image"
+                    onclick="openModal(this)" />
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <div class="overlay-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M15 15l6 6m-6-6v4.8m0-4.8h4.8" />
+                            </svg>
+                        </div>
+                        <span class="overlay-text">Click to enlarge</span>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-caption">Job application tracking simplified with automation and analytics</div>
+        </div>
+
+        <div class="project-overview">
+            <div class="overview-content">
+                <div class="overview-description">A local web application for autonomously tracking job applications that transforms a traditionally manual process into a data-driven workflow with automated tracking (via userscripts and email scanning), rich analytics, and interactive dashboards.Think of it like JARVIS for job hunters.</div>
+
+                <div class="tech-stack">
+                    <h3 class="tech-stack-title">Technology Stack</h3>
+                    <div class="tech-tags">
+                        
+                        <span class="tech-tag highlight-on-hover">
+                            <span class="tag-icon">◆</span>JavaScript
+                        </span>
+                        
+                        <span class="tech-tag highlight-on-hover">
+                            <span class="tag-icon">◆</span>HTML
+                        </span>
+                        
+                        <span class="tech-tag highlight-on-hover">
+                            <span class="tag-icon">◆</span>CSS
+                        </span>
+                        
+                        <span class="tech-tag highlight-on-hover">
+                            <span class="tag-icon">◆</span>LocalStorage
+                        </span>
+                        
+                        <span class="tech-tag highlight-on-hover">
+                            <span class="tag-icon">◆</span>User Scripts
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="install-terminal">
+                <div class="terminal-header">
+                    <div class="window-controls">
+                        <span class="window-control close"></span>
+                        <span class="window-control minimize"></span>
+                        <span class="window-control maximize"></span>
+                    </div>
+                    <div class="terminal-title">Installation</div>
+                </div>
+                <div class="terminal-content">
+                    <div class="command-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-command">cargo install jjugg</span>
+                        <button class="copy-button" onclick="copyToClipboard(this)">
+                            <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M8 4v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7.242a2 2 0 0 0-.602-1.43L16.083 2.57A2 2 0 0 0 14.685 2H10a2 2 0 0 0-2 2z" />
+                                <path d="M16 18v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2" />
+                            </svg>
+                            <div class="confetti-container"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <div class="features-grid">
+        
+        <div class="feature-card card-hover">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+            </div>
+            <div class="feature-content">
+                <h3 class="feature-title">Automated Tracking</h3>
+                <p class="feature-description">Uses userscripts with localStorage and email scanning to automatically update application statuses, so you don&#x27;t need ot manually enter any data - just apply and your data will be autonomously tracked.</p>
+            </div>
+        </div>
+        
+        <div class="feature-card card-hover">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+            </div>
+            <div class="feature-content">
+                <h3 class="feature-title">Rich Dashboard</h3>
+                <p class="feature-description">Comprehensive analytics, interactive Kanban boards, tables, and detailed profiles with project information</p>
+            </div>
+        </div>
+        
+        <div class="feature-card card-hover">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+            </div>
+            <div class="feature-content">
+                <h3 class="feature-title">AI-Driven Insights</h3>
+                <p class="feature-description">Future integration of AI-generated insights and personalized job recommendations</p>
+            </div>
+        </div>
+        
+        <div class="cta-button-container-wrapper">
+            <div class="cta-button-container">
+                <a href="http://localhost:8080/#" class="primary-button" target="_blank">
+                    View Landing Page
+                    <svg class="button-icon" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+                <a href="https://github.com/cybrdelic" class="secondary-button btn-interaction" target="_blank">
+                    <svg viewBox="0 0 24 24" class="button-icon">
+                        <path
+                            d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1.01.07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z">
+                        </path>
+                    </svg>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+
+    
+    <section class="documentation-section" id="DOCS">
+        <div class="docs-sidebar">
+            
+            <button class="docs-nav-item active" data-tab="section-1">
+                <span class="docs-nav-number">1</span>
+                <span class="docs-nav-text">job-application-tracking</span>
+            </button>
+            
+            <button class="docs-nav-item " data-tab="section-2">
+                <span class="docs-nav-number">2</span>
+                <span class="docs-nav-text">features</span>
+            </button>
+            
+            <button class="docs-nav-item " data-tab="section-3">
+                <span class="docs-nav-number">3</span>
+                <span class="docs-nav-text">installation</span>
+            </button>
+            
+        </div>
+
+
+        <div class="docs-content">
+            
+            <div class="docs-panel active" id="section-1">
+                <div class="markdown-content" data-flow-name="job-application-tracking">
+                    <!-- Content will load instantly but might be further enhanced by JavaScript -->
+                    <h2 id="job-application-tracking-system--technical-overview" class="markdown-heading-1 markdown-heading">Job Application Tracking System: Technical Overview<a class="heading-anchor" href="#job-application-tracking-system--technical-overview">&#xB6;</a></h2><h3 id="autonomous-data-collection-framework" class="markdown-heading-2 markdown-heading">Autonomous Data Collection Framework<a class="heading-anchor" href="#autonomous-data-collection-framework">&#xB6;</a></h3><p class="markdown-paragraph">Jjugg leverages advanced browser technology to eliminate the burden of manual job application tracking. Our system works seamlessly in the background while you focus on your job search, automatically capturing and organizing your application data without requiring any extra effort from you.</p><h4 id="intelligent-form-detection" class="markdown-heading-3 markdown-heading">Intelligent Form Detection<a class="heading-anchor" href="#intelligent-form-detection">&#xB6;</a></h4><p class="markdown-paragraph"><strong class="markdown-strong">Userscript Technology</strong> forms the foundation of our tracking system. These specialized JavaScript programs run within your browser and monitor for job application submissions across various websites. When you complete and submit an application, the userscript springs into action, capturing critical information without any additional steps required from you.</p><h4 id="secure-local-storage-implementation" class="markdown-heading-3 markdown-heading">Secure Local Storage Implementation<a class="heading-anchor" href="#secure-local-storage-implementation">&#xB6;</a></h4><p class="markdown-paragraph">The captured application data is immediately stored in your browser's <strong class="markdown-strong"></strong> - a secure area within your browser where websites can save information locally on your device. This creates a temporary record containing details such as:</p><ul class="unordered-list"><li class="list-item">Job title and description</li><li class="list-item">Company name and information</li><li class="list-item">Application date and reference numbers</li><li class="list-item">Salary details (when available)</li><li class="list-item">Position requirements and qualifications</li></ul><h4 id="cross-platform-compatibility" class="markdown-heading-3 markdown-heading">Cross-Platform Compatibility<a class="heading-anchor" href="#cross-platform-compatibility">&#xB6;</a></h4><p class="markdown-paragraph">This automatic capture process works across virtually any job platform - from major job boards to company career pages. You simply continue your normal application routine, and Jjugg builds your application history behind the scenes.</p><h3 id="local-data-synchronization-process" class="markdown-heading-2 markdown-heading">Local Data Synchronization Process<a class="heading-anchor" href="#local-data-synchronization-process">&#xB6;</a></h3><p class="markdown-paragraph">When you open the Jjugg web application, a sophisticated synchronization process begins automatically. The application detects any new job submissions stored in your  and transfers this information into a robust local database running directly on your device.</p><h4 id="automatic-data-transfer" class="markdown-heading-3 markdown-heading">Automatic Data Transfer<a class="heading-anchor" href="#automatic-data-transfer">&#xB6;</a></h4><p class="markdown-paragraph"><strong class="markdown-strong">The synchronization workflow includes:</strong></p><ol class="ordered-list"><li class="list-item">Scanning  for new application entries</li><li class="list-item">Validating and structuring the captured data</li><li class="list-item">Transferring information to the local database</li><li class="list-item">Refreshing your dashboard view with updated application records</li></ol><h4 id="seamless-integration" class="markdown-heading-3 markdown-heading">Seamless Integration<a class="heading-anchor" href="#seamless-integration">&#xB6;</a></h4><p class="markdown-paragraph">This process creates a seamless connection between your browsing activity and your application tracking dashboard. Your job search progress is always current without requiring manual updates or data entry.</p><h4 id="advanced-database-architecture" class="markdown-heading-3 markdown-heading">Advanced Database Architecture<a class="heading-anchor" href="#advanced-database-architecture">&#xB6;</a></h4><p class="markdown-paragraph">The local database architecture provides several advantages over traditional tracking methods. Since everything runs on your device, your sensitive job search information remains private and secure. The database offers advanced querying capabilities, allowing you to filter, sort, and analyze your application history in ways that wouldn't be possible with simple spreadsheets or notes.</p><h3 id="status-progression-tracking" class="markdown-heading-2 markdown-heading">Status Progression Tracking<a class="heading-anchor" href="#status-progression-tracking">&#xB6;</a></h3><p class="markdown-paragraph">Beyond initial application capture, Jjugg continues to monitor the progress of your applications throughout their entire lifecycle. The system integrates with your email accounts to identify communications from potential employers, automatically updating the status of your applications as they move through the hiring process.</p><h4 id="intelligent-email-analysis" class="markdown-heading-3 markdown-heading">Intelligent Email Analysis<a class="heading-anchor" href="#intelligent-email-analysis">&#xB6;</a></h4><p class="markdown-paragraph"><strong class="markdown-strong">Our email scanning technology</strong> examines incoming messages for patterns indicating job-related communications. When it detects relevant emails, it analyzes the content to determine whether it represents a rejection, interview request, assessment invitation, or job offer.</p><h4 id="automated-status-updates" class="markdown-heading-3 markdown-heading">Automated Status Updates<a class="heading-anchor" href="#automated-status-updates">&#xB6;</a></h4><p class="markdown-paragraph">Based on this analysis, the system automatically updates the status of the corresponding application in your local database. This creates a dynamic view of your application pipeline that evolves as you receive responses, without requiring you to manually log each interaction.</p><h4 id="comprehensive-status-categories" class="markdown-heading-3 markdown-heading">Comprehensive Status Categories<a class="heading-anchor" href="#comprehensive-status-categories">&#xB6;</a></h4><p class="markdown-paragraph">The status progression typically follows paths such as:</p><ul class="unordered-list"><li class="list-item">Applied → Under Review → Interview Scheduled → Final Round → Offer</li><li class="list-item">Applied → Under Review → Rejected</li><li class="list-item">Applied → Assessment Requested → Technical Interview → Rejected</li></ul><h4 id="pipeline-visualization" class="markdown-heading-3 markdown-heading">Pipeline Visualization<a class="heading-anchor" href="#pipeline-visualization">&#xB6;</a></h4><p class="markdown-paragraph">This automatic status tracking gives you a comprehensive view of where each application stands in the process. You can easily identify which companies have responded, which applications require follow-up, and which positions have advanced to later stages.</p><h3 id="privacy-and-user-control" class="markdown-heading-2 markdown-heading">Privacy and User Control<a class="heading-anchor" href="#privacy-and-user-control">&#xB6;</a></h3><p class="markdown-paragraph">Jjugg's architecture as a local web application provides inherent privacy advantages. All data processing occurs directly on your device, with no external servers storing or accessing your job search information. This approach eliminates concerns about data breaches or unauthorized access to your sensitive application details.</p><h4 id="local-first-architecture" class="markdown-heading-3 markdown-heading">Local-First Architecture<a class="heading-anchor" href="#local-first-architecture">&#xB6;</a></h4><p class="markdown-paragraph"><strong class="markdown-strong">The local-first design</strong> means you maintain complete ownership of your data. There are no accounts to create, no subscription fees, and no risk of losing access to your information if a service shuts down. Your application history remains accessible even without an internet connection, allowing you to review and update your tracking anytime.</p><h4 id="privacy-focused-email-integration" class="markdown-heading-3 markdown-heading">Privacy-Focused Email Integration<a class="heading-anchor" href="#privacy-focused-email-integration">&#xB6;</a></h4><p class="markdown-paragraph">The email scanning functionality is designed with privacy as a priority. It processes messages locally on your device, examining only emails that match potential employer patterns. You control which email accounts are connected, and can disconnect them at any time through the application settings.</p><h4 id="extensive-customization-options" class="markdown-heading-3 markdown-heading">Extensive Customization Options<a class="heading-anchor" href="#extensive-customization-options">&#xB6;</a></h4><p class="markdown-paragraph">For users who prefer more customization, Jjugg offers extensive configuration options:</p><ul class="unordered-list"><li class="list-item">Custom status categories to match your preferred workflow</li><li class="list-item">Filtering rules for application capture</li><li class="list-item">Notification preferences for different status changes</li><li class="list-item">Data retention policies for completed applications</li></ul><h3 id="data-management-and-export" class="markdown-heading-2 markdown-heading">Data Management and Export<a class="heading-anchor" href="#data-management-and-export">&#xB6;</a></h3><h4 id="backup-capabilities" class="markdown-heading-3 markdown-heading">Backup Capabilities<a class="heading-anchor" href="#backup-capabilities">&#xB6;</a></h4><p class="markdown-paragraph">Jjugg includes robust data backup functionality, allowing you to export your complete application history in various formats. This ensures you never lose track of your job search progress, even when switching devices.</p><h4 id="portable-application-data" class="markdown-heading-3 markdown-heading">Portable Application Data<a class="heading-anchor" href="#portable-application-data">&#xB6;</a></h4><p class="markdown-paragraph">The export feature creates portable data files that can be imported into other instances of Jjugg, spreadsheet applications, or other tracking systems. This flexibility gives you complete control over how you manage your information.</p><h4 id="historical-analysis-tools" class="markdown-heading-3 markdown-heading">Historical Analysis Tools<a class="heading-anchor" href="#historical-analysis-tools">&#xB6;</a></h4><p class="markdown-paragraph">Export functionality also enables deeper analysis of your job search patterns over time. Review application volumes, response rates, and interview conversions to identify trends and optimize your approach.</p><h3 id="dashboard-and-reporting" class="markdown-heading-2 markdown-heading">Dashboard and Reporting<a class="heading-anchor" href="#dashboard-and-reporting">&#xB6;</a></h3><h4 id="real-time-application-status" class="markdown-heading-3 markdown-heading">Real-Time Application Status<a class="heading-anchor" href="#real-time-application-status">&#xB6;</a></h4><p class="markdown-paragraph">The Jjugg dashboard provides a live view of your entire application portfolio, with color-coded status indicators and timeline visualizations that make it easy to understand your current position.</p><h4 id="custom-filtering-and-views" class="markdown-heading-3 markdown-heading">Custom Filtering and Views<a class="heading-anchor" href="#custom-filtering-and-views">&#xB6;</a></h4><p class="markdown-paragraph">Create personalized dashboard views that focus on specific aspects of your job search - active applications, upcoming interviews, received offers, or applications requiring follow-up.</p><h4 id="performance-metrics" class="markdown-heading-3 markdown-heading">Performance Metrics<a class="heading-anchor" href="#performance-metrics">&#xB6;</a></h4><p class="markdown-paragraph">Track key metrics like application-to-interview conversion rates, response times from different companies, and success rates across various job categories to measure and improve your job search effectiveness.</p><h3 id="future-ai-enhanced-capabilities" class="markdown-heading-2 markdown-heading">Future AI-Enhanced Capabilities<a class="heading-anchor" href="#future-ai-enhanced-capabilities">&#xB6;</a></h3><p class="markdown-paragraph">As Jjugg evolves, we plan to incorporate more advanced AI features that will analyze your application history to provide personalized insights. These capabilities will run locally on your device, maintaining our commitment to data privacy while offering sophisticated guidance.</p><h4 id="personalized-recommendation-engine" class="markdown-heading-3 markdown-heading">Personalized Recommendation Engine<a class="heading-anchor" href="#personalized-recommendation-engine">&#xB6;</a></h4><p class="markdown-paragraph">The upcoming AI enhancements will learn from your application patterns to suggest job search optimizations. By analyzing which applications receive positive responses, the system can identify effective strategies and help you focus your efforts on positions where you're most likely to succeed.</p><h4 id="ai-feature-roadmap" class="markdown-heading-3 markdown-heading">AI Feature Roadmap<a class="heading-anchor" href="#ai-feature-roadmap">&#xB6;</a></h4><p class="markdown-paragraph"><strong class="markdown-strong">Planned AI features include:</strong></p><ul class="unordered-list"><li class="list-item">Personalized job recommendations based on your application success patterns</li><li class="list-item">Application strategy suggestions to improve response rates</li><li class="list-item">Interview preparation guidance tailored to specific companies and roles</li><li class="list-item">Salary negotiation insights based on offer history</li></ul><h4 id="privacy-preserved-intelligence" class="markdown-heading-3 markdown-heading">Privacy-Preserved Intelligence<a class="heading-anchor" href="#privacy-preserved-intelligence">&#xB6;</a></h4><p class="markdown-paragraph">By maintaining our local processing approach, these AI capabilities will provide valuable insights without compromising your information security. Your job search data remains entirely under your control while still benefiting from advanced analysis and recommendation technologies.</p>
+                </div>
+            </div>
+            
+            <div class="docs-panel hidden" id="section-2">
+                <div class="markdown-content" data-flow-name="features">
+                    <!-- Content will load instantly but might be further enhanced by JavaScript -->
+                    <h2 id="key-features" class="markdown-heading-1 markdown-heading">Key Features<a class="heading-anchor" href="#key-features">&#xB6;</a></h2><p class="markdown-paragraph">JJugg offers a comprehensive set of features to streamline your job application process and improve your chances of landing the perfect job.</p><h3 id="application-tracking" class="markdown-heading-2 markdown-heading">Application Tracking<a class="heading-anchor" href="#application-tracking">&#xB6;</a></h3><p class="markdown-paragraph">The core of JJugg is its powerful application tracking system:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Kanban Board</strong>: Visualize your application pipeline with customizable stages</li><li class="list-item"><strong class="markdown-strong">Status Timeline</strong>: Track the progression of each application over time</li><li class="list-item"><strong class="markdown-strong">Smart Reminders</strong>: Get notified when to follow up on applications</li><li class="list-item"><strong class="markdown-strong">Bulk Actions</strong>: Update multiple applications at once</li><li class="list-item"><strong class="markdown-strong">Custom Fields</strong>: Add your own tracking parameters</li></ul><h3 id="analytics-dashboard" class="markdown-heading-2 markdown-heading">Analytics Dashboard<a class="heading-anchor" href="#analytics-dashboard">&#xB6;</a></h3><p class="markdown-paragraph">Gain insights into your job search with detailed analytics:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">graph TD
+    A[Application Data] --> B[Analytics Engine]
+    B --> C[Response Rate]
+    B --> D[Interview Conversion]
+    B --> E[Time to Response]
+    B --> F[Salary Trends]
+
+</span></div></div></div><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Success Metrics</strong>: Visualize your response and interview rates</li><li class="list-item"><strong class="markdown-strong">Timeframe Analysis</strong>: Track how long each stage of the process takes</li><li class="list-item"><strong class="markdown-strong">Salary Comparison</strong>: Compare offered compensation packages</li><li class="list-item"><strong class="markdown-strong">Heatmap Calendar</strong>: See your most active application periods</li><li class="list-item"><strong class="markdown-strong">Custom Reports</strong>: Generate reports for specific job types or companies</li></ul><h3 id="email-integration" class="markdown-heading-2 markdown-heading">Email Integration<a class="heading-anchor" href="#email-integration">&#xB6;</a></h3><p class="markdown-paragraph">JJugg automatically scans your inbox for job-related emails:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Status Updates</strong>: Automatically detect interview invites, rejections, and offers</li><li class="list-item"><strong class="markdown-strong">Email Templates</strong>: Quick-access templates for common responses</li><li class="list-item"><strong class="markdown-strong">Follow-up Tracking</strong>: Monitor when you've followed up and when to do so again</li><li class="list-item"><strong class="markdown-strong">Calendar Integration</strong>: Add interviews directly to your calendar</li></ul><h3 id="resume-management" class="markdown-heading-2 markdown-heading">Resume Management<a class="heading-anchor" href="#resume-management">&#xB6;</a></h3><p class="markdown-paragraph">Manage multiple versions of your application materials:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Version Control</strong>: Track changes to your resume over time</li><li class="list-item"><strong class="markdown-strong">Tailoring Assistant</strong>: Get suggestions for customizing your resume to specific job postings</li><li class="list-item"><strong class="markdown-strong">ATS Compatibility Check</strong>: Ensure your resume works with Applicant Tracking Systems</li><li class="list-item"><strong class="markdown-strong">Format Conversion</strong>: Export to PDF, DOCX, or plain text formats</li></ul><h3 id="privacy---security" class="markdown-heading-2 markdown-heading">Privacy & Security<a class="heading-anchor" href="#privacy---security">&#xB6;</a></h3><p class="markdown-paragraph">JJugg is designed with your privacy in mind:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong"><span class="count-up" data-final-value="100">0</span>% Client-side</strong>: Your data never leaves your device</li><li class="list-item"><strong class="markdown-strong">No Tracking</strong>: We don't collect usage data or analytics</li><li class="list-item"><strong class="markdown-strong">Encrypted Backup</strong>: Optional encrypted cloud backup</li><li class="list-item"><strong class="markdown-strong">Data Export</strong>: Export your data at any time in multiple formats</li></ul>
+                </div>
+            </div>
+            
+            <div class="docs-panel hidden" id="section-3">
+                <div class="markdown-content" data-flow-name="installation">
+                    <!-- Content will load instantly but might be further enhanced by JavaScript -->
+                    <h2 id="installation-guide" class="markdown-heading-1 markdown-heading">Installation Guide<a class="heading-anchor" href="#installation-guide">&#xB6;</a></h2><p class="markdown-paragraph">JJugg is a web application that can be installed and run entirely in your browser. This guide will walk you through the different installation options.</p><h3 id="option-1--web-app--recommended" class="markdown-heading-2 markdown-heading">Option <span class="count-up" data-final-value="1">0</span>: Web App (Recommended)<a class="heading-anchor" href="#option-1--web-app--recommended">&#xB6;</a></h3><p class="markdown-paragraph">The simplest way to use JJugg is through our web application:</p><ol class="ordered-list"><li class="list-item">Visit <a href="https://jjugg.app" class="markdown-link">https://jjugg.app</a> in your browser</li><li class="list-item">Click "Get Started" to create your account</li><li class="list-item">Follow the onboarding process to set up your profile</li></ol><p class="markdown-paragraph">The web app automatically saves your data to your browser's localStorage, so you can close the browser and return later without losing any information.</p><h3 id="option-2--progressive-web-app--pwa" class="markdown-heading-2 markdown-heading">Option <span class="count-up" data-final-value="2">0</span>: Progressive Web App (PWA)<a class="heading-anchor" href="#option-2--progressive-web-app--pwa">&#xB6;</a></h3><p class="markdown-paragraph">For a more native app-like experience, you can install JJugg as a Progressive Web App:</p><ol class="ordered-list"><li class="list-item">Visit <a href="https://jjugg.app" class="markdown-link">https://jjugg.app</a> in Chrome, Edge, or another supported browser</li><li class="list-item">Look for the install icon (➕) in the address bar</li><li class="list-item">Click "Install" when prompted</li><li class="list-item">JJugg will now appear as an application in your start menu or dock</li></ol><p class="markdown-paragraph">The PWA version works offline and provides notifications for application status updates.</p><h3 id="option-3--self-hosted-version" class="markdown-heading-2 markdown-heading">Option <span class="count-up" data-final-value="3">0</span>: Self-Hosted Version<a class="heading-anchor" href="#option-3--self-hosted-version">&#xB6;</a></h3><p class="markdown-paragraph">For users who prefer complete control over their data, JJugg can be self-hosted:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">
+# Clone the repository
+git clone https://github.com/cybrdelic/jjugg.git
+
+
+# Navigate to the project folder
+cd jjugg
+
+
+# Install dependencies
+npm install
+
+
+# Start the local development server
+npm start
+
+</span></div></div></div><p class="markdown-paragraph">The self-hosted version runs on your local network at  by default.</p><h3 id="browser-extensions" class="markdown-heading-2 markdown-heading">Browser Extensions<a class="heading-anchor" href="#browser-extensions">&#xB6;</a></h3><p class="markdown-paragraph">To enhance JJugg's functionality, we recommend installing our browser extensions:</p><ul class="unordered-list"><li class="list-item"><a href="https://chrome.google.com/webstore/detail/jjugg/abcdefghijklmnop" class="markdown-link">JJugg for Chrome</a></li><li class="list-item"><a href="https://addons.mozilla.org/en-US/firefox/addon/jjugg/" class="markdown-link">JJugg for Firefox</a></li></ul><p class="markdown-paragraph">These extensions enable automatic job application detection and tracking across different job boards.</p><h3 id="system-requirements" class="markdown-heading-2 markdown-heading">System Requirements<a class="heading-anchor" href="#system-requirements">&#xB6;</a></h3><p class="markdown-paragraph">JJugg works on any modern browser, including:</p><ul class="unordered-list"><li class="list-item">Chrome (version <span class="count-up" data-final-value="80">0</span>+)</li><li class="list-item">Firefox (version <span class="count-up" data-final-value="75">0</span>+)</li><li class="list-item">Safari (version <span class="count-up" data-final-value="14">0</span>+)</li><li class="list-item">Edge (Chromium-based, version <span class="count-up" data-final-value="80">0</span>+)</li></ul><p class="markdown-paragraph">For the best experience, we recommend using a desktop or laptop computer with at least:</p><ul class="unordered-list"><li class="list-item">4GB RAM</li><li class="list-item">Any modern processor</li><li class="list-item">100MB free disk space (for the PWA version)</li></ul>
+                </div>
+            </div>
+            
+        </div>
+
+    </section>
+    
+
+    
+<section id="FUTURE">
+    <div class="container">
+        <div class="future-projects-container">
+            <!-- Left Panel - Future Details -->
+            <div class="future-details-panel">
+                <h3 class="details-header">What's Next For JJugg?</h3>
+                <p class="details-description">
+                    *Coming updates and improvements for this project in our development pipeline.*
+                </p>
+                <div class="details-stats">
+                    <div class="stat-box">
+                        <div class="stat-number">3+</div>
+                        <div class="stat-label">Updates</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Open Source</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">2024</div>
+                        <div class="stat-label">Roadmap</div>
+                    </div>
+                </div>
+                <div class="collaborate-section">
+                    <h3 class="details-subheader">Want to Collaborate?</h3>
+                    <p class="collab-description">
+                        *If these ideas spark your interest, let's connect and disrupt the norm together.*
+                    </p>
+                    <a href="#contact" class="details-link">
+                        <span class="details-link-text">Connect Now</span>
+                        <span class="details-link-icon">→</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Right Panel - Future Timeline -->
+            <div class="future-timeline">
+                
+                <div class="timeline-item" tabindex="0">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Email Integration API</h3>
+                        <span class="timeline-date">April 2024</span>
+                        <p class="timeline-description">
+                            Seamless email processing to automatically detect application updates and interview scheduling.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" tabindex="0">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">AI Resume Analysis</h3>
+                        <span class="timeline-date">May 2024</span>
+                        <p class="timeline-description">
+                            Intelligent matching between job descriptions and your resume for targeted application strategies.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" tabindex="0">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Chrome Extension</h3>
+                        <span class="timeline-date">June 2024</span>
+                        <p class="timeline-description">
+                            One-click job application tracking directly within your browser on all major job platforms.
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Related Projects Section -->
+    
+    <section class="related-section">
+        <h2 class="section-heading">Related Projects</h2>
+        <div class="related-grid">
+            
+            <a href="/projects/myriad" class="related-card card-hover">
+                <div class="related-image-container">
+                    <img src="&#x2F;static&#x2F;images&#x2F;myriad.jpg" alt="Myriad.ai" />
+                </div>
+                <div class="related-content">
+                    <h3 class="related-title">Myriad.ai</h3>
+                    <p class="related-subtitle">Intelligent Software Copilot</p>
+                </div>
+            </a>
+            
+            <a href="/projects/commitaura" class="related-card card-hover">
+                <div class="related-image-container">
+                    <img src="&#x2F;static&#x2F;images&#x2F;commitaura.gif" alt="CommitAura" />
+                </div>
+                <div class="related-content">
+                    <h3 class="related-title">CommitAura</h3>
+                    <p class="related-subtitle">AI-Powered Commit Message Generator</p>
+                </div>
+            </a>
+            
+            <a href="/projects/resumatyk" class="related-card card-hover">
+                <div class="related-image-container">
+                    <img src="&#x2F;static&#x2F;images&#x2F;resumatyk.jpg" alt="Resumatyk" />
+                </div>
+                <div class="related-content">
+                    <h3 class="related-title">Resumatyk</h3>
+                    <p class="related-subtitle">AI Resume Management TUI</p>
+                </div>
+            </a>
+            
+        </div>
+    </section>
+    
+</main>
+
+<!-- Modal for image preview -->
+<div id="imageModal" class="modal" onclick="if(event.target === this) closeModal();">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img id="modalImage" src="" alt="">
+        <p id="modalCaption" class="modal-caption"></p>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        initDocumentationTabs();
+        initDocumentationAnimations();
+    });
+
+    function initDocumentationTabs() {
+        const navItems = document.querySelectorAll('.docs-nav-item');
+        if (navItems.length === 0) return;
+
+        // Preload all documentation content
+        document.querySelectorAll('.docs-panel').forEach(panel => {
+            // Create a flag to track initialization
+            panel.dataset.initialized = 'true';
+        });
+
+        // Event delegation for tab switching
+        const sidebar = document.querySelector('.docs-sidebar');
+        if (sidebar) {
+            sidebar.addEventListener('click', (e) => {
+                const item = e.target.closest('.docs-nav-item');
+                if (!item) return;
+
+                // Remove active class from all nav items
+                document.querySelectorAll('.docs-nav-item').forEach(navItem => {
+                    navItem.classList.remove('active');
+                });
+
+                // Add active class to clicked item
+                item.classList.add('active');
+
+                // Hide all content panels efficiently
+                document.querySelectorAll('.docs-panel.active').forEach(panel => {
+                    panel.classList.add('hidden');
+                    panel.classList.remove('active');
+                });
+
+                // Show selected panel
+                const targetId = item.getAttribute('data-tab');
+                const targetPanel = document.getElementById(targetId);
+                if (targetPanel) {
+                    targetPanel.classList.remove('hidden');
+                    targetPanel.classList.add('active');
+                }
+            });
+        }
+    }
+
+    function copyToClipboard(button) {
+        const command = button.closest('.command-line').querySelector('.terminal-command').innerText;
+        navigator.clipboard.writeText(command)
+            .then(() => showCopySuccess(button))
+            .catch(() => console.error('Failed to copy'));
+    }
+
+    function showCopySuccess(button) {
+        button.classList.add('copied');
+        const originalHTML = button.innerHTML;
+
+        // Confetti animation
+        const confettiContainer = button.querySelector('.confetti-container');
+        if (confettiContainer) {
+            confettiContainer.innerHTML = '';
+            for (let i = 0; i < 10; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+                confettiContainer.appendChild(confetti);
+            }
+        }
+
+        button.innerHTML = `<svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 6L9 17l-5-5"/>
+        </svg><div class="confetti-container"></div>`;
+
+        setTimeout(() => {
+            button.classList.remove('copied');
+            button.innerHTML = originalHTML;
+        }, 2000);
+    }
+
+    function openModal(imgElement) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+        const caption = document.querySelector('.showcase-caption');
+
+        modal.style.display = "flex";
+        modal.classList.add('modal-fade-in');
+        modalImg.src = imgElement.src;
+        modalCaption.textContent = caption ? caption.textContent : '';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.remove('modal-fade-in');
+        modal.classList.add('modal-fade-out');
+
+        setTimeout(() => {
+            modal.style.display = "none";
+            modal.classList.remove('modal-fade-out');
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+    
+    function initDocumentationAnimations() {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -5% 0px',
+            threshold: 0.01
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    requestAnimationFrame(() => {
+                        entry.target.classList.add('in-view');
+                    });
+                }
+            });
+        }, observerOptions);
+
+        // Observe and immediately activate the documentation section if in viewport
+        const docSection = document.querySelector('.documentation-section');
+        if (docSection) {
+            const rect = docSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight) {
+                docSection.classList.add('in-view');
+            } else {
+                sectionObserver.observe(docSection);
+            }
+        }
+    }
+</script>
+
+        <div class="vertical-name"></div>
+    </div>
+
+    <!-- Site scripts -->
+    <script src="/static/js/animations.js"></script>
+    <script src="/static/js/documentation.js"></script>
+    <script src="/static/js/projects.js"></script>
+    <script src="/static/js/glitch.js"></script>
+    <script src="/static/js/transitions.js"></script>
+
+    <!-- Core functionality -->
+    <script>
+        // Apply theme from localStorage immediately to avoid FOUC
+        (function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            }
+        })();
+
+        // Initialize Mermaid diagrams - safely check if loaded
+        if (typeof mermaid !== 'undefined') {
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'neutral',
+                flowchart: { curve: 'basis' }
+            });
+        } else {
+            // Add event listener for when mermaid loads
+            document.addEventListener('DOMContentLoaded', () => {
+                if (typeof mermaid !== 'undefined') {
+                    mermaid.initialize({
+                        startOnLoad: true,
+                        theme: 'neutral',
+                        flowchart: { curve: 'basis' }
+                    });
+                }
+            });
+        }
+
+        // Theme management system
+        document.addEventListener('DOMContentLoaded', () => {
+            const navThemeToggleBtn = document.getElementById('nav-theme-toggle');
+            const cornerEffects = document.querySelectorAll('.corner-effect');
+
+            // Function to update theme
+            function updateTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+
+                // Update toggle icon
+                const themeIcon = document.querySelector('.theme-icon');
+                if (themeIcon) {
+                    themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
+                }
+
+                // Apply subtle animation to corner effects
+                cornerEffects.forEach(corner => {
+                    corner.style.transition = 'opacity 0.5s ease';
+                    corner.style.opacity = '0.5';
+                    setTimeout(() => {
+                        corner.style.opacity = '0.3';
+                    }, 300);
+                });
+            }
+
+            // Initialize theme from saved preference immediately
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            // Apply theme without animation for initial load
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            // Then pass to the update function for icon updates
+            updateTheme(savedTheme);
+
+            // Toggle theme on click
+            if (navThemeToggleBtn) {
+                navThemeToggleBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const currentTheme = document.documentElement.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    updateTheme(newTheme);
+                });
+            }
+
+            // Initialize font dropdown
+            function initializeFontDropdown() {
+                const dropdown = document.querySelector('.font-dropdown-content');
+
+                // Clear existing content
+                dropdown.innerHTML = '';
+
+                // Create font options
+                fontOptions.forEach((option, index) => {
+                    const fontOption = document.createElement('div');
+                    fontOption.className = `font-option ${option.isUbuntuMono ? 'ubuntu-mono' : ''}`;
+                    if (parseInt(localStorage.getItem('fontOption') || '0') === index) {
+                        fontOption.classList.add('active');
+                    }
+
+                    // Apply the display font to the option itself (since that's what we'll use for the name)
+                    fontOption.style.fontFamily = option.display;
+
+                    const optionName = document.createElement('span');
+                    optionName.className = 'option-name';
+                    // Show the display font name instead
+                    optionName.textContent = option.name.split(' + ')[1] || option.name.split(' + ')[0];
+
+                    fontOption.appendChild(optionName);
+                    fontOption.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        updateFonts(index);
+                    });
+
+                    dropdown.appendChild(fontOption);
+                });
+            }
+
+            // Toggle fonts on click
+            if (fontSwitcherBtn) {
+                // Long press to show modal with all font options
+                let pressTimer;
+                fontSwitcherBtn.addEventListener('mousedown', () => {
+                    pressTimer = setTimeout(() => {
+                        showFontModal(fontOptions);
+                    }, 800);
+                });
+
+                fontSwitcherBtn.addEventListener('mouseup', () => {
+                    clearTimeout(pressTimer);
+                });
+
+                fontSwitcherBtn.addEventListener('mouseleave', () => {
+                    clearTimeout(pressTimer);
+                });
+            }
+
+            // Initialize dropdown on page load
+            initializeFontDropdown();
+
+            // Function to show a modal with all font options
+            function showFontModal(options) {
+                // Remove existing modal if it exists
+                const existingModal = document.getElementById('font-modal');
+                if (existingModal) {
+                    existingModal.remove();
+                    return;
+                }
+
+                // Create modal
+                const modal = document.createElement('div');
+                modal.id = 'font-modal';
+                modal.style.position = 'fixed';
+                modal.style.top = '50%';
+                modal.style.left = '50%';
+                modal.style.transform = 'translate(-50%, -50%)';
+                modal.style.background = 'var(--bg-glass)';
+                modal.style.backdropFilter = 'blur(10px)';
+                modal.style.padding = '20px';
+                modal.style.borderRadius = '8px';
+                modal.style.boxShadow = 'var(--shadow-lg)';
+                modal.style.zIndex = '10000';
+                modal.style.maxWidth = '700px';
+                modal.style.width = '90%';
+                modal.style.maxHeight = '85vh';
+                modal.style.overflowY = 'auto';
+
+                // Add heading
+                const heading = document.createElement('h3');
+                heading.style.fontFamily = 'var(--font-display)';
+                heading.style.marginBottom = '1rem';
+                heading.textContent = 'Font Options';
+                heading.style.position = 'sticky';
+                heading.style.top = '0';
+                heading.style.background = 'var(--bg-glass)';
+                heading.style.zIndex = '1';
+                heading.style.padding = '5px 0';
+                heading.style.backdropFilter = 'blur(10px)';
+                modal.appendChild(heading);
+
+                // Create search input
+                const searchContainer = document.createElement('div');
+                searchContainer.style.marginBottom = '15px';
+                searchContainer.style.position = 'sticky';
+                searchContainer.style.top = '50px';
+                searchContainer.style.zIndex = '1';
+                searchContainer.style.backdropFilter = 'blur(10px)';
+                searchContainer.style.background = 'var(--bg-glass)';
+                searchContainer.style.padding = '5px 0';
+
+                const searchInput = document.createElement('input');
+                searchInput.type = 'text';
+                searchInput.placeholder = 'Search fonts...';
+                searchInput.style.width = '100%';
+                searchInput.style.padding = '8px 12px';
+                searchInput.style.borderRadius = '4px';
+                searchInput.style.border = '1px solid var(--color-border)';
+                searchInput.style.background = 'var(--bg-glass)';
+                searchInput.style.color = 'var(--color-text-primary)';
+                searchInput.style.fontFamily = 'var(--font-primary)';
+                searchContainer.appendChild(searchInput);
+                modal.appendChild(searchContainer);
+
+                // Group fonts by category
+                const categories = Array.from(new Set(options.map(opt => opt.category)));
+
+                // Add current font indicator
+                const currentOption = parseInt(localStorage.getItem('fontOption') || '0');
+
+                // Create container for font options
+                const optionsContainer = document.createElement('div');
+
+                // Function to render font options
+                function renderOptions(filter = '') {
+                    // Clear previous options
+                    optionsContainer.innerHTML = '';
+
+                    // Create font options grouped by category
+                    categories.forEach(category => {
+                        const categoryFonts = options.filter(o =>
+                            o.category === category &&
+                            (filter === '' ||
+                                o.name.toLowerCase().includes(filter.toLowerCase()) ||
+                                category.toLowerCase().includes(filter.toLowerCase())
+                            )
+                        );
+
+                        // Skip categories with no matching fonts
+                        if (categoryFonts.length === 0) return;
+
+                        // Create category group
+                        const categoryGroup = document.createElement('div');
+                        categoryGroup.style.marginBottom = '20px';
+
+                        // Add category header
+                        const categoryHeader = document.createElement('h4');
+                        categoryHeader.textContent = category;
+                        categoryHeader.style.fontFamily = 'var(--font-display)';
+                        categoryHeader.style.fontSize = '1rem';
+                        categoryHeader.style.marginBottom = '10px';
+                        categoryHeader.style.padding = '5px 0';
+                        categoryHeader.style.borderBottom = '1px solid var(--color-border)';
+                        categoryGroup.appendChild(categoryHeader);
+
+                        // Create font options list for this category
+                        const categoryList = document.createElement('div');
+                        categoryList.style.display = 'grid';
+                        categoryList.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
+                        categoryList.style.gap = '15px';
+
+                        // Add fonts in this category
+                        categoryFonts.forEach((option, idx) => {
+                            const index = options.indexOf(option);
+
+                            const fontItem = document.createElement('div');
+                            fontItem.style.padding = '12px';
+                            fontItem.style.cursor = 'pointer';
+                            fontItem.style.borderRadius = '4px';
+                            fontItem.style.transition = 'all 0.2s ease';
+                            fontItem.style.border = '1px solid var(--color-border)';
+
+                            // Highlight current font
+                            if (index === currentOption) {
+                                fontItem.style.background = 'var(--bg-black-05)';
+                                fontItem.style.fontWeight = 'bold';
+                                fontItem.style.borderColor = 'var(--color-accent)';
+                                fontItem.style.boxShadow = '0 0 0 1px var(--color-accent)';
+                            }
+
+                            // Apply the primary font to the item
+                            fontItem.style.fontFamily = option.primary;
+
+                            // Create display font preview
+                            const displayPreview = document.createElement('div');
+                            displayPreview.textContent = 'AaBbCc123';
+                            displayPreview.style.fontFamily = option.display;
+                            displayPreview.style.fontSize = '1.2em';
+                            displayPreview.style.marginBottom = '8px';
+                            displayPreview.style.color = 'var(--color-accent)';
+
+                            // Create primary font preview
+                            const primaryPreview = document.createElement('div');
+                            primaryPreview.textContent = 'AaBbCc123';
+                            primaryPreview.style.fontFamily = option.primary;
+                            primaryPreview.style.fontSize = '1em';
+                            primaryPreview.style.marginBottom = '5px';
+
+                            // Create mono font preview
+                            const monoPreview = document.createElement('div');
+                            monoPreview.textContent = 'AaBbCc123';
+                            monoPreview.style.fontFamily = option.mono;
+                            monoPreview.style.fontSize = '0.9em';
+                            monoPreview.style.opacity = '0.7';
+
+                            // Create header with font name and status
+                            const header = document.createElement('div');
+                            header.style.display = 'flex';
+                            header.style.justifyContent = 'space-between';
+                            header.style.alignItems = 'center';
+                            header.style.marginBottom = '10px';
+
+                            const nameSpan = document.createElement('div');
+                            nameSpan.textContent = option.name.split(' + ')[0];
+                            nameSpan.style.fontWeight = 'bold';
+
+                            const statusSpan = document.createElement('div');
+                            if (index === currentOption) {
+                                statusSpan.textContent = '✓';
+                                statusSpan.style.color = 'var(--color-accent)';
+                            }
+
+                            header.appendChild(nameSpan);
+                            header.appendChild(statusSpan);
+
+                            // Add all elements to font item
+                            fontItem.appendChild(header);
+                            fontItem.appendChild(displayPreview);
+                            fontItem.appendChild(primaryPreview);
+                            fontItem.appendChild(monoPreview);
+
+                            // Add sample text
+                            const sampleText = document.createElement('div');
+                            sampleText.textContent = 'The quick brown fox jumps over the lazy dog';
+                            sampleText.style.marginTop = '10px';
+                            sampleText.style.fontSize = '0.85em';
+                            sampleText.style.opacity = '0.7';
+                            sampleText.style.fontFamily = option.primary;
+                            fontItem.appendChild(sampleText);
+
+                            // Set click handler
+                            fontItem.addEventListener('click', () => {
+                                updateFonts(index);
+                                modal.remove();
+                            });
+
+                            // Hover effect
+                            fontItem.addEventListener('mouseenter', () => {
+                                fontItem.style.background = 'var(--bg-black-05)';
+                                fontItem.style.transform = 'translateY(-2px)';
+                                fontItem.style.boxShadow = 'var(--shadow-md)';
+                            });
+
+                            fontItem.addEventListener('mouseleave', () => {
+                                if (index !== currentOption) {
+                                    fontItem.style.background = 'transparent';
+                                    fontItem.style.transform = 'translateY(0)';
+                                    fontItem.style.boxShadow = 'none';
+                                } else {
+                                    fontItem.style.transform = 'translateY(0)';
+                                    fontItem.style.boxShadow = '0 0 0 1px var(--color-accent)';
+                                }
+                            });
+
+                            categoryList.appendChild(fontItem);
+                        });
+
+                        categoryGroup.appendChild(categoryList);
+                        optionsContainer.appendChild(categoryGroup);
+                    });
+
+                    // Show no results message if needed
+                    if (optionsContainer.children.length === 0 && filter !== '') {
+                        const noResults = document.createElement('div');
+                        noResults.textContent = `No fonts matching "${filter}"`;
+                        noResults.style.textAlign = 'center';
+                        noResults.style.padding = '20px';
+                        noResults.style.color = 'var(--color-text-secondary)';
+                        optionsContainer.appendChild(noResults);
+                    }
+                }
+
+                // Add search functionality
+                searchInput.addEventListener('input', () => {
+                    renderOptions(searchInput.value);
+                });
+
+                // Initial render
+                renderOptions();
+                modal.appendChild(optionsContainer);
+
+                // Add buttons container
+                const buttonsContainer = document.createElement('div');
+                buttonsContainer.style.display = 'flex';
+                buttonsContainer.style.justifyContent = 'space-between';
+                buttonsContainer.style.marginTop = '20px';
+                buttonsContainer.style.position = 'sticky';
+                buttonsContainer.style.bottom = '0';
+                buttonsContainer.style.padding = '10px 0';
+                buttonsContainer.style.background = 'var(--bg-glass)';
+                buttonsContainer.style.backdropFilter = 'blur(10px)';
+                buttonsContainer.style.zIndex = '1';
+
+                // Add random button
+                const randomBtn = document.createElement('button');
+                randomBtn.textContent = 'Random Font';
+                randomBtn.style.padding = '8px 16px';
+                randomBtn.style.marginRight = '10px';
+                randomBtn.style.border = 'none';
+                randomBtn.style.borderRadius = '4px';
+                randomBtn.style.background = 'var(--bg-black-05)';
+                randomBtn.style.cursor = 'pointer';
+                randomBtn.style.fontFamily = 'var(--font-primary)';
+                randomBtn.style.color = 'var(--color-text-primary)';
+
+                randomBtn.addEventListener('click', () => {
+                    const randomIndex = Math.floor(Math.random() * options.length);
+                    updateFonts(randomIndex);
+                    modal.remove();
+                });
+
+                // Add close button
+                const closeBtn = document.createElement('button');
+                closeBtn.textContent = 'Close';
+                closeBtn.style.padding = '8px 16px';
+                closeBtn.style.border = 'none';
+                closeBtn.style.borderRadius = '4px';
+                closeBtn.style.background = 'var(--bg-black-05)';
+                closeBtn.style.cursor = 'pointer';
+                closeBtn.style.fontFamily = 'var(--font-primary)';
+                closeBtn.style.color = 'var(--color-text-primary)';
+
+                closeBtn.addEventListener('click', () => {
+                    modal.remove();
+                });
+
+                buttonsContainer.appendChild(randomBtn);
+                buttonsContainer.appendChild(closeBtn);
+                modal.appendChild(buttonsContainer);
+
+                // Close modal when clicking outside
+                document.addEventListener('click', function closeModalOnOutsideClick(e) {
+                    if (!modal.contains(e.target) && e.target !== fontSwitcherBtn) {
+                        modal.remove();
+                        document.removeEventListener('click', closeModalOnOutsideClick);
+                    }
+                });
+
+                // Add to body
+                document.body.appendChild(modal);
+
+                // Focus search input
+                setTimeout(() => {
+                    searchInput.focus();
+                }, 100);
+            }
+        });
+
+        // Text scramble effect
+        function scrambleText(element, newText, duration = 1000) {
+            const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            const oldText = element.textContent;
+            const maxLength = Math.max(oldText.length, newText.length);
+            const startTime = performance.now();
+
+            function update() {
+                const now = performance.now();
+                const progress = Math.min((now - startTime) / duration, 1);
+                let output = "";
+                for (let i = 0; i < maxLength; i++) {
+                    if (i < newText.length && progress > i / maxLength) {
+                        output += newText[i];
+                    } else {
+                        output += letters[Math.floor(Math.random() * letters.length)];
+                    }
+                }
+                element.textContent = output;
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    element.textContent = newText;
+                }
+            }
+            update();
+        }
+
+        // Vertical name management
+        function morphVerticalName(newText) {
+            const vn = document.querySelector('.vertical-name');
+            if (vn && vn.textContent !== newText) {
+                scrambleText(vn, newText, 200);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Initialize vertical name
+            const verticalName = document.querySelector(".vertical-name");
+            if (!verticalName) return;
+
+            morphVerticalName("cybrdelic");
+
+            // Initialize text transform options
+            const transformOptions = document.querySelectorAll('.transform-option');
+            if (transformOptions.length > 0) {
+                transformOptions.forEach(option => {
+                    option.addEventListener('click', function () {
+                        // Remove active class from all options
+                        transformOptions.forEach(opt => opt.classList.remove('active'));
+
+                        // Add active class to clicked option
+                        this.classList.add('active');
+
+                        // Get transform type
+                        const transform = this.getAttribute('data-transform');
+
+                        // Get hero name element
+                        const heroName = document.getElementById('hero-name');
+
+                        // Remove all existing transform classes
+                        heroName.classList.remove('uppercase', 'lowercase', 'text-outline', 'text-shadow', 'text-glow');
+
+                        // Add selected transform class if not 'none'
+                        if (transform !== 'none') {
+                            heroName.classList.add(transform);
+                        }
+
+                        // Save preference
+                        localStorage.setItem('textTransform', transform);
+                    });
+                });
+
+                // Apply saved preference if exists
+                const savedTransform = localStorage.getItem('textTransform');
+                if (savedTransform) {
+                    transformOptions.forEach(option => {
+                        if (option.getAttribute('data-transform') === savedTransform) {
+                            option.click();
+                        }
+                    });
+                }
+            }
+
+            // Section navigation mapping
+            const displayMap = {
+                'hero': 'cybrdelic',
+                'projects': 'projects',
+                'career': 'timeline',
+                'whats-next': 'future',
+                'contact': 'contact'
+            };
+
+            // Create intersection observer to detect visible section
+            const sectionObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+                        const sectionId = entry.target.getAttribute('id');
+                        if (sectionId && verticalName.textContent !== sectionId) {
+                            const displayText = displayMap[sectionId] || sectionId;
+                            morphVerticalName(displayText);
+                        }
+                    }
+                });
+            }, {
+                threshold: [0.3, 0.6],
+                rootMargin: "-10% 0px"
+            });
+
+            // Force scroll to top on page load
+            window.scrollTo(0, 0);
+
+            // Smooth scroll navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('.nav')?.offsetHeight || 0;
+                        const offsetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+
+                        history.pushState(null, null, targetId);
+                    }
+                });
+            });
+
+            // Active section highlighting in navigation
+            const navObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                        const id = entry.target.getAttribute('id');
+                        document.querySelectorAll('.nav a').forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            // Observe all sections for both effects
+            document.querySelectorAll("section[id]").forEach(section => {
+                sectionObserver.observe(section);
+                navObserver.observe(section);
+            });
+
+            // Update after any dynamic content changes
+            document.body.addEventListener("htmx:afterSwap", () => {
+                document.querySelectorAll("section[id]").forEach(section => {
+                    sectionObserver.observe(section);
+                    navObserver.observe(section);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

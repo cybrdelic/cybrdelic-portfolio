@@ -1,0 +1,143 @@
+<svg class="browsealizer-icon" width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .browsealizer-phone {
+            fill: #333;
+            stroke: #555;
+            stroke-width: 2;
+            rx: 12;
+            ry: 12;
+        }
+        .browsealizer-screen {
+            fill: #f5f5f5;
+            rx: 4;
+            ry: 4;
+        }
+        .browsealizer-header {
+            fill: #0366d6;
+        }
+        .browsealizer-card {
+            fill: white;
+            stroke: #ddd;
+            stroke-width: 1;
+            rx: 4;
+            ry: 4;
+            filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.1));
+            animation-name: float;
+            animation-duration: 4s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .browsealizer-title {
+            fill: #333;
+            font-family: sans-serif;
+            font-size: 7px;
+            font-weight: bold;
+        }
+        .browsealizer-text {
+            fill: #666;
+            font-family: sans-serif;
+            font-size: 5px;
+        }
+        .browsealizer-star {
+            fill: #f1e05a;
+        }
+        .browsealizer-fork {
+            fill: #6f42c1;
+        }
+        .browsealizer-badge {
+            fill: #f1f8ff;
+            stroke: #c8e1ff;
+            stroke-width: 0.5;
+            rx: 3;
+            ry: 3;
+        }
+        .browsealizer-badge-text {
+            fill: #0366d6;
+            font-family: sans-serif;
+            font-size: 5px;
+            text-anchor: middle;
+        }
+        .browsealizer-indicator {
+            fill: #fff;
+            rx: 3;
+            ry: 3;
+        }
+        .browsealizer-dot {
+            fill: #0366d6;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; r: 1.5; }
+            50% { opacity: 1; r: 2; }
+        }
+    </style>
+    
+    <!-- Phone outline -->
+    <rect class="browsealizer-phone" x="100" y="40" width="100" height="200" />
+    
+    <!-- Phone screen -->
+    <rect class="browsealizer-screen" x="105" y="50" width="90" height="180" />
+    
+    <!-- GitHub header -->
+    <rect class="browsealizer-header" x="105" y="50" width="90" height="15" />
+    <rect class="browsealizer-indicator" x="110" y="55" width="40" height="5" />
+    <circle class="browsealizer-dot" cx="185" cy="58" r="2" />
+    
+    <!-- Repository cards -->
+    <g transform="translate(0, 0)">
+        <rect class="browsealizer-card" x="110" y="70" width="80" height="35" style="animation-delay: 0s" />
+        <text class="browsealizer-title" x="115" y="80">tensorflow/tensorflow</text>
+        <text class="browsealizer-text" x="115" y="88">Deep learning framework</text>
+        <circle class="browsealizer-star" cx="115" cy="95" r="2" />
+        <text class="browsealizer-text" x="120" y="96">175k</text>
+        <circle class="browsealizer-fork" cx="140" cy="95" r="2" />
+        <text class="browsealizer-text" x="145" y="96">86k</text>
+        <rect class="browsealizer-badge" x="165" y="92" width="20" height="7" />
+        <text class="browsealizer-badge-text" x="175" y="97">C++</text>
+    </g>
+    
+    <g transform="translate(0, 40)">
+        <rect class="browsealizer-card" x="110" y="70" width="80" height="35" style="animation-delay: 0.3s" />
+        <text class="browsealizer-title" x="115" y="80">facebook/react</text>
+        <text class="browsealizer-text" x="115" y="88">UI Library for web apps</text>
+        <circle class="browsealizer-star" cx="115" cy="95" r="2" />
+        <text class="browsealizer-text" x="120" y="96">190k</text>
+        <circle class="browsealizer-fork" cx="140" cy="95" r="2" />
+        <text class="browsealizer-text" x="145" y="96">39k</text>
+        <rect class="browsealizer-badge" x="165" y="92" width="20" height="7" />
+        <text class="browsealizer-badge-text" x="175" y="97">JS</text>
+    </g>
+    
+    <g transform="translate(0, 80)">
+        <rect class="browsealizer-card" x="110" y="70" width="80" height="35" style="animation-delay: 0.6s" />
+        <text class="browsealizer-title" x="115" y="80">microsoft/vscode</text>
+        <text class="browsealizer-text" x="115" y="88">Code editor</text>
+        <circle class="browsealizer-star" cx="115" cy="95" r="2" />
+        <text class="browsealizer-text" x="120" y="96">142k</text>
+        <circle class="browsealizer-fork" cx="140" cy="95" r="2" />
+        <text class="browsealizer-text" x="145" y="96">24k</text>
+        <rect class="browsealizer-badge" x="165" y="92" width="20" height="7" />
+        <text class="browsealizer-badge-text" x="175" y="97">TS</text>
+    </g>
+    
+    <g transform="translate(0, 120)">
+        <rect class="browsealizer-card" x="110" y="70" width="80" height="35" style="animation-delay: 0.9s" />
+        <text class="browsealizer-title" x="115" y="80">flutter/flutter</text>
+        <text class="browsealizer-text" x="115" y="88">UI toolkit</text>
+        <circle class="browsealizer-star" cx="115" cy="95" r="2" />
+        <text class="browsealizer-text" x="120" y="96">147k</text>
+        <circle class="browsealizer-fork" cx="140" cy="95" r="2" />
+        <text class="browsealizer-text" x="145" y="96">23k</text>
+        <rect class="browsealizer-badge" x="165" y="92" width="20" height="7" />
+        <text class="browsealizer-badge-text" x="175" y="97">Dart</text>
+    </g>
+    
+    <!-- Bottom indicator for infinite scroll -->
+    <circle class="browsealizer-dot" cx="140" cy="225" r="2" />
+    <circle class="browsealizer-dot" cx="150" cy="225" r="2" style="animation-delay: 0.5s" />
+    <circle class="browsealizer-dot" cx="160" cy="225" r="2" style="animation-delay: 1s" />
+</svg>

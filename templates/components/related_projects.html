@@ -1,0 +1,16 @@
+<!-- components/related_projects.html -->
+{% macro related_projects(related_projects) %}
+<section class="related-projects">
+    <h2 class="vertical-section-name">Related Projects</h2>
+    <div class="related-grid">
+        {% for related in related_projects %}
+        <div class="related-card slide-up" hx-get="/projects/{{ related.id }}/preview" hx-trigger="mouseenter once"
+            hx-swap="innerHTML">
+            <img src="{{ related.image_url }}" alt="{{ related.title }}">
+            <h3>{{ related.title }}</h3>
+            <a href="/projects/{{ related.id }}" class="cmd">View Project</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endmacro %}

@@ -1,0 +1,1795 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cybrdelic</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Base monospace and display fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cascadia+Code:wght@400;500;600;700&family=Courier+Prime:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inconsolata:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600;700;800&family=Ubuntu+Mono:wght@400;700&family=Fira+Code:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Fun and unique display fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Audiowide&family=Bungee&family=Bungee+Hairline&family=Bungee+Inline&family=Bungee+Shade&family=Chakra+Petch:wght@400;500;600;700&family=Comfortaa:wght@400;500;600;700&family=Geologica:wght@400;500;700&family=Gugi&family=Josefin+Sans:wght@400;500;600;700&family=Major+Mono+Display&family=Megrim&family=Monofett&family=Monoton&family=Montserrat:wght@400;500;600;700;800&family=Nova+Mono&family=Orbitron:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Oxanium:wght@400;500;600;700&family=Poiret+One&family=Press+Start+2P&family=Quantico:wght@400;700&family=Rajdhani:wght@400;500;600;700&family=Righteous&family=Silkscreen&family=Smooch+Sans:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Syncopate:wght@400;700&family=Syne:wght@400;500;600;700;800&family=VT323&family=Wallpoet&family=Xanh+Mono&family=Yatra+One&family=Tourney:wght@400;500;700&family=Teko:wght@400;500;600;700&family=Exo+2:wght@400;500;600;700;800&family=Rubik+Glitch&family=Rubik+Mono+One&family=Rubik+Pixels&family=Rubik+Spray+Paint&family=Rubik+Vinyl&family=Goldman&display=swap"
+        rel="stylesheet">
+
+    <!-- Additional creative fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Moirai+One&family=Nabla&family=Noto+Sans+Mono:wght@400;500;600;700&family=Share+Tech+Mono&family=Silkscreen&family=Sometype+Mono:wght@400;500;600;700&family=Faster+One&family=Flow+Circular&family=Flow+Rounded&family=Gruppo&family=Keania+One&family=Kenia&family=Londrina+Outline&family=Plaster&display=swap"
+        rel="stylesheet">
+
+    <!-- Centralized CSS file that imports all modules -->
+    <link rel="stylesheet" href="/static/css/main.css" />
+    <!-- External dependencies - critical ones load normally, non-critical ones load async -->
+    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.3.0/mermaid.min.js" defer></script>
+
+    
+    <!-- Add preload hints for critical resources when coming to project pages -->
+    <link rel="preload" href="/static/css/project-detail.css" as="style">
+    <link rel="preload" href="/static/js/documentation.js" as="script">
+    
+</head>
+
+<body>
+    <!-- Cyberpunk corner effects -->
+    <div class="corner-effect corner-top-right"></div>
+    <div class="corner-effect corner-bottom-left"></div>
+
+    <div id="terminal">
+        <nav class="nav">
+            <a href="/" class="home-link">
+                <div class="home-button">
+                    <span class="icon">⌂</span>
+                    <span class="text">home</span>
+                </div>
+            </a>
+            <div class="nav-left stagger-children">
+                <a href="#projects" class="cmd cmd-prompt">ls projects/</a>
+                <a href="#whats-next" class="cmd cmd-prompt">./future</a>
+                <a href="#contact" class="cmd cmd-prompt">./contact</a>
+            </div>
+            <div class="nav-right">
+                <a href="https://github.com/cybrdelic" target="_blank" class="nav-action-button github-button">
+                    <svg class="action-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                        <path
+                            d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1.01.07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z">
+                        </path>
+                    </svg>
+                    <span class="action-text">GitHub</span>
+                </a>
+                <a href="#" class="nav-action-button theme-button" id="nav-theme-toggle">
+                    <span class="action-icon theme-icon">☀️</span>
+                    <span class="action-text">Theme</span>
+                </a>
+            </div>
+        </nav>
+        
+<main class="project-detail-container">
+    <!-- Project Header Section -->
+    <header class="project-header-section">
+        <div class="project-headline">
+            <div class="project-title-container">
+                <h1 class="project-title glitch-hover">Cybrdelic Portfolio</h1>
+                <div class="project-badge">Interactive Developer Portfolio</div>
+            </div>
+            <div class="project-links">
+                
+                <a href="https:&#x2F;&#x2F;github.com&#x2F;cybrdelic&#x2F;cybrdelic-portfolio" class="cmd highlight-on-hover" target="_blank" rel="noopener noreferrer">
+                    GitHub
+                </a>
+                
+                <a href="https:&#x2F;&#x2F;cybrdelic-portfolio.example.com" class="cmd highlight-on-hover" target="_blank" rel="noopener noreferrer">
+                    Demo
+                </a>
+                
+            </div>
+        </div>
+    </header>
+
+    <!-- Project Showcase Section -->
+    <section class="project-showcase" id="" Cybrdelic Portfolio>
+        <div class="showcase-container">
+            <div class="showcase-image-container glitch-on-hover">
+                <img src="&#x2F;static&#x2F;images&#x2F;cybrdelic-portfolio.jpg" alt="Cybrdelic Portfolio" class="showcase-image"
+                    onclick="openModal(this)" />
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <div class="overlay-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M15 15l6 6m-6-6v4.8m0-4.8h4.8" />
+                            </svg>
+                        </div>
+                        <span class="overlay-text">Click to enlarge</span>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-caption">An interactive showcase of cutting-edge developer projects with terminal vibes</div>
+        </div>
+
+        <div class="project-overview">
+            <div class="overview-content">
+                <div class="overview-description">A full-stack portfolio and interactive web app built with Rust, featuring dynamic routing, interactive UI elements, and markdown-driven documentation. Integrates Axum, Tera, and modern JavaScript to deliver a cutting-edge, cyberpunk-inspired experience.</div>
+
+                <div class="tech-stack">
+                    <h3 class="tech-stack-title">Technology Stack</h3>
+                    <div class="tech-tags">
+                        
+                        <span class="tech-tag highlight-on-hover">
+                            <span class="tag-icon">◆</span>Rust
+                        </span>
+                        
+                        <span class="tech-tag highlight-on-hover">
+                            <span class="tag-icon">◆</span>Axum
+                        </span>
+                        
+                        <span class="tech-tag highlight-on-hover">
+                            <span class="tag-icon">◆</span>Tera
+                        </span>
+                        
+                        <span class="tech-tag highlight-on-hover">
+                            <span class="tag-icon">◆</span>JavaScript
+                        </span>
+                        
+                        <span class="tech-tag highlight-on-hover">
+                            <span class="tag-icon">◆</span>CSS
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="install-terminal">
+                <div class="terminal-header">
+                    <div class="window-controls">
+                        <span class="window-control close"></span>
+                        <span class="window-control minimize"></span>
+                        <span class="window-control maximize"></span>
+                    </div>
+                    <div class="terminal-title">Installation</div>
+                </div>
+                <div class="terminal-content">
+                    <div class="command-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-command">cargo install cybrdelic-portfolio</span>
+                        <button class="copy-button" onclick="copyToClipboard(this)">
+                            <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M8 4v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7.242a2 2 0 0 0-.602-1.43L16.083 2.57A2 2 0 0 0 14.685 2H10a2 2 0 0 0-2 2z" />
+                                <path d="M16 18v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2" />
+                            </svg>
+                            <div class="confetti-container"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <div class="features-grid">
+        
+        <div class="feature-card card-hover">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m5 5h14v14h-14z" />
+                </svg>
+            </div>
+            <div class="feature-content">
+                <h3 class="feature-title">Dynamic Routing</h3>
+                <p class="feature-description">Seamless navigation with Axum routing and modular content rendering</p>
+            </div>
+        </div>
+        
+        <div class="feature-card card-hover">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m2 2h20v20h-20z" />
+                </svg>
+            </div>
+            <div class="feature-content">
+                <h3 class="feature-title">Interactive UI</h3>
+                <p class="feature-description">Rich animations, transitions, and terminal-inspired design for a modern feel</p>
+            </div>
+        </div>
+        
+        <div class="feature-card card-hover">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m4 4h16v16h-16z" />
+                </svg>
+            </div>
+            <div class="feature-content">
+                <h3 class="feature-title">Markdown Driven</h3>
+                <p class="feature-description">Dynamic parsing and rendering of markdown for user flows and documentation</p>
+            </div>
+        </div>
+        
+        <div class="cta-button-container-wrapper">
+            <div class="cta-button-container">
+                <a href="http://localhost:8080/#" class="primary-button" target="_blank">
+                    View Landing Page
+                    <svg class="button-icon" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+                <a href="https://github.com/cybrdelic" class="secondary-button btn-interaction" target="_blank">
+                    <svg viewBox="0 0 24 24" class="button-icon">
+                        <path
+                            d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1.01.07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z">
+                        </path>
+                    </svg>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+
+    
+    <section class="documentation-section" id="DOCS">
+        <div class="docs-sidebar">
+            
+            <button class="docs-nav-item active" data-tab="section-1">
+                <span class="docs-nav-number">1</span>
+                <span class="docs-nav-text">design</span>
+            </button>
+            
+            <button class="docs-nav-item " data-tab="section-2">
+                <span class="docs-nav-number">2</span>
+                <span class="docs-nav-text">architecture</span>
+            </button>
+            
+            <button class="docs-nav-item " data-tab="section-3">
+                <span class="docs-nav-number">3</span>
+                <span class="docs-nav-text">development</span>
+            </button>
+            
+        </div>
+
+
+        <div class="docs-content">
+            
+            <div class="docs-panel active" id="section-1">
+                <div class="markdown-content" data-flow-name="design">
+                    <!-- Content will load instantly but might be further enhanced by JavaScript -->
+                    <h2 id="design-system" class="markdown-heading-1 markdown-heading">Design System<a class="heading-anchor" href="#design-system">&#xB6;</a></h2><p class="markdown-paragraph">Cybrdelic Portfolio incorporates a comprehensive design system that ensures visual consistency while providing flexibility for creative expression. This document outlines the key design principles and components.</p><h3 id="design-principles" class="markdown-heading-2 markdown-heading">Design Principles<a class="heading-anchor" href="#design-principles">&#xB6;</a></h3><p class="markdown-paragraph">The design system follows four core principles:</p><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Cyberpunk Aesthetic with Professional Polish</strong></p><ul class="unordered-list"><li class="list-item">Bold, high-contrast visuals balanced with professional readability</li><li class="list-item">Futuristic elements that don't sacrifice usability</li></ul></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Terminal-Inspired Interaction</strong></p><ul class="unordered-list"><li class="list-item">Command-line inspired navigation and feedback</li><li class="list-item">Typewriter and glitch effects that feel tactile</li></ul></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Performance-First Approach</strong></p><ul class="unordered-list"><li class="list-item">Minimal dependencies for fast loading</li><li class="list-item">Progressive enhancement for broader device support</li></ul></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Accessibility Without Compromise</strong></p><ul class="unordered-list"><li class="list-item">Maintains WCAG compliance while preserving visual style</li><li class="list-item">Keyboard navigation and screen reader support</li></ul></li></ol><h3 id="color-system" class="markdown-heading-2 markdown-heading">Color System<a class="heading-anchor" href="#color-system">&#xB6;</a></h3><p class="markdown-paragraph">The color system is built around a carefully selected palette:</p><h4 id="primary-colors" class="markdown-heading-3 markdown-heading">Primary Colors<a class="heading-anchor" href="#primary-colors">&#xB6;</a></h4><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">--color-black: #000000
+--color-white: #ffffff
+--color-accent: #55aaff
+
+</span></div></div></div><h4 id="theme-variables" class="markdown-heading-3 markdown-heading">Theme Variables<a class="heading-anchor" href="#theme-variables">&#xB6;</a></h4><p class="markdown-paragraph">Colors are abstracted into semantic variables:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">/* Light theme */
+--color-text-primary: #000000;
+--color-text-secondary: #222222;
+--body-bg: white;
+
+/* Dark theme */
+[data-theme='dark'] {
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #dddddd;
+  --body-bg: #070707;
+}
+
+</span></div></div></div><h4 id="glass-effects" class="markdown-heading-3 markdown-heading">Glass Effects<a class="heading-anchor" href="#glass-effects">&#xB6;</a></h4><p class="markdown-paragraph">Special glass-like surfaces use backdrop filters:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">--bg-glass: rgba(255, 255, 255, 0.15);
+--bg-glass-hover: rgba(255, 255, 255, 0.2);
+
+</span></div></div></div><h3 id="typography-system" class="markdown-heading-2 markdown-heading">Typography System<a class="heading-anchor" href="#typography-system">&#xB6;</a></h3><h4 id="font-families" class="markdown-heading-3 markdown-heading">Font Families<a class="heading-anchor" href="#font-families">&#xB6;</a></h4><p class="markdown-paragraph">The portfolio uses a carefully selected set of font families:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">--font-primary: 'IBM Plex Mono', monospace;
+--font-display: 'Syne', sans-serif;
+--font-mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+
+</span></div></div></div><h4 id="font-sizing" class="markdown-heading-3 markdown-heading">Font Sizing<a class="heading-anchor" href="#font-sizing">&#xB6;</a></h4><p class="markdown-paragraph">Typography follows a modular scale:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">--font-size-2xs: 0.7rem;
+--font-size-xs: 0.875rem;
+--font-size-sm: 1rem;
+--font-size-base: 1.125rem;
+--font-size-md: 1.25rem;
+--font-size-lg: 1.5rem;
+--font-size-xl: 2rem;
+--font-size-2xl: 3rem;
+
+</span></div></div></div><h4 id="fluid-typography" class="markdown-heading-3 markdown-heading">Fluid Typography<a class="heading-anchor" href="#fluid-typography">&#xB6;</a></h4><p class="markdown-paragraph">For responsive headings:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">--font-size-fluid-sm: 4vw;
+--font-size-fluid-base: 5vw;
+--font-size-fluid-lg: 7.5vw;
+--font-size-fluid-xl: 10vw;
+
+</span></div></div></div><h3 id="space-scale" class="markdown-heading-2 markdown-heading">Space Scale<a class="heading-anchor" href="#space-scale">&#xB6;</a></h3><p class="markdown-paragraph">Spacing follows a consistent scale:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">--space-2xs: 4px;
+--space-xs: 8px;
+--space-sm: 12px;
+--space-md: 16px;
+--space-lg: 24px;
+--space-xl: 32px;
+--space-2xl: 40px;
+
+</span></div></div></div><h3 id="component-library" class="markdown-heading-2 markdown-heading">Component Library<a class="heading-anchor" href="#component-library">&#xB6;</a></h3><h4 id="command-prompts" class="markdown-heading-3 markdown-heading">Command Prompts<a class="heading-anchor" href="#command-prompts">&#xB6;</a></h4><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command"><a href="#projects" class="cmd cmd-prompt">ls projects/</a>
+
+</span></div></div></div><p class="markdown-paragraph">Command prompts use a terminal-like styling:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">.cmd {
+  font-family: var(--font-mono);
+  padding: var(--space-xs) var(--space-md);
+  background: var(--bg-glass);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+}
+
+</span></div></div></div><h4 id="cards" class="markdown-heading-3 markdown-heading">Cards<a class="heading-anchor" href="#cards">&#xB6;</a></h4><p class="markdown-paragraph">Cards provide contained content areas with consistent styling:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">.card {
+  background: var(--bg-glass);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+</span></div></div></div><h4 id="buttons" class="markdown-heading-3 markdown-heading">Buttons<a class="heading-anchor" href="#buttons">&#xB6;</a></h4><p class="markdown-paragraph">Buttons follow a consistent pattern:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">.button {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-sm) var(--space-lg);
+  font-family: var(--font-primary);
+  border-radius: var(--border-radius);
+  transition: all 0.3s ease;
+}
+
+.primary-button {
+  background: var(--color-text-primary);
+  color: var(--body-bg);
+}
+
+.secondary-button {
+  background: transparent;
+  border: 1px solid var(--color-border);
+}
+
+</span></div></div></div><h3 id="animation-system" class="markdown-heading-2 markdown-heading">Animation System<a class="heading-anchor" href="#animation-system">&#xB6;</a></h3><p class="markdown-paragraph">Animations use CSS variables for consistent timing:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">--transition-fast: 0.15s ease;
+--transition-base: 0.2s ease;
+--transition-medium: 0.3s ease;
+--transition-slow: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+
+</span></div></div></div><h4 id="animation-types" class="markdown-heading-3 markdown-heading">Animation Types<a class="heading-anchor" href="#animation-types">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Micro-interactions</strong></p><ul class="unordered-list"><li class="list-item">Hover states</li><li class="list-item">Focus states</li><li class="list-item">Active states</li></ul></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Page Transitions</strong></p><ul class="unordered-list"><li class="list-item">Content fade-in</li><li class="list-item">Section reveals</li></ul></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Text Effects</strong></p><ul class="unordered-list"><li class="list-item">Glitch animations</li><li class="list-item">Typing effects</li><li class="list-item">Scrambling text</li></ul></li></ol><h4 id="example-implementation" class="markdown-heading-3 markdown-heading">Example Implementation<a class="heading-anchor" href="#example-implementation">&#xB6;</a></h4><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s var(--transition-slow) forwards;
+}
+
+</span></div></div></div><h3 id="responsive-system" class="markdown-heading-2 markdown-heading">Responsive System<a class="heading-anchor" href="#responsive-system">&#xB6;</a></h3><p class="markdown-paragraph">The layout adapts to different screen sizes:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">/* Base styles for mobile */
+
+/* Tablet */
+@media (min-width: 768px) {
+  /* Tablet specific styles */
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  /* Desktop specific styles */
+}
+
+/* Large desktop */
+@media (min-width: 1280px) {
+  /* Large desktop specific styles */
+}
+
+</span></div></div></div><h3 id="accessibility-considerations" class="markdown-heading-2 markdown-heading">Accessibility Considerations<a class="heading-anchor" href="#accessibility-considerations">&#xB6;</a></h3><ul class="unordered-list"><li class="list-item">Color contrast meets WCAG AA standards</li><li class="list-item">Focus states are clearly visible</li><li class="list-item">All interactive elements are keyboard accessible</li><li class="list-item">Images have appropriate alt text</li><li class="list-item">Animations can be disabled via </li></ul>
+                </div>
+            </div>
+            
+            <div class="docs-panel hidden" id="section-2">
+                <div class="markdown-content" data-flow-name="architecture">
+                    <!-- Content will load instantly but might be further enhanced by JavaScript -->
+                    <h2 id="architecture" class="markdown-heading-1 markdown-heading">Architecture<a class="heading-anchor" href="#architecture">&#xB6;</a></h2><p class="markdown-paragraph">Cybrdelic Portfolio is built with a modern, performance-focused architecture designed to deliver a seamless, interactive user experience while maintaining excellent SEO and accessibility.</p><h3 id="system-overview" class="markdown-heading-2 markdown-heading">System Overview<a class="heading-anchor" href="#system-overview">&#xB6;</a></h3><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">graph TD
+    A[Client Browser] <--> B[Axum Server]
+    B <--> C[Tera Templates]
+    B <--> D[Static Files]
+    B <--> E[Content Store]
+    F[Markdown Processor] <--> E
+    G[CSS Processor] <--> D
+
+</span></div></div></div><h4 id="core-components" class="markdown-heading-3 markdown-heading">Core Components<a class="heading-anchor" href="#core-components">&#xB6;</a></h4><h5 id="axum-web-server" class="markdown-heading-4 markdown-heading">Axum Web Server<a class="heading-anchor" href="#axum-web-server">&#xB6;</a></h5><p class="markdown-paragraph">The application is powered by Axum, a modern Rust web framework:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Async Runtime</strong>: Built on Tokio for high-performance, non-blocking I/O</li><li class="list-item"><strong class="markdown-strong">Type-Safe Routing</strong>: Compile-time route verification</li><li class="list-item"><strong class="markdown-strong">Middleware Stack</strong>: Logging, compression, and security enhancements</li><li class="list-item"><strong class="markdown-strong">Error Handling</strong>: Graceful error recovery and reporting</li></ul><h5 id="tera-templating" class="markdown-heading-4 markdown-heading">Tera Templating<a class="heading-anchor" href="#tera-templating">&#xB6;</a></h5><p class="markdown-paragraph">The templating system uses Tera, a Jinja/Django-inspired template engine:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Component-Based Structure</strong>: Modular templates with inheritance</li><li class="list-item"><strong class="markdown-strong">Context Injection</strong>: Dynamic data binding from Rust to templates</li><li class="list-item"><strong class="markdown-strong">Filters and Macros</strong>: Powerful transformation capabilities</li><li class="list-item"><strong class="markdown-strong">Conditional Rendering</strong>: Intelligent display logic</li></ul><h5 id="content-management" class="markdown-heading-4 markdown-heading">Content Management<a class="heading-anchor" href="#content-management">&#xB6;</a></h5><p class="markdown-paragraph">Content is managed through a file-based system:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Markdown Processing</strong>: Custom parser with extended syntax support</li><li class="list-item"><strong class="markdown-strong">Project Metadata</strong>: Structured data for projects and features</li><li class="list-item"><strong class="markdown-strong">Content Organization</strong>: Logical directory structure for maintainability</li><li class="list-item"><strong class="markdown-strong">Static Content Generation</strong>: Pre-processed at build time for performance</li></ul><h5 id="front-end-architecture" class="markdown-heading-4 markdown-heading">Front-End Architecture<a class="heading-anchor" href="#front-end-architecture">&#xB6;</a></h5><p class="markdown-paragraph">The front-end is built with a modern, lightweight approach:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Vanilla JavaScript</strong>: No heavy frameworks, just focused functionality</li><li class="list-item"><strong class="markdown-strong">CSS Architecture</strong>: Modular CSS with custom properties</li><li class="list-item"><strong class="markdown-strong">Progressive Enhancement</strong>: Core functionality works without JavaScript</li><li class="list-item"><strong class="markdown-strong">Performance Optimization</strong>: Asset minification and efficient loading</li></ul><h3 id="data-flow" class="markdown-heading-2 markdown-heading">Data Flow<a class="heading-anchor" href="#data-flow">&#xB6;</a></h3><ol class="ordered-list"><li class="list-item">Client makes a request to the Axum server</li><li class="list-item">Router directs request to the appropriate handler</li><li class="list-item">Handler queries the content store for needed data</li><li class="list-item">Tera renders templates with the data context</li><li class="list-item">Server responds with the rendered HTML</li><li class="list-item">Client-side JavaScript enhances the experience</li></ol><h3 id="technical-implementation" class="markdown-heading-2 markdown-heading">Technical Implementation<a class="heading-anchor" href="#technical-implementation">&#xB6;</a></h3><h4 id="server-components" class="markdown-heading-3 markdown-heading">Server Components<a class="heading-anchor" href="#server-components">&#xB6;</a></h4><p class="markdown-paragraph">The server-side code is organized into these main modules:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">src/
+├── handlers/         # Request handlers
+├── markdown.rs       # Markdown processing
+├── main.rs           # Application entry point
+
+</span></div></div></div><h4 id="template-organization" class="markdown-heading-3 markdown-heading">Template Organization<a class="heading-anchor" href="#template-organization">&#xB6;</a></h4><p class="markdown-paragraph">Templates follow a hierarchical structure:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">templates/
+├── base.html         # Base template with common elements
+├── components/       # Reusable UI components
+│   ├── animated_icons/ # Project-specific animations
+│   └── ...
+├── index.html        # Home page template
+├── project_detail.html # Project detail page
+└── sections/         # Page sections
+    ├── hero.html
+    ├── projects.html
+    └── ...
+
+</span></div></div></div><h4 id="static-assets" class="markdown-heading-3 markdown-heading">Static Assets<a class="heading-anchor" href="#static-assets">&#xB6;</a></h4><p class="markdown-paragraph">Static assets are organized by type:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">static/
+├── css/              # Stylesheets
+│   ├── components/   # Component-specific styles
+│   ├── base/         # Base styles
+│   └── ...
+├── js/               # JavaScript files
+└── images/           # Image assets
+
+</span></div></div></div><h3 id="performance-optimizations" class="markdown-heading-2 markdown-heading">Performance Optimizations<a class="heading-anchor" href="#performance-optimizations">&#xB6;</a></h3><p class="markdown-paragraph">The application includes several performance optimizations:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Lazy Loading</strong>: Images and heavy content load only when needed</li><li class="list-item"><strong class="markdown-strong">Code Splitting</strong>: JavaScript is modularized for efficient loading</li><li class="list-item"><strong class="markdown-strong">CSS Optimization</strong>: Minimal CSS with targeted loading strategies</li><li class="list-item"><strong class="markdown-strong">Caching Strategy</strong>: Appropriate cache headers for static content</li><li class="list-item"><strong class="markdown-strong">Progressive Rendering</strong>: Critical path rendering for fast initial load</li></ul><h3 id="deployment-architecture" class="markdown-heading-2 markdown-heading">Deployment Architecture<a class="heading-anchor" href="#deployment-architecture">&#xB6;</a></h3><p class="markdown-paragraph">The application is deployed with a streamlined approach:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Docker Containerization</strong>: Consistent environment across deployments</li><li class="list-item"><strong class="markdown-strong">Static File Serving</strong>: Efficient delivery of immutable assets</li><li class="list-item"><strong class="markdown-strong">CDN Integration</strong>: Geographic distribution for low latency</li><li class="list-item"><strong class="markdown-strong">HTTPS Everywhere</strong>: Secure connections for all traffic</li></ul>
+                </div>
+            </div>
+            
+            <div class="docs-panel hidden" id="section-3">
+                <div class="markdown-content" data-flow-name="development">
+                    <!-- Content will load instantly but might be further enhanced by JavaScript -->
+                    <h2 id="development-guide" class="markdown-heading-1 markdown-heading">Development Guide<a class="heading-anchor" href="#development-guide">&#xB6;</a></h2><p class="markdown-paragraph">This guide covers the development workflow and patterns used in the Cybrdelic Portfolio project. Follow these guidelines to maintain consistency when making changes or adding features.</p><h3 id="getting-started" class="markdown-heading-2 markdown-heading">Getting Started<a class="heading-anchor" href="#getting-started">&#xB6;</a></h3><h4 id="prerequisites" class="markdown-heading-3 markdown-heading">Prerequisites<a class="heading-anchor" href="#prerequisites">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item"><a href="https://www.rust-lang.org/tools/install" class="markdown-link">Rust</a> <span class="count-up" data-final-value="1">0</span>.<span class="count-up" data-final-value="65">0</span> or newer</li><li class="list-item"><a href="https://nodejs.org/" class="markdown-link">Node.js</a> <span class="count-up" data-final-value="16">0</span> or newer (for frontend tooling)</li><li class="list-item"><a href="https://git-scm.com/downloads" class="markdown-link">Git</a></li></ul><h4 id="local-development-setup" class="markdown-heading-3 markdown-heading">Local Development Setup<a class="heading-anchor" href="#local-development-setup">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item">Clone the repository:</li></ol><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">git clone https://github.com/cybrdelic/cybrdelic-portfolio.git
+cd cybrdelic-portfolio
+
+</span></div></div></div><ol class="ordered-list"><li class="list-item">Install dependencies:</li></ol><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">cargo build
+npm install
+
+</span></div></div></div><ol class="ordered-list"><li class="list-item">Start the development server:</li></ol><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">cargo run
+
+</span></div></div></div><p class="markdown-paragraph">This will start the server at http://localhost:<span class="count-up" data-final-value="3000">0</span>.</p><h3 id="project-structure" class="markdown-heading-2 markdown-heading">Project Structure<a class="heading-anchor" href="#project-structure">&#xB6;</a></h3><p class="markdown-paragraph">The project follows a modular organization:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">cybrdelic-portfolio/
+├── content/               # Markdown content files
+├── src/                   # Rust source code
+├── static/                # Static assets
+├── templates/             # HTML templates
+└── Cargo.toml             # Rust package manifest
+
+</span></div></div></div><h3 id="development-workflow" class="markdown-heading-2 markdown-heading">Development Workflow<a class="heading-anchor" href="#development-workflow">&#xB6;</a></h3><h4 id="adding-a-new-page" class="markdown-heading-3 markdown-heading">Adding a New Page<a class="heading-anchor" href="#adding-a-new-page">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item">Create a new handler in :</li></ol><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">// src/handlers/new_page.rs
+use crate::{AppError, AppState};
+use axum::{extract::State, response::Html};
+use tera::Context;
+
+pub async fn index(State(state): State<AppState>) -> Result<Html<String>, AppError> {
+    let mut ctx = Context::new();
+    
+    // Add data to context
+    ctx.insert("page_title", "New Page");
+    
+    match state.tera.render("new_page.html", &ctx) {
+        Ok(html) => Ok(Html(html)),
+        Err(err) => Err(AppError::Template(err)),
+    }
+}
+
+</span></div></div></div><ol class="ordered-list"><li class="list-item">Register the route in :</li></ol><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">// Add to existing router
+let app = Router::new()
+    // Existing routes...
+    .route("/new-page", get(handlers::new_page::index))
+    // ...
+
+</span></div></div></div><ol class="ordered-list"><li class="list-item">Create a template in :</li></ol><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{% extends "base.html" %}
+
+{% block content %}
+<main class="new-page-container">
+    <h1>New Page</h1>
+    <!-- Page content here -->
+</main>
+{% endblock %}
+
+</span></div></div></div><ol class="ordered-list"><li class="list-item">Add CSS in :</li></ol><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">/* New page styles */
+.new-page-container {
+    /* styles here */
+}
+
+</span></div></div></div><ol class="ordered-list"><li class="list-item">Import the CSS in :</li></ol><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">@import 'new_page.css';
+
+</span></div></div></div><h4 id="adding-a-new-component" class="markdown-heading-3 markdown-heading">Adding a New Component<a class="heading-anchor" href="#adding-a-new-component">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item">Create a new file in :</li></ol><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{# components/new_component.html #}
+<div class="new-component">
+    <h2>{{ title }}</h2>
+    <p>{{ description }}</p>
+</div>
+
+</span></div></div></div><ol class="ordered-list"><li class="list-item">Add component styles in :</li></ol><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">.new-component {
+    /* Component styles */
+}
+
+</span></div></div></div><ol class="ordered-list"><li class="list-item">Import the component styles in :</li></ol><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">@import 'components/new_component.css';
+
+</span></div></div></div><ol class="ordered-list"><li class="list-item">Use the component in a template:</li></ol><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{% include "components/new_component.html" with title="Example" description="This is an example" %}
+
+</span></div></div></div><h3 id="coding-standards" class="markdown-heading-2 markdown-heading">Coding Standards<a class="heading-anchor" href="#coding-standards">&#xB6;</a></h3><h4 id="rust" class="markdown-heading-3 markdown-heading">Rust<a class="heading-anchor" href="#rust">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item">Follow the <a href="https://rust-lang.github.io/api-guidelines/" class="markdown-link">Rust API Guidelines</a></li><li class="list-item">Use  for consistent formatting</li><li class="list-item">Use  to catch common mistakes</li><li class="list-item">Document public functions and types with doc comments</li></ul><h4 id="html" class="markdown-heading-3 markdown-heading">HTML<a class="heading-anchor" href="#html">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item">Use semantic HTML5 elements</li><li class="list-item">Follow a component-based approach</li><li class="list-item">Keep templates modular and reusable</li><li class="list-item">Use Tera's inheritance and includes</li></ul><h4 id="css" class="markdown-heading-3 markdown-heading">CSS<a class="heading-anchor" href="#css">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item">Follow BEM (Block Element Modifier) naming convention</li><li class="list-item">Organize CSS into logical modules</li><li class="list-item">Use CSS variables for theming and consistency</li><li class="list-item">Prefix utility classes appropriately</li></ul><h4 id="javascript" class="markdown-heading-3 markdown-heading">JavaScript<a class="heading-anchor" href="#javascript">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item">Write modular, self-contained functions</li><li class="list-item">Use ES6+ features but ensure browser compatibility</li><li class="list-item">Add appropriate comments for complex logic</li><li class="list-item">Follow the principle of progressive enhancement</li></ul><h3 id="testing" class="markdown-heading-2 markdown-heading">Testing<a class="heading-anchor" href="#testing">&#xB6;</a></h3><h4 id="rust-tests" class="markdown-heading-3 markdown-heading">Rust Tests<a class="heading-anchor" href="#rust-tests">&#xB6;</a></h4><p class="markdown-paragraph">Run Rust tests with:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">cargo test
+
+</span></div></div></div><h4 id="frontend-tests" class="markdown-heading-3 markdown-heading">Frontend Tests<a class="heading-anchor" href="#frontend-tests">&#xB6;</a></h4><p class="markdown-paragraph">For CSS and JavaScript:</p><ol class="ordered-list"><li class="list-item">Visual testing against design specifications</li><li class="list-item">Cross-browser testing (Chrome, Firefox, Safari)</li><li class="list-item">Responsive design testing</li></ol><h3 id="deployment" class="markdown-heading-2 markdown-heading">Deployment<a class="heading-anchor" href="#deployment">&#xB6;</a></h3><p class="markdown-paragraph">The portfolio is deployed using a simple build process:</p><ol class="ordered-list"><li class="list-item">Build the Rust application:</li></ol><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">cargo build --release
+
+</span></div></div></div><ol class="ordered-list"><li class="list-item">Optimize static assets:</li></ol><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">npm run build
+
+</span></div></div></div><ol class="ordered-list"><li class="list-item">Deploy the built application:</li></ol><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">./deploy.sh
+
+</span></div></div></div><h3 id="common-tasks" class="markdown-heading-2 markdown-heading">Common Tasks<a class="heading-anchor" href="#common-tasks">&#xB6;</a></h3><h4 id="adding-a-new-project" class="markdown-heading-3 markdown-heading">Adding a New Project<a class="heading-anchor" href="#adding-a-new-project">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item">Create a new directory in :</li></ol><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">mkdir -p content/projects/new-project/flows
+
+</span></div></div></div><ol class="ordered-list"><li class="list-item">Add project markdown files:</li></ol><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">touch content/projects/new-project/flows/architecture.md
+
+</span></div></div></div><ol class="ordered-list"><li class="list-item">Update the project list in </li></ol><h4 id="updating-the-theme" class="markdown-heading-3 markdown-heading">Updating the Theme<a class="heading-anchor" href="#updating-the-theme">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item">Modify theme variables in </li><li class="list-item">Test in both light and dark modes</li></ol>
+                </div>
+            </div>
+            
+        </div>
+
+    </section>
+    
+
+    
+<section id="FUTURE">
+    <div class="container">
+        <div class="future-projects-container">
+            <!-- Left Panel - Future Details -->
+            <div class="future-details-panel">
+                <h3 class="details-header">What's Next For Cybrdelic Portfolio?</h3>
+                <p class="details-description">
+                    *Coming updates and improvements for this project in our development pipeline.*
+                </p>
+                <div class="details-stats">
+                    <div class="stat-box">
+                        <div class="stat-number">3+</div>
+                        <div class="stat-label">Updates</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Open Source</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">2024</div>
+                        <div class="stat-label">Roadmap</div>
+                    </div>
+                </div>
+                <div class="collaborate-section">
+                    <h3 class="details-subheader">Want to Collaborate?</h3>
+                    <p class="collab-description">
+                        *If these ideas spark your interest, let's connect and disrupt the norm together.*
+                    </p>
+                    <a href="#contact" class="details-link">
+                        <span class="details-link-text">Connect Now</span>
+                        <span class="details-link-icon">→</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Right Panel - Future Timeline -->
+            <div class="future-timeline">
+                
+                <div class="timeline-item" tabindex="0">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Dynamic Theme Creator</h3>
+                        <span class="timeline-date">April 2024</span>
+                        <p class="timeline-description">
+                            Interactive theme customization allowing visitors to create and save their own color schemes.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" tabindex="0">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Interactive Project Demos</h3>
+                        <span class="timeline-date">May 2024</span>
+                        <p class="timeline-description">
+                            Embedded mini-demos for each project allowing hands-on interaction right in the portfolio.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" tabindex="0">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Contextual Code Explorer</h3>
+                        <span class="timeline-date">July 2024</span>
+                        <p class="timeline-description">
+                            Browse through source code with AI-powered explanations of key architectural decisions.
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Related Projects Section -->
+    
+    <section class="related-section">
+        <h2 class="section-heading">Related Projects</h2>
+        <div class="related-grid">
+            
+            <a href="/projects/jjugg" class="related-card card-hover">
+                <div class="related-image-container">
+                    <img src="&#x2F;static&#x2F;images&#x2F;jjugg.jpg" alt="JJugg" />
+                </div>
+                <div class="related-content">
+                    <h3 class="related-title">JJugg</h3>
+                    <p class="related-subtitle">Autonomous Job Application Tracker</p>
+                </div>
+            </a>
+            
+            <a href="/projects/myriad" class="related-card card-hover">
+                <div class="related-image-container">
+                    <img src="&#x2F;static&#x2F;images&#x2F;myriad.jpg" alt="Myriad.ai" />
+                </div>
+                <div class="related-content">
+                    <h3 class="related-title">Myriad.ai</h3>
+                    <p class="related-subtitle">Intelligent Software Copilot</p>
+                </div>
+            </a>
+            
+            <a href="/projects/commitaura" class="related-card card-hover">
+                <div class="related-image-container">
+                    <img src="&#x2F;static&#x2F;images&#x2F;commitaura.gif" alt="CommitAura" />
+                </div>
+                <div class="related-content">
+                    <h3 class="related-title">CommitAura</h3>
+                    <p class="related-subtitle">AI-Powered Commit Message Generator</p>
+                </div>
+            </a>
+            
+        </div>
+    </section>
+    
+</main>
+
+<!-- Modal for image preview -->
+<div id="imageModal" class="modal" onclick="if(event.target === this) closeModal();">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img id="modalImage" src="" alt="">
+        <p id="modalCaption" class="modal-caption"></p>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        initDocumentationTabs();
+        initDocumentationAnimations();
+    });
+
+    function initDocumentationTabs() {
+        const navItems = document.querySelectorAll('.docs-nav-item');
+        if (navItems.length === 0) return;
+
+        // Preload all documentation content
+        document.querySelectorAll('.docs-panel').forEach(panel => {
+            // Create a flag to track initialization
+            panel.dataset.initialized = 'true';
+        });
+
+        // Event delegation for tab switching
+        const sidebar = document.querySelector('.docs-sidebar');
+        if (sidebar) {
+            sidebar.addEventListener('click', (e) => {
+                const item = e.target.closest('.docs-nav-item');
+                if (!item) return;
+
+                // Remove active class from all nav items
+                document.querySelectorAll('.docs-nav-item').forEach(navItem => {
+                    navItem.classList.remove('active');
+                });
+
+                // Add active class to clicked item
+                item.classList.add('active');
+
+                // Hide all content panels efficiently
+                document.querySelectorAll('.docs-panel.active').forEach(panel => {
+                    panel.classList.add('hidden');
+                    panel.classList.remove('active');
+                });
+
+                // Show selected panel
+                const targetId = item.getAttribute('data-tab');
+                const targetPanel = document.getElementById(targetId);
+                if (targetPanel) {
+                    targetPanel.classList.remove('hidden');
+                    targetPanel.classList.add('active');
+                }
+            });
+        }
+    }
+
+    function copyToClipboard(button) {
+        const command = button.closest('.command-line').querySelector('.terminal-command').innerText;
+        navigator.clipboard.writeText(command)
+            .then(() => showCopySuccess(button))
+            .catch(() => console.error('Failed to copy'));
+    }
+
+    function showCopySuccess(button) {
+        button.classList.add('copied');
+        const originalHTML = button.innerHTML;
+
+        // Confetti animation
+        const confettiContainer = button.querySelector('.confetti-container');
+        if (confettiContainer) {
+            confettiContainer.innerHTML = '';
+            for (let i = 0; i < 10; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+                confettiContainer.appendChild(confetti);
+            }
+        }
+
+        button.innerHTML = `<svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 6L9 17l-5-5"/>
+        </svg><div class="confetti-container"></div>`;
+
+        setTimeout(() => {
+            button.classList.remove('copied');
+            button.innerHTML = originalHTML;
+        }, 2000);
+    }
+
+    function openModal(imgElement) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+        const caption = document.querySelector('.showcase-caption');
+
+        modal.style.display = "flex";
+        modal.classList.add('modal-fade-in');
+        modalImg.src = imgElement.src;
+        modalCaption.textContent = caption ? caption.textContent : '';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.remove('modal-fade-in');
+        modal.classList.add('modal-fade-out');
+
+        setTimeout(() => {
+            modal.style.display = "none";
+            modal.classList.remove('modal-fade-out');
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+    
+    function initDocumentationAnimations() {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -5% 0px',
+            threshold: 0.01
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    requestAnimationFrame(() => {
+                        entry.target.classList.add('in-view');
+                    });
+                }
+            });
+        }, observerOptions);
+
+        // Observe and immediately activate the documentation section if in viewport
+        const docSection = document.querySelector('.documentation-section');
+        if (docSection) {
+            const rect = docSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight) {
+                docSection.classList.add('in-view');
+            } else {
+                sectionObserver.observe(docSection);
+            }
+        }
+    }
+</script>
+
+        <div class="vertical-name"></div>
+    </div>
+
+    <!-- Site scripts -->
+    <script src="/static/js/animations.js"></script>
+    <script src="/static/js/documentation.js"></script>
+    <script src="/static/js/projects.js"></script>
+    <script src="/static/js/glitch.js"></script>
+    <script src="/static/js/transitions.js"></script>
+
+    <!-- Core functionality -->
+    <script>
+        // Apply theme from localStorage immediately to avoid FOUC
+        (function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            }
+        })();
+
+        // Initialize Mermaid diagrams - safely check if loaded
+        if (typeof mermaid !== 'undefined') {
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'neutral',
+                flowchart: { curve: 'basis' }
+            });
+        } else {
+            // Add event listener for when mermaid loads
+            document.addEventListener('DOMContentLoaded', () => {
+                if (typeof mermaid !== 'undefined') {
+                    mermaid.initialize({
+                        startOnLoad: true,
+                        theme: 'neutral',
+                        flowchart: { curve: 'basis' }
+                    });
+                }
+            });
+        }
+
+        // Theme management system
+        document.addEventListener('DOMContentLoaded', () => {
+            const navThemeToggleBtn = document.getElementById('nav-theme-toggle');
+            const cornerEffects = document.querySelectorAll('.corner-effect');
+
+            // Function to update theme
+            function updateTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+
+                // Update toggle icon
+                const themeIcon = document.querySelector('.theme-icon');
+                if (themeIcon) {
+                    themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
+                }
+
+                // Apply subtle animation to corner effects
+                cornerEffects.forEach(corner => {
+                    corner.style.transition = 'opacity 0.5s ease';
+                    corner.style.opacity = '0.5';
+                    setTimeout(() => {
+                        corner.style.opacity = '0.3';
+                    }, 300);
+                });
+            }
+
+            // Initialize theme from saved preference immediately
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            // Apply theme without animation for initial load
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            // Then pass to the update function for icon updates
+            updateTheme(savedTheme);
+
+            // Toggle theme on click
+            if (navThemeToggleBtn) {
+                navThemeToggleBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const currentTheme = document.documentElement.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    updateTheme(newTheme);
+                });
+            }
+
+            // Initialize font dropdown
+            function initializeFontDropdown() {
+                const dropdown = document.querySelector('.font-dropdown-content');
+
+                // Clear existing content
+                dropdown.innerHTML = '';
+
+                // Create font options
+                fontOptions.forEach((option, index) => {
+                    const fontOption = document.createElement('div');
+                    fontOption.className = `font-option ${option.isUbuntuMono ? 'ubuntu-mono' : ''}`;
+                    if (parseInt(localStorage.getItem('fontOption') || '0') === index) {
+                        fontOption.classList.add('active');
+                    }
+
+                    // Apply the display font to the option itself (since that's what we'll use for the name)
+                    fontOption.style.fontFamily = option.display;
+
+                    const optionName = document.createElement('span');
+                    optionName.className = 'option-name';
+                    // Show the display font name instead
+                    optionName.textContent = option.name.split(' + ')[1] || option.name.split(' + ')[0];
+
+                    fontOption.appendChild(optionName);
+                    fontOption.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        updateFonts(index);
+                    });
+
+                    dropdown.appendChild(fontOption);
+                });
+            }
+
+            // Toggle fonts on click
+            if (fontSwitcherBtn) {
+                // Long press to show modal with all font options
+                let pressTimer;
+                fontSwitcherBtn.addEventListener('mousedown', () => {
+                    pressTimer = setTimeout(() => {
+                        showFontModal(fontOptions);
+                    }, 800);
+                });
+
+                fontSwitcherBtn.addEventListener('mouseup', () => {
+                    clearTimeout(pressTimer);
+                });
+
+                fontSwitcherBtn.addEventListener('mouseleave', () => {
+                    clearTimeout(pressTimer);
+                });
+            }
+
+            // Initialize dropdown on page load
+            initializeFontDropdown();
+
+            // Function to show a modal with all font options
+            function showFontModal(options) {
+                // Remove existing modal if it exists
+                const existingModal = document.getElementById('font-modal');
+                if (existingModal) {
+                    existingModal.remove();
+                    return;
+                }
+
+                // Create modal
+                const modal = document.createElement('div');
+                modal.id = 'font-modal';
+                modal.style.position = 'fixed';
+                modal.style.top = '50%';
+                modal.style.left = '50%';
+                modal.style.transform = 'translate(-50%, -50%)';
+                modal.style.background = 'var(--bg-glass)';
+                modal.style.backdropFilter = 'blur(10px)';
+                modal.style.padding = '20px';
+                modal.style.borderRadius = '8px';
+                modal.style.boxShadow = 'var(--shadow-lg)';
+                modal.style.zIndex = '10000';
+                modal.style.maxWidth = '700px';
+                modal.style.width = '90%';
+                modal.style.maxHeight = '85vh';
+                modal.style.overflowY = 'auto';
+
+                // Add heading
+                const heading = document.createElement('h3');
+                heading.style.fontFamily = 'var(--font-display)';
+                heading.style.marginBottom = '1rem';
+                heading.textContent = 'Font Options';
+                heading.style.position = 'sticky';
+                heading.style.top = '0';
+                heading.style.background = 'var(--bg-glass)';
+                heading.style.zIndex = '1';
+                heading.style.padding = '5px 0';
+                heading.style.backdropFilter = 'blur(10px)';
+                modal.appendChild(heading);
+
+                // Create search input
+                const searchContainer = document.createElement('div');
+                searchContainer.style.marginBottom = '15px';
+                searchContainer.style.position = 'sticky';
+                searchContainer.style.top = '50px';
+                searchContainer.style.zIndex = '1';
+                searchContainer.style.backdropFilter = 'blur(10px)';
+                searchContainer.style.background = 'var(--bg-glass)';
+                searchContainer.style.padding = '5px 0';
+
+                const searchInput = document.createElement('input');
+                searchInput.type = 'text';
+                searchInput.placeholder = 'Search fonts...';
+                searchInput.style.width = '100%';
+                searchInput.style.padding = '8px 12px';
+                searchInput.style.borderRadius = '4px';
+                searchInput.style.border = '1px solid var(--color-border)';
+                searchInput.style.background = 'var(--bg-glass)';
+                searchInput.style.color = 'var(--color-text-primary)';
+                searchInput.style.fontFamily = 'var(--font-primary)';
+                searchContainer.appendChild(searchInput);
+                modal.appendChild(searchContainer);
+
+                // Group fonts by category
+                const categories = Array.from(new Set(options.map(opt => opt.category)));
+
+                // Add current font indicator
+                const currentOption = parseInt(localStorage.getItem('fontOption') || '0');
+
+                // Create container for font options
+                const optionsContainer = document.createElement('div');
+
+                // Function to render font options
+                function renderOptions(filter = '') {
+                    // Clear previous options
+                    optionsContainer.innerHTML = '';
+
+                    // Create font options grouped by category
+                    categories.forEach(category => {
+                        const categoryFonts = options.filter(o =>
+                            o.category === category &&
+                            (filter === '' ||
+                                o.name.toLowerCase().includes(filter.toLowerCase()) ||
+                                category.toLowerCase().includes(filter.toLowerCase())
+                            )
+                        );
+
+                        // Skip categories with no matching fonts
+                        if (categoryFonts.length === 0) return;
+
+                        // Create category group
+                        const categoryGroup = document.createElement('div');
+                        categoryGroup.style.marginBottom = '20px';
+
+                        // Add category header
+                        const categoryHeader = document.createElement('h4');
+                        categoryHeader.textContent = category;
+                        categoryHeader.style.fontFamily = 'var(--font-display)';
+                        categoryHeader.style.fontSize = '1rem';
+                        categoryHeader.style.marginBottom = '10px';
+                        categoryHeader.style.padding = '5px 0';
+                        categoryHeader.style.borderBottom = '1px solid var(--color-border)';
+                        categoryGroup.appendChild(categoryHeader);
+
+                        // Create font options list for this category
+                        const categoryList = document.createElement('div');
+                        categoryList.style.display = 'grid';
+                        categoryList.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
+                        categoryList.style.gap = '15px';
+
+                        // Add fonts in this category
+                        categoryFonts.forEach((option, idx) => {
+                            const index = options.indexOf(option);
+
+                            const fontItem = document.createElement('div');
+                            fontItem.style.padding = '12px';
+                            fontItem.style.cursor = 'pointer';
+                            fontItem.style.borderRadius = '4px';
+                            fontItem.style.transition = 'all 0.2s ease';
+                            fontItem.style.border = '1px solid var(--color-border)';
+
+                            // Highlight current font
+                            if (index === currentOption) {
+                                fontItem.style.background = 'var(--bg-black-05)';
+                                fontItem.style.fontWeight = 'bold';
+                                fontItem.style.borderColor = 'var(--color-accent)';
+                                fontItem.style.boxShadow = '0 0 0 1px var(--color-accent)';
+                            }
+
+                            // Apply the primary font to the item
+                            fontItem.style.fontFamily = option.primary;
+
+                            // Create display font preview
+                            const displayPreview = document.createElement('div');
+                            displayPreview.textContent = 'AaBbCc123';
+                            displayPreview.style.fontFamily = option.display;
+                            displayPreview.style.fontSize = '1.2em';
+                            displayPreview.style.marginBottom = '8px';
+                            displayPreview.style.color = 'var(--color-accent)';
+
+                            // Create primary font preview
+                            const primaryPreview = document.createElement('div');
+                            primaryPreview.textContent = 'AaBbCc123';
+                            primaryPreview.style.fontFamily = option.primary;
+                            primaryPreview.style.fontSize = '1em';
+                            primaryPreview.style.marginBottom = '5px';
+
+                            // Create mono font preview
+                            const monoPreview = document.createElement('div');
+                            monoPreview.textContent = 'AaBbCc123';
+                            monoPreview.style.fontFamily = option.mono;
+                            monoPreview.style.fontSize = '0.9em';
+                            monoPreview.style.opacity = '0.7';
+
+                            // Create header with font name and status
+                            const header = document.createElement('div');
+                            header.style.display = 'flex';
+                            header.style.justifyContent = 'space-between';
+                            header.style.alignItems = 'center';
+                            header.style.marginBottom = '10px';
+
+                            const nameSpan = document.createElement('div');
+                            nameSpan.textContent = option.name.split(' + ')[0];
+                            nameSpan.style.fontWeight = 'bold';
+
+                            const statusSpan = document.createElement('div');
+                            if (index === currentOption) {
+                                statusSpan.textContent = '✓';
+                                statusSpan.style.color = 'var(--color-accent)';
+                            }
+
+                            header.appendChild(nameSpan);
+                            header.appendChild(statusSpan);
+
+                            // Add all elements to font item
+                            fontItem.appendChild(header);
+                            fontItem.appendChild(displayPreview);
+                            fontItem.appendChild(primaryPreview);
+                            fontItem.appendChild(monoPreview);
+
+                            // Add sample text
+                            const sampleText = document.createElement('div');
+                            sampleText.textContent = 'The quick brown fox jumps over the lazy dog';
+                            sampleText.style.marginTop = '10px';
+                            sampleText.style.fontSize = '0.85em';
+                            sampleText.style.opacity = '0.7';
+                            sampleText.style.fontFamily = option.primary;
+                            fontItem.appendChild(sampleText);
+
+                            // Set click handler
+                            fontItem.addEventListener('click', () => {
+                                updateFonts(index);
+                                modal.remove();
+                            });
+
+                            // Hover effect
+                            fontItem.addEventListener('mouseenter', () => {
+                                fontItem.style.background = 'var(--bg-black-05)';
+                                fontItem.style.transform = 'translateY(-2px)';
+                                fontItem.style.boxShadow = 'var(--shadow-md)';
+                            });
+
+                            fontItem.addEventListener('mouseleave', () => {
+                                if (index !== currentOption) {
+                                    fontItem.style.background = 'transparent';
+                                    fontItem.style.transform = 'translateY(0)';
+                                    fontItem.style.boxShadow = 'none';
+                                } else {
+                                    fontItem.style.transform = 'translateY(0)';
+                                    fontItem.style.boxShadow = '0 0 0 1px var(--color-accent)';
+                                }
+                            });
+
+                            categoryList.appendChild(fontItem);
+                        });
+
+                        categoryGroup.appendChild(categoryList);
+                        optionsContainer.appendChild(categoryGroup);
+                    });
+
+                    // Show no results message if needed
+                    if (optionsContainer.children.length === 0 && filter !== '') {
+                        const noResults = document.createElement('div');
+                        noResults.textContent = `No fonts matching "${filter}"`;
+                        noResults.style.textAlign = 'center';
+                        noResults.style.padding = '20px';
+                        noResults.style.color = 'var(--color-text-secondary)';
+                        optionsContainer.appendChild(noResults);
+                    }
+                }
+
+                // Add search functionality
+                searchInput.addEventListener('input', () => {
+                    renderOptions(searchInput.value);
+                });
+
+                // Initial render
+                renderOptions();
+                modal.appendChild(optionsContainer);
+
+                // Add buttons container
+                const buttonsContainer = document.createElement('div');
+                buttonsContainer.style.display = 'flex';
+                buttonsContainer.style.justifyContent = 'space-between';
+                buttonsContainer.style.marginTop = '20px';
+                buttonsContainer.style.position = 'sticky';
+                buttonsContainer.style.bottom = '0';
+                buttonsContainer.style.padding = '10px 0';
+                buttonsContainer.style.background = 'var(--bg-glass)';
+                buttonsContainer.style.backdropFilter = 'blur(10px)';
+                buttonsContainer.style.zIndex = '1';
+
+                // Add random button
+                const randomBtn = document.createElement('button');
+                randomBtn.textContent = 'Random Font';
+                randomBtn.style.padding = '8px 16px';
+                randomBtn.style.marginRight = '10px';
+                randomBtn.style.border = 'none';
+                randomBtn.style.borderRadius = '4px';
+                randomBtn.style.background = 'var(--bg-black-05)';
+                randomBtn.style.cursor = 'pointer';
+                randomBtn.style.fontFamily = 'var(--font-primary)';
+                randomBtn.style.color = 'var(--color-text-primary)';
+
+                randomBtn.addEventListener('click', () => {
+                    const randomIndex = Math.floor(Math.random() * options.length);
+                    updateFonts(randomIndex);
+                    modal.remove();
+                });
+
+                // Add close button
+                const closeBtn = document.createElement('button');
+                closeBtn.textContent = 'Close';
+                closeBtn.style.padding = '8px 16px';
+                closeBtn.style.border = 'none';
+                closeBtn.style.borderRadius = '4px';
+                closeBtn.style.background = 'var(--bg-black-05)';
+                closeBtn.style.cursor = 'pointer';
+                closeBtn.style.fontFamily = 'var(--font-primary)';
+                closeBtn.style.color = 'var(--color-text-primary)';
+
+                closeBtn.addEventListener('click', () => {
+                    modal.remove();
+                });
+
+                buttonsContainer.appendChild(randomBtn);
+                buttonsContainer.appendChild(closeBtn);
+                modal.appendChild(buttonsContainer);
+
+                // Close modal when clicking outside
+                document.addEventListener('click', function closeModalOnOutsideClick(e) {
+                    if (!modal.contains(e.target) && e.target !== fontSwitcherBtn) {
+                        modal.remove();
+                        document.removeEventListener('click', closeModalOnOutsideClick);
+                    }
+                });
+
+                // Add to body
+                document.body.appendChild(modal);
+
+                // Focus search input
+                setTimeout(() => {
+                    searchInput.focus();
+                }, 100);
+            }
+        });
+
+        // Text scramble effect
+        function scrambleText(element, newText, duration = 1000) {
+            const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            const oldText = element.textContent;
+            const maxLength = Math.max(oldText.length, newText.length);
+            const startTime = performance.now();
+
+            function update() {
+                const now = performance.now();
+                const progress = Math.min((now - startTime) / duration, 1);
+                let output = "";
+                for (let i = 0; i < maxLength; i++) {
+                    if (i < newText.length && progress > i / maxLength) {
+                        output += newText[i];
+                    } else {
+                        output += letters[Math.floor(Math.random() * letters.length)];
+                    }
+                }
+                element.textContent = output;
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    element.textContent = newText;
+                }
+            }
+            update();
+        }
+
+        // Vertical name management
+        function morphVerticalName(newText) {
+            const vn = document.querySelector('.vertical-name');
+            if (vn && vn.textContent !== newText) {
+                scrambleText(vn, newText, 200);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Initialize vertical name
+            const verticalName = document.querySelector(".vertical-name");
+            if (!verticalName) return;
+
+            morphVerticalName("cybrdelic");
+
+            // Initialize text transform options
+            const transformOptions = document.querySelectorAll('.transform-option');
+            if (transformOptions.length > 0) {
+                transformOptions.forEach(option => {
+                    option.addEventListener('click', function () {
+                        // Remove active class from all options
+                        transformOptions.forEach(opt => opt.classList.remove('active'));
+
+                        // Add active class to clicked option
+                        this.classList.add('active');
+
+                        // Get transform type
+                        const transform = this.getAttribute('data-transform');
+
+                        // Get hero name element
+                        const heroName = document.getElementById('hero-name');
+
+                        // Remove all existing transform classes
+                        heroName.classList.remove('uppercase', 'lowercase', 'text-outline', 'text-shadow', 'text-glow');
+
+                        // Add selected transform class if not 'none'
+                        if (transform !== 'none') {
+                            heroName.classList.add(transform);
+                        }
+
+                        // Save preference
+                        localStorage.setItem('textTransform', transform);
+                    });
+                });
+
+                // Apply saved preference if exists
+                const savedTransform = localStorage.getItem('textTransform');
+                if (savedTransform) {
+                    transformOptions.forEach(option => {
+                        if (option.getAttribute('data-transform') === savedTransform) {
+                            option.click();
+                        }
+                    });
+                }
+            }
+
+            // Section navigation mapping
+            const displayMap = {
+                'hero': 'cybrdelic',
+                'projects': 'projects',
+                'career': 'timeline',
+                'whats-next': 'future',
+                'contact': 'contact'
+            };
+
+            // Create intersection observer to detect visible section
+            const sectionObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+                        const sectionId = entry.target.getAttribute('id');
+                        if (sectionId && verticalName.textContent !== sectionId) {
+                            const displayText = displayMap[sectionId] || sectionId;
+                            morphVerticalName(displayText);
+                        }
+                    }
+                });
+            }, {
+                threshold: [0.3, 0.6],
+                rootMargin: "-10% 0px"
+            });
+
+            // Force scroll to top on page load
+            window.scrollTo(0, 0);
+
+            // Smooth scroll navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('.nav')?.offsetHeight || 0;
+                        const offsetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+
+                        history.pushState(null, null, targetId);
+                    }
+                });
+            });
+
+            // Active section highlighting in navigation
+            const navObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                        const id = entry.target.getAttribute('id');
+                        document.querySelectorAll('.nav a').forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            // Observe all sections for both effects
+            document.querySelectorAll("section[id]").forEach(section => {
+                sectionObserver.observe(section);
+                navObserver.observe(section);
+            });
+
+            // Update after any dynamic content changes
+            document.body.addEventListener("htmx:afterSwap", () => {
+                document.querySelectorAll("section[id]").forEach(section => {
+                    sectionObserver.observe(section);
+                    navObserver.observe(section);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
