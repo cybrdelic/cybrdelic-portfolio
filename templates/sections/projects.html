@@ -104,7 +104,7 @@
     <!-- Existing project interactions script (unchanged) -->
     <script>
         // Make base_path available to JavaScript
-        const base_path = "{{ base_path }}";
+        const base_path = "{{ base_path|safe }}";
         
         document.addEventListener('DOMContentLoaded', () => {
             const projectsSection = document.getElementById('projects');
