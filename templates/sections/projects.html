@@ -80,11 +80,13 @@
             <!-- Projects List (Right Side) -->
             <div class="projects-list">
                 {% for project in projects %}
-                <div class="project-list-item animate-on-scroll" data-id="{{ project.id }}"
+                <div class="project-list-item animate-on-scroll mobile-all-visible" data-id="{{ project.id }}"
                     data-subtitle="{{ project.subtitle }}" data-year="{{ project.year | default(value='2023') }}"
                     data-status="{{ project.status | default(value='Active') }}" tabindex="0"
                     aria-label="Project: {{ project.title }}">
                     <h3 class="project-list-title link-underline">{{ project.title }}</h3>
+                    <div class="project-subtitle">{{ project.subtitle }}</div>
+                    <div class="project-description-mobile">{{ project.description }}</div>
 
                     <!-- Hidden data for JavaScript to use -->
                     <div class="hidden-project-data">
@@ -95,6 +97,9 @@
                             {% endfor %}
                         </div>
                     </div>
+                    
+                    <!-- View project button -->
+                    <a href="{{ base_path }}projects/{{ project.id }}" class="project-view-button">View Project</a>
                 </div>
                 {% endfor %}
             </div>

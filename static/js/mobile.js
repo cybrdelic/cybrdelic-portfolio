@@ -853,6 +853,13 @@ document.addEventListener("DOMContentLoaded", function() {
         const projectItems = document.querySelectorAll('.project-list-item');
         if (!projectsList || projectItems.length === 0) return;
         
+        // Force all items to be visible in mobile view
+        projectItems.forEach(item => {
+            item.style.display = 'flex';
+            item.style.opacity = '1';
+            item.style.visibility = 'visible';
+        });
+        
         // Create proper mobile card structure for each project
         projectItems.forEach((item, index) => {
             // Skip if already enhanced

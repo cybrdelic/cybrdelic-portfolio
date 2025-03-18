@@ -1054,6 +1054,50 @@
         opacity: 1;
         transform: translateX(0);
     }
+    
+    /* Mobile project subtitle */
+    .project-subtitle {
+        font-family: var(--font-mono);
+        font-size: var(--font-size-xs);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--space-sm);
+    }
+    
+    /* Mobile project description */
+    .project-description-mobile {
+        font-size: var(--font-size-sm);
+        line-height: 1.5;
+        color: var(--color-text-secondary);
+        margin: var(--space-sm) 0;
+    }
+    
+    /* Project view button */
+    .project-view-button {
+        display: inline-block;
+        padding: var(--space-sm) var(--space-md);
+        background-color: rgba(255, 0, 0, 0.3);
+        color: white;
+        text-decoration: none;
+        border-radius: var(--border-radius);
+        margin-top: var(--space-sm);
+        text-align: center;
+        font-weight: bold;
+        border: 1px solid rgba(255, 0, 0, 0.5);
+        transition: all 0.3s ease;
+    }
+    
+    .project-view-button:hover, 
+    .project-view-button:focus {
+        background-color: rgba(255, 0, 0, 0.5);
+        transform: translateY(-2px);
+    }
+    
+    /* Ensure all project cards are visible */
+    .mobile-all-visible {
+        display: flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
 }
 
 /* Section title */
@@ -1202,10 +1246,10 @@
     .project-list-item {
         width: 100%;
         padding: var(--space-md);
-        margin-bottom: 0;
+        margin-bottom: var(--space-md);
         border-width: 0;
         border-radius: var(--border-radius);
-        background-color: rgba(255, 255, 255, 0.05);
+        background-color: rgba(255, 0, 0, 0.2);
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
         transform: none;
         transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -1213,6 +1257,8 @@
         flex-direction: column;
         position: relative;
         overflow: hidden;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
     
     /* Add subtle cyberpunk accent to cards */
