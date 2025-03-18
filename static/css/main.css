@@ -31,3 +31,6 @@
 @import 'project-detail.css';
 @import 'project-hero.css';
 @import 'documentation.css';
+
+/* Mobile-specific styles - Completely different design for mobile */
+@import 'mobile.css';
