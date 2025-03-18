@@ -103,6 +103,9 @@
 
     <!-- Existing project interactions script (unchanged) -->
     <script>
+        // Make base_path available to JavaScript
+        const base_path = "{{ base_path }}";
+        
         document.addEventListener('DOMContentLoaded', () => {
             const projectsSection = document.getElementById('projects');
             const projectItems = document.querySelectorAll('.project-list-item');
