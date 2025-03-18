@@ -751,14 +751,13 @@ let app = Router::new()
     <div class="command-body">
         <div class="command-line">
             <span class="terminal-prompt">$</span>
-            <span class="terminal-command">{% extends "base.html" %}
-
-{% block content %}
+            <span class="terminal-command"><!-- This would normally use template inheritance but is shown as plain HTML for compatibility -->
+<!-- Template content -->
 <main class="new-page-container">
     <h1>New Page</h1>
     <!-- Page content here -->
 </main>
-{% endblock %}
+<!-- End template content -->
 
 </span></div></div></div><ol class="ordered-list"><li class="list-item">Add CSS in :</li></ol><div class="command-window">
     <div class="command-header">
@@ -845,7 +844,8 @@ let app = Router::new()
     <div class="command-body">
         <div class="command-line">
             <span class="terminal-prompt">$</span>
-            <span class="terminal-command">{% include "components/new_component.html" with title="Example" description="This is an example" %}
+            <span class="terminal-command"><!-- Component inclusion example (shown as HTML comment for compatibility) -->
+<!-- Example include with title="Example" description="This is an example" -->
 
 </span></div></div></div><h3 id="coding-standards" class="markdown-heading-2 markdown-heading">Coding Standards<a class="heading-anchor" href="#coding-standards">&#xB6;</a></h3><h4 id="rust" class="markdown-heading-3 markdown-heading">Rust<a class="heading-anchor" href="#rust">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item">Follow the <a href="https://rust-lang.github.io/api-guidelines/" class="markdown-link">Rust API Guidelines</a></li><li class="list-item">Use  for consistent formatting</li><li class="list-item">Use  to catch common mistakes</li><li class="list-item">Document public functions and types with doc comments</li></ul><h4 id="html" class="markdown-heading-3 markdown-heading">HTML<a class="heading-anchor" href="#html">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item">Use semantic HTML5 elements</li><li class="list-item">Follow a component-based approach</li><li class="list-item">Keep templates modular and reusable</li><li class="list-item">Use Tera's inheritance and includes</li></ul><h4 id="css" class="markdown-heading-3 markdown-heading">CSS<a class="heading-anchor" href="#css">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item">Follow BEM (Block Element Modifier) naming convention</li><li class="list-item">Organize CSS into logical modules</li><li class="list-item">Use CSS variables for theming and consistency</li><li class="list-item">Prefix utility classes appropriately</li></ul><h4 id="javascript" class="markdown-heading-3 markdown-heading">JavaScript<a class="heading-anchor" href="#javascript">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item">Write modular, self-contained functions</li><li class="list-item">Use ES6+ features but ensure browser compatibility</li><li class="list-item">Add appropriate comments for complex logic</li><li class="list-item">Follow the principle of progressive enhancement</li></ul><h3 id="testing" class="markdown-heading-2 markdown-heading">Testing<a class="heading-anchor" href="#testing">&#xB6;</a></h3><h4 id="rust-tests" class="markdown-heading-3 markdown-heading">Rust Tests<a class="heading-anchor" href="#rust-tests">&#xB6;</a></h4><p class="markdown-paragraph">Run Rust tests with:</p><div class="command-window">
     <div class="command-header">
