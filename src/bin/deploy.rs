@@ -82,8 +82,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("📋 Copying new files from temporary directory...");
     copy_dir_recursive(&temp_dir, Path::new("."))?;
 
-    // Step 5: Commit and push changes
-    println!("💾 Committing changes...");
+    // Step 5: Commit and push changes to gh-pages branch ONLY
+    println!("💾 Committing changes to gh-pages branch...");
     run_command("git", &["add", "."])?;
     
     let date = chrono::Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
@@ -91,13 +91,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     
     run_command("git", &["commit", "-m", &commit_message])?;
 
-    println!("☁️ Pushing to GitHub...");
+    println!("☁️ Pushing to GitHub (gh-pages branch only)...");
     run_command("git", &["push", "-f", "origin", "gh-pages"])?;
 
-    // Step 6: Clean up and switch back to original branch
-    println!("🧹 Cleaning up...");
+    // Step 6: Clean up and switch back to original branch WITHOUT merging
+    println!("🧹 Cleaning up and returning to source branch...");
     fs::remove_dir_all(&temp_dir)?;
     run_command("git", &["checkout", &current_branch])?;
+    
+    println!("⚠️ IMPORTANT: The gh-pages branch contains only built files.");
+    println!("   DO NOT merge gh-pages back into your source branch!");
 
     println!("✨ Deployment completed successfully!");
     println!("🌐 Your site is now available at: https://YOUR_USERNAME.github.io/cybrdelic-portfolio/");
