@@ -1,0 +1,253 @@
+/* mobile.css - Enhanced mobile interactions while preserving visual design */
+
+/* These styles add mobile-specific touch behaviors and interactions 
+   without changing the core visual design of the site */
+
+:root {
+    /* Mobile-specific touch variables - maintain existing design language */
+    --touch-feedback-color: rgba(255, 255, 255, 0.1);
+    --touch-ripple-color: rgba(255, 255, 255, 0.2);
+    --touch-ripple-duration: 0.5s;
+    --touch-transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --touch-scale-factor: 0.98; /* Subtle scale for cohesive feel */
+}
+
+/* Enable momentum scrolling for all elements on touch devices */
+.touch-device * {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Remove default touch highlight color on mobile */
+.touch-device * {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Floating action button - for quick page navigation */
+.mobile-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    display: none; /* Hidden initially, shown by JS when scrolled */
+    opacity: 0;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    color: var(--bg-primary);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+/* Pull-to-refresh indicator */
+.pull-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+    z-index: 1001;
+}
+
+/* Enhanced active/touch states for interactive elements */
+@media (max-width: 768px) {
+    /* Apply touch active feedback */
+    .touch-active {
+        transform: scale(var(--touch-scale-factor)) !important;
+        transition: var(--touch-transition) !important;
+        background-color: var(--touch-feedback-color) !important;
+        box-shadow: 0 0 0 1px rgba(0, 238, 255, 0.1) !important; /* Keep consistent with desktop glow */
+    }
+    
+    /* Enhanced project cards for mobile */
+    .project-card {
+        background-color: var(--bg-glass);
+        backdrop-filter: blur(5px);
+        border: 1px solid var(--color-border);
+        border-radius: var(--border-radius);
+        margin-bottom: var(--space-md);
+        padding: var(--space-md);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Add cyberpunk-inspired glow effect */
+    .project-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            45deg, 
+            rgba(255, 255, 255, 0.03) 0%, 
+            transparent 30%, 
+            rgba(255, 255, 255, 0.03) 70%, 
+            transparent 100%
+        );
+        opacity: 0.5;
+        z-index: -1;
+        pointer-events: none;
+    }
+    
+    /* Active state for cards */
+    .project-card.active, 
+    .project-card.touch-active {
+        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 238, 255, 0.1);
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    /* For elements that change transform on hover, prevent it on touch */
+    .touch-device .cmd:hover,
+    .touch-device .project-list-item:hover,
+    .touch-device .project-card:hover,
+    .touch-device .tech-tag:hover,
+    .touch-device .details-link:hover,
+    .touch-device #career .timeline-item:hover,
+    .touch-device .expertise-tag:hover,
+    .touch-device .topic-card:hover {
+        transform: none !important;
+    }
+    
+    /* Project titles with cyberpunk style */
+    .project-card .project-title {
+        color: var(--color-text-primary);
+        text-shadow: 0 0 5px rgba(0, 238, 255, 0.2);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: var(--space-xs);
+        margin-bottom: var(--space-xs);
+    }
+    
+    /* Project description styling */
+    .project-card .project-description {
+        color: var(--color-text-secondary);
+        font-size: var(--font-size-xs);
+        line-height: 1.5;
+        margin: var(--space-xs) 0;
+    }
+    
+    /* Tech tags styling */
+    .project-card .project-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-xs);
+        margin-top: var(--space-sm);
+    }
+    
+    .project-card .project-tech-item {
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid var(--color-border);
+        border-radius: var(--border-radius);
+        padding: 2px var(--space-xs);
+        font-size: var(--font-size-2xs);
+        color: var(--color-text-secondary);
+        backdrop-filter: blur(2px);
+    }
+    
+    /* More link styling */
+    .project-card .project-more {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        margin-top: var(--space-sm);
+        padding: var(--space-xs) var(--space-sm);
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: var(--border-radius);
+        border: 1px solid var(--color-border);
+        align-self: flex-start;
+    }
+    
+    /* Ripple effect for touch feedback - styled to match site aesthetic */
+    .ripple {
+        position: absolute;
+        background: var(--touch-ripple-color);
+        border-radius: 50%;
+        transform: scale(0);
+        animation: ripple-animation var(--touch-ripple-duration) cubic-bezier(0.4, 0, 0.2, 1);
+        pointer-events: none;
+        z-index: 0;
+        mix-blend-mode: overlay; /* Better integrates with site design */
+    }
+    
+    @keyframes ripple-animation {
+        to {
+            transform: scale(2);
+            opacity: 0;
+        }
+    }
+}
+    
+    /* Add smooth scrolling for better touch experience */
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    /* Make scrollable elements feel more native */
+    .projects-list,
+    #career .timeline,
+    .selected-project-tech-tags,
+    .project-tech,
+    .tech-icons-container,
+    .expertise-tags {
+        scrollbar-width: none; /* Hide scrollbar for Firefox */
+        position: relative;
+    }
+    
+    .projects-list::-webkit-scrollbar,
+    #career .timeline::-webkit-scrollbar,
+    .selected-project-tech-tags::-webkit-scrollbar,
+    .project-tech::-webkit-scrollbar,
+    .tech-icons-container::-webkit-scrollbar,
+    .expertise-tags::-webkit-scrollbar {
+        display: none; /* Hide scrollbar for Chrome/Safari */
+    }
+    
+    /* Active scrolling class - applied via JS during touch scrolling */
+    .touch-scrolling > * {
+        transition: transform 0.1s ease-out;
+    }
+    
+    /* Improve touch targets for better mobile accessibility */
+    .btn, 
+    .cmd,
+    .project-card,
+    .tech-tag,
+    .project-link,
+    .mobile-fab,
+    nav a {
+        min-height: 44px; /* Apple recommends minimum 44px touch target */
+    }
+    
+    /* Make navigation links feel more native on mobile */
+    .nav a.cmd.active {
+        color: var(--color-accent);
+    }
+    
+    /* Subtle animations when elements become active on mobile */
+    .nav a.cmd.active::after {
+        content: "";
+        display: block;
+        width: 6px;
+        height: 6px;
+        background-color: var(--color-accent);
+        border-radius: 50%;
+        position: absolute;
+        bottom: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: all 0.3s ease;
+    }
+}
