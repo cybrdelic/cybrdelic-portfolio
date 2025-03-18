@@ -1,118 +1,110 @@
-// Mobile-specific JavaScript functionality
+// mobile.js - Enhanced mobile-specific JavaScript functionality
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Only run on mobile devices
-    if (window.innerWidth > 768) return;
+    // Only run on mobile devices or when testing on desktop with mobile width
+    const isMobile = window.innerWidth <= 768;
+    if (!isMobile) return;
     
     // =========================
-    // Mobile navigation handling
+    // Material Design Ripple Effect
     // =========================
-    const navLinks = document.querySelectorAll('.nav a.cmd');
-    const sections = document.querySelectorAll('section[id]');
     
-    // Update active tab based on visible section
-    function updateActiveTab() {
-        let current = '';
+    // Add tap-highlight divs to all interactive elements
+    const interactiveElements = document.querySelectorAll(`
+        .cmd, 
+        .project-list-item,
+        .project-card,
+        .tech-tag,
+        .details-link,
+        #career .timeline-item,
+        .project-tech-item,
+        .expertise-tag,
+        .topic-card,
+        .mobile-fab,
+        .project-meta-item,
+        .project-cta-button
+    `);
+    
+    interactiveElements.forEach(el => {
+        // Create and append tap highlight element
+        const tapHighlight = document.createElement('div');
+        tapHighlight.className = 'tap-highlight';
+        el.appendChild(tapHighlight);
         
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            
-            if (window.scrollY >= (sectionTop - 100) && 
-                window.scrollY < (sectionTop + sectionHeight - 100)) {
-                current = `#${section.getAttribute('id')}`;
+        // Add ripple effect
+        el.addEventListener('touchstart', createRipple);
+        el.addEventListener('mousedown', createRipple); // For testing on desktop
+    });
+    
+    function createRipple(event) {
+        const element = event.currentTarget;
+        
+        // Remove any existing ripples
+        const existingRipples = element.querySelectorAll('.ripple');
+        existingRipples.forEach(ripple => {
+            if (ripple.parentNode === element) {
+                element.removeChild(ripple);
             }
         });
         
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === current) {
-                link.classList.add('active');
+        // Create ripple element
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        element.appendChild(ripple);
+        
+        // Calculate position
+        const rect = element.getBoundingClientRect();
+        
+        // Get position based on touch or mouse
+        let x, y;
+        if (event.touches && event.touches[0]) {
+            x = event.touches[0].clientX - rect.left;
+            y = event.touches[0].clientY - rect.top;
+        } else {
+            x = event.clientX - rect.left;
+            y = event.clientY - rect.top;
+        }
+        
+        // Calculate size (diagonal of the element to ensure it covers the entire element)
+        const size = Math.max(rect.width, rect.height) * 2;
+        
+        // Position and size ripple
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${x - size/2}px`;
+        ripple.style.top = `${y - size/2}px`;
+        
+        // Clean up ripple after animation completes
+        setTimeout(() => {
+            if (ripple.parentNode === element) {
+                element.removeChild(ripple);
             }
-        });
+        }, 600);
     }
     
-    // Listen for scroll events
-    window.addEventListener('scroll', updateActiveTab);
-    
     // =========================
-    // Floating Action Button
-    // =========================
-    const fab = document.getElementById('mobile-fab');
-    
-    // Show/hide FAB based on scroll position
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 300) {
-            fab.style.display = 'flex';
-            fab.style.opacity = '1';
-        } else {
-            fab.style.opacity = '0';
-            setTimeout(() => {
-                if (window.scrollY <= 300) {
-                    fab.style.display = 'none';
-                }
-            }, 300);
-        }
-    });
-    
-    // Scroll to top when FAB is clicked
-    fab.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-    
-    // =========================
-    // Pull-to-refresh indicator
-    // =========================
-    const pullIndicator = document.getElementById('pull-indicator');
-    let touchStartY = 0;
-    let isPulling = false;
-    
-    document.addEventListener('touchstart', function(e) {
-        // Only trigger at the top of the page
-        if (window.scrollY === 0) {
-            touchStartY = e.touches[0].clientY;
-            isPulling = true;
-        }
-    });
-    
-    document.addEventListener('touchmove', function(e) {
-        if (!isPulling) return;
-        
-        const touchY = e.touches[0].clientY;
-        const pullDistance = touchY - touchStartY;
-        
-        if (pullDistance > 0 && pullDistance < 100) {
-            const progress = pullDistance / 100;
-            pullIndicator.style.transform = `scaleX(${progress})`;
-            pullIndicator.classList.add('active');
-        }
-    });
-    
-    document.addEventListener('touchend', function() {
-        if (isPulling) {
-            pullIndicator.style.transform = 'scaleX(0)';
-            pullIndicator.classList.remove('active');
-            isPulling = false;
-        }
-    });
-    
-    // =========================
-    // Mobile-specific carousel behaviors
+    // Enhanced Snap Scrolling for Carousels
     // =========================
     
-    // Horizontal scrolling carousels
-    const carousels = document.querySelectorAll('.projects-list, #career .timeline, .selected-project-tech-tags, .project-tech, .tech-icons-container');
+    // Find all horizontal carousels
+    const carousels = document.querySelectorAll('.projects-list, #career .timeline, .related-projects');
     
     carousels.forEach(carousel => {
+        let isScrolling = false;
+        let startX;
+        let startScrollLeft;
+        let startTime;
+        let targetScrollLeft;
+        let animationFrameId;
+        
         // Add visual indicator for scrollable content
         const indicator = document.createElement('div');
         indicator.className = 'scroll-indicator';
         indicator.innerHTML = '<i class="material-icons">swipe</i>';
         
-        carousel.parentNode.style.position = 'relative';
+        // Only add indicator if parent has position relative
+        if (window.getComputedStyle(carousel.parentNode).position !== 'relative') {
+            carousel.parentNode.style.position = 'relative';
+        }
         carousel.parentNode.appendChild(indicator);
         
         // Hide indicator after first scroll
@@ -123,52 +115,348 @@ document.addEventListener("DOMContentLoaded", function() {
             }, 300);
         }, { once: true });
         
-        // Snap scrolling for card-based carousels
-        if (carousel.classList.contains('projects-list') || carousel.classList.contains('timeline')) {
-            const cards = carousel.children;
-            let startX, scrollLeft;
+        // Handle start of touch
+        carousel.addEventListener('touchstart', function(e) {
+            // Cancel any ongoing animations
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
             
-            carousel.addEventListener('touchstart', function(e) {
-                startX = e.touches[0].pageX - carousel.offsetLeft;
-                scrollLeft = carousel.scrollLeft;
-            });
+            isScrolling = true;
+            startX = e.touches[0].pageX;
+            startScrollLeft = carousel.scrollLeft;
+            startTime = Date.now();
             
-            carousel.addEventListener('touchend', function() {
-                const cardWidth = cards[0].offsetWidth;
-                const scrollPosition = carousel.scrollLeft;
-                const cardIndex = Math.round(scrollPosition / cardWidth);
+            // Add active class to indicate scrolling
+            carousel.classList.add('carousel-scrolling');
+            
+            // Disable other event handlers while scrolling
+            e.stopPropagation();
+        });
+        
+        // Handle touchmove
+        carousel.addEventListener('touchmove', function(e) {
+            if (!isScrolling) return;
+            
+            // Calculate how far finger has moved
+            const x = e.touches[0].pageX;
+            const dx = startX - x;
+            
+            // Update scroll position
+            carousel.scrollLeft = startScrollLeft + dx;
+            
+            // Disable other event handlers while scrolling
+            e.stopPropagation();
+        });
+        
+        // Handle end of touch - with momentum and snap
+        carousel.addEventListener('touchend', function(e) {
+            if (!isScrolling) return;
+            
+            isScrolling = false;
+            const endTime = Date.now();
+            const timeElapsed = endTime - startTime;
+            const endScrollLeft = carousel.scrollLeft;
+            const distance = endScrollLeft - startScrollLeft;
+            
+            // Calculate velocity (pixels per millisecond)
+            const velocity = distance / timeElapsed;
+            
+            // Only add momentum if velocity is significant
+            if (Math.abs(velocity) > 0.5) {
+                // Calculate target position with momentum
+                const momentum = velocity * 300; // Adjust this multiplier for stronger/weaker momentum
+                targetScrollLeft = endScrollLeft + momentum;
+            } else {
+                targetScrollLeft = endScrollLeft;
+            }
+            
+            // Find nearest snap point
+            if (carousel.children.length > 0) {
+                const cardWidth = carousel.children[0].offsetWidth + 
+                                parseInt(window.getComputedStyle(carousel.children[0]).marginRight);
+                const snapPoint = Math.round(targetScrollLeft / cardWidth) * cardWidth;
+                targetScrollLeft = snapPoint;
+            }
+            
+            // Ensure within bounds
+            targetScrollLeft = Math.max(0, Math.min(targetScrollLeft, carousel.scrollWidth - carousel.clientWidth));
+            
+            // Animate to target with easing
+            function animateScroll() {
+                const currentPosition = carousel.scrollLeft;
+                const distance = targetScrollLeft - currentPosition;
                 
-                carousel.scrollTo({
-                    left: cardIndex * cardWidth,
-                    behavior: 'smooth'
-                });
+                // Exit if we're close enough
+                if (Math.abs(distance) < 1) {
+                    carousel.scrollLeft = targetScrollLeft;
+                    carousel.classList.remove('carousel-scrolling');
+                    return;
+                }
+                
+                // Calculate next position with easing
+                const nextPosition = currentPosition + distance * 0.2;
+                carousel.scrollLeft = nextPosition;
+                
+                // Continue animation
+                animationFrameId = requestAnimationFrame(animateScroll);
+            }
+            
+            animationFrameId = requestAnimationFrame(animateScroll);
+            
+            // Remove active class
+            carousel.classList.remove('carousel-scrolling');
+        });
+    });
+    
+    // =========================
+    // Mobile Navigation Handling
+    // =========================
+    
+    // Make navigation more responsive
+    const navLinks = document.querySelectorAll('.nav a.cmd');
+    const sections = document.querySelectorAll('section[id]');
+    
+    // Update active tab based on visible section
+    function updateActiveTab() {
+        let current = '';
+        let maxVisibility = 0;
+        
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const sectionHeight = rect.height;
+            const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+            const visibilityRatio = visibleHeight / sectionHeight;
+            
+            if (visibilityRatio > maxVisibility && visibilityRatio > 0.1) {
+                maxVisibility = visibilityRatio;
+                current = `#${section.getAttribute('id')}`;
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === current) {
+                link.classList.add('active');
+                
+                // Add haptic feedback if supported
+                if (window.navigator && window.navigator.vibrate) {
+                    window.navigator.vibrate(10);
+                }
+            }
+        });
+    }
+    
+    // Initial check
+    updateActiveTab();
+    
+    // Listen for scroll events with throttling for better performance
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                updateActiveTab();
+                ticking = false;
             });
+            ticking = true;
         }
     });
     
     // =========================
-    // Enhanced touch feedback
+    // Floating Action Button
     // =========================
-    const touchElements = document.querySelectorAll('.cmd, .project-list-item, .project-card, .tech-tag, .details-link, #career .timeline-item');
     
-    touchElements.forEach(element => {
-        element.addEventListener('touchstart', function() {
-            this.classList.add('touch-active');
+    const fab = document.getElementById('mobile-fab');
+    if (fab) {
+        // Show/hide FAB based on scroll position with smooth transition
+        let lastScrollPosition = 0;
+        let fabVisible = false;
+        
+        window.addEventListener('scroll', function() {
+            const currentScrollPosition = window.scrollY;
+            
+            // Show when scrolled down more than 300px
+            if (currentScrollPosition > 300 && !fabVisible) {
+                fab.style.display = 'flex';
+                // Small delay to ensure display has updated
+                setTimeout(() => {
+                    fab.style.opacity = '1';
+                    fab.style.transform = 'scale(1)';
+                }, 10);
+                fabVisible = true;
+            } 
+            // Hide when scrolled to top
+            else if (currentScrollPosition <= 300 && fabVisible) {
+                fab.style.opacity = '0';
+                fab.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    if (window.scrollY <= 300) {
+                        fab.style.display = 'none';
+                    }
+                }, 300);
+                fabVisible = false;
+            }
+            
+            lastScrollPosition = currentScrollPosition;
         });
         
-        element.addEventListener('touchend', function() {
-            this.classList.remove('touch-active');
+        // Scroll to top with smooth animation
+        fab.addEventListener('click', function() {
+            // Add haptic feedback if supported
+            if (window.navigator && window.navigator.vibrate) {
+                window.navigator.vibrate([15, 10, 15]);
+            }
+            
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
         
-        element.addEventListener('touchcancel', function() {
-            this.classList.remove('touch-active');
-        });
+        // Initialize FAB state
+        if (window.scrollY > 300) {
+            fab.style.display = 'flex';
+            fab.style.opacity = '1';
+            fabVisible = true;
+        } else {
+            fab.style.display = 'none';
+            fab.style.opacity = '0';
+            fabVisible = false;
+        }
+    }
+    
+    // =========================
+    // Native-like Pull-to-refresh
+    // =========================
+    
+    const pullIndicator = document.getElementById('pull-indicator');
+    let touchStartY = 0;
+    let isPulling = false;
+    let pullDistance = 0;
+    let pullThreshold = 80;
+    
+    document.addEventListener('touchstart', function(e) {
+        // Only trigger at the top of the page
+        if (window.scrollY <= 5) {
+            touchStartY = e.touches[0].clientY;
+            isPulling = true;
+            pullDistance = 0;
+        }
     });
     
-    // Initialize on load
-    updateActiveTab();
+    document.addEventListener('touchmove', function(e) {
+        if (!isPulling) return;
+        
+        const touchY = e.touches[0].clientY;
+        pullDistance = Math.max(0, touchY - touchStartY);
+        
+        if (pullDistance > 0 && pullDistance < pullThreshold * 1.5) {
+            // Progress animation
+            const progress = pullDistance / pullThreshold;
+            pullIndicator.style.transform = `scaleX(${progress})`;
+            pullIndicator.classList.add('active');
+            
+            // Add resistance - the further you pull, the harder it gets
+            if (progress > 0.8) {
+                document.body.style.transform = `translateY(${pullDistance * 0.1}px)`;
+            }
+            
+            // Prevent default scrolling only when actually pulling
+            if (window.scrollY === 0 && pullDistance > 5) {
+                e.preventDefault();
+            }
+        }
+    }, { passive: false });
     
-    // Hide FAB initially
-    fab.style.display = 'none';
-    fab.style.opacity = '0';
+    document.addEventListener('touchend', function() {
+        if (!isPulling) return;
+        
+        pullIndicator.style.transform = 'scaleX(0)';
+        document.body.style.transform = '';
+        
+        // If pulled enough, trigger refresh action
+        if (pullDistance >= pullThreshold) {
+            // Visual feedback
+            pullIndicator.style.transform = 'scaleX(1)';
+            
+            // Add haptic feedback if supported
+            if (window.navigator && window.navigator.vibrate) {
+                window.navigator.vibrate([20, 30, 20]);
+            }
+            
+            // Simulate refresh (in a real app, this would fetch new data)
+            setTimeout(() => {
+                window.location.reload();
+            }, 500);
+        } else {
+            pullIndicator.classList.remove('active');
+        }
+        
+        isPulling = false;
+        pullDistance = 0;
+    });
+    
+    // =========================
+    // Swipe Between Sections
+    // =========================
+    
+    // Initialize swipe detection for sections
+    const mainElement = document.querySelector('main');
+    let touchStartX = 0;
+    let touchStartY = 0;
+    
+    document.addEventListener('touchstart', function(e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    });
+    
+    document.addEventListener('touchend', function(e) {
+        if (!e.changedTouches[0]) return;
+        
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+        
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+        
+        // Only handle horizontal swipes that are significant and more horizontal than vertical
+        if (Math.abs(deltaX) > 100 && Math.abs(deltaX) > Math.abs(deltaY)) {
+            // Find current active section
+            let activeSection = null;
+            let activeSectionIndex = -1;
+            
+            sections.forEach((section, index) => {
+                if (section.getBoundingClientRect().top <= 100 && 
+                    section.getBoundingClientRect().bottom >= window.innerHeight / 2) {
+                    activeSection = section;
+                    activeSectionIndex = index;
+                }
+            });
+            
+            if (activeSection) {
+                // Swipe right to previous section
+                if (deltaX > 0 && activeSectionIndex > 0) {
+                    // Add haptic feedback
+                    if (window.navigator && window.navigator.vibrate) {
+                        window.navigator.vibrate(15);
+                    }
+                    
+                    sections[activeSectionIndex - 1].scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+                // Swipe left to next section
+                else if (deltaX < 0 && activeSectionIndex < sections.length - 1) {
+                    // Add haptic feedback
+                    if (window.navigator && window.navigator.vibrate) {
+                        window.navigator.vibrate(15);
+                    }
+                    
+                    sections[activeSectionIndex + 1].scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        }
+    });
 });
