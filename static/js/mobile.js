@@ -1623,234 +1623,43 @@ document.addEventListener("DOMContentLoaded", function() {
     // =========================
     
     /**
-     * Initialize the new mobile projects section with swipe carousel
+     * Initialize the simple mobile projects section with static cards
      */
     function initMobileProjects() {
-        const carousel = document.querySelector('.mobile-projects-carousel');
-        if (!carousel) return;
+        const projectsContainer = document.querySelector('.mobile-projects-simple');
+        if (!projectsContainer) return;
         
-        const cards = document.querySelectorAll('.mobile-project-card');
-        const dots = document.querySelectorAll('.carousel-dot');
-        const tabs = document.querySelectorAll('.project-tab');
-        
+        const cards = document.querySelectorAll('.mobile-project-card-simple');
         if (cards.length === 0) return;
         
-        // Set first card as active
-        cards[0].classList.add('active');
-        
-        // Handle carousel scrolling
-        let isScrolling = false;
-        let startX;
-        let startScrollLeft;
-        let currentIndex = 0;
-        
-        // Update the active state when scrolling
-        carousel.addEventListener('scroll', function() {
-            if (isScrolling) return;
+        // Add simple entrance animation for each card
+        cards.forEach((card, i) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
             
-            requestAnimationFrame(() => {
-                // Find the card at the center of the viewport
-                const scrollPosition = carousel.scrollLeft;
-                const cardWidth = cards[0].offsetWidth + parseInt(getComputedStyle(cards[0]).marginRight);
-                const centerIndex = Math.round(scrollPosition / cardWidth);
-                
-                // Only update if index has changed
-                if (centerIndex !== currentIndex && centerIndex >= 0 && centerIndex < cards.length) {
-                    currentIndex = centerIndex;
-                    updateActiveState();
-                }
-            });
-        }, { passive: true });
-        
-        // Handle touch events for swipe
-        carousel.addEventListener('touchstart', function(e) {
-            isScrolling = true;
-            startX = e.touches[0].pageX;
-            startScrollLeft = carousel.scrollLeft;
-            
-            // Add active class to indicate touch interaction
-            this.classList.add('touching');
-        }, { passive: true });
-        
-        carousel.addEventListener('touchmove', function(e) {
-            if (!isScrolling) return;
-            
-            // Calculate how far finger has moved
-            const x = e.touches[0].pageX;
-            const deltaX = startX - x;
-            
-            // Update scroll position
-            carousel.scrollLeft = startScrollLeft + deltaX;
-        }, { passive: true });
-        
-        carousel.addEventListener('touchend', function() {
-            isScrolling = false;
-            this.classList.remove('touching');
-            
-            // Snap to nearest card
-            const cardWidth = cards[0].offsetWidth + parseInt(getComputedStyle(cards[0]).marginRight);
-            const scrollPosition = carousel.scrollLeft;
-            const targetIndex = Math.round(scrollPosition / cardWidth);
-            
-            // Scroll to target card
-            scrollToCard(targetIndex, true);
-            
-            // Add haptic feedback on swipe complete
-            if (window.navigator && window.navigator.vibrate && currentIndex !== targetIndex) {
-                window.navigator.vibrate(10);
-            }
+            // Stagger the animations
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100 + (i * 100));
         });
         
-        // Handle dot indicators click
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', function() {
-                scrollToCard(index, true);
-                
-                // Add subtle haptic feedback
-                if (window.navigator && window.navigator.vibrate) {
-                    window.navigator.vibrate(5);
+        // Add intersection observer to animate cards as they scroll into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target);
                 }
             });
+        }, {
+            threshold: 0.1
         });
         
-        // Handle tab navigation
-        tabs.forEach((tab, index) => {
-            tab.addEventListener('click', function() {
-                scrollToCard(index, true);
-                
-                // Add haptic feedback
-                if (window.navigator && window.navigator.vibrate) {
-                    window.navigator.vibrate(10);
-                }
-            });
+        // Observe each card
+        cards.forEach(card => {
+            observer.observe(card);
         });
-        
-        // Function to scroll to a specific card
-        function scrollToCard(index, animate = false) {
-            if (index < 0 || index >= cards.length) return;
-            
-            const cardWidth = cards[0].offsetWidth + parseInt(getComputedStyle(cards[0]).marginRight);
-            const targetScrollLeft = index * cardWidth;
-            
-            if (animate) {
-                carousel.scrollTo({
-                    left: targetScrollLeft,
-                    behavior: 'smooth'
-                });
-            } else {
-                carousel.scrollLeft = targetScrollLeft;
-            }
-            
-            currentIndex = index;
-            updateActiveState();
-        }
-        
-        // Update active state of cards, dots and tabs
-        function updateActiveState() {
-            // Update cards
-            cards.forEach((card, i) => {
-                card.classList.toggle('active', i === currentIndex);
-            });
-            
-            // Update dots
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentIndex);
-            });
-            
-            // Update tabs
-            tabs.forEach((tab, i) => {
-                tab.classList.toggle('active', i === currentIndex);
-                
-                // Ensure active tab is visible by scrolling it into view
-                if (i === currentIndex) {
-                    const tabsContainer = tab.parentElement;
-                    const tabLeft = tab.offsetLeft;
-                    const tabWidth = tab.offsetWidth;
-                    const containerWidth = tabsContainer.offsetWidth;
-                    const scrollLeft = tabsContainer.scrollLeft;
-                    
-                    // Calculate the target scroll position to center the tab
-                    const targetScroll = tabLeft - (containerWidth / 2) + (tabWidth / 2);
-                    
-                    tabsContainer.scrollTo({
-                        left: targetScroll,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        }
-        
-        // Add swipe preview animation effect
-        let lastTouch = null;
-        let animationFrame = null;
-        
-        carousel.addEventListener('touchmove', function(e) {
-            lastTouch = e;
-            
-            if (!animationFrame) {
-                animationFrame = requestAnimationFrame(updateSwipePreview);
-            }
-        }, { passive: true });
-        
-        carousel.addEventListener('touchend', function() {
-            lastTouch = null;
-            if (animationFrame) {
-                cancelAnimationFrame(animationFrame);
-                animationFrame = null;
-            }
-            
-            // Reset all cards to normal state
-            cards.forEach(card => {
-                card.style.transform = '';
-            });
-        });
-        
-        // Function to create swipe preview effect
-        function updateSwipePreview() {
-            if (!lastTouch) {
-                animationFrame = null;
-                return;
-            }
-            
-            const carouselRect = carousel.getBoundingClientRect();
-            const touchX = lastTouch.touches[0].clientX;
-            const cardWidth = cards[0].offsetWidth;
-            
-            // Calculate which cards are visible
-            cards.forEach((card, i) => {
-                const cardRect = card.getBoundingClientRect();
-                const cardCenter = cardRect.left + cardRect.width / 2;
-                const distanceFromTouch = Math.abs(touchX - cardCenter);
-                
-                // Apply transform based on distance from touch
-                if (cardRect.right > carouselRect.left && cardRect.left < carouselRect.right) {
-                    // Card is visible
-                    const scale = Math.max(0.95, 1 - (distanceFromTouch / (cardWidth * 2)));
-                    const translateY = (1 - scale) * 10; // Slight lift effect
-                    
-                    card.style.transform = `scale(${scale}) translateY(${translateY}px)`;
-                }
-            });
-            
-            animationFrame = requestAnimationFrame(updateSwipePreview);
-        }
-        
-        // Ensure the carousel is properly initialized
-        setTimeout(() => {
-            // Trigger initial scroll to ensure proper layout
-            scrollToCard(0, false);
-            
-            // Add entrance animation effect
-            cards.forEach((card, i) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                
-                setTimeout(() => {
-                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 100 + (i * 100));
-            });
-        }, 300);
     }
 });

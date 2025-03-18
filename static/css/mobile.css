@@ -641,39 +641,20 @@
         transition: all 0.3s ease;
     }
     
-    /* Enhanced Mobile Projects Container - New Design */
-    .mobile-projects-container {
+    /* Simple Mobile Projects Container - New Design */
+    .mobile-projects-simple {
         display: flex;
         flex-direction: column;
-        gap: var(--space-md);
+        gap: var(--space-lg);
         width: 100%;
+        max-width: 600px;
         margin: 0 auto;
-        position: relative;
-    }
-    
-    /* Swipeable Project Carousel */
-    .mobile-projects-carousel {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-        gap: var(--space-md);
-        padding: var(--space-sm);
-        mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-        -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-        scrollbar-width: none;
-        margin: 0 -var(--space-sm);
-    }
-    
-    .mobile-projects-carousel::-webkit-scrollbar {
-        display: none;
+        padding: var(--space-md) var(--space-sm);
     }
     
     /* Individual Project Card */
-    .mobile-project-card {
-        flex: 0 0 90%;
-        scroll-snap-align: center;
+    .mobile-project-card-simple {
+        width: 100%;
         background-color: rgba(0, 0, 0, 0.2);
         border-radius: var(--border-radius);
         overflow: hidden;
@@ -683,12 +664,18 @@
         border: 1px solid rgba(255, 255, 255, 0.08);
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         transform: translateZ(0);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin-bottom: var(--space-lg);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
     }
     
-    .mobile-project-card.active {
-        border-color: var(--color-accent);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    .mobile-project-card-simple.in-view {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+    .mobile-project-card-simple:active {
+        transform: scale(0.98);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
     }
     
     /* Card Header with Gradient Overlay */
@@ -724,6 +711,10 @@
         position: relative;
         overflow: hidden;
         margin-top: -60px;
+    }
+    
+    .mobile-project-card-simple .project-card-image-container {
+        margin-top: 0;
     }
     
     .project-card-image {
@@ -855,6 +846,7 @@
         text-transform: uppercase;
         letter-spacing: 0.5px;
         margin-top: var(--space-sm);
+        width: 100%;
     }
     
     .project-card-action-button::before {
