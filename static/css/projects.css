@@ -1087,6 +1087,18 @@
         width: 100%;
     }
     
+    /* Style the details link in mobile mode */
+    @media (max-width: 768px) {
+        .details-link {
+            background-color: rgba(255, 0, 0, 0.3) !important;
+            border: 1px solid rgba(255, 0, 0, 0.5) !important;
+            color: white !important;
+            width: 100% !important;
+            text-align: center !important;
+            margin-top: var(--space-md) !important;
+        }
+    }
+    
     .project-view-button:hover, 
     .project-view-button:focus {
         background-color: rgba(255, 0, 0, 0.5);
@@ -1202,12 +1214,23 @@
         padding-top: var(--space-lg);
     }
     
-    /* Show project cards, hide project details panel */
+    /* Show details panel, hide project list in mobile */
     .project-details-panel {
-        display: none;
+        display: block !important;
+        position: relative !important;
+        top: 0 !important;
+        width: 100% !important;
+        background-color: rgba(255, 0, 0, 0.2) !important;
+        margin: 0 !important;
+        padding: var(--space-md) !important;
     }
-        
-    .default-project-view, .selected-project-view {
+    
+    .selected-project-view, .default-project-view {
+        display: block !important;
+    }
+    
+    /* Hide projects list on mobile */
+    .projects-list {
         display: none !important;
     }
     

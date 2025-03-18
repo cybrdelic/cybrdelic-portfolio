@@ -855,17 +855,25 @@ document.addEventListener("DOMContentLoaded", function() {
         
         if (!projectsList || projectItems.length === 0) return;
         
-        // Force all items to be visible in mobile view and ensure they look like cards
-        projectItems.forEach(item => {
-            item.style.display = 'flex';
-            item.style.opacity = '1';
-            item.style.visibility = 'visible';
-            item.classList.add('mobile-card-style');
-        });
-        
-        // Keep the cards visible, hide the details panel on mobile
-        if (detailsPanel && window.innerWidth <= 768) {
-            detailsPanel.style.display = 'none';
+        // On mobile, hide the project list and show the details panel
+        if (window.innerWidth <= 768) {
+            // Hide the projects list
+            if (projectsList) {
+                projectsList.style.display = 'none';
+            }
+            
+            // Show the details panel
+            if (detailsPanel) {
+                detailsPanel.style.display = 'block';
+                detailsPanel.style.backgroundColor = 'rgba(255, 0, 0, 0.2)';
+                
+                // Make sure both views are ready to be displayed
+                const defaultView = document.querySelector('.default-project-view');
+                const selectedView = document.querySelector('.selected-project-view');
+                
+                if (defaultView) defaultView.style.display = 'block';
+                if (selectedView) selectedView.style.display = 'block';
+            }
         }
         
         // Create proper mobile card structure for each project
@@ -1298,18 +1306,26 @@ document.addEventListener("DOMContentLoaded", function() {
                 maxVisibility = visibilityRatio;
                 currentSectionId = section.id;
                 
-                // Hide details panel and ensure cards are shown on mobile in projects section
+                // Show details panel instead of cards on mobile in projects section
                 if (window.innerWidth <= 768 && section.id === 'projects') {
-                    if (detailsPanel) {
-                        detailsPanel.style.display = 'none';
+                    // Hide the project list
+                    const projectsList = document.querySelector('.projects-list');
+                    if (projectsList) {
+                        projectsList.style.display = 'none';
                     }
                     
-                    // Make sure all project list items are visible
-                    document.querySelectorAll('.project-list-item').forEach(item => {
-                        item.style.display = 'flex';
-                        item.style.opacity = '1';
-                        item.style.visibility = 'visible';
-                    });
+                    // Show the details panel
+                    if (detailsPanel) {
+                        detailsPanel.style.display = 'block';
+                        detailsPanel.style.backgroundColor = 'rgba(255, 0, 0, 0.2)';
+                        
+                        // Make sure both views are ready to be displayed
+                        const defaultView = document.querySelector('.default-project-view');
+                        const selectedView = document.querySelector('.selected-project-view');
+                        
+                        if (defaultView) defaultView.style.display = 'block';
+                        if (selectedView) selectedView.style.display = 'block';
+                    }
                 }
             }
         });
