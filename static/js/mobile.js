@@ -851,6 +851,8 @@ document.addEventListener("DOMContentLoaded", function() {
     function enhanceProjectsSection() {
         const projectsList = document.querySelector('.projects-list');
         const projectItems = document.querySelectorAll('.project-list-item');
+        const detailsPanel = document.querySelector('.project-details-panel');
+        
         if (!projectsList || projectItems.length === 0) return;
         
         // Force all items to be visible in mobile view
@@ -859,6 +861,11 @@ document.addEventListener("DOMContentLoaded", function() {
             item.style.opacity = '1';
             item.style.visibility = 'visible';
         });
+        
+        // Hide details panel on mobile
+        if (detailsPanel && window.innerWidth <= 768) {
+            detailsPanel.style.display = 'none';
+        }
         
         // Create proper mobile card structure for each project
         projectItems.forEach((item, index) => {
@@ -1274,6 +1281,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function updateMobileNav() {
         const sections = document.querySelectorAll('section[id]');
         const navItems = document.querySelectorAll('.mobile-nav-item');
+        const detailsPanel = document.querySelector('.project-details-panel');
         
         // Find the current section
         let currentSectionId = '';
@@ -1288,6 +1296,11 @@ document.addEventListener("DOMContentLoaded", function() {
             if (visibilityRatio > maxVisibility && visibilityRatio > 0.1) {
                 maxVisibility = visibilityRatio;
                 currentSectionId = section.id;
+                
+                // Hide details panel on mobile in projects section
+                if (detailsPanel && window.innerWidth <= 768 && section.id === 'projects') {
+                    detailsPanel.style.display = 'none';
+                }
             }
         });
         

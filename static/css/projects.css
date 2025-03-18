@@ -1084,6 +1084,7 @@
         font-weight: bold;
         border: 1px solid rgba(255, 0, 0, 0.5);
         transition: all 0.3s ease;
+        width: 100%;
     }
     
     .project-view-button:hover, 
@@ -1196,37 +1197,14 @@
     /* Complete mobile-optimized layout that preserves cyberpunk aesthetic */
     .projects-container {
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
         gap: var(--space-md);
+        padding-top: var(--space-lg);
     }
     
-    /* ===== PROJECT DETAILS PANEL ===== */
-    /* Optimized details panel as a card-based view */
+    /* Hide details panel on mobile - show only cards */
     .project-details-panel {
-        position: relative;
-        padding: var(--mobile-panel-padding);
-        border-radius: var(--border-radius);
-        max-height: none;
-        overflow-y: visible !important;
-        top: 0;
-        margin-top: var(--space-md);
-        width: 100%;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-        transition: transform 0.3s ease, opacity 0.3s ease;
-        backdrop-filter: blur(8px);
-    }
-    
-    /* Add top glow to details panel */
-    .project-details-panel::after {
-        content: '';
-        position: absolute;
-        top: -2px;
-        left: 20px;
-        right: 20px;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
-        border-radius: 2px;
-        z-index: 2;
+        display: none;
     }
     
     /* ===== PROJECT CARDS LIST ===== */
@@ -1259,6 +1237,7 @@
         overflow: hidden;
         opacity: 1 !important;
         visibility: visible !important;
+        margin-top: 0;
     }
     
     /* Add subtle cyberpunk accent to cards */
