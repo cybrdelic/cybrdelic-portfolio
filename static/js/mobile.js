@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // =========================
     
     // Find all horizontal carousels
-    const carousels = document.querySelectorAll('.projects-list, #career .timeline, .selected-project-tech-tags, .tech-icons-container, .expertise-tags, .project-tech');
+    const carousels = document.querySelectorAll('.projects-list, #career .timeline, .selected-project-tech-tags, .tech-icons-container, .expertise-tags, .project-tech, .topic-tags, #career .topic-tags');
     
     carousels.forEach(carousel => {
         let isScrolling = false;
@@ -166,10 +166,20 @@ document.addEventListener("DOMContentLoaded", function() {
                     (carousel.classList.contains('projects-list') || 
                      carousel.classList.contains('timeline'))) {
                     
+                    // For projects and career timelines, use snap points
                     const cardWidth = carousel.children[0].offsetWidth + 
                                     parseInt(window.getComputedStyle(carousel.children[0]).marginRight || 0);
                     const snapPoint = Math.round(targetScrollLeft / cardWidth) * cardWidth;
                     targetScrollLeft = snapPoint;
+                    
+                    // Add active class to the selected item
+                    if (carousel.classList.contains('projects-list') || carousel.classList.contains('timeline')) {
+                        const activeIndex = Math.round(targetScrollLeft / cardWidth);
+                        const items = carousel.children;
+                        for (let i = 0; i < items.length; i++) {
+                            items[i].classList.toggle('active', i === activeIndex);
+                        }
+                    }
                 }
                 
                 // Ensure within bounds
@@ -205,6 +215,88 @@ document.addEventListener("DOMContentLoaded", function() {
     // =========================
     // Mobile Navigation Handling
     // =========================
+    
+    // Initialize project/career sections
+    function initMobileSections() {
+        // Make project items horizontally scrollable
+        const projectsList = document.querySelector('.projects-list');
+        if (projectsList) {
+            // Show first item by default
+            if (projectsList.children.length > 0) {
+                projectsList.children[0].classList.add('active');
+                const projectId = projectsList.children[0].getAttribute('data-project-id');
+                if (projectId) {
+                    document.querySelectorAll('.selected-project-view').forEach(view => {
+                        view.style.display = view.getAttribute('data-project-id') === projectId ? 'block' : 'none';
+                    });
+                }
+            }
+            
+            // Handle click events for mobile
+            projectsList.querySelectorAll('.project-list-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    const projectId = this.getAttribute('data-project-id');
+                    if (projectId) {
+                        document.querySelectorAll('.project-list-item').forEach(i => i.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        document.querySelectorAll('.selected-project-view').forEach(view => {
+                            view.style.display = view.getAttribute('data-project-id') === projectId ? 'block' : 'none';
+                        });
+                        
+                        // Scroll to details panel
+                        const detailsPanel = document.querySelector('.project-details-panel');
+                        if (detailsPanel) {
+                            setTimeout(() => {
+                                detailsPanel.scrollIntoView({ behavior: 'smooth' });
+                            }, 300);
+                        }
+                    }
+                });
+            });
+        }
+        
+        // Handle career timeline
+        const timeline = document.querySelector('#career .timeline');
+        if (timeline) {
+            // Show first item by default
+            if (timeline.children.length > 0) {
+                timeline.children[0].classList.add('active');
+                const jobId = timeline.children[0].getAttribute('data-job-id');
+                if (jobId) {
+                    document.querySelectorAll('.job-detail').forEach(job => {
+                        job.style.display = job.getAttribute('data-job-id') === jobId ? 'block' : 'none';
+                    });
+                }
+            }
+            
+            // Handle click events for mobile
+            timeline.querySelectorAll('.timeline-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    const jobId = this.getAttribute('data-job-id');
+                    if (jobId) {
+                        document.querySelectorAll('.timeline-item').forEach(i => i.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        document.querySelectorAll('.job-detail').forEach(job => {
+                            job.style.display = job.getAttribute('data-job-id') === jobId ? 'block' : 'none';
+                        });
+                        
+                        // Scroll to details panel
+                        const detailPanel = document.querySelector('#career .detail-panel');
+                        if (detailPanel) {
+                            setTimeout(() => {
+                                detailPanel.scrollIntoView({ behavior: 'smooth' });
+                            }, 300);
+                        }
+                    }
+                });
+            });
+        }
+    }
+    
+    // Initialize mobile-specific enhancements
+    initMobileSections();
     
     // Make navigation more responsive
     const navLinks = document.querySelectorAll('.nav a.cmd');
