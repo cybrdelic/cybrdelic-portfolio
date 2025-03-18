@@ -2,106 +2,142 @@
     <div class="container fade-in">
 
         <div class="projects-container">
-            <!-- Project Details Panel (Left Side - Sticky) -->
-            <div class="project-details-panel animate-on-scroll">
-                <!-- Default state when no project is selected -->
-                <div class="default-project-view">
-                    <h3 class="details-header typing-cursor">Select a project</h3>
-                    <p class="details-description">
-                        I build tools that enhance developer productivity and create elegant solutions to complex
-                        problems.
-                        My work spans CLI utilities to AI-powered tools, focusing on performance and usability.
-                    </p>
-
-                    <div class="details-stats stagger-children">
-                        <div class="stat-box card-hover">
-                            <div class="stat-number">10+</div>
-                            <div class="stat-label">Projects</div>
+            <!-- Desktop view - Project Details Panel and Projects List -->
+            <div class="desktop-only">
+                <!-- Project Details Panel (Left Side - Sticky) -->
+                <div class="project-details-panel animate-on-scroll">
+                    <!-- Default state when no project is selected -->
+                    <div class="default-project-view">
+                        <h3 class="details-header typing-cursor">Select a project</h3>
+                        <p class="details-description">
+                            I build tools that enhance developer productivity and create elegant solutions to complex
+                            problems.
+                            My work spans CLI utilities to AI-powered tools, focusing on performance and usability.
+                        </p>
+    
+                        <div class="details-stats stagger-children">
+                            <div class="stat-box card-hover">
+                                <div class="stat-number">10+</div>
+                                <div class="stat-label">Projects</div>
+                            </div>
+                            <div class="stat-box card-hover">
+                                <div class="stat-number">4</div>
+                                <div class="stat-label">Core Tech</div>
+                            </div>
+                            <div class="stat-box card-hover">
+                                <div class="stat-number">7+</div>
+                                <div class="stat-label">Years Exp</div>
+                            </div>
                         </div>
-                        <div class="stat-box card-hover">
-                            <div class="stat-number">4</div>
-                            <div class="stat-label">Core Tech</div>
-                        </div>
-                        <div class="stat-box card-hover">
-                            <div class="stat-number">7+</div>
-                            <div class="stat-label">Years Exp</div>
+    
+                        <div class="expertise-section">
+                            <h3 class="details-subheader">Areas of Focus</h3>
+                            <div class="expertise-tags stagger-children">
+                                <span class="expertise-tag highlight-on-hover">Developer Tools</span>
+                                <span class="expertise-tag highlight-on-hover">AI Integration</span>
+                                <span class="expertise-tag highlight-on-hover">CLI Apps</span>
+                                <span class="expertise-tag highlight-on-hover">Data Viz</span>
+                                <span class="expertise-tag highlight-on-hover">Automation</span>
+                                <span class="expertise-tag highlight-on-hover">Web Apps</span>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="expertise-section">
-                        <h3 class="details-subheader">Areas of Focus</h3>
-                        <div class="expertise-tags stagger-children">
-                            <span class="expertise-tag highlight-on-hover">Developer Tools</span>
-                            <span class="expertise-tag highlight-on-hover">AI Integration</span>
-                            <span class="expertise-tag highlight-on-hover">CLI Apps</span>
-                            <span class="expertise-tag highlight-on-hover">Data Viz</span>
-                            <span class="expertise-tag highlight-on-hover">Automation</span>
-                            <span class="expertise-tag highlight-on-hover">Web Apps</span>
+    
+                    <!-- Project-specific details that show when a project is selected -->
+                    <div class="selected-project-view">
+                        <h3 class="details-header">
+                            <span class="selected-project-title scramble-on-hover">Project Name</span>
+                        </h3>
+                        <div class="details-subtitle">
+                            <span class="selected-project-subtitle">Project Type</span>
                         </div>
+    
+                        <p class="details-description selected-project-description">
+                            Select a project to view details.
+                        </p>
+    
+                        <div class="details-meta stagger-children">
+                            <div class="stat-box card-hover">
+                                <div class="stat-label">Status</div>
+                                <div class="selected-project-status">-</div>
+                            </div>
+                            <div class="stat-box card-hover">
+                                <div class="stat-label">Year</div>
+                                <div class="selected-project-year">-</div>
+                            </div>
+                        </div>
+    
+                        <div class="tech-section">
+                            <h3 class="details-subheader">Technologies</h3>
+                            <div class="selected-project-tech-tags stagger-children"></div>
+                        </div>
+    
+                        <a href="#" class="details-link btn-interaction">
+                            <span class="details-link-text">View Full Details</span>
+                            <span class="details-link-icon transition-transform">→</span>
+                        </a>
                     </div>
                 </div>
-
-                <!-- Project-specific details that show when a project is selected -->
-                <div class="selected-project-view">
-                    <h3 class="details-header">
-                        <span class="selected-project-title scramble-on-hover">Project Name</span>
-                    </h3>
-                    <div class="details-subtitle">
-                        <span class="selected-project-subtitle">Project Type</span>
-                    </div>
-
-                    <p class="details-description selected-project-description">
-                        Select a project to view details.
-                    </p>
-
-                    <div class="details-meta stagger-children">
-                        <div class="stat-box card-hover">
-                            <div class="stat-label">Status</div>
-                            <div class="selected-project-status">-</div>
-                        </div>
-                        <div class="stat-box card-hover">
-                            <div class="stat-label">Year</div>
-                            <div class="selected-project-year">-</div>
+    
+                <!-- Projects List (Right Side) - Desktop only -->
+                <div class="projects-list">
+                    {% for project in projects %}
+                    <div class="project-list-item animate-on-scroll" data-id="{{ project.id }}"
+                        data-subtitle="{{ project.subtitle }}" data-year="{{ project.year | default(value='2023') }}"
+                        data-status="{{ project.status | default(value='Active') }}" tabindex="0"
+                        aria-label="Project: {{ project.title }}">
+                        <h3 class="project-list-title link-underline">{{ project.title }}</h3>
+    
+                        <!-- Hidden data for JavaScript to use -->
+                        <div class="hidden-project-data">
+                            <div class="hidden-description">{{ project.description }}</div>
+                            <div class="hidden-tech-stack">
+                                {% for tech in project.tech_stack %}
+                                <span class="tech-item">{{ tech }}</span>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-
-                    <div class="tech-section">
-                        <h3 class="details-subheader">Technologies</h3>
-                        <div class="selected-project-tech-tags stagger-children"></div>
-                    </div>
-
-                    <a href="#" class="details-link btn-interaction">
-                        <span class="details-link-text">View Full Details</span>
-                        <span class="details-link-icon transition-transform">→</span>
-                    </a>
+                    {% endfor %}
                 </div>
             </div>
 
-            <!-- Projects List (Right Side) -->
-            <div class="projects-list">
-                {% for project in projects %}
-                <div class="project-list-item animate-on-scroll mobile-all-visible" data-id="{{ project.id }}"
-                    data-subtitle="{{ project.subtitle }}" data-year="{{ project.year | default(value='2023') }}"
-                    data-status="{{ project.status | default(value='Active') }}" tabindex="0"
-                    aria-label="Project: {{ project.title }}">
-                    <h3 class="project-list-title link-underline">{{ project.title }}</h3>
-                    <div class="project-subtitle">{{ project.subtitle }}</div>
-                    <div class="project-description-mobile">{{ project.description }}</div>
-
-                    <!-- Hidden data for JavaScript to use -->
-                    <div class="hidden-project-data">
-                        <div class="hidden-description">{{ project.description }}</div>
-                        <div class="hidden-tech-stack">
-                            {% for tech in project.tech_stack %}
-                            <span class="tech-item">{{ tech }}</span>
-                            {% endfor %}
+            <!-- Mobile view - Simple vertical list of project details -->
+            <div class="mobile-only">
+                <div class="mobile-projects-list">
+                    {% for project in projects %}
+                    <div class="mobile-project-panel">
+                        <h3 class="details-header">{{ project.title }}</h3>
+                        <div class="details-subtitle">{{ project.subtitle }}</div>
+                        <p class="details-description">{{ project.description }}</p>
+                        
+                        <div class="details-meta">
+                            <div class="stat-box">
+                                <div class="stat-label">Status</div>
+                                <div>{{ project.status | default(value='Active') }}</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Year</div>
+                                <div>{{ project.year | default(value='2023') }}</div>
+                            </div>
                         </div>
+                        
+                        <div class="tech-section">
+                            <h3 class="details-subheader">Technologies</h3>
+                            <div class="project-tech-tags">
+                                {% for tech in project.tech_stack %}
+                                <span class="tech-tag">{{ tech }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <a href="{{ base_path }}projects/{{ project.id }}" class="details-link mobile-view-button">
+                            <span class="details-link-text">View Full Details</span>
+                            <span class="details-link-icon">→</span>
+                        </a>
                     </div>
-                    
-                    <!-- View project button -->
-                    <a href="{{ base_path }}projects/{{ project.id }}" class="project-view-button">View Project</a>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
     </div>
