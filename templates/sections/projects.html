@@ -170,7 +170,7 @@
                     techTagsContainer.appendChild(techTag);
                 });
 
-                detailsLink.href = `/projects/${projectId}`;
+                detailsLink.href = `${base_path}projects/${projectId}`;
 
                 if (defaultView.style.display !== 'none') {
                     defaultView.classList.add('fade-out');
@@ -187,7 +187,7 @@
 
                 item.addEventListener('click', () => {
                     const projectId = item.getAttribute('data-id');
-                    window.location.href = `/projects/${projectId}`;
+                    window.location.href = `${base_path}projects/${projectId}`;
                 });
 
                 if (!isTouchDevice) {
@@ -212,7 +212,7 @@
                     item.addEventListener('touchstart', (e) => {
                         if (lastTappedItem === item) {
                             const projectId = item.getAttribute('data-id');
-                            window.location.href = `/projects/${projectId}`;
+                            window.location.href = `${base_path}projects/${projectId}`;
                         } else {
                             e.preventDefault();
                             item.classList.add('pulse');
