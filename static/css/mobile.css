@@ -1,908 +1,162 @@
-/* mobile.css - Complete mobile redesign */
+/* mobile.css - Enhanced mobile interactions while preserving visual design */
+
+/* These styles add mobile-specific touch behaviors and interactions 
+   without changing the core visual design of the site */
+
 :root {
-    /* Mobile-specific variables for a complete redesign */
-    --mobile-header-height: 56px;
-    --mobile-spacing-xs: 8px;
-    --mobile-spacing-sm: 12px;
-    --mobile-spacing-md: 16px;
-    --mobile-spacing-lg: 24px;
-    --mobile-spacing-xl: 32px;
-    --mobile-border-radius: 16px;
-    
-    /* Mobile color palette - more vibrant for small screens */
-    --mobile-bg-primary: #0a0a0a;
-    --mobile-bg-secondary: #151515;
-    --mobile-accent-primary: #00eeff;
-    --mobile-accent-secondary: #fe01b1;
-    --mobile-text-primary: #ffffff;
-    --mobile-text-secondary: #aaaaaa;
-    
-    /* Mobile typography */
-    --mobile-font-size-xs: 12px;
-    --mobile-font-size-sm: 14px;
-    --mobile-font-size-md: 16px;
-    --mobile-font-size-lg: 20px;
-    --mobile-font-size-xl: 24px;
-    --mobile-font-size-2xl: 32px;
+    /* Mobile-specific touch variables - maintain existing design language */
+    --touch-feedback-color: rgba(255, 255, 255, 0.1);
+    --touch-ripple-color: rgba(255, 255, 255, 0.2);
+    --touch-ripple-duration: 0.5s;
+    --touch-transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --touch-scale-factor: 0.98; /* Subtle scale for cohesive feel */
 }
 
-/* ===== MOBILE NAVIGATION REDESIGN ===== */
-@media (max-width: 768px) {
-    /* Enable normal scrolling on mobile - disable scroll snap */
-    html, body {
-        overflow: auto;
-    }
-    
-    main {
-        overflow: visible;
-        scroll-snap-type: none;
-        height: auto;
-    }
-    
-    main section {
-        scroll-snap-align: none;
-    }
-    
-    /* Mobile navigation - redesigned with bottom tab bar */
-    .nav {
-        flex-direction: row;
-        position: fixed;
-        bottom: 0;
-        top: auto;
-        height: var(--mobile-header-height);
-        width: 100%;
-        background-color: var(--mobile-bg-secondary);
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
-        z-index: 1000;
-        padding: 0;
-        justify-content: space-around;
-    }
-    
-    .nav-left, .nav-right {
-        width: auto;
-        display: flex;
-        padding: 0;
-        margin: 0;
-        flex-direction: row;
-        justify-content: space-around;
-    }
-    
-    .home-link {
-        height: var(--mobile-header-height);
-        border: none;
-        flex: 1;
-        justify-content: center;
-        background: transparent;
-    }
-    
-    .cmd {
-        height: var(--mobile-header-height);
-        padding: 0;
-        width: auto;
-        flex: 1;
-        justify-content: center;
-        position: relative;
-    }
-    
-    .cmd::before {
-        display: none;
-    }
-    
-    /* Replace text with icons for mobile navigation */
-    .cmd span {
-        display: none;
-    }
-    
-    .cmd::after {
-        display: block;
-        font-family: 'Material Icons';
-        font-size: 24px;
-        text-align: center;
-    }
-    
-    .cmd[href="#projects"]::after {
-        content: "apps";
-    }
-    
-    .cmd[href="#career"]::after {
-        content: "work";
-    }
-    
-    .cmd[href="#contact"]::after {
-        content: "mail";
-    }
-    
-    /* Active state for mobile tab bar */
-    .cmd.active {
-        color: var(--mobile-accent-primary);
-    }
-    
-    .cmd.active::after {
-        color: var(--mobile-accent-primary);
-        transform: translateY(-4px);
-    }
-    
-    /* Mobile-specific tab bar active indicator */
-    .cmd.active::before {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 8px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background-color: var(--mobile-accent-primary);
-    }
-    
-    /* Adjust main content to accommodate bottom navigation */
-    main {
-        padding-bottom: var(--mobile-header-height);
-    }
-    
-    section {
-        padding-top: var(--mobile-spacing-xl);
-        min-height: calc(100vh - var(--mobile-header-height));
-    }
-    
-    /* Mobile-specific header styles */
-    h1 {
-        font-size: var(--mobile-font-size-2xl);
-        line-height: 1.2;
-    }
-    
-    h2 {
-        font-size: var(--mobile-font-size-xl);
-    }
-    
-    h3 {
-        font-size: var(--mobile-font-size-lg);
-    }
-    
-    /* Bigger touch targets for mobile */
-    .btn, 
-    .cmd,
-    .project-card,
-    .tech-tag,
-    .project-link {
-        min-height: 44px;
-        padding: var(--mobile-spacing-sm) var(--mobile-spacing-md);
-    }
+/* Enable momentum scrolling for all elements on touch devices */
+.touch-device * {
+    -webkit-overflow-scrolling: touch;
 }
 
-/* ===== PROJECTS SECTION MOBILE REDESIGN ===== */
-@media (max-width: 768px) {
-    /* Projects container becomes a vertical stack */
-    .projects-container {
-        display: flex;
-        flex-direction: column;
-        gap: var(--mobile-spacing-md);
-    }
-    
-    /* Projects list becomes a horizontal scrolling carousel */
-    .projects-list {
-        display: flex;
-        flex-direction: row;
-        overflow-x: auto;
-        padding: var(--mobile-spacing-md) 0;
-        gap: var(--mobile-spacing-md);
-        width: 100%;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        margin-bottom: var(--mobile-spacing-lg);
-    }
-    
-    .projects-list::-webkit-scrollbar {
-        display: none;
-    }
-    
-    /* Project cards become touch-friendly tiles */
-    .project-list-item {
-        min-width: 85vw;
-        flex: 0 0 auto;
-        height: 180px;
-        margin: 0;
-        padding: var(--mobile-spacing-md);
-        border: none;
-        border-radius: var(--mobile-border-radius);
-        background: linear-gradient(135deg, var(--mobile-bg-secondary), rgba(30, 30, 30, 0.7));
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-    
-    .project-list-item::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 6px;
-        background: linear-gradient(90deg, var(--mobile-accent-primary), var(--mobile-accent-secondary));
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-    
-    .project-list-item.active::after {
-        opacity: 1;
-    }
-    
-    .project-list-title {
-        font-size: var(--mobile-font-size-lg);
-        margin-bottom: var(--mobile-spacing-xs);
-    }
-    
-    /* Always show description on mobile */
-    .project-description {
-        max-height: 80px;
-        opacity: 1;
-        overflow: hidden;
-        margin: var(--mobile-spacing-xs) 0;
-    }
-    
-    .project-description p {
-        font-size: var(--mobile-font-size-sm);
-        -webkit-line-clamp: 2;
-    }
-    
-    /* Always show tech stack on mobile */
-    .project-tech {
-        opacity: 1;
-        max-height: 30px;
-        display: flex;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        padding-bottom: var(--mobile-spacing-xs);
-        scrollbar-width: none;
-    }
-    
-    .project-tech::-webkit-scrollbar {
-        display: none;
-    }
-    
-    .project-tech-item {
-        font-size: var(--mobile-font-size-xs);
-        flex: 0 0 auto;
-        white-space: nowrap;
-        background: rgba(255, 255, 255, 0.1);
-        color: var(--mobile-text-secondary);
-    }
-    
-    /* Project details panel for mobile */
-    .project-details-panel {
-        position: relative;
-        top: 0;
-        border-radius: var(--mobile-border-radius);
-        padding: var(--mobile-spacing-lg);
-        background: linear-gradient(135deg, var(--mobile-bg-secondary), rgba(20, 20, 20, 0.9));
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        margin: 0 var(--mobile-spacing-sm);
-    }
-    
-    .details-header {
-        font-size: var(--mobile-font-size-xl);
-        background: linear-gradient(to right, var(--mobile-text-primary), var(--mobile-text-secondary));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-    
-    .details-subtitle {
-        font-size: var(--mobile-font-size-md);
-    }
-    
-    .details-description {
-        font-size: var(--mobile-font-size-sm);
-    }
-    
-    /* Tech tags become horizontally scrollable */
-    .selected-project-tech-tags {
-        display: flex;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        padding-bottom: var(--mobile-spacing-xs);
-        scrollbar-width: none;
-        gap: var(--mobile-spacing-xs);
-    }
-    
-    .selected-project-tech-tags::-webkit-scrollbar {
-        display: none;
-    }
-    
-    .tech-tag {
-        flex: 0 0 auto;
-        white-space: nowrap;
-        font-size: var(--mobile-font-size-xs);
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    
-    /* CTA button for project detail pages */
-    .details-link {
-        width: 100%;
-        justify-content: center;
-        padding: var(--mobile-spacing-md);
-        margin-top: var(--mobile-spacing-lg);
-        background: linear-gradient(90deg, var(--mobile-accent-primary), var(--mobile-accent-secondary));
-        border: none;
-        color: #000;
-        font-weight: bold;
-        box-shadow: 0 4px 15px rgba(0, 238, 255, 0.3);
-    }
+/* Remove default touch highlight color on mobile */
+.touch-device * {
+    -webkit-tap-highlight-color: transparent;
 }
 
-/* ===== CAREER SECTION MOBILE REDESIGN ===== */
-@media (max-width: 768px) {
-    /* Career container */
-    #career .container {
-        padding: 0 var(--mobile-spacing-md);
-    }
-    
-    /* Timeline becomes a horizontal scrolling carousel */
-    #career .timeline-container {
-        flex-direction: column;
-        gap: var(--mobile-spacing-lg);
-    }
-    
-    #career .timeline {
-        position: relative;
-        width: 100%;
-        padding: 0;
-        display: flex;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        gap: var(--mobile-spacing-sm);
-        padding-bottom: var(--mobile-spacing-md);
-    }
-    
-    #career .timeline::-webkit-scrollbar {
-        display: none;
-    }
-    
-    /* Remove vertical timeline line */
-    #career .timeline::before {
-        display: none;
-    }
-    
-    /* Timeline items become cards */
-    #career .timeline-item {
-        min-width: 80vw;
-        flex: 0 0 auto;
-        margin: 0;
-        padding: var(--mobile-spacing-md);
-        background: linear-gradient(135deg, var(--mobile-bg-secondary), rgba(30, 30, 30, 0.7));
-        border-radius: var(--mobile-border-radius);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        position: relative;
-        transform: none;
-        opacity: 0.9;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    #career .timeline-item.active {
-        opacity: 1;
-        transform: scale(1.02);
-        border-color: rgba(255, 255, 255, 0.2);
-    }
-    
-    /* Remove timeline dots */
-    #career .timeline-dot,
-    #career .timeline-pulse {
-        display: none;
-    }
-    
-    /* Position/company styling */
-    #career .position {
-        font-size: var(--mobile-font-size-lg);
-        margin-bottom: var(--mobile-spacing-xs);
-    }
-    
-    #career .company {
-        position: relative;
-        display: inline-block;
-        margin-bottom: var(--mobile-spacing-xs);
-        font-size: var(--mobile-font-size-sm);
-        padding: 4px var(--mobile-spacing-sm);
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
-    }
-    
-    /* Date pill */
-    #career .date {
-        background: linear-gradient(90deg, var(--mobile-accent-primary), var(--mobile-accent-secondary));
-        color: #000;
-        font-weight: bold;
-        border: none;
-    }
-    
-    /* Always show preview on mobile */
-    #career .timeline-preview {
-        max-height: 60px;
-        opacity: 1;
-        margin-top: var(--mobile-spacing-xs);
-        transform: none;
-    }
-    
-    #career .preview-text {
-        max-width: none;
-        white-space: normal;
-        border-left: 2px solid var(--mobile-accent-primary);
-    }
-    
-    /* Detail panel becomes main content area */
-    #career .detail-panel {
-        border-left: none;
-        padding-top: var(--mobile-spacing-lg);
-    }
-    
-    /* Job meta header */
-    #career .job-meta-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--mobile-spacing-md);
-    }
-    
-    #career .job-title {
-        font-size: var(--mobile-font-size-xl);
-        background: linear-gradient(to right, var(--mobile-text-primary), var(--mobile-accent-primary));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-    
-    /* Tech icons become horizontally scrollable cards */
-    #career .tech-icons-container {
-        height: 100px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: var(--mobile-border-radius);
-        margin: var(--mobile-spacing-md) 0;
-        padding: var(--mobile-spacing-sm);
-    }
-    
-    #career .tech-icons-container::-webkit-scrollbar {
-        display: none;
-    }
-    
-    #career .tech-icon {
-        margin: 0 var(--mobile-spacing-md);
-        min-width: 60px;
-    }
-    
-    /* Topic cards */
-    #career .topic-grid {
-        display: flex;
-        flex-direction: column;
-        gap: var(--mobile-spacing-md);
-    }
-    
-    #career .topic-card {
-        opacity: 1;
-        transform: none;
-        background: linear-gradient(135deg, var(--mobile-bg-secondary), rgba(30, 30, 30, 0.7));
-        border-radius: var(--mobile-border-radius);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    #career .topic-card:hover {
-        transform: scale(1.02);
-    }
-    
-    #career .topic-name {
-        font-size: var(--mobile-font-size-md);
-    }
-    
-    /* Topic tags become horizontally scrollable */
-    #career .topic-tags {
-        display: flex;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        padding-bottom: var(--mobile-spacing-xs);
-    }
-    
-    #career .topic-tags::-webkit-scrollbar {
-        display: none;
-    }
-    
-    #career .topic-tag {
-        flex: 0 0 auto;
-        white-space: nowrap;
-        font-size: var(--mobile-font-size-xs);
-        background: rgba(255, 255, 255, 0.1);
-    }
+/* Floating action button - for quick page navigation */
+.mobile-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    display: none; /* Hidden initially, shown by JS when scrolled */
+    opacity: 0;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    color: var(--bg-primary);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
 }
 
-/* ===== PROJECT DETAIL PAGE MOBILE REDESIGN ===== */
-@media (max-width: 768px) {
-    /* Project detail container */
-    .project-detail-container {
-        display: flex;
-        flex-direction: column;
-        gap: var(--mobile-spacing-lg);
-        padding: var(--mobile-spacing-lg) var(--mobile-spacing-md);
-    }
-    
-    /* Project hero section */
-    .project-hero {
-        height: 40vh;
-        border-radius: var(--mobile-border-radius);
-        overflow: hidden;
-        margin: 0 calc(var(--mobile-spacing-md) * -1);
-        padding: var(--mobile-spacing-xl) var(--mobile-spacing-md);
-    }
-    
-    .project-hero-content {
-        max-width: 100%;
-        text-align: center;
-    }
-    
-    .project-hero-title {
-        font-size: var(--mobile-font-size-2xl);
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    }
-    
-    .project-hero-subtitle {
-        font-size: var(--mobile-font-size-md);
-    }
-    
-    /* Project info becomes a card */
-    .project-info {
-        background: linear-gradient(135deg, var(--mobile-bg-secondary), rgba(30, 30, 30, 0.7));
-        border-radius: var(--mobile-border-radius);
-        padding: var(--mobile-spacing-lg);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    /* Project metadata becomes horizontally scrolling pills */
-    .project-meta {
-        display: flex;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        gap: var(--mobile-spacing-sm);
-        padding-bottom: var(--mobile-spacing-xs);
-        margin: var(--mobile-spacing-md) 0;
-    }
-    
-    .project-meta::-webkit-scrollbar {
-        display: none;
-    }
-    
-    .project-meta-item {
-        flex: 0 0 auto;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 30px;
-        padding: var(--mobile-spacing-xs) var(--mobile-spacing-md);
-        font-size: var(--mobile-font-size-sm);
-        white-space: nowrap;
-        color: var(--mobile-text-secondary);
-    }
-    
-    /* Documentation sections */
-    .documentation-section {
-        background: linear-gradient(135deg, var(--mobile-bg-secondary), rgba(30, 30, 30, 0.7));
-        border-radius: var(--mobile-border-radius);
-        padding: var(--mobile-spacing-lg);
-        margin-bottom: var(--mobile-spacing-lg);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .documentation-section h2 {
-        font-size: var(--mobile-font-size-xl);
-        margin-bottom: var(--mobile-spacing-md);
-        background: linear-gradient(to right, var(--mobile-text-primary), var(--mobile-accent-primary));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-    
-    .documentation-section h3 {
-        font-size: var(--mobile-font-size-lg);
-        margin: var(--mobile-spacing-lg) 0 var(--mobile-spacing-sm);
-    }
-    
-    .documentation-section p,
-    .documentation-section li {
-        font-size: var(--mobile-font-size-sm);
-        line-height: 1.6;
-    }
-    
-    /* Code blocks */
-    .documentation-section pre {
-        border-radius: var(--mobile-border-radius);
-        margin: var(--mobile-spacing-md) 0;
-        padding: var(--mobile-spacing-md);
-        background: rgba(0, 0, 0, 0.3);
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    .documentation-section code {
-        font-size: var(--mobile-font-size-xs);
-    }
-    
-    /* Related projects become a horizontal scrolling carousel */
-    .related-projects {
-        display: flex;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        gap: var(--mobile-spacing-md);
-        padding: var(--mobile-spacing-md) 0;
-        margin: var(--mobile-spacing-lg) 0;
-    }
-    
-    .related-projects::-webkit-scrollbar {
-        display: none;
-    }
-    
-    .related-project-card {
-        min-width: 80vw;
-        flex: 0 0 auto;
-        border-radius: var(--mobile-border-radius);
-        background: linear-gradient(135deg, var(--mobile-bg-secondary), rgba(30, 30, 30, 0.7));
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        padding: var(--mobile-spacing-md);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    /* Project CTA */
-    .project-cta {
-        display: flex;
-        justify-content: center;
-        margin: var(--mobile-spacing-xl) 0;
-    }
-    
-    .project-cta-button {
-        width: 100%;
-        padding: var(--mobile-spacing-md);
-        background: linear-gradient(90deg, var(--mobile-accent-primary), var(--mobile-accent-secondary));
-        border: none;
-        border-radius: var(--mobile-border-radius);
-        font-size: var(--mobile-font-size-md);
-        font-weight: bold;
-        color: #000;
-        box-shadow: 0 10px 20px rgba(0, 238, 255, 0.3);
-        text-align: center;
-    }
+/* Pull-to-refresh indicator */
+.pull-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+    z-index: 1001;
 }
 
-/* ===== ADDITIONAL MOBILE UI ENHANCEMENTS ===== */
+/* Enhanced active/touch states for interactive elements */
 @media (max-width: 768px) {
-    /* Smooth scrolling for better touch experience */
-    html {
-        scroll-behavior: smooth;
+    /* Apply touch active feedback */
+    .touch-active {
+        transform: scale(var(--touch-scale-factor)) !important;
+        transition: var(--touch-transition) !important;
+        background-color: var(--touch-feedback-color) !important;
+        box-shadow: 0 0 0 1px rgba(0, 238, 255, 0.1) !important; /* Keep consistent with desktop glow */
     }
     
-    /* Set native-like momentum scrolling for all elements */
-    * {
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    /* Improved touch feedback for all interactive elements */
-    .nav, 
-    .cmd, 
-    .project-list-item,
-    .project-card, 
-    .tech-tag, 
-    .details-link, 
-    .mobile-fab, 
-    button,
-    a,
-    input,
-    select,
-    textarea,
-    #career .timeline-item {
-        user-select: none;
-        -webkit-tap-highlight-color: transparent;
-        touch-action: manipulation;
-    }
-    
-    /* Floating action button with native-like behavior */
-    .mobile-fab {
-        position: fixed;
-        bottom: calc(var(--mobile-header-height) + var(--mobile-spacing-md));
-        right: var(--mobile-spacing-md);
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, var(--mobile-accent-primary), var(--mobile-accent-secondary));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 15px rgba(0, 238, 255, 0.3);
-        z-index: 900;
-        color: #000;
-        font-size: 24px;
-        transform: scale(1);
-        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
-                    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                    box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    /* Native-like active state for floating action button */
-    .mobile-fab:active {
-        transform: scale(0.92) !important;
-        box-shadow: 0 1px 5px rgba(0, 238, 255, 0.3) !important;
-    }
-    
-    /* Add animation for carousel cards */
-    .carousel-scrolling .project-list-item,
-    .carousel-scrolling #career .timeline-item,
-    .carousel-scrolling .related-project-card {
-        transition: transform 0.1s ease-out;
-    }
-    
-    /* Add pull-to-refresh visual indicator */
-    .pull-indicator {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, var(--mobile-accent-primary), var(--mobile-accent-secondary));
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.3s ease;
-        z-index: 1001;
-    }
-    
-    .pull-indicator.active {
-        transform: scaleX(1);
-    }
-    
-    /* Custom scrollbar for mobile */
-    ::-webkit-scrollbar {
-        width: 3px;
-        height: 3px;
-    }
-    
-    ::-webkit-scrollbar-track {
-        background: transparent;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-        background: var(--mobile-accent-primary);
-        border-radius: 3px;
-    }
-    
-    /* Enhanced touch interactions */
-    
-    /* Disable all hover effects for mobile */
-    .cmd:hover,
-    .project-list-item:hover,
-    .project-card:hover,
-    .tech-tag:hover,
-    .details-link:hover,
-    .project-more:hover,
-    .expertise-tag:hover,
-    .topic-card:hover,
-    #career .timeline-item:hover,
-    .project-title:hover::after,
-    .position:hover,
-    .company:hover,
-    .topic-name:hover,
-    .topic-icon:hover {
+    /* For elements that change transform on hover, prevent it on touch */
+    .touch-device .cmd:hover,
+    .touch-device .project-list-item:hover,
+    .touch-device .project-card:hover,
+    .touch-device .tech-tag:hover,
+    .touch-device .details-link:hover,
+    .touch-device #career .timeline-item:hover,
+    .touch-device .expertise-tag:hover,
+    .touch-device .topic-card:hover {
         transform: none !important;
-        background: inherit !important;
-        box-shadow: inherit !important;
-        border-color: inherit !important;
-        color: inherit !important;
-        opacity: inherit !important;
     }
     
-    /* Touch active styles */
-    .touch-active,
-    .cmd:active,
-    .project-list-item:active,
-    .project-card:active,
-    .tech-tag:active,
-    .details-link:active,
-    .project-tech-item:active,
-    .expertise-tag:active,
-    .topic-card:active,
-    #career .timeline-item:active,
-    .mobile-fab:active {
-        transform: scale(0.96) !important;
-        transition: transform 0.15s cubic-bezier(0.32, 0.72, 0, 1) !important;
-        background-color: rgba(255, 255, 255, 0.15) !important;
-        box-shadow: 0 0 0 1px var(--mobile-accent-primary) !important;
-        position: relative;
-        z-index: 2;
-    }
-    
-    /* Define ripple container for all interactive elements */
-    .cmd, 
-    .project-list-item,
-    .project-card,
-    .tech-tag,
-    .details-link,
-    #career .timeline-item,
-    .project-tech-item,
-    .expertise-tag,
-    .topic-card,
-    .mobile-fab,
-    .project-meta-item,
-    .project-cta-button {
-        position: relative;
-        overflow: hidden !important;
-        -webkit-tap-highlight-color: transparent;
-    }
-    
-    /* Ripple effect class to be added via JS */
+    /* Ripple effect for touch feedback - styled to match site aesthetic */
     .ripple {
         position: absolute;
-        background: rgba(255, 255, 255, 0.4);
+        background: var(--touch-ripple-color);
         border-radius: 50%;
         transform: scale(0);
-        animation: ripple-animation 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: ripple-animation var(--touch-ripple-duration) cubic-bezier(0.4, 0, 0.2, 1);
         pointer-events: none;
         z-index: 0;
+        mix-blend-mode: overlay; /* Better integrates with site design */
     }
     
     @keyframes ripple-animation {
         to {
-            transform: scale(2.5);
+            transform: scale(2);
             opacity: 0;
         }
     }
     
-    /* Visual feedback for taps without hover */
-    .tap-highlight {
+    /* Add smooth scrolling for better touch experience */
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    /* Make scrollable elements feel more native */
+    .projects-list,
+    #career .timeline,
+    .selected-project-tech-tags,
+    .project-tech,
+    .tech-icons-container,
+    .expertise-tags {
+        scrollbar-width: none; /* Hide scrollbar for Firefox */
+        position: relative;
+    }
+    
+    .projects-list::-webkit-scrollbar,
+    #career .timeline::-webkit-scrollbar,
+    .selected-project-tech-tags::-webkit-scrollbar,
+    .project-tech::-webkit-scrollbar,
+    .tech-icons-container::-webkit-scrollbar,
+    .expertise-tags::-webkit-scrollbar {
+        display: none; /* Hide scrollbar for Chrome/Safari */
+    }
+    
+    /* Active scrolling class - applied via JS during touch scrolling */
+    .touch-scrolling > * {
+        transition: transform 0.1s ease-out;
+    }
+    
+    /* Improve touch targets for better mobile accessibility */
+    .btn, 
+    .cmd,
+    .project-card,
+    .tech-tag,
+    .project-link,
+    .mobile-fab,
+    nav a {
+        min-height: 44px; /* Apple recommends minimum 44px touch target */
+    }
+    
+    /* Make navigation links feel more native on mobile */
+    .nav a.cmd.active {
+        color: var(--color-accent);
+    }
+    
+    /* Subtle animations when elements become active on mobile */
+    .nav a.cmd.active::after {
+        content: "";
+        display: block;
+        width: 6px;
+        height: 6px;
+        background-color: var(--color-accent);
+        border-radius: 50%;
         position: absolute;
-        inset: 0;
-        background-color: transparent;
-        z-index: 1;
-        border-radius: inherit;
-        transition: background-color 0.2s ease;
-    }
-    
-    .cmd:active .tap-highlight,
-    .project-list-item:active .tap-highlight,
-    .project-card:active .tap-highlight,
-    .tech-tag:active .tap-highlight,
-    .details-link:active .tap-highlight,
-    #career .timeline-item:active .tap-highlight,
-    .project-tech-item:active .tap-highlight,
-    .expertise-tag:active .tap-highlight,
-    .topic-card:active .tap-highlight,
-    .mobile-fab:active .tap-highlight {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    /* Scroll indicators for horizontal scrolling elements */
-    .scroll-indicator {
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.5));
-        height: 80%;
-        width: 40px;
-        border-radius: 0 var(--mobile-border-radius) var(--mobile-border-radius) 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--mobile-accent-primary);
-        pointer-events: none;
-        z-index: 5;
-        animation: pulse-indicator 2s infinite;
-    }
-    
-    @keyframes pulse-indicator {
-        0%, 100% { opacity: 0.7; }
-        50% { opacity: 0.3; }
+        bottom: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: all 0.3s ease;
     }
 }

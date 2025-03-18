@@ -1,4 +1,5 @@
 // mobile.js - Enhanced mobile-specific JavaScript functionality
+// Focuses on touch interactions while maintaining cohesive site experience
 
 document.addEventListener("DOMContentLoaded", function() {
     // Only run on mobile devices or when testing on desktop with mobile width
@@ -6,10 +7,10 @@ document.addEventListener("DOMContentLoaded", function() {
     if (!isMobile) return;
     
     // =========================
-    // Material Design Ripple Effect
+    // Subtle Ripple Effect (matches site aesthetic)
     // =========================
     
-    // Add tap-highlight divs to all interactive elements
+    // Add ripple effect to all interactive elements
     const interactiveElements = document.querySelectorAll(`
         .cmd, 
         .project-list-item,
@@ -21,18 +22,19 @@ document.addEventListener("DOMContentLoaded", function() {
         .expertise-tag,
         .topic-card,
         .mobile-fab,
-        .project-meta-item,
-        .project-cta-button
+        button,
+        a[href]:not(.nav-left a):not(.nav-right a),
+        .project-meta-item
     `);
     
     interactiveElements.forEach(el => {
-        // Create and append tap highlight element
-        const tapHighlight = document.createElement('div');
-        tapHighlight.className = 'tap-highlight';
-        el.appendChild(tapHighlight);
+        // Set position relative if needed
+        if (window.getComputedStyle(el).position === 'static') {
+            el.style.position = 'relative';
+        }
         
         // Add ripple effect
-        el.addEventListener('touchstart', createRipple);
+        el.addEventListener('touchstart', createRipple, {passive: true});
         el.addEventListener('mousedown', createRipple); // For testing on desktop
     });
     
@@ -65,13 +67,18 @@ document.addEventListener("DOMContentLoaded", function() {
             y = event.clientY - rect.top;
         }
         
-        // Calculate size (diagonal of the element to ensure it covers the entire element)
-        const size = Math.max(rect.width, rect.height) * 2;
+        // Calculate size (slightly smaller for subtler effect matching site design)
+        const size = Math.max(rect.width, rect.height) * 1.8;
         
         // Position and size ripple
         ripple.style.width = ripple.style.height = `${size}px`;
         ripple.style.left = `${x - size/2}px`;
         ripple.style.top = `${y - size/2}px`;
+        
+        // Add haptic feedback if supported (more subtle)
+        if (window.navigator && window.navigator.vibrate) {
+            window.navigator.vibrate(5); // Shorter, more subtle vibration
+        }
         
         // Clean up ripple after animation completes
         setTimeout(() => {
@@ -82,11 +89,11 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
     // =========================
-    // Enhanced Snap Scrolling for Carousels
+    // Enhanced Scroll Physics for Carousels
     // =========================
     
     // Find all horizontal carousels
-    const carousels = document.querySelectorAll('.projects-list, #career .timeline, .related-projects');
+    const carousels = document.querySelectorAll('.projects-list, #career .timeline, .selected-project-tech-tags, .tech-icons-container, .expertise-tags, .project-tech');
     
     carousels.forEach(carousel => {
         let isScrolling = false;
@@ -95,25 +102,9 @@ document.addEventListener("DOMContentLoaded", function() {
         let startTime;
         let targetScrollLeft;
         let animationFrameId;
-        
-        // Add visual indicator for scrollable content
-        const indicator = document.createElement('div');
-        indicator.className = 'scroll-indicator';
-        indicator.innerHTML = '<i class="material-icons">swipe</i>';
-        
-        // Only add indicator if parent has position relative
-        if (window.getComputedStyle(carousel.parentNode).position !== 'relative') {
-            carousel.parentNode.style.position = 'relative';
-        }
-        carousel.parentNode.appendChild(indicator);
-        
-        // Hide indicator after first scroll
-        carousel.addEventListener('scroll', function() {
-            indicator.style.opacity = '0';
-            setTimeout(() => {
-                indicator.style.display = 'none';
-            }, 300);
-        }, { once: true });
+        let velocity = 0;
+        let lastX;
+        let lastTime;
         
         // Handle start of touch
         carousel.addEventListener('touchstart', function(e) {
@@ -124,15 +115,15 @@ document.addEventListener("DOMContentLoaded", function() {
             
             isScrolling = true;
             startX = e.touches[0].pageX;
+            lastX = startX;
             startScrollLeft = carousel.scrollLeft;
             startTime = Date.now();
+            lastTime = startTime;
+            velocity = 0;
             
             // Add active class to indicate scrolling
-            carousel.classList.add('carousel-scrolling');
-            
-            // Disable other event handlers while scrolling
-            e.stopPropagation();
-        });
+            carousel.classList.add('touch-scrolling');
+        }, {passive: true});
         
         // Handle touchmove
         carousel.addEventListener('touchmove', function(e) {
@@ -142,71 +133,73 @@ document.addEventListener("DOMContentLoaded", function() {
             const x = e.touches[0].pageX;
             const dx = startX - x;
             
+            // Calculate instantaneous velocity
+            const currentTime = Date.now();
+            const dt = currentTime - lastTime;
+            if (dt > 0) {
+                velocity = (lastX - x) / dt;
+            }
+            
+            // Update last positions
+            lastX = x;
+            lastTime = currentTime;
+            
             // Update scroll position
             carousel.scrollLeft = startScrollLeft + dx;
-            
-            // Disable other event handlers while scrolling
-            e.stopPropagation();
-        });
+        }, {passive: true});
         
         // Handle end of touch - with momentum and snap
         carousel.addEventListener('touchend', function(e) {
             if (!isScrolling) return;
             
             isScrolling = false;
-            const endTime = Date.now();
-            const timeElapsed = endTime - startTime;
             const endScrollLeft = carousel.scrollLeft;
-            const distance = endScrollLeft - startScrollLeft;
-            
-            // Calculate velocity (pixels per millisecond)
-            const velocity = distance / timeElapsed;
             
             // Only add momentum if velocity is significant
-            if (Math.abs(velocity) > 0.5) {
+            if (Math.abs(velocity) > 0.1) {
                 // Calculate target position with momentum
-                const momentum = velocity * 300; // Adjust this multiplier for stronger/weaker momentum
+                const momentum = velocity * 300; // Adjust for stronger/weaker momentum
                 targetScrollLeft = endScrollLeft + momentum;
-            } else {
-                targetScrollLeft = endScrollLeft;
-            }
-            
-            // Find nearest snap point
-            if (carousel.children.length > 0) {
-                const cardWidth = carousel.children[0].offsetWidth + 
-                                parseInt(window.getComputedStyle(carousel.children[0]).marginRight);
-                const snapPoint = Math.round(targetScrollLeft / cardWidth) * cardWidth;
-                targetScrollLeft = snapPoint;
-            }
-            
-            // Ensure within bounds
-            targetScrollLeft = Math.max(0, Math.min(targetScrollLeft, carousel.scrollWidth - carousel.clientWidth));
-            
-            // Animate to target with easing
-            function animateScroll() {
-                const currentPosition = carousel.scrollLeft;
-                const distance = targetScrollLeft - currentPosition;
                 
-                // Exit if we're close enough
-                if (Math.abs(distance) < 1) {
-                    carousel.scrollLeft = targetScrollLeft;
-                    carousel.classList.remove('carousel-scrolling');
-                    return;
+                // Find nearest snap point (if element has children that are cards)
+                if (carousel.children.length > 0 && 
+                    (carousel.classList.contains('projects-list') || 
+                     carousel.classList.contains('timeline'))) {
+                    
+                    const cardWidth = carousel.children[0].offsetWidth + 
+                                    parseInt(window.getComputedStyle(carousel.children[0]).marginRight || 0);
+                    const snapPoint = Math.round(targetScrollLeft / cardWidth) * cardWidth;
+                    targetScrollLeft = snapPoint;
                 }
                 
-                // Calculate next position with easing
-                const nextPosition = currentPosition + distance * 0.2;
-                carousel.scrollLeft = nextPosition;
+                // Ensure within bounds
+                targetScrollLeft = Math.max(0, Math.min(targetScrollLeft, carousel.scrollWidth - carousel.clientWidth));
                 
-                // Continue animation
+                // Animate to target with easing
+                function animateScroll() {
+                    const currentPosition = carousel.scrollLeft;
+                    const distance = targetScrollLeft - currentPosition;
+                    
+                    // Exit if we're close enough
+                    if (Math.abs(distance) < 1) {
+                        carousel.scrollLeft = targetScrollLeft;
+                        carousel.classList.remove('touch-scrolling');
+                        return;
+                    }
+                    
+                    // Calculate next position with easing
+                    const nextPosition = currentPosition + distance * 0.15;
+                    carousel.scrollLeft = nextPosition;
+                    
+                    // Continue animation
+                    animationFrameId = requestAnimationFrame(animateScroll);
+                }
+                
                 animationFrameId = requestAnimationFrame(animateScroll);
+            } else {
+                carousel.classList.remove('touch-scrolling');
             }
-            
-            animationFrameId = requestAnimationFrame(animateScroll);
-            
-            // Remove active class
-            carousel.classList.remove('carousel-scrolling');
-        });
+        }, {passive: true});
     });
     
     // =========================
@@ -235,14 +228,14 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         
         navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === current) {
-                link.classList.add('active');
-                
-                // Add haptic feedback if supported
-                if (window.navigator && window.navigator.vibrate) {
-                    window.navigator.vibrate(10);
-                }
+            const wasActive = link.classList.contains('active');
+            const isActive = link.getAttribute('href') === current;
+            
+            link.classList.toggle('active', isActive);
+            
+            // Add haptic feedback when section changes (only for newly active items)
+            if (!wasActive && isActive && window.navigator && window.navigator.vibrate) {
+                window.navigator.vibrate(8); // More subtle vibration
             }
         });
     }
@@ -260,7 +253,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             ticking = true;
         }
-    });
+    }, {passive: true});
     
     // =========================
     // Floating Action Button
@@ -298,13 +291,13 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             
             lastScrollPosition = currentScrollPosition;
-        });
+        }, {passive: true});
         
         // Scroll to top with smooth animation
         fab.addEventListener('click', function() {
-            // Add haptic feedback if supported
+            // Add subtle haptic feedback if supported
             if (window.navigator && window.navigator.vibrate) {
-                window.navigator.vibrate([15, 10, 15]);
+                window.navigator.vibrate([10, 5, 10]); // More subtle pattern
             }
             
             window.scrollTo({
@@ -342,7 +335,7 @@ document.addEventListener("DOMContentLoaded", function() {
             isPulling = true;
             pullDistance = 0;
         }
-    });
+    }, {passive: true});
     
     document.addEventListener('touchmove', function(e) {
         if (!isPulling) return;
@@ -360,13 +353,8 @@ document.addEventListener("DOMContentLoaded", function() {
             if (progress > 0.8) {
                 document.body.style.transform = `translateY(${pullDistance * 0.1}px)`;
             }
-            
-            // Prevent default scrolling only when actually pulling
-            if (window.scrollY === 0 && pullDistance > 5) {
-                e.preventDefault();
-            }
         }
-    }, { passive: false });
+    }, {passive: true});
     
     document.addEventListener('touchend', function() {
         if (!isPulling) return;
@@ -379,9 +367,9 @@ document.addEventListener("DOMContentLoaded", function() {
             // Visual feedback
             pullIndicator.style.transform = 'scaleX(1)';
             
-            // Add haptic feedback if supported
+            // Add subtle haptic feedback if supported
             if (window.navigator && window.navigator.vibrate) {
-                window.navigator.vibrate([20, 30, 20]);
+                window.navigator.vibrate([15, 20, 15]); // More subtle pattern
             }
             
             // Simulate refresh (in a real app, this would fetch new data)
@@ -397,66 +385,38 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     
     // =========================
-    // Swipe Between Sections
+    // Enhanced Touch Feedback
     // =========================
     
-    // Initialize swipe detection for sections
-    const mainElement = document.querySelector('main');
-    let touchStartX = 0;
-    let touchStartY = 0;
+    // Apply active state on touch for interactive elements
+    const touchElements = document.querySelectorAll(`
+        .cmd, 
+        .project-list-item,
+        .project-card,
+        .tech-tag,
+        .details-link,
+        #career .timeline-item,
+        .project-tech-item,
+        .expertise-tag,
+        .topic-card,
+        button,
+        a[href]:not(.nav-left a):not(.nav-right a)
+    `);
     
-    document.addEventListener('touchstart', function(e) {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
+    touchElements.forEach(element => {
+        element.addEventListener('touchstart', function() {
+            this.classList.add('touch-active');
+        }, {passive: true});
+        
+        element.addEventListener('touchend', function() {
+            this.classList.remove('touch-active');
+        }, {passive: true});
+        
+        element.addEventListener('touchcancel', function() {
+            this.classList.remove('touch-active');
+        }, {passive: true});
     });
     
-    document.addEventListener('touchend', function(e) {
-        if (!e.changedTouches[0]) return;
-        
-        const touchEndX = e.changedTouches[0].clientX;
-        const touchEndY = e.changedTouches[0].clientY;
-        
-        const deltaX = touchEndX - touchStartX;
-        const deltaY = touchEndY - touchStartY;
-        
-        // Only handle horizontal swipes that are significant and more horizontal than vertical
-        if (Math.abs(deltaX) > 100 && Math.abs(deltaX) > Math.abs(deltaY)) {
-            // Find current active section
-            let activeSection = null;
-            let activeSectionIndex = -1;
-            
-            sections.forEach((section, index) => {
-                if (section.getBoundingClientRect().top <= 100 && 
-                    section.getBoundingClientRect().bottom >= window.innerHeight / 2) {
-                    activeSection = section;
-                    activeSectionIndex = index;
-                }
-            });
-            
-            if (activeSection) {
-                // Swipe right to previous section
-                if (deltaX > 0 && activeSectionIndex > 0) {
-                    // Add haptic feedback
-                    if (window.navigator && window.navigator.vibrate) {
-                        window.navigator.vibrate(15);
-                    }
-                    
-                    sections[activeSectionIndex - 1].scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-                // Swipe left to next section
-                else if (deltaX < 0 && activeSectionIndex < sections.length - 1) {
-                    // Add haptic feedback
-                    if (window.navigator && window.navigator.vibrate) {
-                        window.navigator.vibrate(15);
-                    }
-                    
-                    sections[activeSectionIndex + 1].scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        }
-    });
+    // Disable hover states for touch devices
+    document.documentElement.classList.add('touch-device');
 });
