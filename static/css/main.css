@@ -31,6 +31,3 @@
 @import 'project-detail.css';
 @import 'project-hero.css';
 @import 'documentation.css';
-
-/* Mobile-specific enhancements (at end to override other styles) */
-@import 'mobile.css';

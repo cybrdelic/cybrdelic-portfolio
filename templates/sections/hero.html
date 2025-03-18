@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hero Section</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <section id="hero">
+        <div class="hero-background">
+            <div class="grain-overlay"></div>
+            <div class="grid-lines"></div>
+            <div class="hero-glow"></div>
+            <!-- Dynamic background elements -->
+            <div class="dynamic-bg">
+                <!-- Floating particles -->
+                <div class="bg-particle" style="width: 100px; height: 100px; top: 20%; left: 10%; animation-delay: 0s;">
+                </div>
+                <div class="bg-particle" style="width: 80px; height: 80px; top: 50%; left: 85%; animation-delay: 1s;">
+                </div>
+                <div class="bg-particle" style="width: 60px; height: 60px; top: 70%; left: 25%; animation-delay: 2s;">
+                </div>
+                <div class="bg-particle" style="width: 120px; height: 120px; top: 30%; left: 70%; animation-delay: 3s;">
+                </div>
+
+                <!-- Circuit-like lines -->
+                <div class="circuit-line" style="top: 25%; left: 0; width: 30%; animation-delay: 0.5s;"></div>
+                <div class="circuit-line" style="top: 45%; left: 20%; width: 40%; animation-delay: 1.2s;"></div>
+                <div class="circuit-line" style="top: 75%; left: 50%; width: 25%; animation-delay: 1.8s;"></div>
+                <div class="circuit-line" style="top: 85%; left: 10%; width: 35%; animation-delay: 2.2s;"></div>
+            </div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-main-row">
+                <!-- Left Side: Introduction + Tech Stack -->
+                <div class="intro-container">
+                    <div class="name-title">
+                        <div class="hero-title common-hero-typography animate-on-scroll">
+                            ALEJANDRO FIGUEROA, SOFTWARE ENGINEER
+                        </div>
+                        <div class="title-accent animate-on-scroll"></div>
+                    </div>
+
+                    <p class="hero-tagline animate-on-scroll">
+                        Building exceptional developer tooling and AI-powered systems.
+                    </p>
+
+                    <div class="tech-stack">
+                        <div class="tech-icons-container">
+                            <div class="tech-icons-scroll">
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:graphql" data-inline="false"></span>
+                                    <span class="tech-icon-name">graphql</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:react" data-inline="false"></span>
+                                    <span class="tech-icon-name">react</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:typescript"
+                                        data-inline="false"></span>
+                                    <span class="tech-icon-name">typescript</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="mdi:chart-line" data-inline="false"></span>
+                                    <span class="tech-icon-name">recharts</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:postgresql"
+                                        data-inline="false"></span>
+                                    <span class="tech-icon-name">postgresql</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:flask" data-inline="false"></span>
+                                    <span class="tech-icon-name">flask</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="mdi:server" data-inline="false"></span>
+                                    <span class="tech-icon-name">pgadmin</span>
+                                </div>
+                                <div class="tech-icon">
+                                    <span class="iconify" data-icon="simple-icons:elasticsearch"
+                                        data-inline="false"></span>
+                                    <span class="tech-icon-name">elasticsearch</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Expertise Cards -->
+                <div class="expertise-container animate-on-scroll">
+                    <div class="expertise-cards">
+                        <!-- Stats Section -->
+                        <div class="stats-container animate-on-scroll">
+                            <div class="stat-card card-hover">
+                                <div class="stat-number">4+</div>
+                                <div class="stat-label common-hero-typography">Years Professional</div>
+                            </div>
+                            <div class="stat-card card-hover">
+                                <div class="stat-number">7+</div>
+                                <div class="stat-label common-hero-typography">Years Coding</div>
+                            </div>
+                            <div class="stat-card card-hover">
+                                <div class="stat-number">4+</div>
+                                <div class="stat-label common-hero-typography">Projects</div>
+                            </div>
+                        </div>
+                        <!-- Expertise Cards -->
+                        <div class="expertise-card card-hover animate-on-scroll">
+                            <div class="card-icon">
+                                <!-- Icon SVG -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 10L12 16L6 10" />
+                                    <path d="M12 16V4" />
+                                    <rect x="2" y="18" width="20" height="2" rx="1" />
+                                </svg>
+                            </div>
+                            <div class="expertise-card-content">
+                                <h3 class="link-underline common-hero-typography">Developer Tools</h3>
+                                <p class="common-hero-typography">
+                                    High-performance CLI applications built with Rust, Bash, and/or Python
+                                </p>
+                            </div>
+                        </div>
+                        <div class="expertise-card card-hover animate-on-scroll">
+                            <div class="card-icon">
+                                <!-- Icon SVG -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8" />
+                                    <path d="M12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16" />
+                                    <circle cx="16" cy="8" r="2" />
+                                    <circle cx="8" cy="16" r="2" />
+                                </svg>
+                            </div>
+                            <div class="expertise-card-content">
+                                <h3 class="link-underline common-hero-typography">AI Integration</h3>
+                                <p class="common-hero-typography">
+                                    Systems with intelligent interfaces and context-aware assistance.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="expertise-card card-hover animate-on-scroll">
+                            <div class="card-icon">
+                                <!-- Icon SVG -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" />
+                                    <path d="M7 7h10M7 12h10M7 17h10" />
+                                </svg>
+                            </div>
+                            <div class="expertise-card-content">
+                                <h3 class="link-underline common-hero-typography">Data Systems</h3>
+                                <p class="common-hero-typography">
+                                    Streamlined data pipelines with elegant visualizations.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="expertise-card card-hover animate-on-scroll">
+                            <div class="card-icon">
+                                <!-- Icon SVG -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 10L12 16L6 10" />
+                                    <path d="M12 16V4" />
+                                    <rect x="2" y="18" width="20" height="2" rx="1" />
+                                </svg>
+                            </div>
+                            <div class="expertise-card-content">
+                                <h3 class="link-underline common-hero-typography">Automation System</h3>
+                                <p class="common-hero-typography">
+                                    End-to-End Automation for Efficiency Gains
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cta-buttons-wrapper">
+                <div class="cta-buttons animate-on-scroll">
+                    <a href="#projects" class="primary-button btn-interaction">View Projects</a>
+                    <a href="https://github.com/cybrdelic" class="secondary-button btn-interaction" target="_blank">
+                        <svg viewBox="0 0 24 24" class="button-icon">
+                            <path
+                                d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1.01.07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z">
+                            </path>
+                        </svg>
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let initialLoad = true;
+            // After 1 second, initial load phase ends.
+            setTimeout(() => { initialLoad = false; }, 1000);
+
+            // Get the hero section element
+            const heroSection = document.getElementById('hero');
+
+            // Set initial active state for hero
+            heroSection.classList.add('hero-active');
+
+            // Handle scroll transitions
+            let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            let ticking = false;
+
+            function updateHeroState() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                // Calculate how far we've scrolled as a percentage
+                const viewportHeight = window.innerHeight;
+                const scrollProgress = Math.min(scrollTop / viewportHeight, 1);
+
+                // If we're at the top, make hero full height and active
+                if (scrollTop < 50) {
+                    heroSection.classList.add('hero-active');
+                } else {
+                    heroSection.classList.remove('hero-active');
+                }
+
+                // Update scroll direction classes on body for animations
+                if (scrollTop > lastScrollTop) {
+                    document.body.classList.remove("scrolling-up");
+                    document.body.classList.add("scrolling-down");
+                } else {
+                    document.body.classList.remove("scrolling-down");
+                    document.body.classList.add("scrolling-up");
+                }
+
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+                ticking = false;
+            }
+
+            window.addEventListener("scroll", () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateHeroState);
+                    ticking = true;
+                }
+            });
+
+            // Initial call to set correct state
+            updateHeroState();
+
+            // Handle animation of elements within the hero
+            const animatedElements = document.querySelectorAll('#hero .animate-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Determine which animation state to use:
+                        let animClass = "";
+                        if (initialLoad) {
+                            animClass = "load";
+                        } else if (document.body.classList.contains("scrolling-down")) {
+                            animClass = "scroll-down";
+                        } else if (document.body.classList.contains("scrolling-up")) {
+                            animClass = "scroll-up";
+                        }
+                        // Remove any previous state classes.
+                        entry.target.classList.remove("load", "scroll-down", "scroll-up");
+                        // Force reflow to re-trigger animation.
+                        void entry.target.offsetWidth;
+                        entry.target.classList.add(animClass);
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+{% macro user_flows(project) %}
+<section class="user-flows">
+    <h3 class="vertical-section-name">User Flows</h3>
+    <!-- Tab Navigation -->
+    <div class="flow-tabs">
+        {% for flow in project.user_flows %}
+        <button class="nav-item {% if loop.first %}active{% endif %}" data-tab="section-{{ loop.index }}">
+            <span class="flow-number">{{ loop.index }}</span>
+            <h3 class="flow-tab-title">{{ flow.title }}</h3>
+        </button>
+        {% endfor %}
+    </div>
+    <!-- Content Panels -->
+    <div class="flow-content-panel">
+        {% for flow in project.user_flows %}
+        <div id="section-{{ loop.index }}" class="content-section {% if not loop.first %}hidden{% endif %}">
+            <div class="flow-description">
+                <p>{{ flow.description }}</p>
+            </div>
+            <div class="flow-steps">
+                {% for step in flow.steps %}
+                <div class="flow-step">
+                    <div class="step-number">{{ loop.index }}</div>
+                    <div class="step-content">
+                        <div class="step-header">
+                            <h4 class="step-title">{{ step.title }}</h4>
+                            <p class="step-description">{{ step.description }}</p>
+                        </div>
+                        <div class="step-command">
+                            <div class="command-content">
+                                <code class="command-text">{{ step.command.text }}</code>
+                                <p class="command-description">{{ step.command.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endmacro %}
