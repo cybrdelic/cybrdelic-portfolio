@@ -1,0 +1,182 @@
+:root {
+    /* =========================================
+    * COLORS
+    ========================================= */
+    /* Base colors */
+    --color-black: #1a1a1a;
+    --color-dark-gray: #333;
+    --color-medium-gray: #666;
+    --color-white: #fff;
+    
+    /* Text colors */
+    --color-text-primary: #111;
+    --color-text-secondary: #333;
+    --color-text-tertiary: #555;
+    --color-text-quaternary: #777;
+    
+    /* UI colors */
+    --color-border: #ccc;
+    --color-success: #22c55e;
+    --color-accent: #4477ff;
+    --color-accent-hover: #3366ee;
+    --color-accent-rgb: 68, 119, 255;
+    
+    /* =========================================
+    * BACKGROUNDS
+    ========================================= */
+    /* Transparency variations */
+    --bg-white-70: rgba(255, 255, 255, 0.7);
+    --bg-white-30: rgba(255, 255, 255, 0.3);
+    --bg-white-08: rgba(255, 255, 255, 0.08);
+    --bg-white-04: rgba(255, 255, 255, 0.1);
+    --bg-white-02: rgba(255, 255, 255, 0.05);
+    --bg-black-05: rgba(0, 0, 0, 0.05);
+    
+    /* Glass effects */
+    --bg-glass: rgba(0, 0, 0, 0.05);
+    --bg-glass-hover: rgba(0, 0, 0, 0.08);
+    --bg-code-block: #f5f5f5;
+    
+    /* =========================================
+    * BORDERS
+    ========================================= */
+    --border-light: rgba(225, 225, 225, 0.651);
+    --border-radius: 4px;
+    --border-radius-full: 9999px;
+    
+    /* =========================================
+    * SHADOWS
+    ========================================= */
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+    --shadow-glass:
+        0 4px 6px -1px rgba(0, 0, 0, 0.05),
+        0 2px 4px -1px rgba(0, 0, 0, 0.03),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    --shadow-glass-hover:
+        0 8px 12px -1px rgba(0, 0, 0, 0.06),
+        0 4px 6px -1px rgba(0, 0, 0, 0.04),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+        inset 0 1px 1px rgba(255, 255, 255, 0.25);
+    
+    /* =========================================
+    * TYPOGRAPHY
+    ========================================= */
+    /* Font families */
+    --font-primary: 'IBM Plex Mono', monospace;
+    --font-display: 'Syne', sans-serif;
+    --font-mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+    
+    /* Font sizes */
+    --font-size-2xs: 0.7rem;
+    --font-size-xs: 1rem;
+    --font-size-sm: 1.125rem;
+    --font-size-base: 1.25rem;
+    --font-size-md: 1.375rem;  /* Explicitly defined for projects.css */
+    --font-size-lg: 1.5rem;
+    --font-size-xl: 3rem;
+    
+    /* Fluid typography */
+    --font-size-fluid-sm: 4vw;
+    --font-size-fluid-base: 4vw;
+    --font-size-fluid-lg: 7.5vw;
+    --font-size-fluid-xl: 10vw;
+    
+    /* Line heights */
+    --line-height-tight: 0.9;
+    --line-height-base: 1.4;
+    --line-height-relaxed: 1.6;
+    
+    /* Letter spacing */
+    --letter-spacing-tight: -0.3px;
+    --letter-spacing-wide: 0.1em;
+    --letter-spacing-wider: 0.2em;
+    
+    /* =========================================
+    * SPACING
+    ========================================= */
+    --space-2xs: 4px;
+    --space-xs: 8px;
+    --space-sm: 12px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 40px;
+    --space-base: 16px; /* Alias for medium spacing */
+    
+    /* =========================================
+    * LAYOUT
+    ========================================= */
+    --header-height: 42px;
+    --height-hero: 90vh;
+    --width-main: 95%;
+    
+    /* Grid layout variables */
+    --grid-columns: repeat(12, 1fr);
+    --grid-rows: repeat(12, minmax(auto, 1fr));
+    --grid-gap: 20px;
+    
+    /* =========================================
+    * Z-INDEX
+    ========================================= */
+    --z-noise: 1000;
+    --z-nav: 1000;
+    
+    /* =========================================
+    * TRANSITIONS
+    ========================================= */
+    --transition-fast: 0.15s ease;
+    --transition-base: 0.2s ease;
+    --transition-medium: 0.3s ease;
+    --transition-slow: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    
+    /* =========================================
+    * ANIMATIONS
+    ========================================= */
+    --animation-fade: fadeIn 0.6s ease forwards;
+    --animation-pulse: pulse 2s ease-in-out infinite;
+    --animation-scroll: scrollLine 2s ease-in-out infinite;
+    
+    /* =========================================
+    * FILTERS
+    ========================================= */
+    --blur-sm: blur(10px);
+    --blur-lg: blur(30px);
+    --blur-glass: blur(12px) saturate(180%);
+    --contrast-noise: contrast(120%);
+    
+    /* =========================================
+    * TRANSFORMS
+    ========================================= */
+    --rotate-180: rotate(180deg);
+}
+
+/* =========================================
+* DARK MODE
+========================================= */
+[data-theme='dark'] {
+    --color-text-primary: #eaeaea;
+    --color-text-secondary: #ccc;
+    --color-text-tertiary: #aaa;
+    --color-text-quaternary: #888;
+    --color-border: #444;
+    --bg-glass: rgba(0, 0, 0, 0.3);
+    --bg-glass-hover: rgba(0, 0, 0, 0.4);
+    --bg-white-08: rgba(255, 255, 255, 0.1);
+    --bg-white-02: rgba(255, 255, 255, 0.05);
+    --bg-white-04: rgba(255, 255, 255, 0.1);
+    --bg-code-block: #2b2b2b;
+    --color-accent: #55aaff;
+    --color-accent-hover: #3399ff;
+    --color-accent-rgb: 85, 170, 255;
+    --shadow-glass: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.2),
+        0 2px 4px -1px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    --shadow-glass-hover:
+        0 8px 12px -1px rgba(0, 0, 0, 0.25),
+        0 4px 6px -1px rgba(0, 0, 0, 0.15),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}

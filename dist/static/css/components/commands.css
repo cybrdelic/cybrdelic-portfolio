@@ -1,0 +1,37 @@
+/* =========================================
+* COMMAND STYLES
+========================================= */
+
+.cmd {
+    color: var(--color-text-primary);
+    text-decoration: none;
+    font-size: var(--font-size-xs);
+    height: var(--header-height);
+    display: inline-flex;
+    align-items: center;
+    padding: 0 var(--space-sm);
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.cmd::before {
+    content: '>';
+    color: var(--color-text-tertiary);
+    opacity: 0;
+    transform: translateX(calc(var(--space-xs)* -1));
+    transition: all var(--transition-fast);
+}
+
+.cmd:hover {
+    color: var(--color-text-primary);
+    background: var(--bg-black-05);
+}
+
+.cmd:hover::before {
+    opacity: 1;
+    transform: translateX(calc(var(--space-2xs)* -1));
+}
+
+.cmd:active {
+    background: var(--bg-black-05);
+}

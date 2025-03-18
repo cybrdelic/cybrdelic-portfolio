@@ -1,0 +1,562 @@
+/* =========================================
+* ANIMATIONS AND MICROINTERACTIONS
+========================================= */
+
+/**
+ * This file contains all animations and microinteractions used throughout
+ * the site. These are designed to be performant using CSS transforms and opacity
+ * for smooth 60fps animations.
+ */
+
+/* ========== KEYFRAMES ========== */
+
+/* Fade in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Fade in from bottom */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade in from left */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Fade in from right */
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Pulse animation */
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+}
+
+/* Scroll line animation */
+@keyframes scrollLine {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Horizontal scroll line */
+@keyframes scrollLineX {
+    0% {
+        transform: scaleX(0);
+    }
+
+    50% {
+        transform: scaleX(1);
+    }
+
+    100% {
+        transform: scaleX(0);
+    }
+}
+
+/* Card reveal animation */
+@keyframes cardReveal {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Cursor blink animation */
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Horizontal shake (glitch effect) */
+@keyframes horizontalShake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-1px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(1px);
+    }
+}
+
+/* Subtle text scramble effect */
+@keyframes textScramble {
+    0% {
+        filter: blur(0px);
+        transform: translateX(0);
+    }
+
+    20% {
+        filter: blur(1px);
+        transform: translateX(-1px);
+    }
+
+    40% {
+        filter: blur(0px);
+        transform: translateX(1px);
+    }
+
+    60% {
+        filter: blur(0.5px);
+        transform: translateX(-0.5px);
+    }
+
+    80% {
+        filter: blur(0px);
+        transform: translateX(0.5px);
+    }
+
+    100% {
+        filter: blur(0px);
+        transform: translateX(0);
+    }
+}
+
+/* Gradient background shift */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Typing animation */
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
+}
+
+/* Noise animation */
+@keyframes noiseAnimation {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    10% {
+        transform: translate(-1%, -1%);
+    }
+
+    20% {
+        transform: translate(-2%, 1%);
+    }
+
+    30% {
+        transform: translate(1%, -2%);
+    }
+
+    40% {
+        transform: translate(-1%, 2%);
+    }
+
+    50% {
+        transform: translate(-2%, 1%);
+    }
+
+    60% {
+        transform: translate(2%, 0);
+    }
+
+    70% {
+        transform: translate(0, 2%);
+    }
+
+    80% {
+        transform: translate(-2%, 0);
+    }
+
+    90% {
+        transform: translate(1%, 1%);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+/* ========== ANIMATION CLASSES ========== */
+
+/* Fade animations */
+.fade-in {
+    animation: fadeIn 0.6s var(--transition-slow) forwards;
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s var(--transition-slow) forwards;
+}
+
+.fade-in-left {
+    animation: fadeInLeft 0.6s var(--transition-slow) forwards;
+}
+
+.fade-in-right {
+    animation: fadeInRight 0.6s var(--transition-slow) forwards;
+}
+
+/* Pulse effect */
+.pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Scroll indicators */
+.scroll-line {
+    animation: scrollLine 2s ease-in-out infinite;
+}
+
+.scroll-line-x {
+    animation: scrollLineX 3s ease-in-out infinite;
+}
+
+/* Text typing effects */
+.typing-cursor::after {
+    content: "|";
+    display: inline-block;
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+    color: var(--color-accent);
+}
+
+.typing-animation {
+    display: inline-block;
+    overflow: hidden;
+    border-right: 2px solid var(--color-accent);
+    white-space: nowrap;
+    margin: 0;
+    animation:
+        typing 3.5s steps(40, end),
+        blink 0.75s step-end infinite;
+}
+
+/* Scramble text on hover */
+.scramble-on-hover:hover {
+    animation: textScramble 0.5s ease forwards;
+}
+
+/* Project card effects */
+.card-hover {
+    transition: transform 0.3s var(--transition-slow),
+        box-shadow 0.3s var(--transition-slow),
+        background-color 0.3s var(--transition-slow);
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-glass-hover);
+    background-color: var(--bg-glass-hover);
+}
+
+/* Command prompt effect */
+.cmd-prompt {
+    position: relative;
+}
+
+.cmd-prompt::before {
+    content: '>';
+    position: absolute;
+    left: -16px;
+    opacity: 0;
+    transform: translateX(5px);
+    transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+.cmd-prompt:hover::before {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Link underline effect */
+.link-underline {
+    position: relative;
+    display: inline-block;
+}
+
+.link-underline::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: currentColor;
+    transition: width 0.3s ease;
+}
+
+.link-underline:hover::after {
+    width: 100%;
+}
+
+/* Gradient background */
+.gradient-bg {
+    background: linear-gradient(270deg, var(--color-accent-hover), var(--color-accent));
+    background-size: 200% 200%;
+    animation: gradientShift 8s ease infinite;
+}
+
+/* Highlight effect */
+.highlight-on-hover {
+    transition: background-color 0.3s ease;
+}
+
+.highlight-on-hover:hover {
+    background-color: var(--bg-black-05);
+}
+
+/* Staggered children animations */
+.stagger-children>* {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.stagger-children>*:nth-child(1) {
+    animation: fadeInUp 0.5s ease 0.1s forwards;
+}
+
+.stagger-children>*:nth-child(2) {
+    animation: fadeInUp 0.5s ease 0.2s forwards;
+}
+
+.stagger-children>*:nth-child(3) {
+    animation: fadeInUp 0.5s ease 0.3s forwards;
+}
+
+.stagger-children>*:nth-child(4) {
+    animation: fadeInUp 0.5s ease 0.4s forwards;
+}
+
+.stagger-children>*:nth-child(5) {
+    animation: fadeInUp 0.5s ease 0.5s forwards;
+}
+
+.stagger-children>*:nth-child(n+6) {
+    animation: fadeInUp 0.5s ease 0.6s forwards;
+}
+
+/* Glitch effect on hover */
+.glitch-hover:hover {
+    animation: horizontalShake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* Button interaction effect */
+.btn-interaction {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-interaction::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-interaction:hover::after {
+    left: 100%;
+}
+
+/* ========== TRANSITION CLASSES ========== */
+
+/* Base transition classes */
+.transition-base {
+    transition: all var(--transition-base);
+}
+
+.transition-fast {
+    transition: all var(--transition-fast);
+}
+
+.transition-slow {
+    transition: all var(--transition-slow);
+}
+
+/* Property-specific transitions */
+.transition-transform {
+    transition: transform var(--transition-base);
+}
+
+.transition-opacity {
+    transition: opacity var(--transition-base);
+}
+
+.transition-colors {
+    transition:
+        color var(--transition-base),
+        background-color var(--transition-base),
+        border-color var(--transition-base);
+}
+
+/* ========== ANIMATION UTILITIES ========== */
+
+/* Pause animations until hover */
+.animate-on-hover:hover .animated {
+    animation-play-state: running;
+}
+
+.animate-on-hover .animated {
+    animation-play-state: paused;
+}
+
+/* Animation when in viewport */
+.animate-in-view {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-in-view.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Delay classes for staggered animations */
+.delay-100 {
+    animation-delay: 100ms;
+}
+
+.delay-200 {
+    animation-delay: 200ms;
+}
+
+.delay-300 {
+    animation-delay: 300ms;
+}
+
+.delay-400 {
+    animation-delay: 400ms;
+}
+
+.delay-500 {
+    animation-delay: 500ms;
+}
+
+.delay-600 {
+    animation-delay: 600ms;
+}
+
+.delay-700 {
+    animation-delay: 700ms;
+}
+
+.delay-800 {
+    animation-delay: 800ms;
+}
+
+/* ========== PREFERS-REDUCED-MOTION ========== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .fade-in,
+    .fade-in-up,
+    .fade-in-left,
+    .fade-in-right,
+    .stagger-children>*,
+    .animate-in-view {
+        opacity: 1;
+        transform: none;
+        animation: none;
+    }
+
+    .scroll-line,
+    .scroll-line-x,
+    .pulse {
+        animation: none;
+    }
+}

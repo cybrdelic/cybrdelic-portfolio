@@ -1,0 +1,74 @@
+/* =========================================
+* PROJECTS SECTION
+========================================= */
+
+#PROJECTS {
+    width: 100%;
+    min-height: 100vh;
+    padding: 0 0;
+    font-family: var(--font-primary);
+    color: var(--color-text-primary);
+    position: relative;
+    overflow-x: hidden;
+}
+
+#PROJECTS .container {
+    margin: 0 0;
+}
+
+/* Console container */
+.project-console {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: var(--space-lg);
+    gap: var(--space-xl);
+}
+
+/* Console panels */
+.project-console-left-panel {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    justify-content: space-between;
+    min-width: 50%;
+}
+
+.project-console-animated-icon-container {
+    height: 100%;
+    width: 100%;
+}
+
+/* Projects grid */
+.projects-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    width: 100%;
+}
+
+/* Project more icon */
+.more-icon {
+    font-size: var(--font-size-sm);
+    font-weight: bold;
+    color: var(--color-text-secondary);
+}
+
+.project-card:hover .more-icon {
+    color: var(--color-text-primary);
+}
+
+/* Media queries */
+@media (max-width: 992px) {
+    .project-console {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-console {
+        padding: var(--space-md);
+    }
+}
