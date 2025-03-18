@@ -686,7 +686,31 @@
         scroll-behavior: smooth;
     }
     
-    /* Floating action button for quick navigation */
+    /* Set native-like momentum scrolling for all elements */
+    * {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Improved touch feedback for all interactive elements */
+    .nav, 
+    .cmd, 
+    .project-list-item,
+    .project-card, 
+    .tech-tag, 
+    .details-link, 
+    .mobile-fab, 
+    button,
+    a,
+    input,
+    select,
+    textarea,
+    #career .timeline-item {
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+    
+    /* Floating action button with native-like behavior */
     .mobile-fab {
         position: fixed;
         bottom: calc(var(--mobile-header-height) + var(--mobile-spacing-md));
@@ -702,6 +726,23 @@
         z-index: 900;
         color: #000;
         font-size: 24px;
+        transform: scale(1);
+        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                    box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Native-like active state for floating action button */
+    .mobile-fab:active {
+        transform: scale(0.92) !important;
+        box-shadow: 0 1px 5px rgba(0, 238, 255, 0.3) !important;
+    }
+    
+    /* Add animation for carousel cards */
+    .carousel-scrolling .project-list-item,
+    .carousel-scrolling #career .timeline-item,
+    .carousel-scrolling .related-project-card {
+        transition: transform 0.1s ease-out;
     }
     
     /* Add pull-to-refresh visual indicator */
@@ -737,24 +778,131 @@
         border-radius: 3px;
     }
     
-    /* Disable hover states (use active instead) */
+    /* Enhanced touch interactions */
+    
+    /* Disable all hover effects for mobile */
     .cmd:hover,
     .project-list-item:hover,
     .project-card:hover,
     .tech-tag:hover,
     .details-link:hover,
-    #career .timeline-item:hover {
-        transform: none;
+    .project-more:hover,
+    .expertise-tag:hover,
+    .topic-card:hover,
+    #career .timeline-item:hover,
+    .project-title:hover::after,
+    .position:hover,
+    .company:hover,
+    .topic-name:hover,
+    .topic-icon:hover {
+        transform: none !important;
+        background: inherit !important;
+        box-shadow: inherit !important;
+        border-color: inherit !important;
+        color: inherit !important;
+        opacity: inherit !important;
     }
     
-    /* Scale touches for better feedback */
+    /* Touch active styles */
+    .touch-active,
     .cmd:active,
     .project-list-item:active,
     .project-card:active,
     .tech-tag:active,
     .details-link:active,
-    #career .timeline-item:active {
-        transform: scale(0.98);
-        transition: transform 0.1s ease;
+    .project-tech-item:active,
+    .expertise-tag:active,
+    .topic-card:active,
+    #career .timeline-item:active,
+    .mobile-fab:active {
+        transform: scale(0.96) !important;
+        transition: transform 0.15s cubic-bezier(0.32, 0.72, 0, 1) !important;
+        background-color: rgba(255, 255, 255, 0.15) !important;
+        box-shadow: 0 0 0 1px var(--mobile-accent-primary) !important;
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* Define ripple container for all interactive elements */
+    .cmd, 
+    .project-list-item,
+    .project-card,
+    .tech-tag,
+    .details-link,
+    #career .timeline-item,
+    .project-tech-item,
+    .expertise-tag,
+    .topic-card,
+    .mobile-fab,
+    .project-meta-item,
+    .project-cta-button {
+        position: relative;
+        overflow: hidden !important;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Ripple effect class to be added via JS */
+    .ripple {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        transform: scale(0);
+        animation: ripple-animation 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        pointer-events: none;
+        z-index: 0;
+    }
+    
+    @keyframes ripple-animation {
+        to {
+            transform: scale(2.5);
+            opacity: 0;
+        }
+    }
+    
+    /* Visual feedback for taps without hover */
+    .tap-highlight {
+        position: absolute;
+        inset: 0;
+        background-color: transparent;
+        z-index: 1;
+        border-radius: inherit;
+        transition: background-color 0.2s ease;
+    }
+    
+    .cmd:active .tap-highlight,
+    .project-list-item:active .tap-highlight,
+    .project-card:active .tap-highlight,
+    .tech-tag:active .tap-highlight,
+    .details-link:active .tap-highlight,
+    #career .timeline-item:active .tap-highlight,
+    .project-tech-item:active .tap-highlight,
+    .expertise-tag:active .tap-highlight,
+    .topic-card:active .tap-highlight,
+    .mobile-fab:active .tap-highlight {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Scroll indicators for horizontal scrolling elements */
+    .scroll-indicator {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.5));
+        height: 80%;
+        width: 40px;
+        border-radius: 0 var(--mobile-border-radius) var(--mobile-border-radius) 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--mobile-accent-primary);
+        pointer-events: none;
+        z-index: 5;
+        animation: pulse-indicator 2s infinite;
+    }
+    
+    @keyframes pulse-indicator {
+        0%, 100% { opacity: 0.7; }
+        50% { opacity: 0.3; }
     }
 }
