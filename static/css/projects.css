@@ -1151,15 +1151,14 @@
     /* ===== MOBILE-FIRST REDESIGN ===== */
     /* Complete mobile-optimized layout that preserves cyberpunk aesthetic */
     .projects-container {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column-reverse;
         gap: var(--space-md);
     }
     
     /* ===== PROJECT DETAILS PANEL ===== */
     /* Optimized details panel as a card-based view */
     .project-details-panel {
-        order: 2;
-        grid-row: 2;
         position: relative;
         padding: var(--mobile-panel-padding);
         border-radius: var(--border-radius);
@@ -1187,53 +1186,26 @@
     }
     
     /* ===== PROJECT CARDS LIST ===== */
-    /* Card-based horizontal scrolling layout */
+    /* Vertical stacked cards layout */
     .projects-list {
-        order: 1;
-        grid-row: 1;
         display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        overflow-y: hidden;
+        flex-direction: column;
         padding: var(--space-md) 0;
         gap: var(--space-md);
         max-height: none;
-        width: 100vw;
-        margin: 0 calc(var(--mobile-content-padding) * -1);
-        padding-left: var(--mobile-content-padding);
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
+        width: 100%;
         position: relative;
-        scrollbar-width: none; /* Hide scrollbar for Firefox */
-    }
-    
-    .projects-list::-webkit-scrollbar {
-        display: none; /* Hide scrollbar for Chrome/Safari */
-    }
-    
-    .projects-list::after {
-        content: "";
-        flex: 0 0 var(--mobile-content-padding);
-        width: var(--mobile-content-padding);
-        height: 1px;
     }
     
     /* ===== PROJECT CARDS ===== */
     /* Enhanced mobile-optimized project cards */
     .project-list-item {
-        flex: 0 0 var(--mobile-card-width);
-        min-width: var(--mobile-card-min-width);
-        max-width: var(--mobile-card-width);
-        height: var(--mobile-card-height);
-        max-height: var(--mobile-card-max-height);
+        width: 100%;
         padding: var(--space-md);
         margin-bottom: 0;
         border-width: 0;
         border-radius: var(--border-radius);
         background-color: rgba(255, 255, 255, 0.05);
-        scroll-snap-align: start;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
         transform: none;
         transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
