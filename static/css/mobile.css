@@ -54,6 +54,7 @@
     section {
         overflow-x: hidden !important;
         width: 100%;
+        padding: var(--mobile-section-padding);
     }
     
     /* Fix font sizing for better readability on mobile */
@@ -65,6 +66,55 @@
     .details-description, p {
         font-size: var(--font-size-sm) !important;
         line-height: 1.5 !important;
+    }
+    
+    /* Better positioning for hero section on mobile */
+    #hero {
+        min-height: 100vh !important;
+        height: auto !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    #hero .hero-content {
+        width: 100%;
+        padding: 0;
+        margin-top: 2rem;
+    }
+    
+    #hero .intro-container {
+        max-width: 100%;
+        width: 100%;
+        padding: 0;
+    }
+    
+    .hero-tagline {
+        font-size: 1.8rem !important;
+        line-height: 1.4 !important;
+        margin-top: 1rem !important;
+    }
+    
+    .hero-title {
+        font-size: 1.2rem !important;
+    }
+    
+    /* Improve expertise cards styling */
+    .expertise-container {
+        padding: 1rem 0 !important;
+        margin-top: 2rem;
+    }
+    
+    .expertise-card {
+        margin-bottom: 0.75rem;
+    }
+    
+    /* Hero background adjustments */
+    .hero-glow {
+        width: 80% !important;
+        height: 40% !important;
+        top: 30% !important;
+        left: 10% !important;
     }
 }
 
@@ -655,17 +705,37 @@
     /* Individual Project Card */
     .mobile-project-card-simple {
         width: 100%;
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: var(--card-bg, rgba(0, 0, 0, 0.2));
         border-radius: var(--border-radius);
         overflow: hidden;
         display: flex;
         flex-direction: column;
         position: relative;
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--card-border, rgba(255, 255, 255, 0.08));
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         transform: translateZ(0);
         margin-bottom: var(--space-lg);
-        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease, background-color 0.3s ease, border-color 0.3s ease;
+        will-change: transform, box-shadow, opacity; /* Performance improvement for animations */
+    }
+    
+    /* Add theme-responsive colors for project cards */
+    [data-theme="light"] .mobile-project-card-simple {
+        --card-bg: rgba(240, 240, 245, 0.9);
+        --card-border: rgba(0, 0, 0, 0.1);
+        --meta-bg: rgba(230, 230, 235, 0.8);
+        --chip-bg: rgba(0, 0, 255, 0.1);
+        --chip-border: rgba(0, 0, 255, 0.3);
+        --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    [data-theme="dark"] .mobile-project-card-simple {
+        --card-bg: rgba(25, 25, 35, 0.7);
+        --card-border: rgba(255, 255, 255, 0.08);
+        --meta-bg: rgba(15, 15, 25, 0.6);
+        --chip-bg: rgba(255, 0, 0, 0.2);
+        --chip-border: rgba(255, 0, 0, 0.3);
+        --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
     
     .mobile-project-card-simple.in-view {
@@ -774,10 +844,11 @@
     
     .meta-item {
         flex: 1;
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: var(--meta-bg, rgba(0, 0, 0, 0.2));
         padding: var(--space-sm);
         border-radius: var(--border-radius);
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--card-border, rgba(255, 255, 255, 0.05));
+        transition: background-color 0.3s ease, border-color 0.3s ease;
     }
     
     .meta-label {
@@ -820,11 +891,12 @@
         font-family: var(--font-mono);
         font-size: var(--font-size-2xs);
         color: var(--color-text-secondary);
-        background-color: rgba(255, 0, 0, 0.2);
+        background-color: var(--chip-bg, rgba(255, 0, 0, 0.2));
         padding: var(--space-2xs) var(--space-xs);
         border-radius: 12px;
-        border: 1px solid rgba(255, 0, 0, 0.3);
+        border: 1px solid var(--chip-border, rgba(255, 0, 0, 0.3));
         white-space: nowrap;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
     }
     
     /* Call to action button */

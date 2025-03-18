@@ -6,6 +6,39 @@ document.addEventListener("DOMContentLoaded", function() {
     const isMobile = window.innerWidth <= 768;
     if (!isMobile) return;
     
+    // Clean up listeners and check for memory leaks
+    let observers = [];
+    let eventListeners = [];
+    
+    // Helper function to safely add event listeners with tracking for cleanup
+    function addTrackedEventListener(element, event, handler, options) {
+        if (!element) return;
+        element.addEventListener(event, handler, options);
+        eventListeners.push({ element, event, handler });
+    }
+    
+    // Clean up all tracked observers and event listeners
+    function cleanupResources() {
+        // Disconnect all observers
+        observers.forEach(observer => {
+            if (observer && typeof observer.disconnect === 'function') {
+                observer.disconnect();
+            }
+        });
+        observers = [];
+        
+        // Remove all tracked event listeners
+        eventListeners.forEach(({ element, event, handler }) => {
+            if (element && typeof element.removeEventListener === 'function') {
+                element.removeEventListener(event, handler);
+            }
+        });
+        eventListeners = [];
+    }
+    
+    // Clean up when page unloads to prevent memory leaks
+    window.addEventListener('beforeunload', cleanupResources);
+    
     // Add a body class to identify mobile devices for CSS targeting
     document.body.classList.add('mobile-device');
     
@@ -1646,20 +1679,41 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         
         // Add intersection observer to animate cards as they scroll into view
-        const observer = new IntersectionObserver((entries) => {
+        const cardObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('in-view');
-                    observer.unobserve(entry.target);
+                    cardObserver.unobserve(entry.target); // Stop observing once animation is triggered
                 }
             });
         }, {
-            threshold: 0.1
+            threshold: 0.1,
+            rootMargin: '0px 0px 50px 0px' // Start animation a bit earlier
         });
+        
+        // Store the observer for cleanup
+        observers.push(cardObserver);
         
         // Observe each card
         cards.forEach(card => {
-            observer.observe(card);
+            cardObserver.observe(card);
         });
+        
+        // Make project section theme responsive
+        const themeSwitcher = document.querySelector('[data-theme-toggle]');
+        if (themeSwitcher) {
+            // Track the event listener for cleanup
+            const themeChangeHandler = () => {
+                // Allow time for theme CSS variables to update
+                setTimeout(() => {
+                    cards.forEach(card => {
+                        // Trigger subtle animation on theme change
+                        card.style.transition = 'background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease';
+                    });
+                }, 50);
+            };
+            
+            addTrackedEventListener(themeSwitcher, 'click', themeChangeHandler);
+        }
     }
 });
