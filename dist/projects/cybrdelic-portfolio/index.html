@@ -44,6 +44,11 @@
 
     <div id="terminal">
         <nav class="nav">
+            <div class="hamburger-menu" id="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <a href="&#x2F;cybrdelic-portfolio&#x2F;" class="home-link">
                 <div class="home-button">
                     <span class="icon">⌂</span>
@@ -214,8 +219,8 @@
         
         <div class="cta-button-container-wrapper">
             <div class="cta-button-container">
-                <a href="http://localhost:8080/#" class="primary-button" target="_blank">
-                    View Landing Page
+                <a href="&#x2F;cybrdelic-portfolio&#x2F;" class="primary-button">
+                    Back to Home
                     <svg class="button-icon" viewBox="0 0 24 24">
                         <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
@@ -1049,7 +1054,7 @@ let app = Router::new()
 
 <script>
     // Make base_path available to JavaScript
-    const base_path = "&#x2F;cybrdelic-portfolio&#x2F;";
+    const base_path = "/cybrdelic-portfolio/";
     
     document.addEventListener('DOMContentLoaded', () => {
         initDocumentationTabs();
@@ -1668,7 +1673,24 @@ let app = Router::new()
             }
         }
 
+        // Mobile navigation toggle
         document.addEventListener("DOMContentLoaded", () => {
+            const hamburgerMenu = document.getElementById("hamburger-menu");
+            const nav = document.querySelector(".nav");
+            
+            if (hamburgerMenu) {
+                hamburgerMenu.addEventListener("click", () => {
+                    nav.classList.toggle("mobile-open");
+                });
+                
+                // Close mobile menu when clicking a navigation link
+                document.querySelectorAll(".nav a").forEach(link => {
+                    link.addEventListener("click", () => {
+                        nav.classList.remove("mobile-open");
+                    });
+                });
+            }
+            
             // Initialize vertical name
             const verticalName = document.querySelector(".vertical-name");
             if (!verticalName) return;

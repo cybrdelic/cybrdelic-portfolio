@@ -22,6 +22,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Moirai+One&family=Nabla&family=Noto+Sans+Mono:wght@400;500;600;700&family=Share+Tech+Mono&family=Silkscreen&family=Sometype+Mono:wght@400;500;600;700&family=Faster+One&family=Flow+Circular&family=Flow+Rounded&family=Gruppo&family=Keania+One&family=Kenia&family=Londrina+Outline&family=Plaster&display=swap"
         rel="stylesheet">
+        
+    <!-- Material Icons for Mobile Navigation -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Centralized CSS file that imports all modules -->
     <link rel="stylesheet" href="{{ base_path }}static/css/main.css" />
@@ -43,6 +46,12 @@
     <div class="corner-effect corner-bottom-left"></div>
 
     <div id="terminal">
+        <!-- Mobile-specific UI elements -->
+        <div class="mobile-fab" id="mobile-fab">
+            <i class="material-icons">arrow_upward</i>
+        </div>
+        <div class="pull-indicator" id="pull-indicator"></div>
+        
         <nav class="nav">
             <div class="hamburger-menu" id="hamburger-menu">
                 <span></span>
@@ -56,9 +65,9 @@
                 </div>
             </a>
             <div class="nav-left stagger-children">
-                <a href="#projects" class="cmd cmd-prompt">ls projects/</a>
-                <a href="#whats-next" class="cmd cmd-prompt">./future</a>
-                <a href="#contact" class="cmd cmd-prompt">./contact</a>
+                <a href="#projects" class="cmd cmd-prompt"><span>ls projects/</span></a>
+                <a href="#career" class="cmd cmd-prompt"><span>./career</span></a>
+                <a href="#contact" class="cmd cmd-prompt"><span>./contact</span></a>
             </div>
             <div class="nav-right">
                 <a href="https://github.com/cybrdelic" target="_blank" class="nav-action-button github-button">
@@ -85,6 +94,7 @@
     <script src="{{ base_path }}static/js/projects.js"></script>
     <script src="{{ base_path }}static/js/glitch.js"></script>
     <script src="{{ base_path }}static/js/transitions.js"></script>
+    <script src="{{ base_path }}static/js/mobile.js"></script>
 
     <!-- Core functionality -->
     <script>

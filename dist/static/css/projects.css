@@ -1095,12 +1095,15 @@
         order: 2;
         max-height: none;
         height: auto;
+        padding: var(--space-lg);
     }
 
     .projects-list {
         order: 1;
         height: auto;
-        max-height: 60vh;
+        max-height: none;
+        overflow-y: visible;
+        padding-bottom: var(--space-md);
     }
 
     .project-list-title {
@@ -1114,29 +1117,51 @@
         gap: var(--space-md);
     }
 
+    .project-list-item {
+        padding: var(--space-md); 
+        border-radius: var(--border-radius);
+        margin-bottom: var(--space-sm);
+        transition: background-color 0.3s ease;
+        border-left-width: 3px;
+    }
+
     .project-list-item:hover,
     .project-list-item.active {
         transform: translateX(0);
+        background-color: rgba(255, 255, 255, 0.05);
     }
 
     .project-list-item:active {
-        background-color: rgba(255, 255, 255, 0.05);
+        background-color: rgba(255, 255, 255, 0.1);
     }
 }
 
 @media (max-width: 768px) {
-    #PROJECTS .container {
+    #projects {
+        padding-top: calc(var(--header-height) + var(--space-lg));
+    }
+    
+    #projects .container {
         padding: 0 var(--space-md);
     }
 
     .projects-list {
         gap: var(--space-md);
         padding: var(--space-md) 0;
-        max-height: 50vh;
+        max-height: none;
     }
 
     .project-list-item {
-        padding: var(--space-sm) var(--space-md);
+        padding: var(--space-md);
+        margin-bottom: var(--space-sm);
+        border-left-width: 3px;
+        border-radius: var(--border-radius);
+        background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    .project-list-item:active,
+    .project-list-item.active {
+        background-color: rgba(255, 255, 255, 0.05);
     }
 
     .project-list-title {
@@ -1165,6 +1190,13 @@
     .tech-tag {
         font-size: var(--font-size-3xs);
         padding: var(--space-2xs) var(--space-xs);
+    }
+    
+    /* Make project details panel scroll on smaller screens */
+    .project-details-panel {
+        padding: var(--space-md);
+        max-height: 70vh;
+        overflow-y: auto !important;
     }
 }
 
