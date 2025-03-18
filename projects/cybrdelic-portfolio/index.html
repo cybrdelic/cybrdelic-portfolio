@@ -257,11 +257,21 @@
             
             <button class="docs-nav-item " data-tab="section-2">
                 <span class="docs-nav-number">2</span>
-                <span class="docs-nav-text">architecture</span>
+                <span class="docs-nav-text">user-guide</span>
             </button>
             
             <button class="docs-nav-item " data-tab="section-3">
                 <span class="docs-nav-number">3</span>
+                <span class="docs-nav-text">static-site-generation</span>
+            </button>
+            
+            <button class="docs-nav-item " data-tab="section-4">
+                <span class="docs-nav-number">4</span>
+                <span class="docs-nav-text">architecture</span>
+            </button>
+            
+            <button class="docs-nav-item " data-tab="section-5">
+                <span class="docs-nav-number">5</span>
                 <span class="docs-nav-text">development</span>
             </button>
             
@@ -376,7 +386,7 @@
 --font-size-fluid-lg: 7.5vw;
 --font-size-fluid-xl: 10vw;
 
-</span></div></div></div><h3 id="space-scale" class="markdown-heading-2 markdown-heading">Space Scale<a class="heading-anchor" href="#space-scale">&#xB6;</a></h3><p class="markdown-paragraph">Spacing follows a consistent scale:</p><div class="command-window">
+</span></div></div></div><h3 id="mobile-first-design" class="markdown-heading-2 markdown-heading">Mobile-First Design<a class="heading-anchor" href="#mobile-first-design">&#xB6;</a></h3><p class="markdown-paragraph">The portfolio implements a mobile-first approach with distinct experiences optimized for different devices:</p><h4 id="mobile-experience" class="markdown-heading-3 markdown-heading">Mobile Experience<a class="heading-anchor" href="#mobile-experience">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item">Simplified navigation with touch-friendly controls</li><li class="list-item">Streamlined content presentation</li><li class="list-item">Optimized performance for mobile networks</li><li class="list-item">Custom animations optimized for mobile processors</li></ul><h4 id="desktop-experience" class="markdown-heading-3 markdown-heading">Desktop Experience<a class="heading-anchor" href="#desktop-experience">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item">Rich interactive elements that take advantage of pointer precision</li><li class="list-item">Expanded layout utilizing larger screen real estate</li><li class="list-item">Hover effects and advanced animations</li><li class="list-item">Terminal-inspired UI elements</li></ul><h3 id="responsive-implementation" class="markdown-heading-2 markdown-heading">Responsive Implementation<a class="heading-anchor" href="#responsive-implementation">&#xB6;</a></h3><p class="markdown-paragraph">The CSS architecture is organized to handle responsive design efficiently:</p><div class="command-window">
     <div class="command-header">
         <div class="window-controls">
             <span class="window-control close"></span>
@@ -387,13 +397,22 @@
     <div class="command-body">
         <div class="command-line">
             <span class="terminal-prompt">$</span>
-            <span class="terminal-command">--space-2xs: 4px;
---space-xs: 8px;
---space-sm: 12px;
---space-md: 16px;
---space-lg: 24px;
---space-xl: 32px;
---space-2xl: 40px;
+            <span class="terminal-command">/* Base styles for mobile */
+
+/* Tablet */
+@media (min-width: 768px) {
+  /* Tablet specific styles */
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  /* Desktop specific styles */
+}
+
+/* Large desktop */
+@media (min-width: 1280px) {
+  /* Large desktop specific styles */
+}
 
 </span></div></div></div><h3 id="component-library" class="markdown-heading-2 markdown-heading">Component Library<a class="heading-anchor" href="#component-library">&#xB6;</a></h3><h4 id="command-prompts" class="markdown-heading-3 markdown-heading">Command Prompts<a class="heading-anchor" href="#command-prompts">&#xB6;</a></h4><div class="command-window">
     <div class="command-header">
@@ -517,7 +536,7 @@
   animation: fadeIn 0.5s var(--transition-slow) forwards;
 }
 
-</span></div></div></div><h3 id="responsive-system" class="markdown-heading-2 markdown-heading">Responsive System<a class="heading-anchor" href="#responsive-system">&#xB6;</a></h3><p class="markdown-paragraph">The layout adapts to different screen sizes:</p><div class="command-window">
+</span></div></div></div><h3 id="css-architecture" class="markdown-heading-2 markdown-heading">CSS Architecture<a class="heading-anchor" href="#css-architecture">&#xB6;</a></h3><p class="markdown-paragraph">The CSS is organized into a modular structure:</p><div class="command-window">
     <div class="command-header">
         <div class="window-controls">
             <span class="window-control close"></span>
@@ -528,28 +547,689 @@
     <div class="command-body">
         <div class="command-line">
             <span class="terminal-prompt">$</span>
-            <span class="terminal-command">/* Base styles for mobile */
+            <span class="terminal-command">static/css/
+├── main.css             # Main entry point that imports all other CSS
+├── mobile.css           # Mobile-specific styles
+├── animations/          # Animation definitions
+├── base/                # Base styles and reset
+│   ├── reset.css        # CSS reset
+│   ├── typography.css   # Typography styles
+│   └── utilities.css    # Utility classes
+├── components/          # Component-specific styles
+│   ├── buttons.css
+│   ├── cards.css
+│   ├── navigation.css
+│   └── ...
+├── core/                # Core definitions
+│   ├── fonts.css        # Font imports
+│   ├── variables.css    # CSS variables
+│   └── ...
+└── layout/              # Layout styles
+    ├── hero.css
+    ├── projects.css
+    └── ...
 
-/* Tablet */
-@media (min-width: 768px) {
-  /* Tablet specific styles */
+</span></div></div></div><h3 id="accessibility-considerations" class="markdown-heading-2 markdown-heading">Accessibility Considerations<a class="heading-anchor" href="#accessibility-considerations">&#xB6;</a></h3><ul class="unordered-list"><li class="list-item">Color contrast meets WCAG AA standards</li><li class="list-item">Focus states are clearly visible</li><li class="list-item">All interactive elements are keyboard accessible</li><li class="list-item">Images have appropriate alt text</li><li class="list-item">Animations can be disabled via </li><li class="list-item">ARIA attributes for enhanced screen reader support</li><li class="list-item">Semantic HTML structure for better accessibility</li></ul><h3 id="theme-system" class="markdown-heading-2 markdown-heading">Theme System<a class="heading-anchor" href="#theme-system">&#xB6;</a></h3><p class="markdown-paragraph">The portfolio includes a theme toggle that switches between light and dark modes:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">function toggleTheme() {
+  const theme = document.documentElement.getAttribute('data-theme') === 'dark' 
+    ? 'light' 
+    : 'dark';
+  
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
 }
 
-/* Desktop */
-@media (min-width: 1024px) {
-  /* Desktop specific styles */
+// Initialize theme from localStorage or system preference
+function initTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+  
+  document.documentElement.setAttribute('data-theme', theme);
 }
 
-/* Large desktop */
-@media (min-width: 1280px) {
-  /* Large desktop specific styles */
-}
-
-</span></div></div></div><h3 id="accessibility-considerations" class="markdown-heading-2 markdown-heading">Accessibility Considerations<a class="heading-anchor" href="#accessibility-considerations">&#xB6;</a></h3><ul class="unordered-list"><li class="list-item">Color contrast meets WCAG AA standards</li><li class="list-item">Focus states are clearly visible</li><li class="list-item">All interactive elements are keyboard accessible</li><li class="list-item">Images have appropriate alt text</li><li class="list-item">Animations can be disabled via </li></ul>
+</span></div></div></div><p class="markdown-paragraph">This system respects user preferences while allowing manual override.</p>
                 </div>
             </div>
             
             <div class="docs-panel hidden" id="section-2">
+                <div class="markdown-content" data-flow-name="user-guide">
+                    <!-- Content will load instantly but might be further enhanced by JavaScript -->
+                    <h2 id="user-guide" class="markdown-heading-1 markdown-heading">User Guide<a class="heading-anchor" href="#user-guide">&#xB6;</a></h2><p class="markdown-paragraph">This comprehensive guide covers common tasks and workflows for maintaining and extending the Cybrdelic Portfolio. Whether you're adding a new project, modifying the design, or deploying updates, this document provides step-by-step instructions.</p><h3 id="common-tasks" class="markdown-heading-2 markdown-heading">Common Tasks<a class="heading-anchor" href="#common-tasks">&#xB6;</a></h3><h4 id="starting-the-development-server" class="markdown-heading-3 markdown-heading">Starting the Development Server<a class="heading-anchor" href="#starting-the-development-server">&#xB6;</a></h4><p class="markdown-paragraph">To run the portfolio in development mode:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">
+# Using the convenience script
+./restart.sh
+
+
+# Or manually
+cargo run
+
+</span></div></div></div><p class="markdown-paragraph">This starts the Axum server at http://localhost:<span class="count-up" data-final-value="3000">0</span>, providing a live development environment where changes to templates and code can be tested.</p><h4 id="building-the-static-site" class="markdown-heading-3 markdown-heading">Building the Static Site<a class="heading-anchor" href="#building-the-static-site">&#xB6;</a></h4><p class="markdown-paragraph">To generate a static site for deployment:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">cargo run --bin build-site
+
+</span></div></div></div><p class="markdown-paragraph">This creates a  directory with all HTML, CSS, JavaScript, and assets needed for deployment.</p><h3 id="content-management" class="markdown-heading-2 markdown-heading">Content Management<a class="heading-anchor" href="#content-management">&#xB6;</a></h3><h4 id="adding-a-new-project" class="markdown-heading-3 markdown-heading">Adding a New Project<a class="heading-anchor" href="#adding-a-new-project">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Create the Content Structure</strong></p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">mkdir -p content/projects/new-project-id/flows
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Add Markdown Documentation Files</strong></p><p class="markdown-paragraph">Create markdown files for each aspect of the project:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">touch content/projects/new-project-id/flows/architecture.md
+touch content/projects/new-project-id/flows/features.md
+touch content/projects/new-project-id/flows/installation.md
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Add Project Image</strong></p><p class="markdown-paragraph">Place the project image in the static images directory:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">cp path/to/image.jpg static/images/new-project-id.jpg
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Update Project Definition</strong></p><p class="markdown-paragraph">Edit  to add the new project to the  function:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">Project::new(
+    "new-project-id",
+    "Project Title",
+    "Project Subtitle",
+    "Full description of the project...",
+    "/static/images/new-project-id.jpg",
+    "Image caption",
+    "svg-icon-path", // Path for the SVG icon or use an existing one
+    vec!["Technology 1", "Technology 2"],
+    vec![
+        ("GitHub", "https://github.com/username/repo"),
+        ("Demo", "https://demo-link.com"),
+    ],
+    vec![
+        (
+            "Feature Title",
+            "Feature description",
+            "feature-icon-path"
+        ),
+        // Add more features as needed
+    ],
+    (
+        "Architecture description",
+        "Implementation details",
+        "Challenges faced"
+    ),
+    vec!["keyword1", "keyword2"],
+    scan_flow_configs("new-project-id")?, // Automatically scans flow markdown files
+    vec![
+        (
+            "Future Feature",
+            "Description of planned feature",
+            "Timeline"
+        ),
+        // Add more future features as needed
+    ],
+)?
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Create SVG Icon (Optional)</strong></p><p class="markdown-paragraph">For custom animated icons, create a new file:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">touch templates/components/animated_icons/new-project-id.html
+</span></div></div></div><p class="markdown-paragraph">Add the SVG markup to this file.</p></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Rebuild and Test</strong></p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">./restart.sh
+</span></div></div></div><p class="markdown-paragraph">Visit http://localhost:<span class="count-up" data-final-value="3000">0</span>/projects/new-project-id to verify the new project page.</p></li></ol><h4 id="updating-a-project" class="markdown-heading-3 markdown-heading">Updating a Project<a class="heading-anchor" href="#updating-a-project">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Edit Markdown Content</strong></p><p class="markdown-paragraph">Modify the appropriate markdown files in .</p></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Update Project Metadata</strong></p><p class="markdown-paragraph">Edit the project's entry in  if you need to change metadata like title, description, or links.</p></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Refresh the Server</strong></p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">./restart.sh
+</span></div></div></div></li></ol><h4 id="adding-a-career-timeline-event" class="markdown-heading-3 markdown-heading">Adding a Career Timeline Event<a class="heading-anchor" href="#adding-a-career-timeline-event">&#xB6;</a></h4><p class="markdown-paragraph">To add a new event to the career timeline:</p><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Edit Timeline Data</strong></p><p class="markdown-paragraph">Open  and add a new entry to the  function:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">TimelineEvent {
+    year: 2025,
+    title: "Event Title",
+    description: "Event description",
+    icon: "icon-path",
+    technologies: vec!["Tech 1", "Tech 2"],
+}
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Restart the Server</strong></p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">./restart.sh
+</span></div></div></div></li></ol><h3 id="design-customization" class="markdown-heading-2 markdown-heading">Design Customization<a class="heading-anchor" href="#design-customization">&#xB6;</a></h3><h4 id="modifying-css" class="markdown-heading-3 markdown-heading">Modifying CSS<a class="heading-anchor" href="#modifying-css">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Locate the Relevant CSS File</strong></p><p class="markdown-paragraph">CSS files are organized by component and function in :</p><ul class="unordered-list"><li class="list-item">Component styles: </li><li class="list-item">Layout styles: </li><li class="list-item">Base styles: </li></ul></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Edit the CSS</strong></p><p class="markdown-paragraph">Make changes to the appropriate file(s), following the existing patterns and conventions.</p></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Test Your Changes</strong></p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">./restart.sh
+</span></div></div></div><p class="markdown-paragraph">Use browser developer tools to debug CSS issues.</p></li></ol><h4 id="customizing-theme-variables" class="markdown-heading-3 markdown-heading">Customizing Theme Variables<a class="heading-anchor" href="#customizing-theme-variables">&#xB6;</a></h4><p class="markdown-paragraph">To modify the color scheme or typography:</p><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Edit Theme Variables</strong></p><p class="markdown-paragraph">Open  and update the CSS variables:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">:root {
+  --color-primary: #new-color;
+  --font-size-base: 1.125rem;
+  /* Other variables */
+}
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Test Across Themes</strong></p><p class="markdown-paragraph">Test both light and dark themes by toggling the theme in the browser.</p></li></ol><h4 id="adding-a-new-component" class="markdown-heading-3 markdown-heading">Adding a New Component<a class="heading-anchor" href="#adding-a-new-component">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Create the HTML Template</strong></p><p class="markdown-paragraph">Add a new file in :</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{# templates/components/new_component.html #}
+<div class="new-component">
+    <h2>{{ component_title }}</h2>
+    <p>{{ component_description }}</p>
+</div>
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Create the CSS</strong></p><p class="markdown-paragraph">Add styles in :</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">.new-component {
+    padding: var(--space-md);
+    background: var(--bg-glass);
+    border-radius: var(--border-radius);
+}
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Import the CSS</strong></p><p class="markdown-paragraph">Add an import in :</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">@import 'components/new_component.css';
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Use the Component</strong></p><p class="markdown-paragraph">Include it in a template:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{% include "components/new_component.html" with component_title="Title", component_description="Description" %}
+</span></div></div></div></li></ol><h3 id="template-customization" class="markdown-heading-2 markdown-heading">Template Customization<a class="heading-anchor" href="#template-customization">&#xB6;</a></h3><h4 id="modifying-a-page-template" class="markdown-heading-3 markdown-heading">Modifying a Page Template<a class="heading-anchor" href="#modifying-a-page-template">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Locate the Template</strong></p><p class="markdown-paragraph">Find the template in the  directory.</p></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Edit the Template</strong></p><p class="markdown-paragraph">Make your changes following Tera template syntax.</p></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Test the Changes</strong></p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">./restart.sh
+</span></div></div></div></li></ol><h4 id="adding-a-new-page" class="markdown-heading-3 markdown-heading">Adding a New Page<a class="heading-anchor" href="#adding-a-new-page">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Create the Template</strong></p><p class="markdown-paragraph">Add a new file in :</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">{% extends "base.html" %}
+
+{% block content %}
+<main class="new-page">
+    <h1>Page Title</h1>
+    <!-- Page content -->
+</main>
+{% endblock %}
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Add a Handler</strong></p><p class="markdown-paragraph">Create a new handler in :</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">// src/handlers/new_page.rs
+use crate::{AppError, AppState};
+use axum::{extract::State, response::Html};
+use tera::Context;
+
+pub async fn index(State(state): State<AppState>) -> Result<Html<String>, AppError> {
+    let mut ctx = Context::new();
+    // Add data to context
+    
+    match state.tera.render("new_page.html", &ctx) {
+        Ok(html) => Ok(Html(html)),
+        Err(err) => Err(AppError::Template(err)),
+    }
+}
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Register the Route</strong></p><p class="markdown-paragraph">Add to the router in :</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">.route("/new-page", get(handlers::new_page::index))
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Update module declarations</strong></p><p class="markdown-paragraph">Add the new module to :</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">pub mod new_page;
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Add CSS</strong></p><p class="markdown-paragraph">Create styles for the new page in  and import it in .</p></li></ol><h3 id="deployment-workflows" class="markdown-heading-2 markdown-heading">Deployment Workflows<a class="heading-anchor" href="#deployment-workflows">&#xB6;</a></h3><h4 id="deploying-to-github-pages" class="markdown-heading-3 markdown-heading">Deploying to GitHub Pages<a class="heading-anchor" href="#deploying-to-github-pages">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Set the Base Path</strong></p><p class="markdown-paragraph">In , set the base path:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">let base_path = "/cybrdelic-portfolio/"; // Change to your repository name
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Run the Deploy Command</strong></p><p class="markdown-paragraph">The portfolio includes a dedicated deployment binary that handles the entire process:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">cargo run --bin deploy
+</span></div></div></div><p class="markdown-paragraph">This command will:</p><ul class="unordered-list"><li class="list-item">Build the static site</li><li class="list-item">Create a temporary backup of the dist contents</li><li class="list-item">Switch to (or create) the gh-pages branch</li><li class="list-item">Clean the branch and copy the new files</li><li class="list-item">Commit and push the changes to GitHub</li><li class="list-item">Switch back to your original branch</li></ul></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Configure GitHub Settings</strong></p><p class="markdown-paragraph">In your repository settings, set GitHub Pages to use the  branch.</p></li></ol><h4 id="manual-deployment--alternative" class="markdown-heading-3 markdown-heading">Manual Deployment (Alternative)<a class="heading-anchor" href="#manual-deployment--alternative">&#xB6;</a></h4><p class="markdown-paragraph">If you prefer to deploy manually:</p><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Generate the Static Site</strong></p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">cargo run --bin build-site
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Deploy to GitHub Pages</strong></p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command"># Create or checkout the gh-pages branch
+git checkout -b gh-pages
+
+# Remove everything except the dist/ directory
+find . -maxdepth 1 -not -name 'dist' -not -name '.git' -not -name '.' -exec rm -rf {} \;
+
+# Move dist contents to root
+mv dist/* .
+rmdir dist
+
+# Commit and push
+git add .
+git commit -m "Update GitHub Pages"
+git push origin gh-pages
+</span></div></div></div></li></ol><h4 id="deploying-to-a-custom-domain" class="markdown-heading-3 markdown-heading">Deploying to a Custom Domain<a class="heading-anchor" href="#deploying-to-a-custom-domain">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Set Base Path to Root</strong></p><p class="markdown-paragraph">In :</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">let base_path = "/"; // Root path for custom domains
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Generate the Static Site</strong></p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">cargo run --bin build-site
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Upload to Your Hosting</strong></p><p class="markdown-paragraph">Upload the contents of the  directory to your web server.</p></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Configure Domain DNS</strong></p><p class="markdown-paragraph">Set up your domain's DNS settings to point to your hosting provider.</p></li></ol><h3 id="performance-optimization" class="markdown-heading-2 markdown-heading">Performance Optimization<a class="heading-anchor" href="#performance-optimization">&#xB6;</a></h3><h4 id="optimizing-images" class="markdown-heading-3 markdown-heading">Optimizing Images<a class="heading-anchor" href="#optimizing-images">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Compress Images</strong></p><p class="markdown-paragraph">Use tools like ImageOptim, TinyPNG, or squoosh.app to compress images.</p></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Use Appropriate Formats</strong></p><ul class="unordered-list"><li class="list-item">JPEG for photos</li><li class="list-item">PNG for graphics with transparency</li><li class="list-item">SVG for icons and simple graphics</li><li class="list-item">WebP when broad browser support isn't required</li></ul></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Specify Dimensions</strong></p><p class="markdown-paragraph">Always include width and height attributes in HTML to prevent layout shifts.</p></li></ol><h4 id="improving-css-and-javascript" class="markdown-heading-3 markdown-heading">Improving CSS and JavaScript<a class="heading-anchor" href="#improving-css-and-javascript">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Minimize CSS Imports</strong></p><p class="markdown-paragraph">Combine multiple CSS files for production to reduce HTTP requests.</p></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Defer Non-Essential JavaScript</strong></p><p class="markdown-paragraph">Add the  attribute to non-critical scripts:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command"><script src="/static/js/non-critical.js" defer></script>
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Use Preload for Critical Resources</strong></p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command"><link rel="preload" href="/static/css/main.css" as="style">
+</span></div></div></div></li></ol><h3 id="troubleshooting" class="markdown-heading-2 markdown-heading">Troubleshooting<a class="heading-anchor" href="#troubleshooting">&#xB6;</a></h3><h4 id="server-won-t-start" class="markdown-heading-3 markdown-heading">Server Won't Start<a class="heading-anchor" href="#server-won-t-start">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Check for Errors</strong></p><p class="markdown-paragraph">Look for error messages in the terminal.</p></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Verify Dependencies</strong></p><p class="markdown-paragraph">Run  to verify that all dependencies are available.</p></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Check Port Availability</strong></p><p class="markdown-paragraph">Make sure port <span class="count-up" data-final-value="3000">0</span> is not in use by another process:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">lsof -i :3000
+</span></div></div></div></li></ol><h4 id="build-process-fails" class="markdown-heading-3 markdown-heading">Build Process Fails<a class="heading-anchor" href="#build-process-fails">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Check for Missing Files</strong></p><p class="markdown-paragraph">Verify that all referenced templates and static files exist.</p></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Review Error Messages</strong></p><p class="markdown-paragraph">Look for specific error messages related to template parsing or file access.</p></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Clean and Rebuild</strong></p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">cargo clean
+cargo build
+</span></div></div></div></li></ol><h4 id="broken-links-in-production" class="markdown-heading-3 markdown-heading">Broken Links in Production<a class="heading-anchor" href="#broken-links-in-production">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Verify Base Path</strong></p><p class="markdown-paragraph">Make sure the base path in  matches your deployment environment.</p></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Check Template Links</strong></p><p class="markdown-paragraph">Ensure all links in templates use the  variable:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command"><a href="{{ base_path }}projects/project-id">Link</a>
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Regenerate and Redeploy</strong></p><p class="markdown-paragraph">After fixing the issues, regenerate the static site and redeploy.</p></li></ol><h3 id="markdown-content-tips" class="markdown-heading-2 markdown-heading">Markdown Content Tips<a class="heading-anchor" href="#markdown-content-tips">&#xB6;</a></h3><h4 id="adding-a-table-of-contents" class="markdown-heading-3 markdown-heading">Adding a Table of Contents<a class="heading-anchor" href="#adding-a-table-of-contents">&#xB6;</a></h4><p class="markdown-paragraph">Insert  at the beginning of your markdown file to generate a table of contents automatically.</p><h4 id="code-blocks" class="markdown-heading-3 markdown-heading">Code Blocks<a class="heading-anchor" href="#code-blocks">&#xB6;</a></h4><p class="markdown-paragraph">Use triple backticks for code blocks with language highlighting:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">
+```rust
+fn main() {
+    println!("Hello, world!");
+}
+
+</span></div></div></div><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">
+
+### Custom Styling
+
+The markdown processor adds classes to elements that can be styled:
+
+- Headings get `.markdown-heading` and `.heading-1`, `.heading-2`, etc.
+- Paragraphs get `.markdown-paragraph`
+- Lists get `.ordered-list` or `.unordered-list`
+- Code blocks are styled as terminal windows
+
+
+## Source Code Management
+
+
+### Creating a Source Code Collection
+
+The project includes a utility script to collect all source code into a single file:
+
+
+```bash
+./copy.sh
+
+</span></div></div></div><p class="markdown-paragraph">This creates  containing all source code, useful for:</p><ul class="unordered-list"><li class="list-item">Documentation</li><li class="list-item">Code reviews</li><li class="list-item">Sharing the project with others</li></ul><h4 id="customizing-collection-script" class="markdown-heading-3 markdown-heading">Customizing Collection Script<a class="heading-anchor" href="#customizing-collection-script">&#xB6;</a></h4><p class="markdown-paragraph">Edit  to include or exclude specific file types or directories.</p>
+                </div>
+            </div>
+            
+            <div class="docs-panel hidden" id="section-3">
+                <div class="markdown-content" data-flow-name="static-site-generation">
+                    <!-- Content will load instantly but might be further enhanced by JavaScript -->
+                    <h2 id="static-site-generation" class="markdown-heading-1 markdown-heading">Static Site Generation<a class="heading-anchor" href="#static-site-generation">&#xB6;</a></h2><p class="markdown-paragraph">This document explains how the static site generation works in the Cybrdelic Portfolio project, covering the build process, configuration options, and deployment strategies.</p><h3 id="overview" class="markdown-heading-2 markdown-heading">Overview<a class="heading-anchor" href="#overview">&#xB6;</a></h3><p class="markdown-paragraph">The Cybrdelic Portfolio can operate in two distinct modes:</p><ol class="ordered-list"><li class="list-item"><strong class="markdown-strong">Development Mode</strong>: A live Axum web server for local development</li><li class="list-item"><strong class="markdown-strong">Production Mode</strong>: Static site generation for deployment to web hosting</li></ol><p class="markdown-paragraph">The static site generation process converts the dynamic Rust application into a collection of HTML, CSS, JavaScript, and image files that can be hosted on any static file server, including GitHub Pages.</p><h3 id="the-build-process" class="markdown-heading-2 markdown-heading">The Build Process<a class="heading-anchor" href="#the-build-process">&#xB6;</a></h3><p class="markdown-paragraph">The static site generation is implemented in . This standalone binary performs the following steps:</p><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Initialize the Tera Template Engine</strong></p><ul class="unordered-list"><li class="list-item">Loads all templates from the  directory</li><li class="list-item">Parses template syntax and prepares rendering functions</li></ul></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Load Content Data</strong></p><ul class="unordered-list"><li class="list-item">Retrieves project definitions from </li><li class="list-item">Loads career timeline data from </li><li class="list-item">Processes all markdown files in </li></ul></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Configure Base Path</strong></p><ul class="unordered-list"><li class="list-item">Sets the URL base path for all links and assets</li><li class="list-item">Typically "/" for root deployment or "/repository-name/" for GitHub Pages</li></ul></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Render Pages</strong></p><ul class="unordered-list"><li class="list-item">Renders the main index page with all projects and timeline</li><li class="list-item">Creates project detail pages for each project</li><li class="list-item">Outputs HTML files to the  directory</li></ul></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Copy Static Assets</strong></p><ul class="unordered-list"><li class="list-item">Creates necessary directories in </li><li class="list-item">Copies all static files (CSS, JS, images, fonts)</li><li class="list-item">Maintains the directory structure</li></ul></li></ol><h3 id="running-the-static-build" class="markdown-heading-2 markdown-heading">Running the Static Build<a class="heading-anchor" href="#running-the-static-build">&#xB6;</a></h3><p class="markdown-paragraph">To generate the static site:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">cargo run --bin build-site
+
+</span></div></div></div><p class="markdown-paragraph">This will create or update the  directory with all generated files. The process is logged to the console, showing:</p><ul class="unordered-list"><li class="list-item">Templates being processed</li><li class="list-item">Pages being rendered</li><li class="list-item">Assets being copied</li></ul><h3 id="configuration-options" class="markdown-heading-2 markdown-heading">Configuration Options<a class="heading-anchor" href="#configuration-options">&#xB6;</a></h3><h4 id="base-path-configuration" class="markdown-heading-3 markdown-heading">Base Path Configuration<a class="heading-anchor" href="#base-path-configuration">&#xB6;</a></h4><p class="markdown-paragraph">In , the base path is configured with:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">// Define the base path for GitHub Pages
+// Use empty string for local development, "/cybrdelic-portfolio/" for GitHub Pages
+let base_path = "/cybrdelic-portfolio/"; // Change as needed
+
+</span></div></div></div><ul class="unordered-list"><li class="list-item">For root domain deployment: set to </li><li class="list-item">For GitHub Pages project deployment: set to </li><li class="list-item">For subdirectory deployment: set to </li></ul><p class="markdown-paragraph">This base path is used throughout the generated HTML to ensure all links work correctly regardless of the deployment location.</p><h4 id="template-customization" class="markdown-heading-3 markdown-heading">Template Customization<a class="heading-anchor" href="#template-customization">&#xB6;</a></h4><p class="markdown-paragraph">Templates can be modified in the  directory:</p><ul class="unordered-list"><li class="list-item">: The main layout template</li><li class="list-item">: The home page template</li><li class="list-item">: The project detail page template</li><li class="list-item">: Individual section templates</li><li class="list-item">: Reusable component templates</li></ul><p class="markdown-paragraph">Any changes to these templates will be reflected in the generated static site.</p><h4 id="content-customization" class="markdown-heading-3 markdown-heading">Content Customization<a class="heading-anchor" href="#content-customization">&#xB6;</a></h4><p class="markdown-paragraph">Content is controlled by:</p><ol class="ordered-list"><li class="list-item">Project definitions in </li><li class="list-item">Career timeline in </li><li class="list-item">Markdown files in </li></ol><h3 id="static-site-optimization" class="markdown-heading-2 markdown-heading">Static Site Optimization<a class="heading-anchor" href="#static-site-optimization">&#xB6;</a></h3><p class="markdown-paragraph">The build process includes several optimizations:</p><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Preload Hints</strong></p><ul class="unordered-list"><li class="list-item">Critical resources get preload hints for faster initial rendering</li><li class="list-item">Set via the  context variable in template rendering</li></ul></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Asset Organization</strong></p><ul class="unordered-list"><li class="list-item">Static assets are organized to facilitate caching strategies</li><li class="list-item">CSS and JS files follow a modular structure</li></ul></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Path Rewriting</strong></p><ul class="unordered-list"><li class="list-item">All URLs are rewritten to use the configured base path</li><li class="list-item">This ensures links work correctly in any deployment environment</li></ul></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">HTML Optimization</strong></p><ul class="unordered-list"><li class="list-item">Generated HTML is compact and semantically structured</li><li class="list-item">Pages include proper meta tags for SEO</li></ul></li></ol><h3 id="deployment-strategies" class="markdown-heading-2 markdown-heading">Deployment Strategies<a class="heading-anchor" href="#deployment-strategies">&#xB6;</a></h3><h4 id="github-pages-deployment" class="markdown-heading-3 markdown-heading">GitHub Pages Deployment<a class="heading-anchor" href="#github-pages-deployment">&#xB6;</a></h4><p class="markdown-paragraph">To deploy to GitHub Pages:</p><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph">Set the base path in :</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">let base_path = "/cybrdelic-portfolio/"; // Your repository name
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph">Generate the static site:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">cargo run --bin build-site
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph">Commit the  directory to a GitHub Pages branch (typically ):</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command"># Assuming you're on your main branch with changes
+git checkout -b gh-pages
+git add dist/
+git commit -m "Update static site build"
+git push origin gh-pages
+</span></div></div></div></li><li class="list-item"><p class="markdown-paragraph">Configure GitHub repository settings to use the  branch for GitHub Pages</p></li></ol><h4 id="traditional-web-hosting" class="markdown-heading-3 markdown-heading">Traditional Web Hosting<a class="heading-anchor" href="#traditional-web-hosting">&#xB6;</a></h4><p class="markdown-paragraph">For deployment to traditional web hosting:</p><ol class="ordered-list"><li class="list-item">Set the base path appropriately in </li><li class="list-item">Generate the static site</li><li class="list-item">Upload the contents of the  directory to your web server</li></ol><h4 id="custom-domain-setup" class="markdown-heading-3 markdown-heading">Custom Domain Setup<a class="heading-anchor" href="#custom-domain-setup">&#xB6;</a></h4><p class="markdown-paragraph">If using a custom domain:</p><ol class="ordered-list"><li class="list-item">Set the base path to  in </li><li class="list-item">Generate the static site</li><li class="list-item">Set up the custom domain in your hosting provider</li><li class="list-item">If using GitHub Pages with a custom domain, configure it in the repository settings</li></ol><h3 id="troubleshooting-common-issues" class="markdown-heading-2 markdown-heading">Troubleshooting Common Issues<a class="heading-anchor" href="#troubleshooting-common-issues">&#xB6;</a></h3><h4 id="broken-links" class="markdown-heading-3 markdown-heading">Broken Links<a class="heading-anchor" href="#broken-links">&#xB6;</a></h4><p class="markdown-paragraph">If links are broken in the deployed site:</p><ul class="unordered-list"><li class="list-item">Verify the  setting matches your deployment environment</li><li class="list-item">Check that all links in templates use the  variable</li><li class="list-item">Ensure the site is deployed to the correct location</li></ul><h4 id="missing-assets" class="markdown-heading-3 markdown-heading">Missing Assets<a class="heading-anchor" href="#missing-assets">&#xB6;</a></h4><p class="markdown-paragraph">If images or other assets are missing:</p><ul class="unordered-list"><li class="list-item">Check that the static assets were properly copied during the build</li><li class="list-item">Verify the paths in your CSS and HTML files</li><li class="list-item">Ensure no files were excluded during the copy process</li></ul><h4 id="css-or-javascript-not-applied" class="markdown-heading-3 markdown-heading">CSS or JavaScript Not Applied<a class="heading-anchor" href="#css-or-javascript-not-applied">&#xB6;</a></h4><p class="markdown-paragraph">If styles or scripts are not working:</p><ul class="unordered-list"><li class="list-item">Check browser console for error messages</li><li class="list-item">Verify that the path to the CSS/JS files includes the base path</li><li class="list-item">Ensure the files were properly copied to the  directory</li></ul><h3 id="best-practices" class="markdown-heading-2 markdown-heading">Best Practices<a class="heading-anchor" href="#best-practices">&#xB6;</a></h3><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Keep the Base Path Consistent</strong></p><ul class="unordered-list"><li class="list-item">Use the same base path throughout the codebase</li><li class="list-item">Consider making it a configuration option</li></ul></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Test Deployment Locally</strong></p><ul class="unordered-list"><li class="list-item">Serve the  directory with a local HTTP server before deployment</li><li class="list-item">Check for any path issues before pushing to production</li></ul></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Optimize Assets</strong></p><ul class="unordered-list"><li class="list-item">Minify CSS and JavaScript for production</li><li class="list-item">Optimize images for web delivery</li><li class="list-item">Consider implementing a cache strategy</li></ul></li><li class="list-item"><p class="markdown-paragraph"><strong class="markdown-strong">Automate Deployment</strong></p><ul class="unordered-list"><li class="list-item">Set up GitHub Actions or other CI/CD to automate the build and deployment</li><li class="list-item">This ensures consistency and reduces manual errors</li></ul></li></ol>
+                </div>
+            </div>
+            
+            <div class="docs-panel hidden" id="section-4">
                 <div class="markdown-content" data-flow-name="architecture">
                     <!-- Content will load instantly but might be further enhanced by JavaScript -->
                     <h2 id="architecture" class="markdown-heading-1 markdown-heading">Architecture<a class="heading-anchor" href="#architecture">&#xB6;</a></h2><p class="markdown-paragraph">Cybrdelic Portfolio is built with a modern, performance-focused architecture designed to deliver a seamless, interactive user experience while maintaining excellent SEO and accessibility.</p><h3 id="system-overview" class="markdown-heading-2 markdown-heading">System Overview<a class="heading-anchor" href="#system-overview">&#xB6;</a></h3><div class="command-window">
@@ -571,7 +1251,7 @@
     F[Markdown Processor] <--> E
     G[CSS Processor] <--> D
 
-</span></div></div></div><h4 id="core-components" class="markdown-heading-3 markdown-heading">Core Components<a class="heading-anchor" href="#core-components">&#xB6;</a></h4><h5 id="axum-web-server" class="markdown-heading-4 markdown-heading">Axum Web Server<a class="heading-anchor" href="#axum-web-server">&#xB6;</a></h5><p class="markdown-paragraph">The application is powered by Axum, a modern Rust web framework:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Async Runtime</strong>: Built on Tokio for high-performance, non-blocking I/O</li><li class="list-item"><strong class="markdown-strong">Type-Safe Routing</strong>: Compile-time route verification</li><li class="list-item"><strong class="markdown-strong">Middleware Stack</strong>: Logging, compression, and security enhancements</li><li class="list-item"><strong class="markdown-strong">Error Handling</strong>: Graceful error recovery and reporting</li></ul><h5 id="tera-templating" class="markdown-heading-4 markdown-heading">Tera Templating<a class="heading-anchor" href="#tera-templating">&#xB6;</a></h5><p class="markdown-paragraph">The templating system uses Tera, a Jinja/Django-inspired template engine:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Component-Based Structure</strong>: Modular templates with inheritance</li><li class="list-item"><strong class="markdown-strong">Context Injection</strong>: Dynamic data binding from Rust to templates</li><li class="list-item"><strong class="markdown-strong">Filters and Macros</strong>: Powerful transformation capabilities</li><li class="list-item"><strong class="markdown-strong">Conditional Rendering</strong>: Intelligent display logic</li></ul><h5 id="content-management" class="markdown-heading-4 markdown-heading">Content Management<a class="heading-anchor" href="#content-management">&#xB6;</a></h5><p class="markdown-paragraph">Content is managed through a file-based system:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Markdown Processing</strong>: Custom parser with extended syntax support</li><li class="list-item"><strong class="markdown-strong">Project Metadata</strong>: Structured data for projects and features</li><li class="list-item"><strong class="markdown-strong">Content Organization</strong>: Logical directory structure for maintainability</li><li class="list-item"><strong class="markdown-strong">Static Content Generation</strong>: Pre-processed at build time for performance</li></ul><h5 id="front-end-architecture" class="markdown-heading-4 markdown-heading">Front-End Architecture<a class="heading-anchor" href="#front-end-architecture">&#xB6;</a></h5><p class="markdown-paragraph">The front-end is built with a modern, lightweight approach:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Vanilla JavaScript</strong>: No heavy frameworks, just focused functionality</li><li class="list-item"><strong class="markdown-strong">CSS Architecture</strong>: Modular CSS with custom properties</li><li class="list-item"><strong class="markdown-strong">Progressive Enhancement</strong>: Core functionality works without JavaScript</li><li class="list-item"><strong class="markdown-strong">Performance Optimization</strong>: Asset minification and efficient loading</li></ul><h3 id="data-flow" class="markdown-heading-2 markdown-heading">Data Flow<a class="heading-anchor" href="#data-flow">&#xB6;</a></h3><ol class="ordered-list"><li class="list-item">Client makes a request to the Axum server</li><li class="list-item">Router directs request to the appropriate handler</li><li class="list-item">Handler queries the content store for needed data</li><li class="list-item">Tera renders templates with the data context</li><li class="list-item">Server responds with the rendered HTML</li><li class="list-item">Client-side JavaScript enhances the experience</li></ol><h3 id="technical-implementation" class="markdown-heading-2 markdown-heading">Technical Implementation<a class="heading-anchor" href="#technical-implementation">&#xB6;</a></h3><h4 id="server-components" class="markdown-heading-3 markdown-heading">Server Components<a class="heading-anchor" href="#server-components">&#xB6;</a></h4><p class="markdown-paragraph">The server-side code is organized into these main modules:</p><div class="command-window">
+</span></div></div></div><h4 id="core-components" class="markdown-heading-3 markdown-heading">Core Components<a class="heading-anchor" href="#core-components">&#xB6;</a></h4><h5 id="axum-web-server" class="markdown-heading-4 markdown-heading">Axum Web Server<a class="heading-anchor" href="#axum-web-server">&#xB6;</a></h5><p class="markdown-paragraph">The application is powered by Axum, a modern Rust web framework:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Async Runtime</strong>: Built on Tokio for high-performance, non-blocking I/O</li><li class="list-item"><strong class="markdown-strong">Type-Safe Routing</strong>: Compile-time route verification</li><li class="list-item"><strong class="markdown-strong">Middleware Stack</strong>: Logging, compression, and security enhancements</li><li class="list-item"><strong class="markdown-strong">Error Handling</strong>: Graceful error recovery and reporting</li></ul><h5 id="tera-templating" class="markdown-heading-4 markdown-heading">Tera Templating<a class="heading-anchor" href="#tera-templating">&#xB6;</a></h5><p class="markdown-paragraph">The templating system uses Tera, a Jinja/Django-inspired template engine:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Component-Based Structure</strong>: Modular templates with inheritance</li><li class="list-item"><strong class="markdown-strong">Context Injection</strong>: Dynamic data binding from Rust to templates</li><li class="list-item"><strong class="markdown-strong">Filters and Macros</strong>: Powerful transformation capabilities</li><li class="list-item"><strong class="markdown-strong">Conditional Rendering</strong>: Intelligent display logic</li></ul><h5 id="content-management" class="markdown-heading-4 markdown-heading">Content Management<a class="heading-anchor" href="#content-management">&#xB6;</a></h5><p class="markdown-paragraph">Content is managed through a file-based system:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Markdown Processing</strong>: Custom parser with extended syntax support</li><li class="list-item"><strong class="markdown-strong">Project Metadata</strong>: Structured data for projects and features</li><li class="list-item"><strong class="markdown-strong">Content Organization</strong>: Logical directory structure for maintainability</li><li class="list-item"><strong class="markdown-strong">Static Content Generation</strong>: Pre-processed at build time for performance</li></ul><h5 id="front-end-architecture" class="markdown-heading-4 markdown-heading">Front-End Architecture<a class="heading-anchor" href="#front-end-architecture">&#xB6;</a></h5><p class="markdown-paragraph">The front-end is built with a modern, lightweight approach:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Vanilla JavaScript</strong>: No heavy frameworks, just focused functionality</li><li class="list-item"><strong class="markdown-strong">CSS Architecture</strong>: Modular CSS with custom properties</li><li class="list-item"><strong class="markdown-strong">Progressive Enhancement</strong>: Core functionality works without JavaScript</li><li class="list-item"><strong class="markdown-strong">Performance Optimization</strong>: Asset minification and efficient loading</li></ul><h3 id="data-flow" class="markdown-heading-2 markdown-heading">Data Flow<a class="heading-anchor" href="#data-flow">&#xB6;</a></h3><ol class="ordered-list"><li class="list-item">Client makes a request to the Axum server</li><li class="list-item">Router directs request to the appropriate handler</li><li class="list-item">Handler queries the content store for needed data</li><li class="list-item">Tera renders templates with the data context</li><li class="list-item">Server responds with the rendered HTML</li><li class="list-item">Client-side JavaScript enhances the experience</li></ol><h3 id="development-vs--production-mode" class="markdown-heading-2 markdown-heading">Development vs. Production Mode<a class="heading-anchor" href="#development-vs--production-mode">&#xB6;</a></h3><p class="markdown-paragraph">The portfolio operates in two distinct modes:</p><h4 id="development-mode" class="markdown-heading-3 markdown-heading">Development Mode<a class="heading-anchor" href="#development-mode">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item">Runs a live Axum server with </li><li class="list-item">Serves content dynamically from templates and source files</li><li class="list-item">Supports hot-reloading for immediate feedback on changes</li><li class="list-item">Enables real-time preview of content changes</li></ul><h4 id="production-mode--static-site-generation" class="markdown-heading-3 markdown-heading">Production Mode (Static Site Generation)<a class="heading-anchor" href="#production-mode--static-site-generation">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item">Uses  to generate static HTML files</li><li class="list-item">Renders all pages to a  directory for deployment</li><li class="list-item">Processes all templates with project data</li><li class="list-item">Copies and optimizes static assets</li><li class="list-item">Creates a complete static site deployable to GitHub Pages</li></ul><h3 id="technical-implementation" class="markdown-heading-2 markdown-heading">Technical Implementation<a class="heading-anchor" href="#technical-implementation">&#xB6;</a></h3><h4 id="server-components" class="markdown-heading-3 markdown-heading">Server Components<a class="heading-anchor" href="#server-components">&#xB6;</a></h4><p class="markdown-paragraph">The server-side code is organized into these main modules:</p><div class="command-window">
     <div class="command-header">
         <div class="window-controls">
             <span class="window-control close"></span>
@@ -586,6 +1266,9 @@
 ├── handlers/         # Request handlers
 ├── markdown.rs       # Markdown processing
 ├── main.rs           # Application entry point
+├── lib.rs            # Core functionality
+└── bin/
+    └── build.rs      # Static site generator
 
 </span></div></div></div><h4 id="template-organization" class="markdown-heading-3 markdown-heading">Template Organization<a class="heading-anchor" href="#template-organization">&#xB6;</a></h4><p class="markdown-paragraph">Templates follow a hierarchical structure:</p><div class="command-window">
     <div class="command-header">
@@ -629,14 +1312,14 @@
 ├── js/               # JavaScript files
 └── images/           # Image assets
 
-</span></div></div></div><h3 id="performance-optimizations" class="markdown-heading-2 markdown-heading">Performance Optimizations<a class="heading-anchor" href="#performance-optimizations">&#xB6;</a></h3><p class="markdown-paragraph">The application includes several performance optimizations:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Lazy Loading</strong>: Images and heavy content load only when needed</li><li class="list-item"><strong class="markdown-strong">Code Splitting</strong>: JavaScript is modularized for efficient loading</li><li class="list-item"><strong class="markdown-strong">CSS Optimization</strong>: Minimal CSS with targeted loading strategies</li><li class="list-item"><strong class="markdown-strong">Caching Strategy</strong>: Appropriate cache headers for static content</li><li class="list-item"><strong class="markdown-strong">Progressive Rendering</strong>: Critical path rendering for fast initial load</li></ul><h3 id="deployment-architecture" class="markdown-heading-2 markdown-heading">Deployment Architecture<a class="heading-anchor" href="#deployment-architecture">&#xB6;</a></h3><p class="markdown-paragraph">The application is deployed with a streamlined approach:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Docker Containerization</strong>: Consistent environment across deployments</li><li class="list-item"><strong class="markdown-strong">Static File Serving</strong>: Efficient delivery of immutable assets</li><li class="list-item"><strong class="markdown-strong">CDN Integration</strong>: Geographic distribution for low latency</li><li class="list-item"><strong class="markdown-strong">HTTPS Everywhere</strong>: Secure connections for all traffic</li></ul>
+</span></div></div></div><h3 id="performance-optimizations" class="markdown-heading-2 markdown-heading">Performance Optimizations<a class="heading-anchor" href="#performance-optimizations">&#xB6;</a></h3><p class="markdown-paragraph">The application includes several performance optimizations:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Lazy Loading</strong>: Images and heavy content load only when needed</li><li class="list-item"><strong class="markdown-strong">Code Splitting</strong>: JavaScript is modularized for efficient loading</li><li class="list-item"><strong class="markdown-strong">CSS Optimization</strong>: Minimal CSS with targeted loading strategies</li><li class="list-item"><strong class="markdown-strong">Caching Strategy</strong>: Appropriate cache headers for static content</li><li class="list-item"><strong class="markdown-strong">Progressive Rendering</strong>: Critical path rendering for fast initial load</li></ul><h3 id="deployment-architecture" class="markdown-heading-2 markdown-heading">Deployment Architecture<a class="heading-anchor" href="#deployment-architecture">&#xB6;</a></h3><p class="markdown-paragraph">The application is deployed with a streamlined approach:</p><ul class="unordered-list"><li class="list-item"><strong class="markdown-strong">Static Site Generation</strong>: Pre-rendered HTML for optimal performance</li><li class="list-item"><strong class="markdown-strong">GitHub Pages Hosting</strong>: Simple deployment with version control</li><li class="list-item"><strong class="markdown-strong">Base Path Configuration</strong>: Configurable base path for different environments</li><li class="list-item"><strong class="markdown-strong">Asset Optimization</strong>: Minified and bundled assets for production</li></ul>
                 </div>
             </div>
             
-            <div class="docs-panel hidden" id="section-3">
+            <div class="docs-panel hidden" id="section-5">
                 <div class="markdown-content" data-flow-name="development">
                     <!-- Content will load instantly but might be further enhanced by JavaScript -->
-                    <h2 id="development-guide" class="markdown-heading-1 markdown-heading">Development Guide<a class="heading-anchor" href="#development-guide">&#xB6;</a></h2><p class="markdown-paragraph">This guide covers the development workflow and patterns used in the Cybrdelic Portfolio project. Follow these guidelines to maintain consistency when making changes or adding features.</p><h3 id="getting-started" class="markdown-heading-2 markdown-heading">Getting Started<a class="heading-anchor" href="#getting-started">&#xB6;</a></h3><h4 id="prerequisites" class="markdown-heading-3 markdown-heading">Prerequisites<a class="heading-anchor" href="#prerequisites">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item"><a href="https://www.rust-lang.org/tools/install" class="markdown-link">Rust</a> <span class="count-up" data-final-value="1">0</span>.<span class="count-up" data-final-value="65">0</span> or newer</li><li class="list-item"><a href="https://nodejs.org/" class="markdown-link">Node.js</a> <span class="count-up" data-final-value="16">0</span> or newer (for frontend tooling)</li><li class="list-item"><a href="https://git-scm.com/downloads" class="markdown-link">Git</a></li></ul><h4 id="local-development-setup" class="markdown-heading-3 markdown-heading">Local Development Setup<a class="heading-anchor" href="#local-development-setup">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item">Clone the repository:</li></ol><div class="command-window">
+                    <h2 id="development-guide" class="markdown-heading-1 markdown-heading">Development Guide<a class="heading-anchor" href="#development-guide">&#xB6;</a></h2><p class="markdown-paragraph">This guide covers the development workflow and patterns used in the Cybrdelic Portfolio project. Follow these guidelines to maintain consistency when making changes or adding features.</p><h3 id="getting-started" class="markdown-heading-2 markdown-heading">Getting Started<a class="heading-anchor" href="#getting-started">&#xB6;</a></h3><h4 id="prerequisites" class="markdown-heading-3 markdown-heading">Prerequisites<a class="heading-anchor" href="#prerequisites">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item"><a href="https://www.rust-lang.org/tools/install" class="markdown-link">Rust</a> <span class="count-up" data-final-value="1">0</span>.<span class="count-up" data-final-value="65">0</span> or newer</li><li class="list-item"><a href="https://git-scm.com/downloads" class="markdown-link">Git</a></li></ul><h4 id="local-development-setup" class="markdown-heading-3 markdown-heading">Local Development Setup<a class="heading-anchor" href="#local-development-setup">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item">Clone the repository:</li></ol><div class="command-window">
     <div class="command-header">
         <div class="window-controls">
             <span class="window-control close"></span>
@@ -662,7 +1345,6 @@ cd cybrdelic-portfolio
         <div class="command-line">
             <span class="terminal-prompt">$</span>
             <span class="terminal-command">cargo build
-npm install
 
 </span></div></div></div><ol class="ordered-list"><li class="list-item">Start the development server:</li></ol><div class="command-window">
     <div class="command-header">
@@ -675,7 +1357,10 @@ npm install
     <div class="command-body">
         <div class="command-line">
             <span class="terminal-prompt">$</span>
-            <span class="terminal-command">cargo run
+            <span class="terminal-command">./restart.sh
+
+# or directly:
+cargo run
 
 </span></div></div></div><p class="markdown-paragraph">This will start the server at http://localhost:<span class="count-up" data-final-value="3000">0</span>.</p><h3 id="project-structure" class="markdown-heading-2 markdown-heading">Project Structure<a class="heading-anchor" href="#project-structure">&#xB6;</a></h3><p class="markdown-paragraph">The project follows a modular organization:</p><div class="command-window">
     <div class="command-header">
@@ -690,12 +1375,21 @@ npm install
             <span class="terminal-prompt">$</span>
             <span class="terminal-command">cybrdelic-portfolio/
 ├── content/               # Markdown content files
+│   └── projects/          # Project-specific markdown content
+│       └── project-name/  # Content for a specific project
+│           └── flows/     # Markdown files for project flows
 ├── src/                   # Rust source code
-├── static/                # Static assets
+│   ├── bin/               # Binaries including build.rs
+│   ├── handlers/          # Request handlers for routes
+│   └── markdown.rs        # Markdown processing utilities
+├── static/                # Static assets (CSS, JS, images)
 ├── templates/             # HTML templates
-└── Cargo.toml             # Rust package manifest
+│   ├── components/        # Reusable UI components
+│   └── sections/          # Page sections
+├── Cargo.toml             # Rust package manifest
+└── dist/                  # Generated static site (output)
 
-</span></div></div></div><h3 id="development-workflow" class="markdown-heading-2 markdown-heading">Development Workflow<a class="heading-anchor" href="#development-workflow">&#xB6;</a></h3><h4 id="adding-a-new-page" class="markdown-heading-3 markdown-heading">Adding a New Page<a class="heading-anchor" href="#adding-a-new-page">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item">Create a new handler in :</li></ol><div class="command-window">
+</span></div></div></div><h3 id="development-vs--production-workflows" class="markdown-heading-2 markdown-heading">Development vs. Production Workflows<a class="heading-anchor" href="#development-vs--production-workflows">&#xB6;</a></h3><h4 id="development-workflow" class="markdown-heading-3 markdown-heading">Development Workflow<a class="heading-anchor" href="#development-workflow">&#xB6;</a></h4><p class="markdown-paragraph">During development, the project runs as a live Axum server:</p><ol class="ordered-list"><li class="list-item">Make changes to the source code, templates, or content</li><li class="list-item">Restart the server with </li><li class="list-item">View changes at http://localhost:<span class="count-up" data-final-value="3000">0</span></li><li class="list-item">Repeat as needed</li></ol><h4 id="static-site-generation-workflow" class="markdown-heading-3 markdown-heading">Static Site Generation Workflow<a class="heading-anchor" href="#static-site-generation-workflow">&#xB6;</a></h4><p class="markdown-paragraph">For production deployment:</p><ol class="ordered-list"><li class="list-item">Update the  variable in  if needed</li><li class="list-item">Run the static site generator:</li></ol><div class="command-window">
     <div class="command-header">
         <div class="window-controls">
             <span class="window-control close"></span>
@@ -706,24 +1400,9 @@ npm install
     <div class="command-body">
         <div class="command-line">
             <span class="terminal-prompt">$</span>
-            <span class="terminal-command">// src/handlers/new_page.rs
-use crate::{AppError, AppState};
-use axum::{extract::State, response::Html};
-use tera::Context;
+            <span class="terminal-command">cargo run --bin build-site
 
-pub async fn index(State(state): State<AppState>) -> Result<Html<String>, AppError> {
-    let mut ctx = Context::new();
-    
-    // Add data to context
-    ctx.insert("page_title", "New Page");
-    
-    match state.tera.render("new_page.html", &ctx) {
-        Ok(html) => Ok(Html(html)),
-        Err(err) => Err(AppError::Template(err)),
-    }
-}
-
-</span></div></div></div><ol class="ordered-list"><li class="list-item">Register the route in :</li></ol><div class="command-window">
+</span></div></div></div><ol class="ordered-list"><li class="list-item">This generates a complete static site in the  directory</li><li class="list-item">Deploy the contents of  to your web hosting service</li></ol><h3 id="content-management" class="markdown-heading-2 markdown-heading">Content Management<a class="heading-anchor" href="#content-management">&#xB6;</a></h3><h4 id="markdown-content-structure" class="markdown-heading-3 markdown-heading">Markdown Content Structure<a class="heading-anchor" href="#markdown-content-structure">&#xB6;</a></h4><p class="markdown-paragraph">Content is stored in Markdown files:</p><div class="command-window">
     <div class="command-header">
         <div class="window-controls">
             <span class="window-control close"></span>
@@ -734,13 +1413,15 @@ pub async fn index(State(state): State<AppState>) -> Result<Html<String>, AppErr
     <div class="command-body">
         <div class="command-line">
             <span class="terminal-prompt">$</span>
-            <span class="terminal-command">// Add to existing router
-let app = Router::new()
-    // Existing routes...
-    .route("/new-page", get(handlers::new_page::index))
-    // ...
+            <span class="terminal-command">content/
+└── projects/
+    └── project-name/
+        └── flows/
+            ├── architecture.md
+            ├── design.md
+            └── development.md
 
-</span></div></div></div><ol class="ordered-list"><li class="list-item">Create a template in :</li></ol><div class="command-window">
+</span></div></div></div><p class="markdown-paragraph">Each Markdown file can include:</p><ul class="unordered-list"><li class="list-item">Headings (using #, ##, etc.)</li><li class="list-item">Code blocks (using ```language)</li><li class="list-item">Lists and tables</li><li class="list-item">Table of contents insertion with <nav class="table-of-contents"><h4>Contents</h4><ul><li class="toc-item level-1"><a href="#development-guide">Development Guide</a></li><li class="toc-item level-2"><a href="#getting-started">Getting Started</a></li><li class="toc-item level-3"><a href="#prerequisites">Prerequisites</a></li><li class="toc-item level-3"><a href="#local-development-setup">Local Development Setup</a></li><li class="toc-item level-2"><a href="#project-structure">Project Structure</a></li><li class="toc-item level-2"><a href="#development-vs--production-workflows">Development vs. Production Workflows</a></li><li class="toc-item level-3"><a href="#development-workflow">Development Workflow</a></li><li class="toc-item level-3"><a href="#static-site-generation-workflow">Static Site Generation Workflow</a></li><li class="toc-item level-2"><a href="#content-management">Content Management</a></li><li class="toc-item level-3"><a href="#markdown-content-structure">Markdown Content Structure</a></li><li class="toc-item level-3"><a href="#project-definition">Project Definition</a></li><li class="toc-item level-2"><a href="#template-system">Template System</a></li><li class="toc-item level-3"><a href="#template-hierarchy">Template Hierarchy</a></li><li class="toc-item level-3"><a href="#common-template-operations">Common Template Operations</a></li><li class="toc-item level-4"><a href="#extending-the-base-template">Extending the Base Template</a></li><li class="toc-item level-4"><a href="#including-components">Including Components</a></li><li class="toc-item level-4"><a href="#conditionals-and-loops">Conditionals and Loops</a></li><li class="toc-item level-2"><a href="#static-site-generation">Static Site Generation</a></li><li class="toc-item level-3"><a href="#base-path-configuration">Base Path Configuration</a></li><li class="toc-item level-2"><a href="#common-tasks">Common Tasks</a></li><li class="toc-item level-3"><a href="#adding-a-new-project">Adding a New Project</a></li><li class="toc-item level-3"><a href="#modifying-the-css">Modifying the CSS</a></li><li class="toc-item level-3"><a href="#source-code-collection">Source Code Collection</a></li></ul></nav></li><li class="list-item">Custom styling applied through the markdown processor</li></ul><h4 id="project-definition" class="markdown-heading-3 markdown-heading">Project Definition<a class="heading-anchor" href="#project-definition">&#xB6;</a></h4><p class="markdown-paragraph">Projects are defined programmatically in  using the  method. To add a new project:</p><ol class="ordered-list"><li class="list-item">Create the necessary content directory and markdown files</li><li class="list-item">Add the project definition to the  function</li><li class="list-item">Include all metadata (name, description, links, features, etc.)</li><li class="list-item">Ensure you create the appropriate flow configurations</li></ol><p class="markdown-paragraph">Example:</p><div class="command-window">
     <div class="command-header">
         <div class="window-controls">
             <span class="window-control close"></span>
@@ -751,15 +1432,42 @@ let app = Router::new()
     <div class="command-body">
         <div class="command-line">
             <span class="terminal-prompt">$</span>
-            <span class="terminal-command"><!-- This would normally use template inheritance but is shown as plain HTML for compatibility -->
-<!-- Template content -->
-<main class="new-page-container">
-    <h1>New Page</h1>
-    <!-- Page content here -->
-</main>
-<!-- End template content -->
+            <span class="terminal-command">Project::new(
+    "project-id",
+    "Project Name",
+    "Project Subtitle",
+    "Full description of the project...",
+    "/static/images/project.jpg",
+    "Image caption",
+    "svg-icon-path",
+    vec!["Technology 1", "Technology 2"],
+    vec![
+        ("Link Title", "https://example.com"),
+    ],
+    vec![
+        (
+            "Feature Title",
+            "Feature description",
+            "feature-icon-path"
+        ),
+    ],
+    (
+        "Architecture description",
+        "Implementation details",
+        "Challenges faced"
+    ),
+    vec!["keyword1", "keyword2"],
+    scan_flow_configs("project-id")?,
+    vec![
+        (
+            "Future Feature",
+            "Description of planned feature",
+            "Timeline"
+        ),
+    ],
+)?
 
-</span></div></div></div><ol class="ordered-list"><li class="list-item">Add CSS in :</li></ol><div class="command-window">
+</span></div></div></div><h3 id="template-system" class="markdown-heading-2 markdown-heading">Template System<a class="heading-anchor" href="#template-system">&#xB6;</a></h3><h4 id="template-hierarchy" class="markdown-heading-3 markdown-heading">Template Hierarchy<a class="heading-anchor" href="#template-hierarchy">&#xB6;</a></h4><p class="markdown-paragraph">The template system uses Tera and follows this hierarchy:</p><ol class="ordered-list"><li class="list-item"> - The main layout template that includes common elements</li><li class="list-item">Page templates (like , ) that extend base</li><li class="list-item">Section templates in  included within pages</li><li class="list-item">Component templates in  for reusable UI elements</li></ol><h4 id="common-template-operations" class="markdown-heading-3 markdown-heading">Common Template Operations<a class="heading-anchor" href="#common-template-operations">&#xB6;</a></h4><h5 id="extending-the-base-template" class="markdown-heading-4 markdown-heading">Extending the Base Template<a class="heading-anchor" href="#extending-the-base-template">&#xB6;</a></h5><div class="command-window">
     <div class="command-header">
         <div class="window-controls">
             <span class="window-control close"></span>
@@ -770,12 +1478,13 @@ let app = Router::new()
     <div class="command-body">
         <div class="command-line">
             <span class="terminal-prompt">$</span>
-            <span class="terminal-command">/* New page styles */
-.new-page-container {
-    /* styles here */
-}
+            <span class="terminal-command">{% extends "base.html" %}
 
-</span></div></div></div><ol class="ordered-list"><li class="list-item">Import the CSS in :</li></ol><div class="command-window">
+{% block content %}
+  <!-- Page content here -->
+{% endblock content %}
+
+</span></div></div></div><h5 id="including-components" class="markdown-heading-4 markdown-heading">Including Components<a class="heading-anchor" href="#including-components">&#xB6;</a></h5><div class="command-window">
     <div class="command-header">
         <div class="window-controls">
             <span class="window-control close"></span>
@@ -786,9 +1495,9 @@ let app = Router::new()
     <div class="command-body">
         <div class="command-line">
             <span class="terminal-prompt">$</span>
-            <span class="terminal-command">@import 'new_page.css';
+            <span class="terminal-command">{% include "components/component_name.html" %}
 
-</span></div></div></div><h4 id="adding-a-new-component" class="markdown-heading-3 markdown-heading">Adding a New Component<a class="heading-anchor" href="#adding-a-new-component">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item">Create a new file in :</li></ol><div class="command-window">
+</span></div></div></div><h5 id="conditionals-and-loops" class="markdown-heading-4 markdown-heading">Conditionals and Loops<a class="heading-anchor" href="#conditionals-and-loops">&#xB6;</a></h5><div class="command-window">
     <div class="command-header">
         <div class="window-controls">
             <span class="window-control close"></span>
@@ -799,13 +1508,15 @@ let app = Router::new()
     <div class="command-body">
         <div class="command-line">
             <span class="terminal-prompt">$</span>
-            <span class="terminal-command">{# components/new_component.html #}
-<div class="new-component">
-    <h2>{{ title }}</h2>
-    <p>{{ description }}</p>
-</div>
+            <span class="terminal-command">{% if condition %}
+  <!-- Conditional content -->
+{% endif %}
 
-</span></div></div></div><ol class="ordered-list"><li class="list-item">Add component styles in :</li></ol><div class="command-window">
+{% for item in items %}
+  <!-- Repeated content -->
+{% endfor %}
+
+</span></div></div></div><h3 id="static-site-generation" class="markdown-heading-2 markdown-heading">Static Site Generation<a class="heading-anchor" href="#static-site-generation">&#xB6;</a></h3><p class="markdown-paragraph">The static site generator is implemented in  and performs these steps:</p><ol class="ordered-list"><li class="list-item">Loads Tera templates</li><li class="list-item">Retrieves project data and career timeline</li><li class="list-item">Renders the index page and all project detail pages</li><li class="list-item">Copies static assets to the  directory</li></ol><p class="markdown-paragraph">To run the static site generator:</p><div class="command-window">
     <div class="command-header">
         <div class="window-controls">
             <span class="window-control close"></span>
@@ -816,11 +1527,9 @@ let app = Router::new()
     <div class="command-body">
         <div class="command-line">
             <span class="terminal-prompt">$</span>
-            <span class="terminal-command">.new-component {
-    /* Component styles */
-}
+            <span class="terminal-command">cargo run --bin build-site
 
-</span></div></div></div><ol class="ordered-list"><li class="list-item">Import the component styles in :</li></ol><div class="command-window">
+</span></div></div></div><h4 id="base-path-configuration" class="markdown-heading-3 markdown-heading">Base Path Configuration<a class="heading-anchor" href="#base-path-configuration">&#xB6;</a></h4><p class="markdown-paragraph">For GitHub Pages deployment, the  variable in  controls the URL prefix:</p><div class="command-window">
     <div class="command-header">
         <div class="window-controls">
             <span class="window-control close"></span>
@@ -831,75 +1540,10 @@ let app = Router::new()
     <div class="command-body">
         <div class="command-line">
             <span class="terminal-prompt">$</span>
-            <span class="terminal-command">@import 'components/new_component.css';
+            <span class="terminal-command">// Use empty string for local development, "/cybrdelic-portfolio/" for GitHub Pages
+let base_path = "/cybrdelic-portfolio/"; // Change as needed
 
-</span></div></div></div><ol class="ordered-list"><li class="list-item">Use the component in a template:</li></ol><div class="command-window">
-    <div class="command-header">
-        <div class="window-controls">
-            <span class="window-control close"></span>
-            <span class="window-control minimize"></span>
-            <span class="window-control maximize"></span>
-        </div>
-    </div>
-    <div class="command-body">
-        <div class="command-line">
-            <span class="terminal-prompt">$</span>
-            <span class="terminal-command"><!-- Component inclusion example (shown as HTML comment for compatibility) -->
-<!-- Example include with title="Example" description="This is an example" -->
-
-</span></div></div></div><h3 id="coding-standards" class="markdown-heading-2 markdown-heading">Coding Standards<a class="heading-anchor" href="#coding-standards">&#xB6;</a></h3><h4 id="rust" class="markdown-heading-3 markdown-heading">Rust<a class="heading-anchor" href="#rust">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item">Follow the <a href="https://rust-lang.github.io/api-guidelines/" class="markdown-link">Rust API Guidelines</a></li><li class="list-item">Use  for consistent formatting</li><li class="list-item">Use  to catch common mistakes</li><li class="list-item">Document public functions and types with doc comments</li></ul><h4 id="html" class="markdown-heading-3 markdown-heading">HTML<a class="heading-anchor" href="#html">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item">Use semantic HTML5 elements</li><li class="list-item">Follow a component-based approach</li><li class="list-item">Keep templates modular and reusable</li><li class="list-item">Use Tera's inheritance and includes</li></ul><h4 id="css" class="markdown-heading-3 markdown-heading">CSS<a class="heading-anchor" href="#css">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item">Follow BEM (Block Element Modifier) naming convention</li><li class="list-item">Organize CSS into logical modules</li><li class="list-item">Use CSS variables for theming and consistency</li><li class="list-item">Prefix utility classes appropriately</li></ul><h4 id="javascript" class="markdown-heading-3 markdown-heading">JavaScript<a class="heading-anchor" href="#javascript">&#xB6;</a></h4><ul class="unordered-list"><li class="list-item">Write modular, self-contained functions</li><li class="list-item">Use ES6+ features but ensure browser compatibility</li><li class="list-item">Add appropriate comments for complex logic</li><li class="list-item">Follow the principle of progressive enhancement</li></ul><h3 id="testing" class="markdown-heading-2 markdown-heading">Testing<a class="heading-anchor" href="#testing">&#xB6;</a></h3><h4 id="rust-tests" class="markdown-heading-3 markdown-heading">Rust Tests<a class="heading-anchor" href="#rust-tests">&#xB6;</a></h4><p class="markdown-paragraph">Run Rust tests with:</p><div class="command-window">
-    <div class="command-header">
-        <div class="window-controls">
-            <span class="window-control close"></span>
-            <span class="window-control minimize"></span>
-            <span class="window-control maximize"></span>
-        </div>
-    </div>
-    <div class="command-body">
-        <div class="command-line">
-            <span class="terminal-prompt">$</span>
-            <span class="terminal-command">cargo test
-
-</span></div></div></div><h4 id="frontend-tests" class="markdown-heading-3 markdown-heading">Frontend Tests<a class="heading-anchor" href="#frontend-tests">&#xB6;</a></h4><p class="markdown-paragraph">For CSS and JavaScript:</p><ol class="ordered-list"><li class="list-item">Visual testing against design specifications</li><li class="list-item">Cross-browser testing (Chrome, Firefox, Safari)</li><li class="list-item">Responsive design testing</li></ol><h3 id="deployment" class="markdown-heading-2 markdown-heading">Deployment<a class="heading-anchor" href="#deployment">&#xB6;</a></h3><p class="markdown-paragraph">The portfolio is deployed using a simple build process:</p><ol class="ordered-list"><li class="list-item">Build the Rust application:</li></ol><div class="command-window">
-    <div class="command-header">
-        <div class="window-controls">
-            <span class="window-control close"></span>
-            <span class="window-control minimize"></span>
-            <span class="window-control maximize"></span>
-        </div>
-    </div>
-    <div class="command-body">
-        <div class="command-line">
-            <span class="terminal-prompt">$</span>
-            <span class="terminal-command">cargo build --release
-
-</span></div></div></div><ol class="ordered-list"><li class="list-item">Optimize static assets:</li></ol><div class="command-window">
-    <div class="command-header">
-        <div class="window-controls">
-            <span class="window-control close"></span>
-            <span class="window-control minimize"></span>
-            <span class="window-control maximize"></span>
-        </div>
-    </div>
-    <div class="command-body">
-        <div class="command-line">
-            <span class="terminal-prompt">$</span>
-            <span class="terminal-command">npm run build
-
-</span></div></div></div><ol class="ordered-list"><li class="list-item">Deploy the built application:</li></ol><div class="command-window">
-    <div class="command-header">
-        <div class="window-controls">
-            <span class="window-control close"></span>
-            <span class="window-control minimize"></span>
-            <span class="window-control maximize"></span>
-        </div>
-    </div>
-    <div class="command-body">
-        <div class="command-line">
-            <span class="terminal-prompt">$</span>
-            <span class="terminal-command">./deploy.sh
-
-</span></div></div></div><h3 id="common-tasks" class="markdown-heading-2 markdown-heading">Common Tasks<a class="heading-anchor" href="#common-tasks">&#xB6;</a></h3><h4 id="adding-a-new-project" class="markdown-heading-3 markdown-heading">Adding a New Project<a class="heading-anchor" href="#adding-a-new-project">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item">Create a new directory in :</li></ol><div class="command-window">
+</span></div></div></div><h3 id="common-tasks" class="markdown-heading-2 markdown-heading">Common Tasks<a class="heading-anchor" href="#common-tasks">&#xB6;</a></h3><h4 id="adding-a-new-project" class="markdown-heading-3 markdown-heading">Adding a New Project<a class="heading-anchor" href="#adding-a-new-project">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item">Create the directory structure for content:</li></ol><div class="command-window">
     <div class="command-header">
         <div class="window-controls">
             <span class="window-control close"></span>
@@ -912,7 +1556,7 @@ let app = Router::new()
             <span class="terminal-prompt">$</span>
             <span class="terminal-command">mkdir -p content/projects/new-project/flows
 
-</span></div></div></div><ol class="ordered-list"><li class="list-item">Add project markdown files:</li></ol><div class="command-window">
+</span></div></div></div><ol class="ordered-list"><li class="list-item">Add markdown files for project documentation:</li></ol><div class="command-window">
     <div class="command-header">
         <div class="window-controls">
             <span class="window-control close"></span>
@@ -924,8 +1568,22 @@ let app = Router::new()
         <div class="command-line">
             <span class="terminal-prompt">$</span>
             <span class="terminal-command">touch content/projects/new-project/flows/architecture.md
+touch content/projects/new-project/flows/features.md
 
-</span></div></div></div><ol class="ordered-list"><li class="list-item">Update the project list in </li></ol><h4 id="updating-the-theme" class="markdown-heading-3 markdown-heading">Updating the Theme<a class="heading-anchor" href="#updating-the-theme">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item">Modify theme variables in </li><li class="list-item">Test in both light and dark modes</li></ol>
+</span></div></div></div><ol class="ordered-list"><li class="list-item"><p class="markdown-paragraph">Add project image to </p></li><li class="list-item"><p class="markdown-paragraph">Add the project definition to  in the  function</p></li><li class="list-item"><p class="markdown-paragraph">Optional: Create an SVG icon in </p></li><li class="list-item"><p class="markdown-paragraph">Rebuild/restart the site to see your changes</p></li></ol><h4 id="modifying-the-css" class="markdown-heading-3 markdown-heading">Modifying the CSS<a class="heading-anchor" href="#modifying-the-css">&#xB6;</a></h4><ol class="ordered-list"><li class="list-item">Locate the appropriate CSS file in </li><li class="list-item">Make your changes following the existing patterns</li><li class="list-item">For theme changes, modify </li><li class="list-item">Restart the server to see your changes</li></ol><h4 id="source-code-collection" class="markdown-heading-3 markdown-heading">Source Code Collection<a class="heading-anchor" href="#source-code-collection">&#xB6;</a></h4><p class="markdown-paragraph">The project includes a utility script to gather all source code into a single file for easy reference:</p><div class="command-window">
+    <div class="command-header">
+        <div class="window-controls">
+            <span class="window-control close"></span>
+            <span class="window-control minimize"></span>
+            <span class="window-control maximize"></span>
+        </div>
+    </div>
+    <div class="command-body">
+        <div class="command-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">./copy.sh
+
+</span></div></div></div><p class="markdown-paragraph">This creates a  file containing all source code.</p>
                 </div>
             </div>
             
