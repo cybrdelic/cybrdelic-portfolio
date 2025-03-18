@@ -847,6 +847,174 @@ document.addEventListener("DOMContentLoaded", function() {
     // Initialize mobile-specific enhancements
     initMobileSections();
     
+    // Mobile Project Cards Enhancement
+    function enhanceProjectsSection() {
+        const projectsList = document.querySelector('.projects-list');
+        const projectItems = document.querySelectorAll('.project-list-item');
+        if (!projectsList || projectItems.length === 0) return;
+        
+        // Create proper mobile card structure for each project
+        projectItems.forEach((item, index) => {
+            // Skip if already enhanced
+            if (item.classList.contains('mobile-enhanced')) return;
+            
+            // Mark as enhanced
+            item.classList.add('mobile-enhanced');
+            
+            // Get existing data
+            const title = item.querySelector('.project-list-title').textContent;
+            const subtitle = item.getAttribute('data-subtitle') || '';
+            const description = item.querySelector('.hidden-description')?.textContent || '';
+            const projectId = item.getAttribute('data-id');
+            const techItems = item.querySelectorAll('.tech-item');
+            
+            // Create card structure
+            item.innerHTML = `
+                <div class="project-card-content">
+                    <h3 class="project-card-title">${title}</h3>
+                    <div class="project-card-subtitle">${subtitle}</div>
+                    <div class="project-card-description">${description}</div>
+                    <div class="project-card-tech"></div>
+                </div>
+                <div class="project-card-action">
+                    <div class="action-button" data-project-id="${projectId}">
+                        <span class="action-text">VIEW</span>
+                        <span class="action-icon">→</span>
+                    </div>
+                </div>
+            `;
+            
+            // Add tech items
+            const techContainer = item.querySelector('.project-card-tech');
+            techItems.forEach(tech => {
+                const techTag = document.createElement('span');
+                techTag.className = 'project-card-tech-tag';
+                techTag.textContent = tech.textContent;
+                techContainer.appendChild(techTag);
+            });
+            
+            // Add select event
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Handle action button separately (navigate to project)
+                const actionButton = e.target.closest('.action-button');
+                if (actionButton) {
+                    const projectId = actionButton.getAttribute('data-project-id');
+                    window.location.href = `${base_path}projects/${projectId}`;
+                    return;
+                }
+                
+                // Set current item as active and update details panel
+                projectItems.forEach(p => p.classList.remove('active'));
+                item.classList.add('active');
+                
+                // Slightly different layout for mobile - scroll to center selected item
+                const itemRect = item.getBoundingClientRect();
+                const containerRect = projectsList.getBoundingClientRect();
+                const scrollLeft = projectsList.scrollLeft;
+                const centerPosition = scrollLeft + (itemRect.left - containerRect.left) - 
+                                     (containerRect.width / 2) + (itemRect.width / 2);
+                
+                projectsList.scrollTo({
+                    left: centerPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Update the indicators
+                const dots = document.querySelectorAll('.projects-indicator-dot');
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+                
+                // Update project details
+                updateProjectDetails(item);
+                
+                // Add haptic feedback
+                if (window.navigator && window.navigator.vibrate) {
+                    window.navigator.vibrate(10);
+                }
+            });
+        });
+        
+        // Create indicators for projects
+        if (!document.querySelector('.projects-indicator')) {
+            const indicator = document.createElement('div');
+            indicator.className = 'projects-indicator';
+            
+            projectItems.forEach((_, index) => {
+                const dot = document.createElement('span');
+                dot.className = 'projects-indicator-dot';
+                if (index === 0) dot.classList.add('active');
+                
+                // Add dot click handler
+                dot.addEventListener('click', () => {
+                    const item = projectItems[index];
+                    if (item) {
+                        // Simulate click on the item
+                        item.click();
+                    }
+                });
+                
+                indicator.appendChild(dot);
+            });
+            
+            // Add indicator after projects list
+            projectsList.parentNode.insertBefore(indicator, projectsList.nextSibling);
+        }
+        
+        // Add scroll event to update active indicator
+        projectsList.addEventListener('scroll', function() {
+            // Use requestAnimationFrame for better performance
+            requestAnimationFrame(() => {
+                const scrollPosition = this.scrollLeft;
+                const containerWidth = this.clientWidth;
+                
+                // Find the center-most item
+                let closestItem = null;
+                let closestDistance = Infinity;
+                
+                projectItems.forEach((item) => {
+                    const rect = item.getBoundingClientRect();
+                    const itemCenter = rect.left + (rect.width / 2);
+                    const containerCenter = this.getBoundingClientRect().left + (containerWidth / 2);
+                    const distance = Math.abs(itemCenter - containerCenter);
+                    
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestItem = item;
+                    }
+                });
+                
+                // Update active state if we found a center item
+                if (closestItem) {
+                    projectItems.forEach(p => p.classList.remove('active'));
+                    closestItem.classList.add('active');
+                    
+                    // Update project details panel
+                    updateProjectDetails(closestItem);
+                    
+                    // Update indicators
+                    const dots = document.querySelectorAll('.projects-indicator-dot');
+                    const activeIndex = Array.prototype.indexOf.call(projectItems, closestItem);
+                    dots.forEach((dot, i) => {
+                        dot.classList.toggle('active', i === activeIndex);
+                    });
+                }
+            });
+        }, { passive: true });
+        
+        // Initialize with first project
+        if (projectItems.length > 0) {
+            projectItems[0].classList.add('active');
+            updateProjectDetails(projectItems[0]);
+        }
+    }
+    
+    // Call the function to enhance projects section
+    enhanceProjectsSection();
+    
     // Make navigation more responsive
     const navLinks = document.querySelectorAll('.nav a.cmd');
     const sections = document.querySelectorAll('section[id]');
