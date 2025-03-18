@@ -1,7 +1,7 @@
-/* mobile.css - Enhanced mobile interactions while preserving visual design */
+/* mobile.css - Enhanced mobile-optimized experience with cyberpunk aesthetic */
 
-/* These styles add mobile-specific touch behaviors and interactions 
-   without changing the core visual design of the site */
+/* These styles create a streamlined mobile experience that preserves
+   the cyberpunk aesthetic while providing better usability on mobile devices */
 
 :root {
     /* Mobile-specific touch variables - maintain existing design language */
@@ -10,6 +10,27 @@
     --touch-ripple-duration: 0.5s;
     --touch-transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     --touch-scale-factor: 0.98; /* Subtle scale for cohesive feel */
+    
+    /* Mobile-specific sizing */
+    --mobile-card-height: auto;
+    --mobile-card-max-height: none;
+    --mobile-card-width: 85%;
+    --mobile-card-min-width: 280px;
+    --mobile-panel-padding: var(--space-md);
+    --mobile-section-spacing: var(--space-lg);
+    --mobile-bottom-nav-height: 60px;
+
+    /* Image sizing for mobile */
+    --mobile-image-max-height: 200px;
+    --mobile-detail-image-max-height: 250px;
+    --mobile-thumbnail-height: 160px;
+    --mobile-project-image-width: 100%;
+    --mobile-card-image-ratio: 16/9;
+    
+    /* Improved spacing for mobile */
+    --mobile-content-padding: 16px;
+    --mobile-section-padding: 40px 16px;
+    --mobile-card-margin: 0 auto 16px auto;
 }
 
 /* Enable momentum scrolling for all elements on touch devices */
@@ -22,26 +43,319 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-/* Floating action button - for quick page navigation */
+/* Ensure content is properly sized for mobile viewports */
+@media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+    }
+    
+    section {
+        overflow-x: hidden !important;
+        width: 100%;
+    }
+    
+    /* Fix font sizing for better readability on mobile */
+    .details-header, .section-title {
+        font-size: var(--font-size-lg) !important;
+        line-height: 1.3 !important;
+    }
+    
+    .details-description, p {
+        font-size: var(--font-size-sm) !important;
+        line-height: 1.5 !important;
+    }
+}
+
+/* Mobile Bottom Navigation Bar */
+.mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: var(--mobile-bottom-nav-height);
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: none; /* Hidden by default, shown only on mobile */
+    align-items: center;
+    justify-content: space-around;
+    z-index: 1000;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .mobile-bottom-nav {
+        display: flex;
+    }
+}
+
+.mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    height: 100%;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    padding: 8px 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.mobile-nav-item.active {
+    color: var(--color-text-primary);
+}
+
+.mobile-nav-item.active::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2px;
+    background-color: var(--color-text-primary);
+    border-radius: 2px;
+}
+
+.mobile-nav-icon {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.mobile-nav-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+/* Enhanced floating action button for mobile experience */
 .mobile-fab {
     position: fixed;
-    bottom: 24px;
-    right: 24px;
-    width: 56px;
-    height: 56px;
+    bottom: calc(var(--mobile-bottom-nav-height) + 16px);
+    right: 16px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    background: var(--color-accent);
+    background: rgba(0, 0, 0, 0.7);
     display: none; /* Hidden initially, shown by JS when scrolled */
     opacity: 0;
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-    color: var(--bg-primary);
+    z-index: 1001;
+    color: var(--color-accent);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
                 opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
                 box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
+    border: 1px solid rgba(0, 238, 255, 0.3);
+}
+
+/* Add cyberpunk glow effect */
+.mobile-fab::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(0, 238, 255, 0.2) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Mobile-optimized Image Containers */
+@media (max-width: 768px) {
+    /* All project images */
+    .project-card img,
+    .showcase-image,
+    .related-image-container img {
+        width: var(--mobile-project-image-width);
+        object-fit: cover;
+        transition: transform 0.3s ease, filter 0.3s ease;
+        will-change: transform;
+        transform: translateZ(0);
+    }
+    
+    /* Project card images */
+    .project-card {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .project-card-image-container {
+        position: relative;
+        overflow: hidden;
+        height: var(--mobile-thumbnail-height);
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Optimize image loading with placeholder and fade-in animation */
+    .image-loading {
+        opacity: 0;
+        filter: blur(10px);
+        transition: opacity 0.5s ease, filter 0.5s ease;
+    }
+    
+    .image-loaded {
+        opacity: 1;
+        filter: blur(0);
+    }
+    
+    /* Image loading placeholder with cyberpunk aesthetic */
+    .image-placeholder {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, rgba(0, 0, 0, 0.8), rgba(20, 20, 40, 0.8));
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .image-placeholder::before {
+        content: '';
+        width: 30px;
+        height: 30px;
+        border: 2px solid rgba(0, 238, 255, 0.3);
+        border-top-color: var(--color-accent);
+        border-radius: 50%;
+        animation: spinner 0.8s linear infinite;
+    }
+    
+    @keyframes spinner {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    
+    /* Cyberpunk overlay for images */
+    .image-overlay-effect {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            135deg,
+            rgba(0, 238, 255, 0.1) 0%,
+            transparent 40%,
+            transparent 60%,
+            rgba(255, 0, 128, 0.1) 100%
+        );
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .project-card:hover .image-overlay-effect,
+    .showcase-image-container:hover .image-overlay-effect {
+        opacity: 1;
+    }
+    
+    /* Project detail page image enhancements */
+    .showcase-image-container {
+        max-height: var(--mobile-detail-image-max-height);
+        aspect-ratio: var(--mobile-card-image-ratio);
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--border-radius);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        margin-bottom: var(--space-md);
+    }
+    
+    /* Add scan line effect on hover for cyberpunk aesthetic */
+    .project-card:hover .project-card-image-container::after,
+    .showcase-image-container:hover::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            to bottom,
+            transparent 0%,
+            transparent 50%,
+            rgba(0, 0, 0, 0.02) 50%,
+            rgba(0, 0, 0, 0.02) 100%
+        );
+        background-size: 100% 4px;
+        z-index: 2;
+        opacity: 0.3;
+        pointer-events: none;
+    }
+    
+    /* Related projects image optimization */
+    .related-image-container {
+        height: var(--mobile-thumbnail-height);
+        aspect-ratio: var(--mobile-card-image-ratio);
+        overflow: hidden;
+        position: relative;
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+    }
+    
+    .related-image-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.1) 0%,
+            transparent 50%,
+            rgba(0, 0, 0, 0.3) 100%
+        );
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+    }
+    
+    .related-card:hover .related-image-container::before {
+        opacity: 1;
+    }
+    
+    .related-card {
+        transform: translateZ(0); /* Force GPU acceleration for smoother animations */
+        will-change: transform;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+    
+    .related-card:active {
+        transform: scale(0.98) !important;
+    }
+}
+
+.mobile-fab:active {
+    transform: scale(0.95) !important;
+}
+
+.mobile-fab:active::before {
+    opacity: 1;
+}
+
+/* Pulse animation for the FAB when it appears */
+@keyframes fab-pulse {
+    0% { transform: scale(0.8); opacity: 0; }
+    70% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.mobile-fab.show-fab {
+    animation: fab-pulse 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 /* Pull-to-refresh indicator */

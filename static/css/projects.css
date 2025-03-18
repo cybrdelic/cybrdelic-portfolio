@@ -1144,17 +1144,19 @@
     }
     
     #projects .container {
-        padding: 0 var(--space-md);
+        padding: 0 var(--mobile-content-padding);
         width: 100%;
     }
     
-    /* Completely redesign projects section for mobile */
+    /* ===== MOBILE-FIRST REDESIGN ===== */
+    /* Complete mobile-optimized layout that preserves cyberpunk aesthetic */
     .projects-container {
         grid-template-columns: 1fr;
         gap: var(--space-md);
     }
     
-    /* Reverse order - list first, then details */
+    /* ===== PROJECT DETAILS PANEL ===== */
+    /* Optimized details panel as a card-based view */
     .project-details-panel {
         order: 2;
         grid-row: 2;
@@ -1164,13 +1166,28 @@
         max-height: none;
         overflow-y: visible !important;
         top: 0;
-        margin-top: 0;
+        margin-top: var(--space-md);
         width: 100%;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
         transition: transform 0.3s ease, opacity 0.3s ease;
+        backdrop-filter: blur(8px);
     }
     
-    /* Convert projects list to horizontal scrolling cards */
+    /* Add top glow to details panel */
+    .project-details-panel::after {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: 20px;
+        right: 20px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+        border-radius: 2px;
+        z-index: 2;
+    }
+    
+    /* ===== PROJECT CARDS LIST ===== */
+    /* Card-based horizontal scrolling layout */
     .projects-list {
         order: 1;
         grid-row: 1;
@@ -1183,22 +1200,28 @@
         gap: var(--space-md);
         max-height: none;
         width: 100vw;
-        margin: 0 calc(var(--space-md) * -1);
-        padding-left: var(--space-md);
+        margin: 0 calc(var(--mobile-content-padding) * -1);
+        padding-left: var(--mobile-content-padding);
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
         position: relative;
+        scrollbar-width: none; /* Hide scrollbar for Firefox */
+    }
+    
+    .projects-list::-webkit-scrollbar {
+        display: none; /* Hide scrollbar for Chrome/Safari */
     }
     
     .projects-list::after {
         content: "";
-        flex: 0 0 var(--space-md);
-        width: var(--space-md);
+        flex: 0 0 var(--mobile-content-padding);
+        width: var(--mobile-content-padding);
         height: 1px;
     }
     
-    /* Enhance project cards for better visibility and usability */
+    /* ===== PROJECT CARDS ===== */
+    /* Enhanced mobile-optimized project cards */
     .project-list-item {
         flex: 0 0 var(--mobile-card-width);
         min-width: var(--mobile-card-min-width);
@@ -1207,7 +1230,7 @@
         max-height: var(--mobile-card-max-height);
         padding: var(--space-md);
         margin-bottom: 0;
-        border-left-width: 3px;
+        border-width: 0;
         border-radius: var(--border-radius);
         background-color: rgba(255, 255, 255, 0.05);
         scroll-snap-align: start;
@@ -1216,19 +1239,41 @@
         transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
         display: flex;
         flex-direction: column;
+        position: relative;
+        overflow: hidden;
     }
     
-    /* Improve card states for better feedback */
+    /* Add subtle cyberpunk accent to cards */
+    .project-list-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, 
+            rgba(255, 255, 255, 0),
+            rgba(0, 238, 255, 0.7), 
+            rgba(255, 255, 255, 0));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    /* Style active card state */
     .project-list-item:active,
     .project-list-item.active {
         background-color: rgba(255, 255, 255, 0.1);
         transform: translateY(-5px);
-        border-left-color: var(--color-text-primary);
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     }
     
-    /* Card indicators for better UX */
-    .project-list-item::before {
+    .project-list-item:active::before,
+    .project-list-item.active::before {
+        opacity: 1;
+    }
+    
+    /* Add indicator for current card */
+    .project-list-item::after {
         content: '';
         position: absolute;
         bottom: var(--space-xs);
@@ -1242,12 +1287,13 @@
         transition: width 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
     }
     
-    .project-list-item.active::before {
+    .project-list-item.active::after {
         width: 20px;
         opacity: 1;
-        background-color: var(--color-text-primary);
+        background-color: var(--color-accent);
     }
     
+    /* ===== PROJECT TITLES ===== */
     /* Improved typography for mobile */
     .project-list-title {
         font-size: var(--font-size-md);
@@ -1256,8 +1302,28 @@
         margin-bottom: var(--space-xs);
         word-break: break-word;
         hyphens: auto;
+        position: relative;
+        padding-left: 0;
     }
     
+    /* Add cyberpunk accent to project titles */
+    .project-list-title::before {
+        content: '>';
+        position: absolute;
+        left: -15px;
+        top: 0;
+        color: var(--color-accent);
+        opacity: 0;
+        transform: translateX(-5px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    .project-list-item.active .project-list-title::before {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    
+    /* ===== PROJECT DESCRIPTIONS ===== */
     /* Always show project descriptions on mobile */
     .project-description {
         max-height: none !important;
@@ -1278,6 +1344,7 @@
         margin: 0;
     }
     
+    /* ===== PROJECT TECH TAGS ===== */
     /* Style project tech tags to be always visible */
     .project-tech {
         max-height: none !important;
@@ -1290,13 +1357,28 @@
         scroll-snap-type: x proximity;
         -webkit-overflow-scrolling: touch;
         margin-top: auto;
+        scrollbar-width: none;
+    }
+    
+    .project-tech::-webkit-scrollbar {
+        display: none;
     }
     
     .project-tech-item {
         flex: 0 0 auto;
         white-space: nowrap;
+        background-color: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
     }
     
+    .project-tech-item:active {
+        transform: translateY(-2px);
+        background-color: rgba(0, 0, 0, 0.4);
+        border-color: var(--color-accent);
+    }
+    
+    /* ===== SCROLL INDICATORS ===== */
     /* Card indicator for scroll position */
     .scroll-indicator {
         position: absolute;
@@ -1310,8 +1392,8 @@
     }
     
     .scroll-indicator-dot {
-        width: 6px;
-        height: 6px;
+        width: 8px;
+        height: 8px;
         border-radius: 50%;
         background-color: var(--color-border);
         opacity: 0.5;
@@ -1320,10 +1402,12 @@
     
     .scroll-indicator-dot.active {
         opacity: 1;
-        background-color: var(--color-text-primary);
+        background-color: var(--color-accent);
         transform: scale(1.2);
+        box-shadow: 0 0 10px var(--color-accent);
     }
     
+    /* ===== PROJECT DETAILS CONTENT ===== */
     /* Make project details panel more mobile-friendly */
     .details-header {
         font-size: var(--font-size-lg) !important;
@@ -1353,6 +1437,7 @@
         margin: var(--space-sm) 0 !important;
     }
     
+    /* ===== TAGS STYLING ===== */
     /* Fix tag sizing */
     .expertise-tag,
     .tech-tag {
@@ -1360,6 +1445,16 @@
         padding: var(--space-2xs) var(--space-xs);
         flex: 0 0 auto;
         white-space: nowrap;
+        background-color: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Add subtle transitions */
+    .expertise-tag:active,
+    .tech-tag:active {
+        transform: translateY(-2px);
+        background-color: rgba(0, 0, 0, 0.4);
+        border-color: var(--color-accent);
     }
     
     /* Make tech tags horizontally scrollable */
@@ -1374,8 +1469,15 @@
         -webkit-overflow-scrolling: touch;
         margin: var(--space-xs) 0;
         width: 100%;
+        scrollbar-width: none;
     }
     
+    .selected-project-tech-tags::-webkit-scrollbar,
+    .expertise-tags::-webkit-scrollbar {
+        display: none;
+    }
+    
+    /* ===== PROJECT OVERVIEW ===== */
     /* Project overview is redesigned for mobile */
     .overview-content {
         display: flex;
@@ -1395,12 +1497,53 @@
         margin-top: var(--space-sm);
     }
     
+    /* ===== PROJECT LINKS ===== */
     /* View details link enhancement */
     .details-link {
         width: 100%;
         justify-content: center;
         margin-top: var(--space-md);
         padding: var(--space-sm);
+        background-color: rgba(0, 0, 0, 0.3);
+        border-color: rgba(255, 255, 255, 0.15);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Add animated border for links */
+    .details-link::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, 
+            transparent, 
+            rgba(255, 255, 255, 0.1), 
+            transparent);
+        transition: left 0.5s ease;
+    }
+    
+    .details-link:active::before {
+        left: 100%;
+    }
+    
+    /* Add glow effect to links on active state */
+    .details-link:active {
+        box-shadow: 0 0 15px rgba(0, 238, 255, 0.5);
+        border-color: var(--color-accent);
+    }
+    
+    /* ===== PROJECT IMAGES ===== */
+    /* Optimize images for mobile */
+    .project-image {
+        width: 100%;
+        height: auto;
+        max-height: var(--mobile-image-max-height);
+        object-fit: cover;
+        border-radius: var(--border-radius);
+        margin-bottom: var(--space-sm);
     }
 }
 

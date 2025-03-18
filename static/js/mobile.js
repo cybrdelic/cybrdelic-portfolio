@@ -9,6 +9,236 @@ document.addEventListener("DOMContentLoaded", function() {
     // Add a body class to identify mobile devices for CSS targeting
     document.body.classList.add('mobile-device');
     
+    // Enhanced Image Loading for Mobile
+    function enhanceImageLoading() {
+        // Find all project images
+        const projectImages = document.querySelectorAll('.project-card img, .showcase-image, .related-image-container img');
+        
+        projectImages.forEach(img => {
+            // Skip already processed images
+            if (img.classList.contains('image-loading') || img.classList.contains('image-loaded')) {
+                return;
+            }
+            
+            // Add loading class
+            img.classList.add('image-loading');
+            
+            // Create placeholder if not already in a container
+            const parent = img.parentElement;
+            if (!parent.querySelector('.image-placeholder')) {
+                const placeholder = document.createElement('div');
+                placeholder.className = 'image-placeholder';
+                parent.appendChild(placeholder);
+            }
+            
+            // Add cyberpunk overlay effect if not already present
+            if (!parent.querySelector('.image-overlay-effect')) {
+                const overlay = document.createElement('div');
+                overlay.className = 'image-overlay-effect';
+                parent.appendChild(overlay);
+            }
+            
+            // Handle image load event
+            img.onload = function() {
+                // Remove loading class and add loaded class
+                img.classList.remove('image-loading');
+                img.classList.add('image-loaded');
+                
+                // Remove placeholder after a short delay
+                const placeholder = parent.querySelector('.image-placeholder');
+                if (placeholder) {
+                    setTimeout(() => {
+                        placeholder.style.opacity = '0';
+                        setTimeout(() => {
+                            placeholder.remove();
+                        }, 300);
+                    }, 200);
+                }
+            };
+            
+            // Force reload if image is already loaded
+            if (img.complete) {
+                img.onload();
+            }
+        });
+    }
+    
+    // Initialize image enhancements
+    enhanceImageLoading();
+    
+    // Refresh image enhancements when new content is loaded dynamically
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.addedNodes.length) {
+                enhanceImageLoading();
+            }
+        });
+    });
+    
+    // Observe body for changes
+    observer.observe(document.body, { childList: true, subtree: true });
+    
+    // Mobile Image Gallery Enhancement
+    function initMobileImageGallery() {
+        // Check for showcase image containers on project detail pages
+        const showcaseContainer = document.querySelector('.showcase-image-container');
+        if (!showcaseContainer) return;
+        
+        // Get the current image
+        const showcaseImage = showcaseContainer.querySelector('.showcase-image');
+        if (!showcaseImage) return;
+        
+        // Create gallery wrapper
+        const galleryWrapper = document.createElement('div');
+        galleryWrapper.className = 'image-gallery-mobile';
+        
+        // Create slider container
+        const slider = document.createElement('div');
+        slider.className = 'image-slider';
+        
+        // Add original image to slider
+        const originalImgContainer = document.createElement('div');
+        originalImgContainer.className = 'gallery-slide';
+        originalImgContainer.style.width = '100%';
+        originalImgContainer.style.flex = '0 0 100%';
+        
+        // Clone the image to the slider
+        const imgClone = showcaseImage.cloneNode(true);
+        originalImgContainer.appendChild(imgClone);
+        slider.appendChild(originalImgContainer);
+        
+        // Get project ID to find related images
+        const projectId = window.location.pathname.split('/').pop();
+        
+        // Add gallery overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'gallery-overlay';
+        
+        // Add gallery indicators
+        const indicators = document.createElement('div');
+        indicators.className = 'gallery-indicators';
+        
+        // Add first dot (always active for original image)
+        const firstDot = document.createElement('span');
+        firstDot.className = 'gallery-dot active';
+        indicators.appendChild(firstDot);
+        
+        // Replace showcase content with gallery
+        galleryWrapper.appendChild(slider);
+        galleryWrapper.appendChild(overlay);
+        galleryWrapper.appendChild(indicators);
+        
+        // Save original content
+        const originalContent = showcaseContainer.innerHTML;
+        
+        // Replace with gallery
+        showcaseContainer.innerHTML = '';
+        showcaseContainer.appendChild(galleryWrapper);
+        
+        // Track touch events for swiping
+        let startX, currentSlide = 0, slideCount = 1;
+        let isDragging = false;
+        
+        galleryWrapper.addEventListener('touchstart', function(e) {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+            this.classList.add('touching');
+        }, {passive: true});
+        
+        galleryWrapper.addEventListener('touchmove', function(e) {
+            if (!isDragging) return;
+            
+            const currentX = e.touches[0].clientX;
+            const diff = startX - currentX;
+            
+            // Don't allow dragging beyond bounds
+            if ((currentSlide === 0 && diff < 0) || 
+                (currentSlide === slideCount - 1 && diff > 0)) {
+                return;
+            }
+            
+            // Calculate drag amount
+            const dragOffset = -currentSlide * 100 - (diff / this.offsetWidth * 100);
+            slider.style.transform = `translateX(${dragOffset}%)`;
+        }, {passive: true});
+        
+        galleryWrapper.addEventListener('touchend', function(e) {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            this.classList.remove('touching');
+            
+            const endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+            
+            // Determine if swipe was significant
+            if (Math.abs(diff) > 50) {
+                if (diff > 0 && currentSlide < slideCount - 1) {
+                    // Swipe left - go to next slide
+                    currentSlide++;
+                } else if (diff < 0 && currentSlide > 0) {
+                    // Swipe right - go to previous slide
+                    currentSlide--;
+                }
+            }
+            
+            // Update slide position
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update indicators
+            document.querySelectorAll('.gallery-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+            
+            // Add haptic feedback for slide change
+            if (window.navigator && window.navigator.vibrate) {
+                window.navigator.vibrate(10);
+            }
+        }, {passive: true});
+        
+        // Add gallery click event for fullscreen modal
+        galleryWrapper.addEventListener('click', function(e) {
+            // Don't trigger if swiping
+            if (isDragging) return;
+            
+            // Get current image
+            const currentImage = slider.children[currentSlide].querySelector('img');
+            if (currentImage) {
+                openModal(currentImage);
+            }
+        });
+        
+        // Handle indicator clicks
+        indicators.addEventListener('click', function(e) {
+            const dot = e.target.closest('.gallery-dot');
+            if (!dot) return;
+            
+            const dots = Array.from(indicators.children);
+            const dotIndex = dots.indexOf(dot);
+            
+            if (dotIndex !== -1 && dotIndex !== currentSlide) {
+                // Update current slide
+                currentSlide = dotIndex;
+                
+                // Update slide position
+                slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+                
+                // Update indicators
+                dots.forEach((d, i) => {
+                    d.classList.toggle('active', i === currentSlide);
+                });
+                
+                // Add haptic feedback
+                if (window.navigator && window.navigator.vibrate) {
+                    window.navigator.vibrate(10);
+                }
+            }
+        });
+    }
+    
+    // Initialize mobile image gallery
+    initMobileImageGallery();
+    
     // Create scroll indicators for horizontally scrollable elements
     function createScrollIndicators() {
         // Projects list
@@ -670,7 +900,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Mobile Bottom Navigation
     // =========================
     
-    // Create and add mobile bottom navigation
+    // Create and add enhanced mobile bottom navigation
     function createMobileBottomNav() {
         // Don't add if it already exists
         if (document.querySelector('.mobile-bottom-nav')) return;
@@ -679,10 +909,10 @@ document.addEventListener("DOMContentLoaded", function() {
         const nav = document.createElement('nav');
         nav.className = 'mobile-bottom-nav';
         
-        // Define main sections
+        // Define main sections with updated icons
         const sections = [
             { id: 'hero', label: 'Home', icon: '🏠' },
-            { id: 'projects', label: 'Projects', icon: '🛠️' },
+            { id: 'projects', label: 'Projects', icon: '💻' },
             { id: 'career', label: 'Career', icon: '📈' },
             { id: 'contact', label: 'Contact', icon: '📧' }
         ];
@@ -694,10 +924,15 @@ document.addEventListener("DOMContentLoaded", function() {
             navItem.className = 'mobile-nav-item';
             navItem.dataset.section = section.id;
             
+            // Add icon container with cyberpunk glow effect
+            const iconContainer = document.createElement('div');
+            iconContainer.className = 'nav-icon-container';
+            
             // Add icon
             const icon = document.createElement('span');
             icon.className = 'mobile-nav-icon';
             icon.textContent = section.icon;
+            iconContainer.appendChild(icon);
             
             // Add label
             const label = document.createElement('span');
@@ -705,7 +940,7 @@ document.addEventListener("DOMContentLoaded", function() {
             label.textContent = section.label;
             
             // Combine elements
-            navItem.appendChild(icon);
+            navItem.appendChild(iconContainer);
             navItem.appendChild(label);
             
             // Add click handler
@@ -715,21 +950,24 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Find section
                 const targetSection = document.getElementById(section.id);
                 if (targetSection) {
-                    // Scroll to section
+                    // Add active state animation before scrolling
+                    this.classList.add('nav-activating');
+                    
+                    // Scroll to section with better animation
                     targetSection.scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
                     });
                     
-                    // Update active state
+                    // Update active state for all items
                     document.querySelectorAll('.mobile-nav-item').forEach(item => {
-                        item.classList.remove('active');
+                        item.classList.remove('active', 'nav-activating');
                     });
                     this.classList.add('active');
                     
-                    // Add haptic feedback
+                    // Add enhanced haptic feedback
                     if (window.navigator && window.navigator.vibrate) {
-                        window.navigator.vibrate(10);
+                        window.navigator.vibrate([5, 10, 5]);
                     }
                 }
             });
@@ -737,6 +975,118 @@ document.addEventListener("DOMContentLoaded", function() {
             // Add to navigation
             nav.appendChild(navItem);
         });
+        
+        // Add enhanced styles for mobile navigation
+        const style = document.createElement('style');
+        style.textContent = `
+            .mobile-bottom-nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: var(--mobile-bottom-nav-height);
+                background-color: rgba(0, 0, 0, 0.85);
+                backdrop-filter: blur(10px);
+                display: none;
+                z-index: 1000;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+            }
+            
+            @media (max-width: 768px) {
+                .mobile-bottom-nav {
+                    display: flex;
+                }
+                
+                body {
+                    padding-bottom: var(--mobile-bottom-nav-height);
+                }
+            }
+            
+            .mobile-nav-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                flex: 1;
+                height: 100%;
+                color: var(--color-text-secondary);
+                text-decoration: none;
+                position: relative;
+                transition: color 0.3s ease;
+            }
+            
+            .nav-icon-container {
+                position: relative;
+                margin-bottom: 4px;
+            }
+            
+            .nav-icon-container::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                width: 24px;
+                height: 24px;
+                background: radial-gradient(circle, rgba(0, 238, 255, 0.3) 0%, transparent 70%);
+                border-radius: 50%;
+                opacity: 0;
+                transition: transform 0.3s ease, opacity 0.3s ease;
+            }
+            
+            .mobile-nav-item.active .nav-icon-container::after {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            
+            .mobile-nav-item.nav-activating .nav-icon-container::after {
+                animation: nav-pulse-glow 0.6s ease;
+            }
+            
+            @keyframes nav-pulse-glow {
+                0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+                50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+                100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            }
+            
+            .mobile-nav-icon {
+                font-size: 20px;
+                position: relative;
+                z-index: 2;
+            }
+            
+            .mobile-nav-label {
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                font-weight: 500;
+                opacity: 0.7;
+                transition: opacity 0.3s ease;
+            }
+            
+            .mobile-nav-item.active {
+                color: var(--color-accent);
+            }
+            
+            .mobile-nav-item.active .mobile-nav-label {
+                opacity: 1;
+            }
+            
+            .mobile-nav-item.active::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 4px;
+                height: 4px;
+                background-color: var(--color-accent);
+                border-radius: 2px;
+                box-shadow: 0 0 10px var(--color-accent);
+            }
+        `;
+        document.head.appendChild(style);
         
         // Add navigation to document
         document.body.appendChild(nav);
@@ -789,7 +1139,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     const fab = document.getElementById('mobile-fab');
     if (fab) {
-        // Show/hide FAB based on scroll position with smooth transition
+        // Enhanced show/hide FAB with improved animations and feedback
         let lastScrollPosition = 0;
         let fabVisible = false;
         
@@ -801,13 +1151,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 fab.style.display = 'flex';
                 // Small delay to ensure display has updated
                 setTimeout(() => {
-                    fab.style.opacity = '1';
-                    fab.style.transform = 'scale(1)';
+                    fab.classList.add('show-fab');
+                    fabVisible = true;
                 }, 10);
-                fabVisible = true;
             } 
             // Hide when scrolled to top
             else if (currentScrollPosition <= 300 && fabVisible) {
+                fab.classList.remove('show-fab');
                 fab.style.opacity = '0';
                 fab.style.transform = 'scale(0.8)';
                 setTimeout(() => {
@@ -821,27 +1171,130 @@ document.addEventListener("DOMContentLoaded", function() {
             lastScrollPosition = currentScrollPosition;
         }, {passive: true});
         
-        // Scroll to top with smooth animation
+        // Enhanced FAB click with animations and feedback
         fab.addEventListener('click', function() {
-            // Add subtle haptic feedback if supported
+            // Enhanced haptic feedback pattern
             if (window.navigator && window.navigator.vibrate) {
-                window.navigator.vibrate([10, 5, 10]); // More subtle pattern
+                window.navigator.vibrate([5, 10, 5]);
             }
             
+            // Add visual feedback
+            this.classList.add('fab-clicked');
+            
+            // Animate icon rotation for better feedback
+            const icon = this.querySelector('.material-icons');
+            if (icon) {
+                icon.style.transition = 'transform 0.3s ease';
+                icon.style.transform = 'rotate(180deg)';
+            }
+            
+            // Scroll with smooth animation
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
+            
+            // Reset animations after scroll completes
+            setTimeout(() => {
+                this.classList.remove('fab-clicked');
+                if (icon) {
+                    icon.style.transform = '';
+                }
+            }, 500);
         });
         
-        // Initialize FAB state
+        // Add ripple effect on click
+        fab.addEventListener('mousedown', function(e) {
+            const ripple = document.createElement('span');
+            ripple.className = 'fab-ripple';
+            
+            // Position ripple
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height) * 2;
+            
+            // Calculate position
+            let x, y;
+            if (e.touches && e.touches[0]) {
+                x = e.touches[0].clientX - rect.left;
+                y = e.touches[0].clientY - rect.top;
+            } else {
+                x = e.clientX - rect.left;
+                y = e.clientY - rect.top;
+            }
+            
+            ripple.style.width = ripple.style.height = `${size}px`;
+            ripple.style.left = `${x - size/2}px`;
+            ripple.style.top = `${y - size/2}px`;
+            
+            // Add ripple and remove after animation
+            this.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        });
+        fab.addEventListener('touchstart', function(e) {
+            // Prevent default to ensure proper working on iOS
+            e.preventDefault();
+            
+            // Create ripple effect
+            const ripple = document.createElement('span');
+            ripple.className = 'fab-ripple';
+            
+            // Position ripple
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height) * 2;
+            
+            // Calculate position for touch
+            const x = e.touches[0].clientX - rect.left;
+            const y = e.touches[0].clientY - rect.top;
+            
+            ripple.style.width = ripple.style.height = `${size}px`;
+            ripple.style.left = `${x - size/2}px`;
+            ripple.style.top = `${y - size/2}px`;
+            
+            // Add ripple and remove after animation
+            this.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        }, {passive: false});
+        
+        // Add CSS styles for FAB interactions
+        const fabStyles = document.createElement('style');
+        fabStyles.textContent = `
+            .fab-clicked {
+                transform: scale(0.9) !important;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+            }
+            
+            .fab-clicked::before {
+                opacity: 1;
+            }
+            
+            .fab-ripple {
+                position: absolute;
+                background: radial-gradient(circle, rgba(0, 238, 255, 0.4) 0%, transparent 70%);
+                border-radius: 50%;
+                transform: scale(0);
+                animation: fab-ripple-animation 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+                pointer-events: none;
+                z-index: 0;
+            }
+            
+            @keyframes fab-ripple-animation {
+                to {
+                    transform: scale(1);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(fabStyles);
+        
+        // Initialize FAB state with animation
         if (window.scrollY > 300) {
             fab.style.display = 'flex';
-            fab.style.opacity = '1';
-            fabVisible = true;
+            setTimeout(() => {
+                fab.classList.add('show-fab');
+                fabVisible = true;
+            }, 100);
         } else {
             fab.style.display = 'none';
-            fab.style.opacity = '0';
             fabVisible = false;
         }
     }
