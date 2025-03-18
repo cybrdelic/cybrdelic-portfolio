@@ -85,14 +85,13 @@ let app = Router::new()
 3. Create a template in `templates/new_page.html`:
 
 ```html
-{% extends "base.html" %}
-
-{% block content %}
+<!-- This would normally use template inheritance but is shown as plain HTML for compatibility -->
+<!-- Template content -->
 <main class="new-page-container">
     <h1>New Page</h1>
     <!-- Page content here -->
 </main>
-{% endblock %}
+<!-- End template content -->
 ```
 
 4. Add CSS in `static/css/new_page.css`:
@@ -139,7 +138,8 @@ let app = Router::new()
 4. Use the component in a template:
 
 ```html
-{% include "components/new_component.html" with title="Example" description="This is an example" %}
+<!-- Component inclusion example (shown as HTML comment for compatibility) -->
+<!-- Example include with title="Example" description="This is an example" -->
 ```
 
 ## Coding Standards
