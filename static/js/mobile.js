@@ -6,12 +6,93 @@ document.addEventListener("DOMContentLoaded", function() {
     const isMobile = window.innerWidth <= 768;
     if (!isMobile) return;
     
+    // Add a body class to identify mobile devices for CSS targeting
+    document.body.classList.add('mobile-device');
+    
+    // Create scroll indicators for horizontally scrollable elements
+    function createScrollIndicators() {
+        // Projects list
+        const projectsList = document.querySelector('.projects-list');
+        if (projectsList) {
+            const projectItems = projectsList.querySelectorAll('.project-list-item');
+            if (projectItems.length > 1) {
+                // Create indicator container
+                const indicator = document.createElement('div');
+                indicator.className = 'scroll-indicator';
+                
+                // Add dots for each project
+                projectItems.forEach((_, index) => {
+                    const dot = document.createElement('span');
+                    dot.className = 'scroll-indicator-dot';
+                    if (index === 0) dot.classList.add('active');
+                    indicator.appendChild(dot);
+                });
+                
+                // Add after the projects list
+                projectsList.parentNode.insertBefore(indicator, projectsList.nextSibling);
+                
+                // Update active dot on scroll
+                projectsList.addEventListener('scroll', function() {
+                    requestAnimationFrame(() => {
+                        const scrollLeft = this.scrollLeft;
+                        const itemWidth = projectItems[0].offsetWidth + 
+                                        parseInt(window.getComputedStyle(projectItems[0]).marginRight);
+                        const activeIndex = Math.round(scrollLeft / itemWidth);
+                        
+                        document.querySelectorAll('.scroll-indicator-dot').forEach((dot, i) => {
+                            dot.classList.toggle('active', i === activeIndex);
+                        });
+                    });
+                }, { passive: true });
+            }
+        }
+        
+        // Career timeline
+        const timeline = document.querySelector('#career .timeline');
+        if (timeline) {
+            const timelineItems = timeline.querySelectorAll('.timeline-item');
+            if (timelineItems.length > 1) {
+                // Create indicator container
+                const indicator = document.createElement('div');
+                indicator.className = 'scroll-indicator';
+                
+                // Add dots for each timeline item
+                timelineItems.forEach((_, index) => {
+                    const dot = document.createElement('span');
+                    dot.className = 'scroll-indicator-dot';
+                    if (index === 0) dot.classList.add('active');
+                    indicator.appendChild(dot);
+                });
+                
+                // Add after the timeline
+                timeline.parentNode.insertBefore(indicator, timeline.nextSibling);
+                
+                // Update active dot on scroll
+                timeline.addEventListener('scroll', function() {
+                    requestAnimationFrame(() => {
+                        const scrollLeft = this.scrollLeft;
+                        const itemWidth = timelineItems[0].offsetWidth + 
+                                        parseInt(window.getComputedStyle(timelineItems[0]).marginRight);
+                        const activeIndex = Math.round(scrollLeft / itemWidth);
+                        
+                        document.querySelectorAll('#career .scroll-indicator-dot').forEach((dot, i) => {
+                            dot.classList.toggle('active', i === activeIndex);
+                        });
+                    });
+                }, { passive: true });
+            }
+        }
+    }
+    
+    // Initialize scroll indicators
+    createScrollIndicators();
+    
     // =========================
     // Subtle Ripple Effect (matches site aesthetic)
     // =========================
     
-    // Add ripple effect to all interactive elements
-    const interactiveElements = document.querySelectorAll(`
+    // Add ripple effect to all interactive elements - with better performance
+    const interactiveSelectors = `
         .cmd, 
         .project-list-item,
         .project-card,
@@ -25,22 +106,43 @@ document.addEventListener("DOMContentLoaded", function() {
         button,
         a[href]:not(.nav-left a):not(.nav-right a),
         .project-meta-item
-    `);
+    `;
     
-    interactiveElements.forEach(el => {
-        // Set position relative if needed
-        if (window.getComputedStyle(el).position === 'static') {
-            el.style.position = 'relative';
+    // Use event delegation for better performance
+    document.addEventListener('touchstart', function(event) {
+        if (event.target.matches && event.target.matches(interactiveSelectors) || 
+            event.target.closest && event.target.closest(interactiveSelectors)) {
+            const element = event.target.matches(interactiveSelectors) ? 
+                            event.target : 
+                            event.target.closest(interactiveSelectors);
+            
+            // Set position relative if needed
+            if (window.getComputedStyle(element).position === 'static') {
+                element.style.position = 'relative';
+            }
+            
+            createRipple(event, element);
         }
-        
-        // Add ripple effect
-        el.addEventListener('touchstart', createRipple, {passive: true});
-        el.addEventListener('mousedown', createRipple); // For testing on desktop
+    }, { passive: true });
+    
+    // Also add mousedown for desktop testing
+    document.addEventListener('mousedown', function(event) {
+        if (event.target.matches && event.target.matches(interactiveSelectors) || 
+            event.target.closest && event.target.closest(interactiveSelectors)) {
+            const element = event.target.matches(interactiveSelectors) ? 
+                            event.target : 
+                            event.target.closest(interactiveSelectors);
+            
+            // Set position relative if needed
+            if (window.getComputedStyle(element).position === 'static') {
+                element.style.position = 'relative';
+            }
+            
+            createRipple(event, element);
+        }
     });
     
-    function createRipple(event) {
-        const element = event.currentTarget;
-        
+    function createRipple(event, element) {
         // Remove any existing ripples
         const existingRipples = element.querySelectorAll('.ripple');
         existingRipples.forEach(ripple => {
@@ -98,6 +200,7 @@ document.addEventListener("DOMContentLoaded", function() {
     carousels.forEach(carousel => {
         let isScrolling = false;
         let startX;
+        let startY;
         let startScrollLeft;
         let startTime;
         let targetScrollLeft;
@@ -105,6 +208,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let velocity = 0;
         let lastX;
         let lastTime;
+        let isScrollingHorizontally = false;
         
         // Handle start of touch
         carousel.addEventListener('touchstart', function(e) {
@@ -114,7 +218,9 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             
             isScrolling = true;
+            isScrollingHorizontally = false;
             startX = e.touches[0].pageX;
+            startY = e.touches[0].pageY;
             lastX = startX;
             startScrollLeft = carousel.scrollLeft;
             startTime = Date.now();
@@ -131,7 +237,16 @@ document.addEventListener("DOMContentLoaded", function() {
             
             // Calculate how far finger has moved
             const x = e.touches[0].pageX;
+            const y = e.touches[0].pageY;
             const dx = startX - x;
+            const dy = startY - y;
+            
+            // Determine if scrolling horizontally or vertically
+            if (!isScrollingHorizontally && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) {
+                isScrollingHorizontally = true;
+            }
+            
+            if (!isScrollingHorizontally) return;
             
             // Calculate instantaneous velocity
             const currentTime = Date.now();
@@ -150,7 +265,10 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // Handle end of touch - with momentum and snap
         carousel.addEventListener('touchend', function(e) {
-            if (!isScrolling) return;
+            if (!isScrolling || !isScrollingHorizontally) {
+                carousel.classList.remove('touch-scrolling');
+                return;
+            }
             
             isScrolling = false;
             const endScrollLeft = carousel.scrollLeft;
@@ -178,6 +296,24 @@ document.addEventListener("DOMContentLoaded", function() {
                         const items = carousel.children;
                         for (let i = 0; i < items.length; i++) {
                             items[i].classList.toggle('active', i === activeIndex);
+                        }
+                        
+                        // Update scroll indicators
+                        if (carousel.classList.contains('projects-list')) {
+                            document.querySelectorAll('.scroll-indicator-dot').forEach((dot, i) => {
+                                dot.classList.toggle('active', i === activeIndex);
+                            });
+                        } else if (carousel.classList.contains('timeline')) {
+                            document.querySelectorAll('#career .scroll-indicator-dot').forEach((dot, i) => {
+                                dot.classList.toggle('active', i === activeIndex);
+                            });
+                            
+                            // Trigger timeline item click to update content
+                            if (items[activeIndex]) {
+                                setTimeout(() => {
+                                    items[activeIndex].click();
+                                }, 300);
+                            }
                         }
                     }
                 }
@@ -213,86 +349,269 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     
     // =========================
+    // Fix for Tech Icons animation
+    // =========================
+    
+    // Ensure tech icons are visible and properly animated on mobile
+    function fixTechIcons() {
+        const techContainers = document.querySelectorAll('.tech-icons-container');
+        
+        techContainers.forEach(container => {
+            const icons = container.querySelectorAll('.tech-icon');
+            if (icons.length === 0) return;
+            
+            // Create a macro container
+            const scrollContainer = container.querySelector('.tech-icons-scroll');
+            if (!scrollContainer) return;
+            
+            // Clear existing content
+            scrollContainer.innerHTML = '';
+            
+            // Create macro element
+            const techMacro = document.createElement('div');
+            techMacro.className = 'tech-macro';
+            
+            // Clone icons and add them twice for continuous scrolling
+            icons.forEach(icon => {
+                const clone = icon.cloneNode(true);
+                techMacro.appendChild(clone);
+            });
+            
+            icons.forEach(icon => {
+                const clone = icon.cloneNode(true);
+                techMacro.appendChild(clone);
+            });
+            
+            // Add to DOM
+            scrollContainer.appendChild(techMacro);
+            
+            // Add touch event listener to pause animation on touch
+            techMacro.addEventListener('touchstart', function() {
+                this.style.animationPlayState = 'paused';
+            }, {passive: true});
+            
+            techMacro.addEventListener('touchend', function() {
+                this.style.animationPlayState = 'running';
+            }, {passive: true});
+        });
+    }
+    
+    // Run tech icons fix on load and after any dynamic content changes
+    fixTechIcons();
+    
+    // Create MutationObserver to watch for changes in the DOM
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.addedNodes.length) {
+                const techContainer = document.querySelector('#career .tech-icons-container');
+                if (techContainer && techContainer.closest('.detail-content')) {
+                    fixTechIcons();
+                }
+            }
+        });
+    });
+    
+    // Start observing the career detail panel
+    const careerDetailPanel = document.querySelector('#career .detail-panel');
+    if (careerDetailPanel) {
+        observer.observe(careerDetailPanel, { childList: true, subtree: true });
+    }
+    
+    // =========================
     // Mobile Navigation Handling
     // =========================
     
-    // Initialize project/career sections
+    // Initialize and optimize project/career sections for mobile
     function initMobileSections() {
         // Make project items horizontally scrollable
         const projectsList = document.querySelector('.projects-list');
         if (projectsList) {
             // Show first item by default
             if (projectsList.children.length > 0) {
-                projectsList.children[0].classList.add('active');
-                const projectId = projectsList.children[0].getAttribute('data-project-id');
-                if (projectId) {
-                    document.querySelectorAll('.selected-project-view').forEach(view => {
-                        view.style.display = view.getAttribute('data-project-id') === projectId ? 'block' : 'none';
-                    });
+                const firstItem = projectsList.children[0];
+                firstItem.classList.add('active');
+                
+                // Update project details based on first item
+                const dataId = firstItem.getAttribute('data-id');
+                if (dataId) {
+                    // Extract hidden data for display
+                    const title = firstItem.querySelector('.project-list-title')?.textContent || 'Project Name';
+                    const subtitle = firstItem.getAttribute('data-subtitle') || 'Project Type';
+                    const year = firstItem.getAttribute('data-year') || '2023';
+                    const status = firstItem.getAttribute('data-status') || 'Active';
+                    const description = firstItem.querySelector('.hidden-description')?.textContent || 'No description available.';
+                    const techItems = firstItem.querySelectorAll('.tech-item');
+                    
+                    // Update the project details panel
+                    document.querySelector('.selected-project-title').textContent = title;
+                    document.querySelector('.selected-project-subtitle').textContent = subtitle;
+                    document.querySelector('.selected-project-description').textContent = description;
+                    document.querySelector('.selected-project-status').textContent = status;
+                    document.querySelector('.selected-project-year').textContent = year;
+                    
+                    // Add tech tags
+                    const techTagsContainer = document.querySelector('.selected-project-tech-tags');
+                    if (techTagsContainer) {
+                        techTagsContainer.innerHTML = '';
+                        techItems.forEach((item, index) => {
+                            const techTag = document.createElement('span');
+                            techTag.className = 'tech-tag highlight-on-hover';
+                            techTag.textContent = item.textContent;
+                            techTagsContainer.appendChild(techTag);
+                        });
+                    }
+                    
+                    // Update details link with appropriate URL
+                    const detailsLink = document.querySelector('.details-link');
+                    if (detailsLink) {
+                        const basePath = document.querySelector('script')?.textContent.match(/const base_path = "([^"]+)";/)?.[1] || '';
+                        detailsLink.href = `${basePath}projects/${dataId}`;
+                    }
+                    
+                    // Show the project details panel
+                    document.querySelector('.default-project-view').style.display = 'none';
+                    document.querySelector('.selected-project-view').style.display = 'block';
                 }
             }
             
             // Handle click events for mobile
             projectsList.querySelectorAll('.project-list-item').forEach(item => {
                 item.addEventListener('click', function(e) {
-                    const projectId = this.getAttribute('data-project-id');
-                    if (projectId) {
-                        document.querySelectorAll('.project-list-item').forEach(i => i.classList.remove('active'));
-                        this.classList.add('active');
-                        
-                        document.querySelectorAll('.selected-project-view').forEach(view => {
-                            view.style.display = view.getAttribute('data-project-id') === projectId ? 'block' : 'none';
-                        });
-                        
-                        // Scroll to details panel
-                        const detailsPanel = document.querySelector('.project-details-panel');
-                        if (detailsPanel) {
+                    // Don't navigate to project page on card click - let user tap the "View Full Details" link instead
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Mark this item as active
+                    document.querySelectorAll('.project-list-item').forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update scroll indicator
+                    const items = Array.from(projectsList.children);
+                    const index = items.indexOf(this);
+                    document.querySelectorAll('.scroll-indicator-dot').forEach((dot, i) => {
+                        dot.classList.toggle('active', i === index);
+                    });
+                    
+                    // Extract hidden data for display
+                    const dataId = this.getAttribute('data-id');
+                    const title = this.querySelector('.project-list-title')?.textContent || 'Project Name';
+                    const subtitle = this.getAttribute('data-subtitle') || 'Project Type';
+                    const year = this.getAttribute('data-year') || '2023';
+                    const status = this.getAttribute('data-status') || 'Active';
+                    const description = this.querySelector('.hidden-description')?.textContent || 'No description available.';
+                    const techItems = this.querySelectorAll('.tech-item');
+                    
+                    // Add a subtle animation to the title
+                    const titleElement = document.querySelector('.selected-project-title');
+                    if (titleElement && titleElement.textContent !== title) {
+                        titleElement.style.opacity = '0';
+                        setTimeout(() => {
+                            titleElement.textContent = title;
+                            titleElement.style.opacity = '1';
+                        }, 200);
+                    } else if (titleElement) {
+                        titleElement.textContent = title;
+                    }
+                    
+                    // Update other details with subtle animations
+                    const subtitle_el = document.querySelector('.selected-project-subtitle');
+                    const description_el = document.querySelector('.selected-project-description');
+                    const status_el = document.querySelector('.selected-project-status');
+                    const year_el = document.querySelector('.selected-project-year');
+                    
+                    if (subtitle_el) subtitle_el.textContent = subtitle;
+                    if (description_el) {
+                        description_el.style.opacity = '0';
+                        setTimeout(() => {
+                            description_el.textContent = description;
+                            description_el.style.opacity = '1';
+                        }, 150);
+                    }
+                    if (status_el) status_el.textContent = status;
+                    if (year_el) year_el.textContent = year;
+                    
+                    // Update tech tags with staggered animation
+                    const techTagsContainer = document.querySelector('.selected-project-tech-tags');
+                    if (techTagsContainer) {
+                        techTagsContainer.innerHTML = '';
+                        techItems.forEach((item, index) => {
+                            const techTag = document.createElement('span');
+                            techTag.className = 'tech-tag highlight-on-hover';
+                            techTag.textContent = item.textContent;
+                            techTag.style.opacity = '0';
+                            techTag.style.transform = 'translateY(10px)';
+                            techTagsContainer.appendChild(techTag);
+                            
                             setTimeout(() => {
-                                detailsPanel.scrollIntoView({ behavior: 'smooth' });
-                            }, 300);
-                        }
+                                techTag.style.transition = 'all 0.3s ease';
+                                techTag.style.opacity = '1';
+                                techTag.style.transform = 'translateY(0)';
+                            }, 200 + (index * 50));
+                        });
+                    }
+                    
+                    // Update details link
+                    const detailsLink = document.querySelector('.details-link');
+                    if (detailsLink) {
+                        const basePath = document.querySelector('script')?.textContent.match(/const base_path = "([^"]+)";/)?.[1] || '';
+                        detailsLink.href = `${basePath}projects/${dataId}`;
+                    }
+                    
+                    // Show the selected view
+                    document.querySelector('.default-project-view').style.display = 'none';
+                    document.querySelector('.selected-project-view').style.display = 'block';
+                    
+                    // Scroll to details panel
+                    const detailsPanel = document.querySelector('.project-details-panel');
+                    if (detailsPanel) {
+                        // Apply a subtle animation to the panel
+                        detailsPanel.style.transform = 'translateY(5px)';
+                        detailsPanel.style.opacity = '0.95';
+                        
+                        setTimeout(() => {
+                            detailsPanel.scrollIntoView({ 
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                            
+                            // Reset panel animation
+                            setTimeout(() => {
+                                detailsPanel.style.transform = 'translateY(0)';
+                                detailsPanel.style.opacity = '1';
+                            }, 200);
+                        }, 300);
+                    }
+                    
+                    // Add haptic feedback on selection
+                    if (window.navigator && window.navigator.vibrate) {
+                        window.navigator.vibrate(10);
                     }
                 });
             });
         }
         
-        // Handle career timeline
-        const timeline = document.querySelector('#career .timeline');
-        if (timeline) {
-            // Show first item by default
-            if (timeline.children.length > 0) {
-                timeline.children[0].classList.add('active');
-                const jobId = timeline.children[0].getAttribute('data-job-id');
-                if (jobId) {
-                    document.querySelectorAll('.job-detail').forEach(job => {
-                        job.style.display = job.getAttribute('data-job-id') === jobId ? 'block' : 'none';
-                    });
-                }
-            }
-            
-            // Handle click events for mobile
-            timeline.querySelectorAll('.timeline-item').forEach(item => {
-                item.addEventListener('click', function(e) {
-                    const jobId = this.getAttribute('data-job-id');
-                    if (jobId) {
-                        document.querySelectorAll('.timeline-item').forEach(i => i.classList.remove('active'));
-                        this.classList.add('active');
-                        
-                        document.querySelectorAll('.job-detail').forEach(job => {
-                            job.style.display = job.getAttribute('data-job-id') === jobId ? 'block' : 'none';
+        // Career timeline needs better integration with existing handler
+        const timelineItems = document.querySelectorAll('#career .timeline-item');
+        timelineItems.forEach(item => {
+            // Modify original handler to ensure smooth scrolling to details panel
+            item.addEventListener('click', function() {
+                // After existing handler runs, also smooth scroll to detail panel
+                setTimeout(() => {
+                    const detailPanel = document.querySelector('#career .detail-panel');
+                    if (detailPanel) {
+                        detailPanel.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
                         });
-                        
-                        // Scroll to details panel
-                        const detailPanel = document.querySelector('#career .detail-panel');
-                        if (detailPanel) {
-                            setTimeout(() => {
-                                detailPanel.scrollIntoView({ behavior: 'smooth' });
-                            }, 300);
-                        }
                     }
-                });
+                    
+                    // Add haptic feedback
+                    if (window.navigator && window.navigator.vibrate) {
+                        window.navigator.vibrate(10);
+                    }
+                }, 100);
             });
-        }
+        });
     }
     
     // Initialize mobile-specific enhancements
@@ -346,6 +665,123 @@ document.addEventListener("DOMContentLoaded", function() {
             ticking = true;
         }
     }, {passive: true});
+    
+    // =========================
+    // Mobile Bottom Navigation
+    // =========================
+    
+    // Create and add mobile bottom navigation
+    function createMobileBottomNav() {
+        // Don't add if it already exists
+        if (document.querySelector('.mobile-bottom-nav')) return;
+        
+        // Create navigation container
+        const nav = document.createElement('nav');
+        nav.className = 'mobile-bottom-nav';
+        
+        // Define main sections
+        const sections = [
+            { id: 'hero', label: 'Home', icon: '🏠' },
+            { id: 'projects', label: 'Projects', icon: '🛠️' },
+            { id: 'career', label: 'Career', icon: '📈' },
+            { id: 'contact', label: 'Contact', icon: '📧' }
+        ];
+        
+        // Create navigation items
+        sections.forEach(section => {
+            const navItem = document.createElement('a');
+            navItem.href = `#${section.id}`;
+            navItem.className = 'mobile-nav-item';
+            navItem.dataset.section = section.id;
+            
+            // Add icon
+            const icon = document.createElement('span');
+            icon.className = 'mobile-nav-icon';
+            icon.textContent = section.icon;
+            
+            // Add label
+            const label = document.createElement('span');
+            label.className = 'mobile-nav-label';
+            label.textContent = section.label;
+            
+            // Combine elements
+            navItem.appendChild(icon);
+            navItem.appendChild(label);
+            
+            // Add click handler
+            navItem.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Find section
+                const targetSection = document.getElementById(section.id);
+                if (targetSection) {
+                    // Scroll to section
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Update active state
+                    document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Add haptic feedback
+                    if (window.navigator && window.navigator.vibrate) {
+                        window.navigator.vibrate(10);
+                    }
+                }
+            });
+            
+            // Add to navigation
+            nav.appendChild(navItem);
+        });
+        
+        // Add navigation to document
+        document.body.appendChild(nav);
+        
+        // Set initial active item based on scroll position
+        updateMobileNav();
+    }
+    
+    // Update active navigation item based on scroll position
+    function updateMobileNav() {
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.mobile-nav-item');
+        
+        // Find the current section
+        let currentSectionId = '';
+        let maxVisibility = 0;
+        
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const sectionHeight = rect.height;
+            const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+            const visibilityRatio = visibleHeight / sectionHeight;
+            
+            if (visibilityRatio > maxVisibility && visibilityRatio > 0.1) {
+                maxVisibility = visibilityRatio;
+                currentSectionId = section.id;
+            }
+        });
+        
+        // Update active state
+        if (currentSectionId) {
+            navItems.forEach(item => {
+                const isActive = item.dataset.section === currentSectionId;
+                item.classList.toggle('active', isActive);
+            });
+        }
+    }
+    
+    // Add scroll listener to update active navigation item
+    window.addEventListener('scroll', function() {
+        requestAnimationFrame(updateMobileNav);
+    }, { passive: true });
+    
+    // Initialize mobile navigation
+    createMobileBottomNav();
     
     // =========================
     // Floating Action Button
