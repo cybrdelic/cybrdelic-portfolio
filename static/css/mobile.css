@@ -3,6 +3,120 @@
 /* These styles add mobile-specific touch behaviors and interactions 
    without changing the core visual design of the site */
 
+/* Hamburger menu styles */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    cursor: pointer;
+    z-index: 1010;
+    position: relative;
+}
+
+.hamburger-menu span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: var(--color-text-primary);
+    transition: all 0.3s ease;
+}
+
+.hamburger-menu.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+    background-color: var(--color-accent);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+    background-color: var(--color-accent);
+}
+
+/* Mobile navigation */
+@media (max-width: 768px) {
+    /* Navigation bar adjustments */
+    .nav {
+        padding: 10px 15px;
+    }
+    
+    /* Show hamburger menu */
+    .hamburger-menu {
+        display: flex;
+    }
+    
+    /* Hide nav links by default on mobile */
+    .nav-left, .nav-right {
+        display: none;
+    }
+    
+    /* Combined navigation links for mobile menu */
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 75%;
+        height: 100vh;
+        background: var(--bg-glass);
+        backdrop-filter: blur(10px);
+        padding: 80px 20px 40px;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow-y: auto;
+        border-left: 1px solid var(--color-border);
+        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    .nav-links.active {
+        right: 0;
+    }
+    
+    .nav-links a {
+        margin: 15px 0;
+        font-size: var(--font-size-lg);
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .nav-links a.active {
+        color: var(--color-accent);
+    }
+    
+    .nav-links a.active::before {
+        content: "→";
+        margin-right: 10px;
+        color: var(--color-accent);
+    }
+    
+    /* Mobile navbar backdrop */
+    .mobile-nav-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(3px);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+    }
+    
+    .mobile-nav-backdrop.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
 :root {
     /* Mobile-specific touch variables - maintain existing design language */
     --touch-feedback-color: rgba(255, 255, 255, 0.1);
@@ -60,6 +174,53 @@
 
 /* Enhanced active/touch states for interactive elements */
 @media (max-width: 768px) {
+    /* Main container adjustments */
+    #terminal {
+        padding: 10px;
+        max-width: 100%;
+    }
+    
+    /* Section spacing */
+    section {
+        padding: 40px 15px;
+        margin-bottom: 20px;
+    }
+    
+    /* Hero adjustments */
+    .hero-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .hero-text {
+        width: 100%;
+    }
+    
+    .hero-image {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    /* Projects layout */
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Timeline for career section */
+    .timeline {
+        margin-left: 0;
+    }
+    
+    .timeline-item {
+        margin-left: 25px;
+    }
+    
+    /* Contact form */
+    .contact-form {
+        width: 100%;
+    }
+    
     /* Apply touch active feedback */
     .touch-active {
         transform: scale(var(--touch-scale-factor)) !important;
@@ -193,6 +354,65 @@
     /* Add smooth scrolling for better touch experience */
     html {
         scroll-behavior: smooth;
+    }
+    
+    /* Typography improvements for mobile */
+    h1 {
+        font-size: calc(var(--font-size-3xl) * 0.85);
+        line-height: 1.2;
+    }
+    
+    h2 {
+        font-size: calc(var(--font-size-2xl) * 0.9);
+        line-height: 1.2;
+    }
+    
+    h3 {
+        font-size: calc(var(--font-size-xl) * 0.9);
+    }
+    
+    p {
+        font-size: var(--font-size-sm);
+    }
+    
+    /* Improve paragraph spacing for readability */
+    p + p {
+        margin-top: 0.8em;
+    }
+    
+    /* Better button sizes for touch */
+    .btn, 
+    .cmd {
+        padding: 8px 16px;
+    }
+    
+    /* Project details improvements */
+    .project-detail {
+        padding: 15px;
+    }
+    
+    .project-detail-header {
+        flex-direction: column;
+    }
+    
+    .project-meta {
+        margin-top: 15px;
+        justify-content: space-between;
+        width: 100%;
+    }
+    
+    /* Adjust scroll snapping for better mobile experience */
+    .scroll-snap-container {
+        scroll-snap-type: y proximity;
+    }
+    
+    /* Improve code blocks readability */
+    pre, code {
+        font-size: 14px;
+        padding: 12px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
     }
     
     /* Make scrollable elements feel more native */
