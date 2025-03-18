@@ -1,4 +1,4 @@
-source code content - created on Tue Mar 18 10:47:46 AM EDT 2025
+source code content - created on Tue Mar 18 11:42:21 AM EDT 2025
 ================================================
 
 [rust files]
@@ -2358,101 +2358,170 @@ fn copy_static_assets() -> Result<(), Box<dyn std::error::Error>> {
     <div class="container fade-in">
 
         <div class="projects-container">
-            <!-- Project Details Panel (Left Side - Sticky) -->
-            <div class="project-details-panel animate-on-scroll">
-                <!-- Default state when no project is selected -->
-                <div class="default-project-view">
-                    <h3 class="details-header typing-cursor">Select a project</h3>
-                    <p class="details-description">
-                        I build tools that enhance developer productivity and create elegant solutions to complex
-                        problems.
-                        My work spans CLI utilities to AI-powered tools, focusing on performance and usability.
-                    </p>
-
-                    <div class="details-stats stagger-children">
-                        <div class="stat-box card-hover">
-                            <div class="stat-number">10+</div>
-                            <div class="stat-label">Projects</div>
+            <!-- Desktop view - Project Details Panel and Projects List -->
+            <div class="desktop-only">
+                <!-- Project Details Panel (Left Side - Sticky) -->
+                <div class="project-details-panel animate-on-scroll">
+                    <!-- Default state when no project is selected -->
+                    <div class="default-project-view">
+                        <h3 class="details-header typing-cursor">Select a project</h3>
+                        <p class="details-description">
+                            I build tools that enhance developer productivity and create elegant solutions to complex
+                            problems.
+                            My work spans CLI utilities to AI-powered tools, focusing on performance and usability.
+                        </p>
+    
+                        <div class="details-stats stagger-children">
+                            <div class="stat-box card-hover">
+                                <div class="stat-number">10+</div>
+                                <div class="stat-label">Projects</div>
+                            </div>
+                            <div class="stat-box card-hover">
+                                <div class="stat-number">4</div>
+                                <div class="stat-label">Core Tech</div>
+                            </div>
+                            <div class="stat-box card-hover">
+                                <div class="stat-number">7+</div>
+                                <div class="stat-label">Years Exp</div>
+                            </div>
                         </div>
-                        <div class="stat-box card-hover">
-                            <div class="stat-number">4</div>
-                            <div class="stat-label">Core Tech</div>
-                        </div>
-                        <div class="stat-box card-hover">
-                            <div class="stat-number">7+</div>
-                            <div class="stat-label">Years Exp</div>
+    
+                        <div class="expertise-section">
+                            <h3 class="details-subheader">Areas of Focus</h3>
+                            <div class="expertise-tags stagger-children">
+                                <span class="expertise-tag highlight-on-hover">Developer Tools</span>
+                                <span class="expertise-tag highlight-on-hover">AI Integration</span>
+                                <span class="expertise-tag highlight-on-hover">CLI Apps</span>
+                                <span class="expertise-tag highlight-on-hover">Data Viz</span>
+                                <span class="expertise-tag highlight-on-hover">Automation</span>
+                                <span class="expertise-tag highlight-on-hover">Web Apps</span>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="expertise-section">
-                        <h3 class="details-subheader">Areas of Focus</h3>
-                        <div class="expertise-tags stagger-children">
-                            <span class="expertise-tag highlight-on-hover">Developer Tools</span>
-                            <span class="expertise-tag highlight-on-hover">AI Integration</span>
-                            <span class="expertise-tag highlight-on-hover">CLI Apps</span>
-                            <span class="expertise-tag highlight-on-hover">Data Viz</span>
-                            <span class="expertise-tag highlight-on-hover">Automation</span>
-                            <span class="expertise-tag highlight-on-hover">Web Apps</span>
+    
+                    <!-- Project-specific details that show when a project is selected -->
+                    <div class="selected-project-view">
+                        <h3 class="details-header">
+                            <span class="selected-project-title scramble-on-hover">Project Name</span>
+                        </h3>
+                        <div class="details-subtitle">
+                            <span class="selected-project-subtitle">Project Type</span>
                         </div>
+    
+                        <p class="details-description selected-project-description">
+                            Select a project to view details.
+                        </p>
+    
+                        <div class="details-meta stagger-children">
+                            <div class="stat-box card-hover">
+                                <div class="stat-label">Status</div>
+                                <div class="selected-project-status">-</div>
+                            </div>
+                            <div class="stat-box card-hover">
+                                <div class="stat-label">Year</div>
+                                <div class="selected-project-year">-</div>
+                            </div>
+                        </div>
+    
+                        <div class="tech-section">
+                            <h3 class="details-subheader">Technologies</h3>
+                            <div class="selected-project-tech-tags stagger-children"></div>
+                        </div>
+    
+                        <a href="#" class="details-link btn-interaction">
+                            <span class="details-link-text">View Full Details</span>
+                            <span class="details-link-icon transition-transform">→</span>
+                        </a>
                     </div>
                 </div>
-
-                <!-- Project-specific details that show when a project is selected -->
-                <div class="selected-project-view">
-                    <h3 class="details-header">
-                        <span class="selected-project-title scramble-on-hover">Project Name</span>
-                    </h3>
-                    <div class="details-subtitle">
-                        <span class="selected-project-subtitle">Project Type</span>
-                    </div>
-
-                    <p class="details-description selected-project-description">
-                        Select a project to view details.
-                    </p>
-
-                    <div class="details-meta stagger-children">
-                        <div class="stat-box card-hover">
-                            <div class="stat-label">Status</div>
-                            <div class="selected-project-status">-</div>
-                        </div>
-                        <div class="stat-box card-hover">
-                            <div class="stat-label">Year</div>
-                            <div class="selected-project-year">-</div>
+    
+                <!-- Projects List (Right Side) - Desktop only -->
+                <div class="projects-list">
+                    {% for project in projects %}
+                    <div class="project-list-item animate-on-scroll" data-id="{{ project.id }}"
+                        data-subtitle="{{ project.subtitle }}" data-year="{{ project.year | default(value='2023') }}"
+                        data-status="{{ project.status | default(value='Active') }}" tabindex="0"
+                        aria-label="Project: {{ project.title }}">
+                        <h3 class="project-list-title link-underline">{{ project.title }}</h3>
+    
+                        <!-- Hidden data for JavaScript to use -->
+                        <div class="hidden-project-data">
+                            <div class="hidden-description">{{ project.description }}</div>
+                            <div class="hidden-tech-stack">
+                                {% for tech in project.tech_stack %}
+                                <span class="tech-item">{{ tech }}</span>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-
-                    <div class="tech-section">
-                        <h3 class="details-subheader">Technologies</h3>
-                        <div class="selected-project-tech-tags stagger-children"></div>
-                    </div>
-
-                    <a href="#" class="details-link btn-interaction">
-                        <span class="details-link-text">View Full Details</span>
-                        <span class="details-link-icon transition-transform">→</span>
-                    </a>
+                    {% endfor %}
                 </div>
             </div>
 
-            <!-- Projects List (Right Side) -->
-            <div class="projects-list">
-                {% for project in projects %}
-                <div class="project-list-item animate-on-scroll" data-id="{{ project.id }}"
-                    data-subtitle="{{ project.subtitle }}" data-year="{{ project.year | default(value='2023') }}"
-                    data-status="{{ project.status | default(value='Active') }}" tabindex="0"
-                    aria-label="Project: {{ project.title }}">
-                    <h3 class="project-list-title link-underline">{{ project.title }}</h3>
-
-                    <!-- Hidden data for JavaScript to use -->
-                    <div class="hidden-project-data">
-                        <div class="hidden-description">{{ project.description }}</div>
-                        <div class="hidden-tech-stack">
-                            {% for tech in project.tech_stack %}
-                            <span class="tech-item">{{ tech }}</span>
-                            {% endfor %}
+            <!-- Mobile view - Enhanced interactive project cards -->
+            <div class="mobile-only">
+                <div class="mobile-projects-container">
+                    <!-- Swipeable project cards -->
+                    <div class="mobile-projects-carousel">
+                        {% for project in projects %}
+                        <div class="mobile-project-card" data-id="{{ project.id }}">
+                            <div class="project-card-header">
+                                <h3 class="project-card-title">{{ project.title }}</h3>
+                                <div class="project-card-subtitle">{{ project.subtitle }}</div>
+                            </div>
+                            
+                            <div class="project-card-image-container">
+                                <img src="{{ base_path }}static/images/{{ project.id }}.jpg" alt="{{ project.title }}" class="project-card-image" onerror="this.src='{{ base_path }}static/images/default-project.jpg'">
+                                <div class="project-image-overlay"></div>
+                            </div>
+                            
+                            <div class="project-card-content">
+                                <p class="project-card-description">{{ project.description }}</p>
+                                
+                                <div class="project-card-meta">
+                                    <div class="meta-item">
+                                        <div class="meta-label">Status</div>
+                                        <div class="meta-value">{{ project.status | default(value='Active') }}</div>
+                                    </div>
+                                    <div class="meta-item">
+                                        <div class="meta-label">Year</div>
+                                        <div class="meta-value">{{ project.year | default(value='2023') }}</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="project-card-tech-container">
+                                    <div class="tech-scroll-container">
+                                        {% for tech in project.tech_stack %}
+                                        <span class="project-tech-chip">{{ tech }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                
+                                <a href="{{ base_path }}projects/{{ project.id }}" class="project-card-action-button">
+                                    <span class="action-button-text">Explore Project</span>
+                                    <span class="action-button-icon">→</span>
+                                </a>
+                            </div>
                         </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Pagination indicators -->
+                    <div class="carousel-indicators">
+                        {% for project in projects %}
+                        <div class="carousel-dot {% if loop.first %}active{% endif %}" data-index="{{ loop.index0 }}"></div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Quick navigation tabs -->
+                    <div class="project-tabs">
+                        {% for project in projects %}
+                        <div class="project-tab {% if loop.first %}active{% endif %}" data-index="{{ loop.index0 }}">
+                            <span class="tab-label">{{ project.title }}</span>
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
-                {% endfor %}
             </div>
         </div>
     </div>
@@ -18452,6 +18521,173 @@ section:target {
     .related-card:active {
         transform: scale(0.98) !important;
     }
+    
+    /* Mobile-optimized Project Cards */
+    .project-list-item.mobile-enhanced {
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: var(--border-radius);
+        padding: var(--space-md);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        min-width: 280px;
+        max-width: 85vw;
+        width: 85vw;
+        height: auto;
+        transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Glowing border effect on active project */
+    .project-list-item.mobile-enhanced::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, 
+            rgba(0, 0, 0, 0),
+            var(--color-accent),
+            rgba(0, 0, 0, 0));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .project-list-item.mobile-enhanced.active::before {
+        opacity: 1;
+    }
+    
+    .project-list-item.mobile-enhanced:active {
+        transform: scale(0.98);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    
+    .project-list-item.mobile-enhanced.active {
+        background-color: rgba(0, 0, 0, 0.3);
+        border-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+    
+    /* Project card content styling */
+    .project-card-content {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-xs);
+    }
+    
+    .project-card-title {
+        font-family: var(--font-display);
+        font-size: var(--font-size-lg);
+        font-weight: 700;
+        margin: 0;
+        color: var(--color-text-primary);
+        line-height: 1.2;
+    }
+    
+    .project-card-subtitle {
+        font-family: var(--font-mono);
+        font-size: var(--font-size-xs);
+        color: var(--color-text-secondary);
+        opacity: 0.8;
+    }
+    
+    .project-card-description {
+        font-size: var(--font-size-sm);
+        line-height: 1.5;
+        color: var(--color-text-secondary);
+        margin: var(--space-sm) 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    /* Tech tags styling */
+    .project-card-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-xs);
+        margin-top: var(--space-xs);
+    }
+    
+    .project-card-tech-tag {
+        font-family: var(--font-mono);
+        font-size: var(--font-size-2xs);
+        color: var(--color-text-tertiary);
+        background-color: rgba(0, 0, 0, 0.2);
+        padding: 2px 8px;
+        border-radius: var(--border-radius);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* View button styling */
+    .project-card-action {
+        margin-top: auto;
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    .action-button {
+        display: flex;
+        align-items: center;
+        padding: 6px 12px;
+        gap: var(--space-xs);
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: var(--border-radius);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .action-button:active {
+        transform: scale(0.95);
+        background-color: rgba(0, 0, 0, 0.5);
+        border-color: var(--color-accent);
+    }
+    
+    .action-text {
+        font-family: var(--font-mono);
+        font-size: var(--font-size-xs);
+        color: var(--color-text-primary);
+        font-weight: 500;
+    }
+    
+    .action-icon {
+        color: var(--color-accent);
+        transform: translateX(0);
+        transition: transform 0.3s ease;
+    }
+    
+    .action-button:active .action-icon {
+        transform: translateX(4px);
+    }
+    
+    /* Projects indicators */
+    .projects-indicator {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        padding: var(--space-sm) 0;
+        width: 100%;
+    }
+    
+    .projects-indicator-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .projects-indicator-dot.active {
+        background-color: var(--color-accent);
+        transform: scale(1.2);
+        box-shadow: 0 0 8px rgba(0, 238, 255, 0.5);
+    }
 }
 
 .mobile-fab:active {
@@ -18587,6 +18823,309 @@ section:target {
         left: 50%;
         transform: translateX(-50%);
         transition: all 0.3s ease;
+    }
+    
+    /* Enhanced Mobile Projects Container - New Design */
+    .mobile-projects-container {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+        width: 100%;
+        margin: 0 auto;
+        position: relative;
+    }
+    
+    /* Swipeable Project Carousel */
+    .mobile-projects-carousel {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        gap: var(--space-md);
+        padding: var(--space-sm);
+        mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        scrollbar-width: none;
+        margin: 0 -var(--space-sm);
+    }
+    
+    .mobile-projects-carousel::-webkit-scrollbar {
+        display: none;
+    }
+    
+    /* Individual Project Card */
+    .mobile-project-card {
+        flex: 0 0 90%;
+        scroll-snap-align: center;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        transform: translateZ(0);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .mobile-project-card.active {
+        border-color: var(--color-accent);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+    
+    /* Card Header with Gradient Overlay */
+    .project-card-header {
+        padding: var(--space-md);
+        position: relative;
+        z-index: 2;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+    }
+    
+    .project-card-title {
+        font-family: var(--font-display);
+        font-size: var(--font-size-lg);
+        font-weight: 700;
+        margin: 0;
+        color: var(--color-text-primary);
+        line-height: 1.2;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    .project-card-subtitle {
+        font-family: var(--font-mono);
+        font-size: var(--font-size-xs);
+        color: var(--color-text-secondary);
+        margin-top: var(--space-xs);
+        opacity: 0.9;
+    }
+    
+    /* Project Card Image */
+    .project-card-image-container {
+        width: 100%;
+        height: 180px;
+        position: relative;
+        overflow: hidden;
+        margin-top: -60px;
+    }
+    
+    .project-card-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+        filter: saturate(0.8) contrast(1.1);
+    }
+    
+    .project-image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, 
+            rgba(0, 0, 0, 0.2), 
+            rgba(0, 0, 0, 0.6));
+        z-index: 1;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+    
+    .mobile-project-card.active .project-card-image {
+        transform: scale(1.05);
+    }
+    
+    /* Card Content */
+    .project-card-content {
+        padding: var(--space-md);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+        background-color: rgba(0, 0, 0, 0.4);
+        flex: 1;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .project-card-description {
+        font-size: var(--font-size-sm);
+        line-height: 1.5;
+        color: var(--color-text-secondary);
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    /* Project metadata styling */
+    .project-card-meta {
+        display: flex;
+        gap: var(--space-md);
+        align-items: center;
+    }
+    
+    .meta-item {
+        flex: 1;
+        background-color: rgba(0, 0, 0, 0.2);
+        padding: var(--space-sm);
+        border-radius: var(--border-radius);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .meta-label {
+        font-family: var(--font-mono);
+        font-size: var(--font-size-2xs);
+        color: var(--color-text-tertiary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .meta-value {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-primary);
+        margin-top: var(--space-2xs);
+    }
+    
+    /* Technology chips with horizontal scroll */
+    .project-card-tech-container {
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .tech-scroll-container {
+        display: flex;
+        gap: var(--space-xs);
+        overflow-x: auto;
+        padding-bottom: var(--space-xs);
+        scroll-snap-type: x proximity;
+        scrollbar-width: none;
+        mask-image: linear-gradient(to right, black 80%, transparent);
+        -webkit-mask-image: linear-gradient(to right, black 80%, transparent);
+    }
+    
+    .tech-scroll-container::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .project-tech-chip {
+        flex: 0 0 auto;
+        font-family: var(--font-mono);
+        font-size: var(--font-size-2xs);
+        color: var(--color-text-secondary);
+        background-color: rgba(255, 0, 0, 0.2);
+        padding: var(--space-2xs) var(--space-xs);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 0, 0, 0.3);
+        white-space: nowrap;
+    }
+    
+    /* Call to action button */
+    .project-card-action-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-xs);
+        background-color: rgba(255, 0, 0, 0.3);
+        color: white;
+        text-decoration: none;
+        padding: var(--space-sm);
+        border-radius: var(--border-radius);
+        border: 1px solid rgba(255, 0, 0, 0.5);
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: var(--space-sm);
+    }
+    
+    .project-card-action-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, 
+            transparent, 
+            rgba(255, 255, 255, 0.1), 
+            transparent);
+        transition: left 0.5s ease;
+    }
+    
+    .project-card-action-button:active {
+        transform: translateY(2px);
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+    }
+    
+    .project-card-action-button:active::before {
+        left: 100%;
+    }
+    
+    .action-button-icon {
+        transition: transform 0.3s ease;
+    }
+    
+    .project-card-action-button:active .action-button-icon {
+        transform: translateX(4px);
+    }
+    
+    /* Carousel pagination indicators */
+    .carousel-indicators {
+        display: flex;
+        justify-content: center;
+        gap: var(--space-xs);
+        margin-top: var(--space-sm);
+    }
+    
+    .carousel-dot {
+        width: 8px;
+        height: 8px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+    
+    .carousel-dot.active {
+        background-color: var(--color-accent);
+        transform: scale(1.2);
+        box-shadow: 0 0 10px var(--color-accent);
+    }
+    
+    /* Tab-based quick navigation */
+    .project-tabs {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x proximity;
+        gap: var(--space-xs);
+        padding: var(--space-xs) 0;
+        margin: 0 -var(--space-sm);
+        padding: 0 var(--space-sm);
+        scrollbar-width: none;
+    }
+    
+    .project-tabs::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .project-tab {
+        flex: 0 0 auto;
+        padding: var(--space-xs) var(--space-sm);
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        font-size: var(--font-size-xs);
+        color: var(--color-text-secondary);
+        white-space: nowrap;
+        transition: all 0.3s ease;
+    }
+    
+    .project-tab.active {
+        background-color: rgba(255, 0, 0, 0.3);
+        border-color: rgba(255, 0, 0, 0.5);
+        color: white;
     }
 }
 
@@ -22859,6 +23398,10 @@ pre code {
   border-width: 0;
 }
 
+--- static/css/touching.css ---
+
+
+
 --- static/css/hero.css ---
 
 /* Import Fonts */
@@ -27121,6 +27664,63 @@ pre code {
         opacity: 1;
         transform: translateX(0);
     }
+    
+    /* Mobile project subtitle */
+    .project-subtitle {
+        font-family: var(--font-mono);
+        font-size: var(--font-size-xs);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--space-sm);
+    }
+    
+    /* Mobile project description */
+    .project-description-mobile {
+        font-size: var(--font-size-sm);
+        line-height: 1.5;
+        color: var(--color-text-secondary);
+        margin: var(--space-sm) 0;
+    }
+    
+    /* Project view button */
+    .project-view-button {
+        display: inline-block;
+        padding: var(--space-sm) var(--space-md);
+        background-color: rgba(255, 0, 0, 0.3);
+        color: white;
+        text-decoration: none;
+        border-radius: var(--border-radius);
+        margin-top: var(--space-sm);
+        text-align: center;
+        font-weight: bold;
+        border: 1px solid rgba(255, 0, 0, 0.5);
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+    
+    /* Style the details link in mobile mode */
+    @media (max-width: 768px) {
+        .details-link {
+            background-color: rgba(255, 0, 0, 0.3) !important;
+            border: 1px solid rgba(255, 0, 0, 0.5) !important;
+            color: white !important;
+            width: 100% !important;
+            text-align: center !important;
+            margin-top: var(--space-md) !important;
+        }
+    }
+    
+    .project-view-button:hover, 
+    .project-view-button:focus {
+        background-color: rgba(255, 0, 0, 0.5);
+        transform: translateY(-2px);
+    }
+    
+    /* Ensure all project cards are visible */
+    .mobile-all-visible {
+        display: flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
 }
 
 /* Section title */
@@ -27203,6 +27803,18 @@ pre code {
     }
 }
 
+@media (min-width: 769px) {
+    .desktop-only {
+        display: grid !important;
+        grid-template-columns: minmax(300px, 40%) 1fr;
+        gap: var(--space-xl);
+    }
+    
+    .mobile-only {
+        display: none !important;
+    }
+}
+
 @media (max-width: 768px) {
     #projects {
         padding-top: calc(var(--header-height) + var(--space-lg));
@@ -27218,89 +27830,71 @@ pre code {
     /* ===== MOBILE-FIRST REDESIGN ===== */
     /* Complete mobile-optimized layout that preserves cyberpunk aesthetic */
     .projects-container {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         gap: var(--space-md);
+        padding-top: var(--space-lg);
     }
     
-    /* ===== PROJECT DETAILS PANEL ===== */
-    /* Optimized details panel as a card-based view */
-    .project-details-panel {
-        order: 2;
-        grid-row: 2;
-        position: relative;
-        padding: var(--mobile-panel-padding);
+    /* Desktop/Mobile views */
+    .desktop-only {
+        display: none !important;
+    }
+    
+    .mobile-only {
+        display: block !important;
+    }
+    
+    /* Mobile projects list - vertical stack of detail panels */
+    .mobile-projects-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-lg);
+        width: 100%;
+    }
+    
+    .mobile-project-panel {
+        background-color: rgba(255, 0, 0, 0.2);
         border-radius: var(--border-radius);
-        max-height: none;
-        overflow-y: visible !important;
-        top: 0;
-        margin-top: var(--space-md);
+        padding: var(--space-md);
+        margin-bottom: var(--space-md);
         width: 100%;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-        transition: transform 0.3s ease, opacity 0.3s ease;
-        backdrop-filter: blur(8px);
     }
     
-    /* Add top glow to details panel */
-    .project-details-panel::after {
-        content: '';
-        position: absolute;
-        top: -2px;
-        left: 20px;
-        right: 20px;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
-        border-radius: 2px;
-        z-index: 2;
+    /* Mobile view button styling */
+    .mobile-view-button {
+        background-color: rgba(255, 0, 0, 0.3) !important;
+        border: 1px solid rgba(255, 0, 0, 0.5) !important;
+        color: white !important;
+        width: 100% !important;
+        text-align: center !important;
+        display: block !important;
+        margin-top: var(--space-md) !important;
     }
     
     /* ===== PROJECT CARDS LIST ===== */
-    /* Card-based horizontal scrolling layout */
+    /* Vertical stacked cards layout */
     .projects-list {
-        order: 1;
-        grid-row: 1;
         display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        overflow-y: hidden;
+        flex-direction: column;
         padding: var(--space-md) 0;
         gap: var(--space-md);
         max-height: none;
-        width: 100vw;
-        margin: 0 calc(var(--mobile-content-padding) * -1);
-        padding-left: var(--mobile-content-padding);
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
+        width: 100%;
         position: relative;
-        scrollbar-width: none; /* Hide scrollbar for Firefox */
-    }
-    
-    .projects-list::-webkit-scrollbar {
-        display: none; /* Hide scrollbar for Chrome/Safari */
-    }
-    
-    .projects-list::after {
-        content: "";
-        flex: 0 0 var(--mobile-content-padding);
-        width: var(--mobile-content-padding);
-        height: 1px;
+        order: 1;
     }
     
     /* ===== PROJECT CARDS ===== */
     /* Enhanced mobile-optimized project cards */
     .project-list-item {
-        flex: 0 0 var(--mobile-card-width);
-        min-width: var(--mobile-card-min-width);
-        max-width: var(--mobile-card-width);
-        height: var(--mobile-card-height);
-        max-height: var(--mobile-card-max-height);
+        width: 100%;
         padding: var(--space-md);
-        margin-bottom: 0;
+        margin-bottom: var(--space-md);
         border-width: 0;
         border-radius: var(--border-radius);
-        background-color: rgba(255, 255, 255, 0.05);
-        scroll-snap-align: start;
+        background-color: rgba(255, 0, 0, 0.2);
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
         transform: none;
         transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -27308,6 +27902,21 @@ pre code {
         flex-direction: column;
         position: relative;
         overflow: hidden;
+        opacity: 1 !important;
+        visibility: visible !important;
+        margin-top: 0;
+    }
+    
+    /* Mobile card style class added by JS */
+    .mobile-card-style {
+        background-color: rgba(255, 0, 0, 0.2) !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
+        border-radius: var(--border-radius) !important;
+        margin-bottom: var(--space-md) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
     
     /* Add subtle cyberpunk accent to cards */
@@ -30200,6 +30809,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // Add a body class to identify mobile devices for CSS targeting
     document.body.classList.add('mobile-device');
     
+    // Initialize enhanced mobile projects section
+    initMobileProjects();
+    
     // Enhanced Image Loading for Mobile
     function enhanceImageLoading() {
         // Find all project images
@@ -31038,6 +31650,197 @@ document.addEventListener("DOMContentLoaded", function() {
     // Initialize mobile-specific enhancements
     initMobileSections();
     
+    // Mobile Project Cards Enhancement
+    function enhanceProjectsSection() {
+        const projectsList = document.querySelector('.projects-list');
+        const projectItems = document.querySelectorAll('.project-list-item');
+        const detailsPanel = document.querySelector('.project-details-panel');
+        
+        if (!projectsList || projectItems.length === 0) return;
+        
+        // On mobile, hide the project list and show the details panel
+        if (window.innerWidth <= 768) {
+            // Hide the projects list
+            if (projectsList) {
+                projectsList.style.display = 'none';
+            }
+            
+            // Show the details panel
+            if (detailsPanel) {
+                detailsPanel.style.display = 'block';
+                detailsPanel.style.backgroundColor = 'rgba(255, 0, 0, 0.2)';
+                
+                // Make sure both views are ready to be displayed
+                const defaultView = document.querySelector('.default-project-view');
+                const selectedView = document.querySelector('.selected-project-view');
+                
+                if (defaultView) defaultView.style.display = 'block';
+                if (selectedView) selectedView.style.display = 'block';
+            }
+        }
+        
+        // Create proper mobile card structure for each project
+        projectItems.forEach((item, index) => {
+            // Skip if already enhanced
+            if (item.classList.contains('mobile-enhanced')) return;
+            
+            // Mark as enhanced
+            item.classList.add('mobile-enhanced');
+            
+            // Get existing data
+            const title = item.querySelector('.project-list-title').textContent;
+            const subtitle = item.getAttribute('data-subtitle') || '';
+            const description = item.querySelector('.hidden-description')?.textContent || '';
+            const projectId = item.getAttribute('data-id');
+            const techItems = item.querySelectorAll('.tech-item');
+            
+            // Create card structure
+            item.innerHTML = `
+                <div class="project-card-content">
+                    <h3 class="project-card-title">${title}</h3>
+                    <div class="project-card-subtitle">${subtitle}</div>
+                    <div class="project-card-description">${description}</div>
+                    <div class="project-card-tech"></div>
+                </div>
+                <div class="project-card-action">
+                    <div class="action-button" data-project-id="${projectId}">
+                        <span class="action-text">VIEW</span>
+                        <span class="action-icon">→</span>
+                    </div>
+                </div>
+            `;
+            
+            // Add tech items
+            const techContainer = item.querySelector('.project-card-tech');
+            techItems.forEach(tech => {
+                const techTag = document.createElement('span');
+                techTag.className = 'project-card-tech-tag';
+                techTag.textContent = tech.textContent;
+                techContainer.appendChild(techTag);
+            });
+            
+            // Add select event
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Handle action button separately (navigate to project)
+                const actionButton = e.target.closest('.action-button');
+                if (actionButton) {
+                    const projectId = actionButton.getAttribute('data-project-id');
+                    window.location.href = `${base_path}projects/${projectId}`;
+                    return;
+                }
+                
+                // Set current item as active and update details panel
+                projectItems.forEach(p => p.classList.remove('active'));
+                item.classList.add('active');
+                
+                // Slightly different layout for mobile - scroll to center selected item
+                const itemRect = item.getBoundingClientRect();
+                const containerRect = projectsList.getBoundingClientRect();
+                const scrollLeft = projectsList.scrollLeft;
+                const centerPosition = scrollLeft + (itemRect.left - containerRect.left) - 
+                                     (containerRect.width / 2) + (itemRect.width / 2);
+                
+                projectsList.scrollTo({
+                    left: centerPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Update the indicators
+                const dots = document.querySelectorAll('.projects-indicator-dot');
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+                
+                // Update project details
+                updateProjectDetails(item);
+                
+                // Add haptic feedback
+                if (window.navigator && window.navigator.vibrate) {
+                    window.navigator.vibrate(10);
+                }
+            });
+        });
+        
+        // Create indicators for projects
+        if (!document.querySelector('.projects-indicator')) {
+            const indicator = document.createElement('div');
+            indicator.className = 'projects-indicator';
+            
+            projectItems.forEach((_, index) => {
+                const dot = document.createElement('span');
+                dot.className = 'projects-indicator-dot';
+                if (index === 0) dot.classList.add('active');
+                
+                // Add dot click handler
+                dot.addEventListener('click', () => {
+                    const item = projectItems[index];
+                    if (item) {
+                        // Simulate click on the item
+                        item.click();
+                    }
+                });
+                
+                indicator.appendChild(dot);
+            });
+            
+            // Add indicator after projects list
+            projectsList.parentNode.insertBefore(indicator, projectsList.nextSibling);
+        }
+        
+        // Add scroll event to update active indicator
+        projectsList.addEventListener('scroll', function() {
+            // Use requestAnimationFrame for better performance
+            requestAnimationFrame(() => {
+                const scrollPosition = this.scrollLeft;
+                const containerWidth = this.clientWidth;
+                
+                // Find the center-most item
+                let closestItem = null;
+                let closestDistance = Infinity;
+                
+                projectItems.forEach((item) => {
+                    const rect = item.getBoundingClientRect();
+                    const itemCenter = rect.left + (rect.width / 2);
+                    const containerCenter = this.getBoundingClientRect().left + (containerWidth / 2);
+                    const distance = Math.abs(itemCenter - containerCenter);
+                    
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestItem = item;
+                    }
+                });
+                
+                // Update active state if we found a center item
+                if (closestItem) {
+                    projectItems.forEach(p => p.classList.remove('active'));
+                    closestItem.classList.add('active');
+                    
+                    // Update project details panel
+                    updateProjectDetails(closestItem);
+                    
+                    // Update indicators
+                    const dots = document.querySelectorAll('.projects-indicator-dot');
+                    const activeIndex = Array.prototype.indexOf.call(projectItems, closestItem);
+                    dots.forEach((dot, i) => {
+                        dot.classList.toggle('active', i === activeIndex);
+                    });
+                }
+            });
+        }, { passive: true });
+        
+        // Initialize with first project
+        if (projectItems.length > 0) {
+            projectItems[0].classList.add('active');
+            updateProjectDetails(projectItems[0]);
+        }
+    }
+    
+    // Call the function to enhance projects section
+    enhanceProjectsSection();
+    
     // Make navigation more responsive
     const navLinks = document.querySelectorAll('.nav a.cmd');
     const sections = document.querySelectorAll('section[id]');
@@ -31290,6 +32093,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function updateMobileNav() {
         const sections = document.querySelectorAll('section[id]');
         const navItems = document.querySelectorAll('.mobile-nav-item');
+        const detailsPanel = document.querySelector('.project-details-panel');
         
         // Find the current section
         let currentSectionId = '';
@@ -31304,6 +32108,28 @@ document.addEventListener("DOMContentLoaded", function() {
             if (visibilityRatio > maxVisibility && visibilityRatio > 0.1) {
                 maxVisibility = visibilityRatio;
                 currentSectionId = section.id;
+                
+                // Show details panel instead of cards on mobile in projects section
+                if (window.innerWidth <= 768 && section.id === 'projects') {
+                    // Hide the project list
+                    const projectsList = document.querySelector('.projects-list');
+                    if (projectsList) {
+                        projectsList.style.display = 'none';
+                    }
+                    
+                    // Show the details panel
+                    if (detailsPanel) {
+                        detailsPanel.style.display = 'block';
+                        detailsPanel.style.backgroundColor = 'rgba(255, 0, 0, 0.2)';
+                        
+                        // Make sure both views are ready to be displayed
+                        const defaultView = document.querySelector('.default-project-view');
+                        const selectedView = document.querySelector('.selected-project-view');
+                        
+                        if (defaultView) defaultView.style.display = 'block';
+                        if (selectedView) selectedView.style.display = 'block';
+                    }
+                }
             }
         });
         
@@ -31591,6 +32417,242 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Disable hover states for touch devices
     document.documentElement.classList.add('touch-device');
+    
+    // =========================
+    // Enhanced Mobile Projects
+    // =========================
+    
+    /**
+     * Initialize the new mobile projects section with swipe carousel
+     */
+    function initMobileProjects() {
+        const carousel = document.querySelector('.mobile-projects-carousel');
+        if (!carousel) return;
+        
+        const cards = document.querySelectorAll('.mobile-project-card');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const tabs = document.querySelectorAll('.project-tab');
+        
+        if (cards.length === 0) return;
+        
+        // Set first card as active
+        cards[0].classList.add('active');
+        
+        // Handle carousel scrolling
+        let isScrolling = false;
+        let startX;
+        let startScrollLeft;
+        let currentIndex = 0;
+        
+        // Update the active state when scrolling
+        carousel.addEventListener('scroll', function() {
+            if (isScrolling) return;
+            
+            requestAnimationFrame(() => {
+                // Find the card at the center of the viewport
+                const scrollPosition = carousel.scrollLeft;
+                const cardWidth = cards[0].offsetWidth + parseInt(getComputedStyle(cards[0]).marginRight);
+                const centerIndex = Math.round(scrollPosition / cardWidth);
+                
+                // Only update if index has changed
+                if (centerIndex !== currentIndex && centerIndex >= 0 && centerIndex < cards.length) {
+                    currentIndex = centerIndex;
+                    updateActiveState();
+                }
+            });
+        }, { passive: true });
+        
+        // Handle touch events for swipe
+        carousel.addEventListener('touchstart', function(e) {
+            isScrolling = true;
+            startX = e.touches[0].pageX;
+            startScrollLeft = carousel.scrollLeft;
+            
+            // Add active class to indicate touch interaction
+            this.classList.add('touching');
+        }, { passive: true });
+        
+        carousel.addEventListener('touchmove', function(e) {
+            if (!isScrolling) return;
+            
+            // Calculate how far finger has moved
+            const x = e.touches[0].pageX;
+            const deltaX = startX - x;
+            
+            // Update scroll position
+            carousel.scrollLeft = startScrollLeft + deltaX;
+        }, { passive: true });
+        
+        carousel.addEventListener('touchend', function() {
+            isScrolling = false;
+            this.classList.remove('touching');
+            
+            // Snap to nearest card
+            const cardWidth = cards[0].offsetWidth + parseInt(getComputedStyle(cards[0]).marginRight);
+            const scrollPosition = carousel.scrollLeft;
+            const targetIndex = Math.round(scrollPosition / cardWidth);
+            
+            // Scroll to target card
+            scrollToCard(targetIndex, true);
+            
+            // Add haptic feedback on swipe complete
+            if (window.navigator && window.navigator.vibrate && currentIndex !== targetIndex) {
+                window.navigator.vibrate(10);
+            }
+        });
+        
+        // Handle dot indicators click
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', function() {
+                scrollToCard(index, true);
+                
+                // Add subtle haptic feedback
+                if (window.navigator && window.navigator.vibrate) {
+                    window.navigator.vibrate(5);
+                }
+            });
+        });
+        
+        // Handle tab navigation
+        tabs.forEach((tab, index) => {
+            tab.addEventListener('click', function() {
+                scrollToCard(index, true);
+                
+                // Add haptic feedback
+                if (window.navigator && window.navigator.vibrate) {
+                    window.navigator.vibrate(10);
+                }
+            });
+        });
+        
+        // Function to scroll to a specific card
+        function scrollToCard(index, animate = false) {
+            if (index < 0 || index >= cards.length) return;
+            
+            const cardWidth = cards[0].offsetWidth + parseInt(getComputedStyle(cards[0]).marginRight);
+            const targetScrollLeft = index * cardWidth;
+            
+            if (animate) {
+                carousel.scrollTo({
+                    left: targetScrollLeft,
+                    behavior: 'smooth'
+                });
+            } else {
+                carousel.scrollLeft = targetScrollLeft;
+            }
+            
+            currentIndex = index;
+            updateActiveState();
+        }
+        
+        // Update active state of cards, dots and tabs
+        function updateActiveState() {
+            // Update cards
+            cards.forEach((card, i) => {
+                card.classList.toggle('active', i === currentIndex);
+            });
+            
+            // Update dots
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+            
+            // Update tabs
+            tabs.forEach((tab, i) => {
+                tab.classList.toggle('active', i === currentIndex);
+                
+                // Ensure active tab is visible by scrolling it into view
+                if (i === currentIndex) {
+                    const tabsContainer = tab.parentElement;
+                    const tabLeft = tab.offsetLeft;
+                    const tabWidth = tab.offsetWidth;
+                    const containerWidth = tabsContainer.offsetWidth;
+                    const scrollLeft = tabsContainer.scrollLeft;
+                    
+                    // Calculate the target scroll position to center the tab
+                    const targetScroll = tabLeft - (containerWidth / 2) + (tabWidth / 2);
+                    
+                    tabsContainer.scrollTo({
+                        left: targetScroll,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        }
+        
+        // Add swipe preview animation effect
+        let lastTouch = null;
+        let animationFrame = null;
+        
+        carousel.addEventListener('touchmove', function(e) {
+            lastTouch = e;
+            
+            if (!animationFrame) {
+                animationFrame = requestAnimationFrame(updateSwipePreview);
+            }
+        }, { passive: true });
+        
+        carousel.addEventListener('touchend', function() {
+            lastTouch = null;
+            if (animationFrame) {
+                cancelAnimationFrame(animationFrame);
+                animationFrame = null;
+            }
+            
+            // Reset all cards to normal state
+            cards.forEach(card => {
+                card.style.transform = '';
+            });
+        });
+        
+        // Function to create swipe preview effect
+        function updateSwipePreview() {
+            if (!lastTouch) {
+                animationFrame = null;
+                return;
+            }
+            
+            const carouselRect = carousel.getBoundingClientRect();
+            const touchX = lastTouch.touches[0].clientX;
+            const cardWidth = cards[0].offsetWidth;
+            
+            // Calculate which cards are visible
+            cards.forEach((card, i) => {
+                const cardRect = card.getBoundingClientRect();
+                const cardCenter = cardRect.left + cardRect.width / 2;
+                const distanceFromTouch = Math.abs(touchX - cardCenter);
+                
+                // Apply transform based on distance from touch
+                if (cardRect.right > carouselRect.left && cardRect.left < carouselRect.right) {
+                    // Card is visible
+                    const scale = Math.max(0.95, 1 - (distanceFromTouch / (cardWidth * 2)));
+                    const translateY = (1 - scale) * 10; // Slight lift effect
+                    
+                    card.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+                }
+            });
+            
+            animationFrame = requestAnimationFrame(updateSwipePreview);
+        }
+        
+        // Ensure the carousel is properly initialized
+        setTimeout(() => {
+            // Trigger initial scroll to ensure proper layout
+            scrollToCard(0, false);
+            
+            // Add entrance animation effect
+            cards.forEach((card, i) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 + (i * 100));
+            });
+        }, 300);
+    }
 });
 
 --- static/js/glitch.js ---
@@ -31646,6 +32708,6 @@ summary
 -------
 rust files (.rs): 8
 html files: 27
-css files: 32
+css files: 33
 javascript files: 6
-total files: 73
+total files: 74

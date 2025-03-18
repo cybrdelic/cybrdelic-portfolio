@@ -102,41 +102,69 @@
                 </div>
             </div>
 
-            <!-- Mobile view - Simple vertical list of project details -->
+            <!-- Mobile view - Enhanced interactive project cards -->
             <div class="mobile-only">
-                <div class="mobile-projects-list">
-                    {% for project in projects %}
-                    <div class="mobile-project-panel">
-                        <h3 class="details-header">{{ project.title }}</h3>
-                        <div class="details-subtitle">{{ project.subtitle }}</div>
-                        <p class="details-description">{{ project.description }}</p>
-                        
-                        <div class="details-meta">
-                            <div class="stat-box">
-                                <div class="stat-label">Status</div>
-                                <div>{{ project.status | default(value='Active') }}</div>
+                <div class="mobile-projects-container">
+                    <!-- Swipeable project cards -->
+                    <div class="mobile-projects-carousel">
+                        {% for project in projects %}
+                        <div class="mobile-project-card" data-id="{{ project.id }}">
+                            <div class="project-card-header">
+                                <h3 class="project-card-title">{{ project.title }}</h3>
+                                <div class="project-card-subtitle">{{ project.subtitle }}</div>
                             </div>
-                            <div class="stat-box">
-                                <div class="stat-label">Year</div>
-                                <div>{{ project.year | default(value='2023') }}</div>
+                            
+                            <div class="project-card-image-container">
+                                <img src="{{ base_path }}static/images/{{ project.id }}.jpg" alt="{{ project.title }}" class="project-card-image" onerror="this.src='{{ base_path }}static/images/default-project.jpg'">
+                                <div class="project-image-overlay"></div>
+                            </div>
+                            
+                            <div class="project-card-content">
+                                <p class="project-card-description">{{ project.description }}</p>
+                                
+                                <div class="project-card-meta">
+                                    <div class="meta-item">
+                                        <div class="meta-label">Status</div>
+                                        <div class="meta-value">{{ project.status | default(value='Active') }}</div>
+                                    </div>
+                                    <div class="meta-item">
+                                        <div class="meta-label">Year</div>
+                                        <div class="meta-value">{{ project.year | default(value='2023') }}</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="project-card-tech-container">
+                                    <div class="tech-scroll-container">
+                                        {% for tech in project.tech_stack %}
+                                        <span class="project-tech-chip">{{ tech }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                
+                                <a href="{{ base_path }}projects/{{ project.id }}" class="project-card-action-button">
+                                    <span class="action-button-text">Explore Project</span>
+                                    <span class="action-button-icon">→</span>
+                                </a>
                             </div>
                         </div>
-                        
-                        <div class="tech-section">
-                            <h3 class="details-subheader">Technologies</h3>
-                            <div class="project-tech-tags">
-                                {% for tech in project.tech_stack %}
-                                <span class="tech-tag">{{ tech }}</span>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        
-                        <a href="{{ base_path }}projects/{{ project.id }}" class="details-link mobile-view-button">
-                            <span class="details-link-text">View Full Details</span>
-                            <span class="details-link-icon">→</span>
-                        </a>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
+                    
+                    <!-- Pagination indicators -->
+                    <div class="carousel-indicators">
+                        {% for project in projects %}
+                        <div class="carousel-dot {% if loop.first %}active{% endif %}" data-index="{{ loop.index0 }}"></div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Quick navigation tabs -->
+                    <div class="project-tabs">
+                        {% for project in projects %}
+                        <div class="project-tab {% if loop.first %}active{% endif %}" data-index="{{ loop.index0 }}">
+                            <span class="tab-label">{{ project.title }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>

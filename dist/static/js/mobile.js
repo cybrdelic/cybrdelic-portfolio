@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // Add a body class to identify mobile devices for CSS targeting
     document.body.classList.add('mobile-device');
     
+    // Initialize enhanced mobile projects section
+    initMobileProjects();
+    
     // Enhanced Image Loading for Mobile
     function enhanceImageLoading() {
         // Find all project images
@@ -851,7 +854,30 @@ document.addEventListener("DOMContentLoaded", function() {
     function enhanceProjectsSection() {
         const projectsList = document.querySelector('.projects-list');
         const projectItems = document.querySelectorAll('.project-list-item');
+        const detailsPanel = document.querySelector('.project-details-panel');
+        
         if (!projectsList || projectItems.length === 0) return;
+        
+        // On mobile, hide the project list and show the details panel
+        if (window.innerWidth <= 768) {
+            // Hide the projects list
+            if (projectsList) {
+                projectsList.style.display = 'none';
+            }
+            
+            // Show the details panel
+            if (detailsPanel) {
+                detailsPanel.style.display = 'block';
+                detailsPanel.style.backgroundColor = 'rgba(255, 0, 0, 0.2)';
+                
+                // Make sure both views are ready to be displayed
+                const defaultView = document.querySelector('.default-project-view');
+                const selectedView = document.querySelector('.selected-project-view');
+                
+                if (defaultView) defaultView.style.display = 'block';
+                if (selectedView) selectedView.style.display = 'block';
+            }
+        }
         
         // Create proper mobile card structure for each project
         projectItems.forEach((item, index) => {
@@ -1267,6 +1293,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function updateMobileNav() {
         const sections = document.querySelectorAll('section[id]');
         const navItems = document.querySelectorAll('.mobile-nav-item');
+        const detailsPanel = document.querySelector('.project-details-panel');
         
         // Find the current section
         let currentSectionId = '';
@@ -1281,6 +1308,28 @@ document.addEventListener("DOMContentLoaded", function() {
             if (visibilityRatio > maxVisibility && visibilityRatio > 0.1) {
                 maxVisibility = visibilityRatio;
                 currentSectionId = section.id;
+                
+                // Show details panel instead of cards on mobile in projects section
+                if (window.innerWidth <= 768 && section.id === 'projects') {
+                    // Hide the project list
+                    const projectsList = document.querySelector('.projects-list');
+                    if (projectsList) {
+                        projectsList.style.display = 'none';
+                    }
+                    
+                    // Show the details panel
+                    if (detailsPanel) {
+                        detailsPanel.style.display = 'block';
+                        detailsPanel.style.backgroundColor = 'rgba(255, 0, 0, 0.2)';
+                        
+                        // Make sure both views are ready to be displayed
+                        const defaultView = document.querySelector('.default-project-view');
+                        const selectedView = document.querySelector('.selected-project-view');
+                        
+                        if (defaultView) defaultView.style.display = 'block';
+                        if (selectedView) selectedView.style.display = 'block';
+                    }
+                }
             }
         });
         
@@ -1568,4 +1617,240 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Disable hover states for touch devices
     document.documentElement.classList.add('touch-device');
+    
+    // =========================
+    // Enhanced Mobile Projects
+    // =========================
+    
+    /**
+     * Initialize the new mobile projects section with swipe carousel
+     */
+    function initMobileProjects() {
+        const carousel = document.querySelector('.mobile-projects-carousel');
+        if (!carousel) return;
+        
+        const cards = document.querySelectorAll('.mobile-project-card');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const tabs = document.querySelectorAll('.project-tab');
+        
+        if (cards.length === 0) return;
+        
+        // Set first card as active
+        cards[0].classList.add('active');
+        
+        // Handle carousel scrolling
+        let isScrolling = false;
+        let startX;
+        let startScrollLeft;
+        let currentIndex = 0;
+        
+        // Update the active state when scrolling
+        carousel.addEventListener('scroll', function() {
+            if (isScrolling) return;
+            
+            requestAnimationFrame(() => {
+                // Find the card at the center of the viewport
+                const scrollPosition = carousel.scrollLeft;
+                const cardWidth = cards[0].offsetWidth + parseInt(getComputedStyle(cards[0]).marginRight);
+                const centerIndex = Math.round(scrollPosition / cardWidth);
+                
+                // Only update if index has changed
+                if (centerIndex !== currentIndex && centerIndex >= 0 && centerIndex < cards.length) {
+                    currentIndex = centerIndex;
+                    updateActiveState();
+                }
+            });
+        }, { passive: true });
+        
+        // Handle touch events for swipe
+        carousel.addEventListener('touchstart', function(e) {
+            isScrolling = true;
+            startX = e.touches[0].pageX;
+            startScrollLeft = carousel.scrollLeft;
+            
+            // Add active class to indicate touch interaction
+            this.classList.add('touching');
+        }, { passive: true });
+        
+        carousel.addEventListener('touchmove', function(e) {
+            if (!isScrolling) return;
+            
+            // Calculate how far finger has moved
+            const x = e.touches[0].pageX;
+            const deltaX = startX - x;
+            
+            // Update scroll position
+            carousel.scrollLeft = startScrollLeft + deltaX;
+        }, { passive: true });
+        
+        carousel.addEventListener('touchend', function() {
+            isScrolling = false;
+            this.classList.remove('touching');
+            
+            // Snap to nearest card
+            const cardWidth = cards[0].offsetWidth + parseInt(getComputedStyle(cards[0]).marginRight);
+            const scrollPosition = carousel.scrollLeft;
+            const targetIndex = Math.round(scrollPosition / cardWidth);
+            
+            // Scroll to target card
+            scrollToCard(targetIndex, true);
+            
+            // Add haptic feedback on swipe complete
+            if (window.navigator && window.navigator.vibrate && currentIndex !== targetIndex) {
+                window.navigator.vibrate(10);
+            }
+        });
+        
+        // Handle dot indicators click
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', function() {
+                scrollToCard(index, true);
+                
+                // Add subtle haptic feedback
+                if (window.navigator && window.navigator.vibrate) {
+                    window.navigator.vibrate(5);
+                }
+            });
+        });
+        
+        // Handle tab navigation
+        tabs.forEach((tab, index) => {
+            tab.addEventListener('click', function() {
+                scrollToCard(index, true);
+                
+                // Add haptic feedback
+                if (window.navigator && window.navigator.vibrate) {
+                    window.navigator.vibrate(10);
+                }
+            });
+        });
+        
+        // Function to scroll to a specific card
+        function scrollToCard(index, animate = false) {
+            if (index < 0 || index >= cards.length) return;
+            
+            const cardWidth = cards[0].offsetWidth + parseInt(getComputedStyle(cards[0]).marginRight);
+            const targetScrollLeft = index * cardWidth;
+            
+            if (animate) {
+                carousel.scrollTo({
+                    left: targetScrollLeft,
+                    behavior: 'smooth'
+                });
+            } else {
+                carousel.scrollLeft = targetScrollLeft;
+            }
+            
+            currentIndex = index;
+            updateActiveState();
+        }
+        
+        // Update active state of cards, dots and tabs
+        function updateActiveState() {
+            // Update cards
+            cards.forEach((card, i) => {
+                card.classList.toggle('active', i === currentIndex);
+            });
+            
+            // Update dots
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+            
+            // Update tabs
+            tabs.forEach((tab, i) => {
+                tab.classList.toggle('active', i === currentIndex);
+                
+                // Ensure active tab is visible by scrolling it into view
+                if (i === currentIndex) {
+                    const tabsContainer = tab.parentElement;
+                    const tabLeft = tab.offsetLeft;
+                    const tabWidth = tab.offsetWidth;
+                    const containerWidth = tabsContainer.offsetWidth;
+                    const scrollLeft = tabsContainer.scrollLeft;
+                    
+                    // Calculate the target scroll position to center the tab
+                    const targetScroll = tabLeft - (containerWidth / 2) + (tabWidth / 2);
+                    
+                    tabsContainer.scrollTo({
+                        left: targetScroll,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        }
+        
+        // Add swipe preview animation effect
+        let lastTouch = null;
+        let animationFrame = null;
+        
+        carousel.addEventListener('touchmove', function(e) {
+            lastTouch = e;
+            
+            if (!animationFrame) {
+                animationFrame = requestAnimationFrame(updateSwipePreview);
+            }
+        }, { passive: true });
+        
+        carousel.addEventListener('touchend', function() {
+            lastTouch = null;
+            if (animationFrame) {
+                cancelAnimationFrame(animationFrame);
+                animationFrame = null;
+            }
+            
+            // Reset all cards to normal state
+            cards.forEach(card => {
+                card.style.transform = '';
+            });
+        });
+        
+        // Function to create swipe preview effect
+        function updateSwipePreview() {
+            if (!lastTouch) {
+                animationFrame = null;
+                return;
+            }
+            
+            const carouselRect = carousel.getBoundingClientRect();
+            const touchX = lastTouch.touches[0].clientX;
+            const cardWidth = cards[0].offsetWidth;
+            
+            // Calculate which cards are visible
+            cards.forEach((card, i) => {
+                const cardRect = card.getBoundingClientRect();
+                const cardCenter = cardRect.left + cardRect.width / 2;
+                const distanceFromTouch = Math.abs(touchX - cardCenter);
+                
+                // Apply transform based on distance from touch
+                if (cardRect.right > carouselRect.left && cardRect.left < carouselRect.right) {
+                    // Card is visible
+                    const scale = Math.max(0.95, 1 - (distanceFromTouch / (cardWidth * 2)));
+                    const translateY = (1 - scale) * 10; // Slight lift effect
+                    
+                    card.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+                }
+            });
+            
+            animationFrame = requestAnimationFrame(updateSwipePreview);
+        }
+        
+        // Ensure the carousel is properly initialized
+        setTimeout(() => {
+            // Trigger initial scroll to ensure proper layout
+            scrollToCard(0, false);
+            
+            // Add entrance animation effect
+            cards.forEach((card, i) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 + (i * 100));
+            });
+        }, 300);
+    }
 });

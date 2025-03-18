@@ -640,4 +640,307 @@
         transform: translateX(-50%);
         transition: all 0.3s ease;
     }
+    
+    /* Enhanced Mobile Projects Container - New Design */
+    .mobile-projects-container {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+        width: 100%;
+        margin: 0 auto;
+        position: relative;
+    }
+    
+    /* Swipeable Project Carousel */
+    .mobile-projects-carousel {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        gap: var(--space-md);
+        padding: var(--space-sm);
+        mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        scrollbar-width: none;
+        margin: 0 -var(--space-sm);
+    }
+    
+    .mobile-projects-carousel::-webkit-scrollbar {
+        display: none;
+    }
+    
+    /* Individual Project Card */
+    .mobile-project-card {
+        flex: 0 0 90%;
+        scroll-snap-align: center;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        transform: translateZ(0);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .mobile-project-card.active {
+        border-color: var(--color-accent);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+    
+    /* Card Header with Gradient Overlay */
+    .project-card-header {
+        padding: var(--space-md);
+        position: relative;
+        z-index: 2;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+    }
+    
+    .project-card-title {
+        font-family: var(--font-display);
+        font-size: var(--font-size-lg);
+        font-weight: 700;
+        margin: 0;
+        color: var(--color-text-primary);
+        line-height: 1.2;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    .project-card-subtitle {
+        font-family: var(--font-mono);
+        font-size: var(--font-size-xs);
+        color: var(--color-text-secondary);
+        margin-top: var(--space-xs);
+        opacity: 0.9;
+    }
+    
+    /* Project Card Image */
+    .project-card-image-container {
+        width: 100%;
+        height: 180px;
+        position: relative;
+        overflow: hidden;
+        margin-top: -60px;
+    }
+    
+    .project-card-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+        filter: saturate(0.8) contrast(1.1);
+    }
+    
+    .project-image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, 
+            rgba(0, 0, 0, 0.2), 
+            rgba(0, 0, 0, 0.6));
+        z-index: 1;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+    
+    .mobile-project-card.active .project-card-image {
+        transform: scale(1.05);
+    }
+    
+    /* Card Content */
+    .project-card-content {
+        padding: var(--space-md);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+        background-color: rgba(0, 0, 0, 0.4);
+        flex: 1;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .project-card-description {
+        font-size: var(--font-size-sm);
+        line-height: 1.5;
+        color: var(--color-text-secondary);
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    /* Project metadata styling */
+    .project-card-meta {
+        display: flex;
+        gap: var(--space-md);
+        align-items: center;
+    }
+    
+    .meta-item {
+        flex: 1;
+        background-color: rgba(0, 0, 0, 0.2);
+        padding: var(--space-sm);
+        border-radius: var(--border-radius);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .meta-label {
+        font-family: var(--font-mono);
+        font-size: var(--font-size-2xs);
+        color: var(--color-text-tertiary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .meta-value {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-primary);
+        margin-top: var(--space-2xs);
+    }
+    
+    /* Technology chips with horizontal scroll */
+    .project-card-tech-container {
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .tech-scroll-container {
+        display: flex;
+        gap: var(--space-xs);
+        overflow-x: auto;
+        padding-bottom: var(--space-xs);
+        scroll-snap-type: x proximity;
+        scrollbar-width: none;
+        mask-image: linear-gradient(to right, black 80%, transparent);
+        -webkit-mask-image: linear-gradient(to right, black 80%, transparent);
+    }
+    
+    .tech-scroll-container::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .project-tech-chip {
+        flex: 0 0 auto;
+        font-family: var(--font-mono);
+        font-size: var(--font-size-2xs);
+        color: var(--color-text-secondary);
+        background-color: rgba(255, 0, 0, 0.2);
+        padding: var(--space-2xs) var(--space-xs);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 0, 0, 0.3);
+        white-space: nowrap;
+    }
+    
+    /* Call to action button */
+    .project-card-action-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-xs);
+        background-color: rgba(255, 0, 0, 0.3);
+        color: white;
+        text-decoration: none;
+        padding: var(--space-sm);
+        border-radius: var(--border-radius);
+        border: 1px solid rgba(255, 0, 0, 0.5);
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: var(--space-sm);
+    }
+    
+    .project-card-action-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, 
+            transparent, 
+            rgba(255, 255, 255, 0.1), 
+            transparent);
+        transition: left 0.5s ease;
+    }
+    
+    .project-card-action-button:active {
+        transform: translateY(2px);
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+    }
+    
+    .project-card-action-button:active::before {
+        left: 100%;
+    }
+    
+    .action-button-icon {
+        transition: transform 0.3s ease;
+    }
+    
+    .project-card-action-button:active .action-button-icon {
+        transform: translateX(4px);
+    }
+    
+    /* Carousel pagination indicators */
+    .carousel-indicators {
+        display: flex;
+        justify-content: center;
+        gap: var(--space-xs);
+        margin-top: var(--space-sm);
+    }
+    
+    .carousel-dot {
+        width: 8px;
+        height: 8px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+    
+    .carousel-dot.active {
+        background-color: var(--color-accent);
+        transform: scale(1.2);
+        box-shadow: 0 0 10px var(--color-accent);
+    }
+    
+    /* Tab-based quick navigation */
+    .project-tabs {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x proximity;
+        gap: var(--space-xs);
+        padding: var(--space-xs) 0;
+        margin: 0 -var(--space-sm);
+        padding: 0 var(--space-sm);
+        scrollbar-width: none;
+    }
+    
+    .project-tabs::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .project-tab {
+        flex: 0 0 auto;
+        padding: var(--space-xs) var(--space-sm);
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        font-size: var(--font-size-xs);
+        color: var(--color-text-secondary);
+        white-space: nowrap;
+        transition: all 0.3s ease;
+    }
+    
+    .project-tab.active {
+        background-color: rgba(255, 0, 0, 0.3);
+        border-color: rgba(255, 0, 0, 0.5);
+        color: white;
+    }
 }

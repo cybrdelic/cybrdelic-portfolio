@@ -1054,6 +1054,63 @@
         opacity: 1;
         transform: translateX(0);
     }
+    
+    /* Mobile project subtitle */
+    .project-subtitle {
+        font-family: var(--font-mono);
+        font-size: var(--font-size-xs);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--space-sm);
+    }
+    
+    /* Mobile project description */
+    .project-description-mobile {
+        font-size: var(--font-size-sm);
+        line-height: 1.5;
+        color: var(--color-text-secondary);
+        margin: var(--space-sm) 0;
+    }
+    
+    /* Project view button */
+    .project-view-button {
+        display: inline-block;
+        padding: var(--space-sm) var(--space-md);
+        background-color: rgba(255, 0, 0, 0.3);
+        color: white;
+        text-decoration: none;
+        border-radius: var(--border-radius);
+        margin-top: var(--space-sm);
+        text-align: center;
+        font-weight: bold;
+        border: 1px solid rgba(255, 0, 0, 0.5);
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+    
+    /* Style the details link in mobile mode */
+    @media (max-width: 768px) {
+        .details-link {
+            background-color: rgba(255, 0, 0, 0.3) !important;
+            border: 1px solid rgba(255, 0, 0, 0.5) !important;
+            color: white !important;
+            width: 100% !important;
+            text-align: center !important;
+            margin-top: var(--space-md) !important;
+        }
+    }
+    
+    .project-view-button:hover, 
+    .project-view-button:focus {
+        background-color: rgba(255, 0, 0, 0.5);
+        transform: translateY(-2px);
+    }
+    
+    /* Ensure all project cards are visible */
+    .mobile-all-visible {
+        display: flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
 }
 
 /* Section title */
@@ -1136,6 +1193,18 @@
     }
 }
 
+@media (min-width: 769px) {
+    .desktop-only {
+        display: grid !important;
+        grid-template-columns: minmax(300px, 40%) 1fr;
+        gap: var(--space-xl);
+    }
+    
+    .mobile-only {
+        display: none !important;
+    }
+}
+
 @media (max-width: 768px) {
     #projects {
         padding-top: calc(var(--header-height) + var(--space-lg));
@@ -1151,89 +1220,71 @@
     /* ===== MOBILE-FIRST REDESIGN ===== */
     /* Complete mobile-optimized layout that preserves cyberpunk aesthetic */
     .projects-container {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         gap: var(--space-md);
+        padding-top: var(--space-lg);
     }
     
-    /* ===== PROJECT DETAILS PANEL ===== */
-    /* Optimized details panel as a card-based view */
-    .project-details-panel {
-        order: 2;
-        grid-row: 2;
-        position: relative;
-        padding: var(--mobile-panel-padding);
+    /* Desktop/Mobile views */
+    .desktop-only {
+        display: none !important;
+    }
+    
+    .mobile-only {
+        display: block !important;
+    }
+    
+    /* Mobile projects list - vertical stack of detail panels */
+    .mobile-projects-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-lg);
+        width: 100%;
+    }
+    
+    .mobile-project-panel {
+        background-color: rgba(255, 0, 0, 0.2);
         border-radius: var(--border-radius);
-        max-height: none;
-        overflow-y: visible !important;
-        top: 0;
-        margin-top: var(--space-md);
+        padding: var(--space-md);
+        margin-bottom: var(--space-md);
         width: 100%;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-        transition: transform 0.3s ease, opacity 0.3s ease;
-        backdrop-filter: blur(8px);
     }
     
-    /* Add top glow to details panel */
-    .project-details-panel::after {
-        content: '';
-        position: absolute;
-        top: -2px;
-        left: 20px;
-        right: 20px;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
-        border-radius: 2px;
-        z-index: 2;
+    /* Mobile view button styling */
+    .mobile-view-button {
+        background-color: rgba(255, 0, 0, 0.3) !important;
+        border: 1px solid rgba(255, 0, 0, 0.5) !important;
+        color: white !important;
+        width: 100% !important;
+        text-align: center !important;
+        display: block !important;
+        margin-top: var(--space-md) !important;
     }
     
     /* ===== PROJECT CARDS LIST ===== */
-    /* Card-based horizontal scrolling layout */
+    /* Vertical stacked cards layout */
     .projects-list {
-        order: 1;
-        grid-row: 1;
         display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        overflow-y: hidden;
+        flex-direction: column;
         padding: var(--space-md) 0;
         gap: var(--space-md);
         max-height: none;
-        width: 100vw;
-        margin: 0 calc(var(--mobile-content-padding) * -1);
-        padding-left: var(--mobile-content-padding);
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
+        width: 100%;
         position: relative;
-        scrollbar-width: none; /* Hide scrollbar for Firefox */
-    }
-    
-    .projects-list::-webkit-scrollbar {
-        display: none; /* Hide scrollbar for Chrome/Safari */
-    }
-    
-    .projects-list::after {
-        content: "";
-        flex: 0 0 var(--mobile-content-padding);
-        width: var(--mobile-content-padding);
-        height: 1px;
+        order: 1;
     }
     
     /* ===== PROJECT CARDS ===== */
     /* Enhanced mobile-optimized project cards */
     .project-list-item {
-        flex: 0 0 var(--mobile-card-width);
-        min-width: var(--mobile-card-min-width);
-        max-width: var(--mobile-card-width);
-        height: var(--mobile-card-height);
-        max-height: var(--mobile-card-max-height);
+        width: 100%;
         padding: var(--space-md);
-        margin-bottom: 0;
+        margin-bottom: var(--space-md);
         border-width: 0;
         border-radius: var(--border-radius);
-        background-color: rgba(255, 255, 255, 0.05);
-        scroll-snap-align: start;
+        background-color: rgba(255, 0, 0, 0.2);
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
         transform: none;
         transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -1241,6 +1292,21 @@
         flex-direction: column;
         position: relative;
         overflow: hidden;
+        opacity: 1 !important;
+        visibility: visible !important;
+        margin-top: 0;
+    }
+    
+    /* Mobile card style class added by JS */
+    .mobile-card-style {
+        background-color: rgba(255, 0, 0, 0.2) !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
+        border-radius: var(--border-radius) !important;
+        margin-bottom: var(--space-md) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
     
     /* Add subtle cyberpunk accent to cards */

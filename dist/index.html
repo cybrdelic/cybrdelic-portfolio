@@ -365,224 +365,561 @@
     <div class="container fade-in">
 
         <div class="projects-container">
-            <!-- Project Details Panel (Left Side - Sticky) -->
-            <div class="project-details-panel animate-on-scroll">
-                <!-- Default state when no project is selected -->
-                <div class="default-project-view">
-                    <h3 class="details-header typing-cursor">Select a project</h3>
-                    <p class="details-description">
-                        I build tools that enhance developer productivity and create elegant solutions to complex
-                        problems.
-                        My work spans CLI utilities to AI-powered tools, focusing on performance and usability.
-                    </p>
-
-                    <div class="details-stats stagger-children">
-                        <div class="stat-box card-hover">
-                            <div class="stat-number">10+</div>
-                            <div class="stat-label">Projects</div>
+            <!-- Desktop view - Project Details Panel and Projects List -->
+            <div class="desktop-only">
+                <!-- Project Details Panel (Left Side - Sticky) -->
+                <div class="project-details-panel animate-on-scroll">
+                    <!-- Default state when no project is selected -->
+                    <div class="default-project-view">
+                        <h3 class="details-header typing-cursor">Select a project</h3>
+                        <p class="details-description">
+                            I build tools that enhance developer productivity and create elegant solutions to complex
+                            problems.
+                            My work spans CLI utilities to AI-powered tools, focusing on performance and usability.
+                        </p>
+    
+                        <div class="details-stats stagger-children">
+                            <div class="stat-box card-hover">
+                                <div class="stat-number">10+</div>
+                                <div class="stat-label">Projects</div>
+                            </div>
+                            <div class="stat-box card-hover">
+                                <div class="stat-number">4</div>
+                                <div class="stat-label">Core Tech</div>
+                            </div>
+                            <div class="stat-box card-hover">
+                                <div class="stat-number">7+</div>
+                                <div class="stat-label">Years Exp</div>
+                            </div>
                         </div>
-                        <div class="stat-box card-hover">
-                            <div class="stat-number">4</div>
-                            <div class="stat-label">Core Tech</div>
-                        </div>
-                        <div class="stat-box card-hover">
-                            <div class="stat-number">7+</div>
-                            <div class="stat-label">Years Exp</div>
+    
+                        <div class="expertise-section">
+                            <h3 class="details-subheader">Areas of Focus</h3>
+                            <div class="expertise-tags stagger-children">
+                                <span class="expertise-tag highlight-on-hover">Developer Tools</span>
+                                <span class="expertise-tag highlight-on-hover">AI Integration</span>
+                                <span class="expertise-tag highlight-on-hover">CLI Apps</span>
+                                <span class="expertise-tag highlight-on-hover">Data Viz</span>
+                                <span class="expertise-tag highlight-on-hover">Automation</span>
+                                <span class="expertise-tag highlight-on-hover">Web Apps</span>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="expertise-section">
-                        <h3 class="details-subheader">Areas of Focus</h3>
-                        <div class="expertise-tags stagger-children">
-                            <span class="expertise-tag highlight-on-hover">Developer Tools</span>
-                            <span class="expertise-tag highlight-on-hover">AI Integration</span>
-                            <span class="expertise-tag highlight-on-hover">CLI Apps</span>
-                            <span class="expertise-tag highlight-on-hover">Data Viz</span>
-                            <span class="expertise-tag highlight-on-hover">Automation</span>
-                            <span class="expertise-tag highlight-on-hover">Web Apps</span>
+    
+                    <!-- Project-specific details that show when a project is selected -->
+                    <div class="selected-project-view">
+                        <h3 class="details-header">
+                            <span class="selected-project-title scramble-on-hover">Project Name</span>
+                        </h3>
+                        <div class="details-subtitle">
+                            <span class="selected-project-subtitle">Project Type</span>
                         </div>
+    
+                        <p class="details-description selected-project-description">
+                            Select a project to view details.
+                        </p>
+    
+                        <div class="details-meta stagger-children">
+                            <div class="stat-box card-hover">
+                                <div class="stat-label">Status</div>
+                                <div class="selected-project-status">-</div>
+                            </div>
+                            <div class="stat-box card-hover">
+                                <div class="stat-label">Year</div>
+                                <div class="selected-project-year">-</div>
+                            </div>
+                        </div>
+    
+                        <div class="tech-section">
+                            <h3 class="details-subheader">Technologies</h3>
+                            <div class="selected-project-tech-tags stagger-children"></div>
+                        </div>
+    
+                        <a href="#" class="details-link btn-interaction">
+                            <span class="details-link-text">View Full Details</span>
+                            <span class="details-link-icon transition-transform">→</span>
+                        </a>
                     </div>
                 </div>
-
-                <!-- Project-specific details that show when a project is selected -->
-                <div class="selected-project-view">
-                    <h3 class="details-header">
-                        <span class="selected-project-title scramble-on-hover">Project Name</span>
-                    </h3>
-                    <div class="details-subtitle">
-                        <span class="selected-project-subtitle">Project Type</span>
-                    </div>
-
-                    <p class="details-description selected-project-description">
-                        Select a project to view details.
-                    </p>
-
-                    <div class="details-meta stagger-children">
-                        <div class="stat-box card-hover">
-                            <div class="stat-label">Status</div>
-                            <div class="selected-project-status">-</div>
+    
+                <!-- Projects List (Right Side) - Desktop only -->
+                <div class="projects-list">
+                    
+                    <div class="project-list-item animate-on-scroll" data-id="jjugg"
+                        data-subtitle="Autonomous Job Application Tracker" data-year="2023"
+                        data-status="Active" tabindex="0"
+                        aria-label="Project: JJugg">
+                        <h3 class="project-list-title link-underline">JJugg</h3>
+    
+                        <!-- Hidden data for JavaScript to use -->
+                        <div class="hidden-project-data">
+                            <div class="hidden-description">A local web application for autonomously tracking job applications that transforms a traditionally manual process into a data-driven workflow with automated tracking (via userscripts and email scanning), rich analytics, and interactive dashboards.Think of it like JARVIS for job hunters.</div>
+                            <div class="hidden-tech-stack">
+                                
+                                <span class="tech-item">JavaScript</span>
+                                
+                                <span class="tech-item">HTML</span>
+                                
+                                <span class="tech-item">CSS</span>
+                                
+                                <span class="tech-item">LocalStorage</span>
+                                
+                                <span class="tech-item">User Scripts</span>
+                                
+                            </div>
                         </div>
-                        <div class="stat-box card-hover">
-                            <div class="stat-label">Year</div>
-                            <div class="selected-project-year">-</div>
+                    </div>
+                    
+                    <div class="project-list-item animate-on-scroll" data-id="myriad"
+                        data-subtitle="Intelligent Software Copilot" data-year="2023"
+                        data-status="Active" tabindex="0"
+                        aria-label="Project: Myriad.ai">
+                        <h3 class="project-list-title link-underline">Myriad.ai</h3>
+    
+                        <!-- Hidden data for JavaScript to use -->
+                        <div class="hidden-project-data">
+                            <div class="hidden-description">An AI-powered code exploration tool that helps developers navigate and understand complex codebases, and produce project planning&#x2F;documentation through contextual code analysis and natural language interaction.</div>
+                            <div class="hidden-tech-stack">
+                                
+                                <span class="tech-item">Rust</span>
+                                
+                                <span class="tech-item">Claude API</span>
+                                
+                                <span class="tech-item">NLP</span>
+                                
+                                <span class="tech-item">Git</span>
+                                
+                            </div>
                         </div>
                     </div>
-
-                    <div class="tech-section">
-                        <h3 class="details-subheader">Technologies</h3>
-                        <div class="selected-project-tech-tags stagger-children"></div>
+                    
+                    <div class="project-list-item animate-on-scroll" data-id="commitaura"
+                        data-subtitle="AI-Powered Commit Message Generator" data-year="2023"
+                        data-status="Active" tabindex="0"
+                        aria-label="Project: CommitAura">
+                        <h3 class="project-list-title link-underline">CommitAura</h3>
+    
+                        <!-- Hidden data for JavaScript to use -->
+                        <div class="hidden-project-data">
+                            <div class="hidden-description">A Rust-based CLI tool that analyzes Git commit patterns, streamlines version control workflows, and autonomously generates meaningful commit messages based on code changes.</div>
+                            <div class="hidden-tech-stack">
+                                
+                                <span class="tech-item">Rust</span>
+                                
+                                <span class="tech-item">Claude API</span>
+                                
+                                <span class="tech-item">Git</span>
+                                
+                            </div>
+                        </div>
                     </div>
-
-                    <a href="#" class="details-link btn-interaction">
-                        <span class="details-link-text">View Full Details</span>
-                        <span class="details-link-icon transition-transform">→</span>
-                    </a>
+                    
+                    <div class="project-list-item animate-on-scroll" data-id="resumatyk"
+                        data-subtitle="AI Resume Management TUI" data-year="2023"
+                        data-status="Active" tabindex="0"
+                        aria-label="Project: Resumatyk">
+                        <h3 class="project-list-title link-underline">Resumatyk</h3>
+    
+                        <!-- Hidden data for JavaScript to use -->
+                        <div class="hidden-project-data">
+                            <div class="hidden-description">A resume management system (written in Bash using fzf) that allows the creation, editing, compilation, and viewing of resumes. Also enables resume style variant generation using LaTeX code generation, OCR, and fully autonomous, multimodal, LLM-based, recursive QA flows.</div>
+                            <div class="hidden-tech-stack">
+                                
+                                <span class="tech-item">Python</span>
+                                
+                                <span class="tech-item">LaTeX</span>
+                                
+                                <span class="tech-item">OCR</span>
+                                
+                                <span class="tech-item">AI</span>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-list-item animate-on-scroll" data-id="cybrdelic-portfolio"
+                        data-subtitle="Interactive Developer Portfolio" data-year="2023"
+                        data-status="Active" tabindex="0"
+                        aria-label="Project: Cybrdelic Portfolio">
+                        <h3 class="project-list-title link-underline">Cybrdelic Portfolio</h3>
+    
+                        <!-- Hidden data for JavaScript to use -->
+                        <div class="hidden-project-data">
+                            <div class="hidden-description">A full-stack portfolio and interactive web app built with Rust, featuring dynamic routing, interactive UI elements, and markdown-driven documentation. Integrates Axum, Tera, and modern JavaScript to deliver a cutting-edge, cyberpunk-inspired experience.</div>
+                            <div class="hidden-tech-stack">
+                                
+                                <span class="tech-item">Rust</span>
+                                
+                                <span class="tech-item">Axum</span>
+                                
+                                <span class="tech-item">Tera</span>
+                                
+                                <span class="tech-item">JavaScript</span>
+                                
+                                <span class="tech-item">CSS</span>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-list-item animate-on-scroll" data-id="browsealizer"
+                        data-subtitle="GitHub Project Explorer" data-year="2023"
+                        data-status="Active" tabindex="0"
+                        aria-label="Project: Browsealizer">
+                        <h3 class="project-list-title link-underline">Browsealizer</h3>
+    
+                        <!-- Hidden data for JavaScript to use -->
+                        <div class="hidden-project-data">
+                            <div class="hidden-description">A tool designed to enhance the GitHub browsing experience by offering an unlimited, continuously updated feed of projects with mobile optimization and intuitive filtering.</div>
+                            <div class="hidden-tech-stack">
+                                
+                                <span class="tech-item">React</span>
+                                
+                                <span class="tech-item">TypeScript</span>
+                                
+                                <span class="tech-item">GitHub API</span>
+                                
+                                <span class="tech-item">CSS</span>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
 
-            <!-- Projects List (Right Side) -->
-            <div class="projects-list">
-                
-                <div class="project-list-item animate-on-scroll" data-id="jjugg"
-                    data-subtitle="Autonomous Job Application Tracker" data-year="2023"
-                    data-status="Active" tabindex="0"
-                    aria-label="Project: JJugg">
-                    <h3 class="project-list-title link-underline">JJugg</h3>
-
-                    <!-- Hidden data for JavaScript to use -->
-                    <div class="hidden-project-data">
-                        <div class="hidden-description">A local web application for autonomously tracking job applications that transforms a traditionally manual process into a data-driven workflow with automated tracking (via userscripts and email scanning), rich analytics, and interactive dashboards.Think of it like JARVIS for job hunters.</div>
-                        <div class="hidden-tech-stack">
+            <!-- Mobile view - Enhanced interactive project cards -->
+            <div class="mobile-only">
+                <div class="mobile-projects-container">
+                    <!-- Swipeable project cards -->
+                    <div class="mobile-projects-carousel">
+                        
+                        <div class="mobile-project-card" data-id="jjugg">
+                            <div class="project-card-header">
+                                <h3 class="project-card-title">JJugg</h3>
+                                <div class="project-card-subtitle">Autonomous Job Application Tracker</div>
+                            </div>
                             
-                            <span class="tech-item">JavaScript</span>
+                            <div class="project-card-image-container">
+                                <img src="&#x2F;cybrdelic-portfolio&#x2F;static/images/jjugg.jpg" alt="JJugg" class="project-card-image" onerror="this.src='&#x2F;cybrdelic-portfolio&#x2F;static/images/default-project.jpg'">
+                                <div class="project-image-overlay"></div>
+                            </div>
                             
-                            <span class="tech-item">HTML</span>
-                            
-                            <span class="tech-item">CSS</span>
-                            
-                            <span class="tech-item">LocalStorage</span>
-                            
-                            <span class="tech-item">User Scripts</span>
-                            
+                            <div class="project-card-content">
+                                <p class="project-card-description">A local web application for autonomously tracking job applications that transforms a traditionally manual process into a data-driven workflow with automated tracking (via userscripts and email scanning), rich analytics, and interactive dashboards.Think of it like JARVIS for job hunters.</p>
+                                
+                                <div class="project-card-meta">
+                                    <div class="meta-item">
+                                        <div class="meta-label">Status</div>
+                                        <div class="meta-value">Active</div>
+                                    </div>
+                                    <div class="meta-item">
+                                        <div class="meta-label">Year</div>
+                                        <div class="meta-value">2023</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="project-card-tech-container">
+                                    <div class="tech-scroll-container">
+                                        
+                                        <span class="project-tech-chip">JavaScript</span>
+                                        
+                                        <span class="project-tech-chip">HTML</span>
+                                        
+                                        <span class="project-tech-chip">CSS</span>
+                                        
+                                        <span class="project-tech-chip">LocalStorage</span>
+                                        
+                                        <span class="project-tech-chip">User Scripts</span>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <a href="&#x2F;cybrdelic-portfolio&#x2F;projects/jjugg" class="project-card-action-button">
+                                    <span class="action-button-text">Explore Project</span>
+                                    <span class="action-button-icon">→</span>
+                                </a>
+                            </div>
                         </div>
+                        
+                        <div class="mobile-project-card" data-id="myriad">
+                            <div class="project-card-header">
+                                <h3 class="project-card-title">Myriad.ai</h3>
+                                <div class="project-card-subtitle">Intelligent Software Copilot</div>
+                            </div>
+                            
+                            <div class="project-card-image-container">
+                                <img src="&#x2F;cybrdelic-portfolio&#x2F;static/images/myriad.jpg" alt="Myriad.ai" class="project-card-image" onerror="this.src='&#x2F;cybrdelic-portfolio&#x2F;static/images/default-project.jpg'">
+                                <div class="project-image-overlay"></div>
+                            </div>
+                            
+                            <div class="project-card-content">
+                                <p class="project-card-description">An AI-powered code exploration tool that helps developers navigate and understand complex codebases, and produce project planning&#x2F;documentation through contextual code analysis and natural language interaction.</p>
+                                
+                                <div class="project-card-meta">
+                                    <div class="meta-item">
+                                        <div class="meta-label">Status</div>
+                                        <div class="meta-value">Active</div>
+                                    </div>
+                                    <div class="meta-item">
+                                        <div class="meta-label">Year</div>
+                                        <div class="meta-value">2023</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="project-card-tech-container">
+                                    <div class="tech-scroll-container">
+                                        
+                                        <span class="project-tech-chip">Rust</span>
+                                        
+                                        <span class="project-tech-chip">Claude API</span>
+                                        
+                                        <span class="project-tech-chip">NLP</span>
+                                        
+                                        <span class="project-tech-chip">Git</span>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <a href="&#x2F;cybrdelic-portfolio&#x2F;projects/myriad" class="project-card-action-button">
+                                    <span class="action-button-text">Explore Project</span>
+                                    <span class="action-button-icon">→</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="mobile-project-card" data-id="commitaura">
+                            <div class="project-card-header">
+                                <h3 class="project-card-title">CommitAura</h3>
+                                <div class="project-card-subtitle">AI-Powered Commit Message Generator</div>
+                            </div>
+                            
+                            <div class="project-card-image-container">
+                                <img src="&#x2F;cybrdelic-portfolio&#x2F;static/images/commitaura.jpg" alt="CommitAura" class="project-card-image" onerror="this.src='&#x2F;cybrdelic-portfolio&#x2F;static/images/default-project.jpg'">
+                                <div class="project-image-overlay"></div>
+                            </div>
+                            
+                            <div class="project-card-content">
+                                <p class="project-card-description">A Rust-based CLI tool that analyzes Git commit patterns, streamlines version control workflows, and autonomously generates meaningful commit messages based on code changes.</p>
+                                
+                                <div class="project-card-meta">
+                                    <div class="meta-item">
+                                        <div class="meta-label">Status</div>
+                                        <div class="meta-value">Active</div>
+                                    </div>
+                                    <div class="meta-item">
+                                        <div class="meta-label">Year</div>
+                                        <div class="meta-value">2023</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="project-card-tech-container">
+                                    <div class="tech-scroll-container">
+                                        
+                                        <span class="project-tech-chip">Rust</span>
+                                        
+                                        <span class="project-tech-chip">Claude API</span>
+                                        
+                                        <span class="project-tech-chip">Git</span>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <a href="&#x2F;cybrdelic-portfolio&#x2F;projects/commitaura" class="project-card-action-button">
+                                    <span class="action-button-text">Explore Project</span>
+                                    <span class="action-button-icon">→</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="mobile-project-card" data-id="resumatyk">
+                            <div class="project-card-header">
+                                <h3 class="project-card-title">Resumatyk</h3>
+                                <div class="project-card-subtitle">AI Resume Management TUI</div>
+                            </div>
+                            
+                            <div class="project-card-image-container">
+                                <img src="&#x2F;cybrdelic-portfolio&#x2F;static/images/resumatyk.jpg" alt="Resumatyk" class="project-card-image" onerror="this.src='&#x2F;cybrdelic-portfolio&#x2F;static/images/default-project.jpg'">
+                                <div class="project-image-overlay"></div>
+                            </div>
+                            
+                            <div class="project-card-content">
+                                <p class="project-card-description">A resume management system (written in Bash using fzf) that allows the creation, editing, compilation, and viewing of resumes. Also enables resume style variant generation using LaTeX code generation, OCR, and fully autonomous, multimodal, LLM-based, recursive QA flows.</p>
+                                
+                                <div class="project-card-meta">
+                                    <div class="meta-item">
+                                        <div class="meta-label">Status</div>
+                                        <div class="meta-value">Active</div>
+                                    </div>
+                                    <div class="meta-item">
+                                        <div class="meta-label">Year</div>
+                                        <div class="meta-value">2023</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="project-card-tech-container">
+                                    <div class="tech-scroll-container">
+                                        
+                                        <span class="project-tech-chip">Python</span>
+                                        
+                                        <span class="project-tech-chip">LaTeX</span>
+                                        
+                                        <span class="project-tech-chip">OCR</span>
+                                        
+                                        <span class="project-tech-chip">AI</span>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <a href="&#x2F;cybrdelic-portfolio&#x2F;projects/resumatyk" class="project-card-action-button">
+                                    <span class="action-button-text">Explore Project</span>
+                                    <span class="action-button-icon">→</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="mobile-project-card" data-id="cybrdelic-portfolio">
+                            <div class="project-card-header">
+                                <h3 class="project-card-title">Cybrdelic Portfolio</h3>
+                                <div class="project-card-subtitle">Interactive Developer Portfolio</div>
+                            </div>
+                            
+                            <div class="project-card-image-container">
+                                <img src="&#x2F;cybrdelic-portfolio&#x2F;static/images/cybrdelic-portfolio.jpg" alt="Cybrdelic Portfolio" class="project-card-image" onerror="this.src='&#x2F;cybrdelic-portfolio&#x2F;static/images/default-project.jpg'">
+                                <div class="project-image-overlay"></div>
+                            </div>
+                            
+                            <div class="project-card-content">
+                                <p class="project-card-description">A full-stack portfolio and interactive web app built with Rust, featuring dynamic routing, interactive UI elements, and markdown-driven documentation. Integrates Axum, Tera, and modern JavaScript to deliver a cutting-edge, cyberpunk-inspired experience.</p>
+                                
+                                <div class="project-card-meta">
+                                    <div class="meta-item">
+                                        <div class="meta-label">Status</div>
+                                        <div class="meta-value">Active</div>
+                                    </div>
+                                    <div class="meta-item">
+                                        <div class="meta-label">Year</div>
+                                        <div class="meta-value">2023</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="project-card-tech-container">
+                                    <div class="tech-scroll-container">
+                                        
+                                        <span class="project-tech-chip">Rust</span>
+                                        
+                                        <span class="project-tech-chip">Axum</span>
+                                        
+                                        <span class="project-tech-chip">Tera</span>
+                                        
+                                        <span class="project-tech-chip">JavaScript</span>
+                                        
+                                        <span class="project-tech-chip">CSS</span>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <a href="&#x2F;cybrdelic-portfolio&#x2F;projects/cybrdelic-portfolio" class="project-card-action-button">
+                                    <span class="action-button-text">Explore Project</span>
+                                    <span class="action-button-icon">→</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="mobile-project-card" data-id="browsealizer">
+                            <div class="project-card-header">
+                                <h3 class="project-card-title">Browsealizer</h3>
+                                <div class="project-card-subtitle">GitHub Project Explorer</div>
+                            </div>
+                            
+                            <div class="project-card-image-container">
+                                <img src="&#x2F;cybrdelic-portfolio&#x2F;static/images/browsealizer.jpg" alt="Browsealizer" class="project-card-image" onerror="this.src='&#x2F;cybrdelic-portfolio&#x2F;static/images/default-project.jpg'">
+                                <div class="project-image-overlay"></div>
+                            </div>
+                            
+                            <div class="project-card-content">
+                                <p class="project-card-description">A tool designed to enhance the GitHub browsing experience by offering an unlimited, continuously updated feed of projects with mobile optimization and intuitive filtering.</p>
+                                
+                                <div class="project-card-meta">
+                                    <div class="meta-item">
+                                        <div class="meta-label">Status</div>
+                                        <div class="meta-value">Active</div>
+                                    </div>
+                                    <div class="meta-item">
+                                        <div class="meta-label">Year</div>
+                                        <div class="meta-value">2023</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="project-card-tech-container">
+                                    <div class="tech-scroll-container">
+                                        
+                                        <span class="project-tech-chip">React</span>
+                                        
+                                        <span class="project-tech-chip">TypeScript</span>
+                                        
+                                        <span class="project-tech-chip">GitHub API</span>
+                                        
+                                        <span class="project-tech-chip">CSS</span>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <a href="&#x2F;cybrdelic-portfolio&#x2F;projects/browsealizer" class="project-card-action-button">
+                                    <span class="action-button-text">Explore Project</span>
+                                    <span class="action-button-icon">→</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <!-- Pagination indicators -->
+                    <div class="carousel-indicators">
+                        
+                        <div class="carousel-dot active" data-index="0"></div>
+                        
+                        <div class="carousel-dot " data-index="1"></div>
+                        
+                        <div class="carousel-dot " data-index="2"></div>
+                        
+                        <div class="carousel-dot " data-index="3"></div>
+                        
+                        <div class="carousel-dot " data-index="4"></div>
+                        
+                        <div class="carousel-dot " data-index="5"></div>
+                        
+                    </div>
+                    
+                    <!-- Quick navigation tabs -->
+                    <div class="project-tabs">
+                        
+                        <div class="project-tab active" data-index="0">
+                            <span class="tab-label">JJugg</span>
+                        </div>
+                        
+                        <div class="project-tab " data-index="1">
+                            <span class="tab-label">Myriad.ai</span>
+                        </div>
+                        
+                        <div class="project-tab " data-index="2">
+                            <span class="tab-label">CommitAura</span>
+                        </div>
+                        
+                        <div class="project-tab " data-index="3">
+                            <span class="tab-label">Resumatyk</span>
+                        </div>
+                        
+                        <div class="project-tab " data-index="4">
+                            <span class="tab-label">Cybrdelic Portfolio</span>
+                        </div>
+                        
+                        <div class="project-tab " data-index="5">
+                            <span class="tab-label">Browsealizer</span>
+                        </div>
+                        
                     </div>
                 </div>
-                
-                <div class="project-list-item animate-on-scroll" data-id="myriad"
-                    data-subtitle="Intelligent Software Copilot" data-year="2023"
-                    data-status="Active" tabindex="0"
-                    aria-label="Project: Myriad.ai">
-                    <h3 class="project-list-title link-underline">Myriad.ai</h3>
-
-                    <!-- Hidden data for JavaScript to use -->
-                    <div class="hidden-project-data">
-                        <div class="hidden-description">An AI-powered code exploration tool that helps developers navigate and understand complex codebases, and produce project planning&#x2F;documentation through contextual code analysis and natural language interaction.</div>
-                        <div class="hidden-tech-stack">
-                            
-                            <span class="tech-item">Rust</span>
-                            
-                            <span class="tech-item">Claude API</span>
-                            
-                            <span class="tech-item">NLP</span>
-                            
-                            <span class="tech-item">Git</span>
-                            
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-list-item animate-on-scroll" data-id="commitaura"
-                    data-subtitle="AI-Powered Commit Message Generator" data-year="2023"
-                    data-status="Active" tabindex="0"
-                    aria-label="Project: CommitAura">
-                    <h3 class="project-list-title link-underline">CommitAura</h3>
-
-                    <!-- Hidden data for JavaScript to use -->
-                    <div class="hidden-project-data">
-                        <div class="hidden-description">A Rust-based CLI tool that analyzes Git commit patterns, streamlines version control workflows, and autonomously generates meaningful commit messages based on code changes.</div>
-                        <div class="hidden-tech-stack">
-                            
-                            <span class="tech-item">Rust</span>
-                            
-                            <span class="tech-item">Claude API</span>
-                            
-                            <span class="tech-item">Git</span>
-                            
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-list-item animate-on-scroll" data-id="resumatyk"
-                    data-subtitle="AI Resume Management TUI" data-year="2023"
-                    data-status="Active" tabindex="0"
-                    aria-label="Project: Resumatyk">
-                    <h3 class="project-list-title link-underline">Resumatyk</h3>
-
-                    <!-- Hidden data for JavaScript to use -->
-                    <div class="hidden-project-data">
-                        <div class="hidden-description">A resume management system (written in Bash using fzf) that allows the creation, editing, compilation, and viewing of resumes. Also enables resume style variant generation using LaTeX code generation, OCR, and fully autonomous, multimodal, LLM-based, recursive QA flows.</div>
-                        <div class="hidden-tech-stack">
-                            
-                            <span class="tech-item">Python</span>
-                            
-                            <span class="tech-item">LaTeX</span>
-                            
-                            <span class="tech-item">OCR</span>
-                            
-                            <span class="tech-item">AI</span>
-                            
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-list-item animate-on-scroll" data-id="cybrdelic-portfolio"
-                    data-subtitle="Interactive Developer Portfolio" data-year="2023"
-                    data-status="Active" tabindex="0"
-                    aria-label="Project: Cybrdelic Portfolio">
-                    <h3 class="project-list-title link-underline">Cybrdelic Portfolio</h3>
-
-                    <!-- Hidden data for JavaScript to use -->
-                    <div class="hidden-project-data">
-                        <div class="hidden-description">A full-stack portfolio and interactive web app built with Rust, featuring dynamic routing, interactive UI elements, and markdown-driven documentation. Integrates Axum, Tera, and modern JavaScript to deliver a cutting-edge, cyberpunk-inspired experience.</div>
-                        <div class="hidden-tech-stack">
-                            
-                            <span class="tech-item">Rust</span>
-                            
-                            <span class="tech-item">Axum</span>
-                            
-                            <span class="tech-item">Tera</span>
-                            
-                            <span class="tech-item">JavaScript</span>
-                            
-                            <span class="tech-item">CSS</span>
-                            
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-list-item animate-on-scroll" data-id="browsealizer"
-                    data-subtitle="GitHub Project Explorer" data-year="2023"
-                    data-status="Active" tabindex="0"
-                    aria-label="Project: Browsealizer">
-                    <h3 class="project-list-title link-underline">Browsealizer</h3>
-
-                    <!-- Hidden data for JavaScript to use -->
-                    <div class="hidden-project-data">
-                        <div class="hidden-description">A tool designed to enhance the GitHub browsing experience by offering an unlimited, continuously updated feed of projects with mobile optimization and intuitive filtering.</div>
-                        <div class="hidden-tech-stack">
-                            
-                            <span class="tech-item">React</span>
-                            
-                            <span class="tech-item">TypeScript</span>
-                            
-                            <span class="tech-item">GitHub API</span>
-                            
-                            <span class="tech-item">CSS</span>
-                            
-                        </div>
-                    </div>
-                </div>
-                
             </div>
         </div>
     </div>
