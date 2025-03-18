@@ -22,6 +22,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Moirai+One&family=Nabla&family=Noto+Sans+Mono:wght@400;500;600;700&family=Share+Tech+Mono&family=Silkscreen&family=Sometype+Mono:wght@400;500;600;700&family=Faster+One&family=Flow+Circular&family=Flow+Rounded&family=Gruppo&family=Keania+One&family=Kenia&family=Londrina+Outline&family=Plaster&display=swap"
         rel="stylesheet">
+        
+    <!-- Material Icons for Mobile Navigation -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Centralized CSS file that imports all modules -->
     <link rel="stylesheet" href="&#x2F;cybrdelic-portfolio&#x2F;static/css/main.css" />
@@ -43,7 +46,18 @@
     <div class="corner-effect corner-bottom-left"></div>
 
     <div id="terminal">
+        <!-- Mobile-specific UI elements -->
+        <div class="mobile-fab" id="mobile-fab">
+            <i class="material-icons">arrow_upward</i>
+        </div>
+        <div class="pull-indicator" id="pull-indicator"></div>
+        
         <nav class="nav">
+            <div class="hamburger-menu" id="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <a href="&#x2F;cybrdelic-portfolio&#x2F;" class="home-link">
                 <div class="home-button">
                     <span class="icon">⌂</span>
@@ -51,9 +65,9 @@
                 </div>
             </a>
             <div class="nav-left stagger-children">
-                <a href="#projects" class="cmd cmd-prompt">ls projects/</a>
-                <a href="#whats-next" class="cmd cmd-prompt">./future</a>
-                <a href="#contact" class="cmd cmd-prompt">./contact</a>
+                <a href="#projects" class="cmd cmd-prompt"><span>ls projects/</span></a>
+                <a href="#career" class="cmd cmd-prompt"><span>./career</span></a>
+                <a href="#contact" class="cmd cmd-prompt"><span>./contact</span></a>
             </div>
             <div class="nav-right">
                 <a href="https://github.com/cybrdelic" target="_blank" class="nav-action-button github-button">
@@ -210,8 +224,8 @@
         
         <div class="cta-button-container-wrapper">
             <div class="cta-button-container">
-                <a href="http://localhost:8080/#" class="primary-button" target="_blank">
-                    View Landing Page
+                <a href="&#x2F;cybrdelic-portfolio&#x2F;" class="primary-button">
+                    Back to Home
                     <svg class="button-icon" viewBox="0 0 24 24">
                         <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
@@ -1210,7 +1224,7 @@ resolving complex complaints and reducing escalation rate by 23%"
 
 <script>
     // Make base_path available to JavaScript
-    const base_path = "&#x2F;cybrdelic-portfolio&#x2F;";
+    const base_path = "/cybrdelic-portfolio/";
     
     document.addEventListener('DOMContentLoaded', () => {
         initDocumentationTabs();
@@ -1357,6 +1371,7 @@ resolving complex complaints and reducing escalation rate by 23%"
     <script src="&#x2F;cybrdelic-portfolio&#x2F;static/js/projects.js"></script>
     <script src="&#x2F;cybrdelic-portfolio&#x2F;static/js/glitch.js"></script>
     <script src="&#x2F;cybrdelic-portfolio&#x2F;static/js/transitions.js"></script>
+    <script src="&#x2F;cybrdelic-portfolio&#x2F;static/js/mobile.js"></script>
 
     <!-- Core functionality -->
     <script>
@@ -1829,7 +1844,24 @@ resolving complex complaints and reducing escalation rate by 23%"
             }
         }
 
+        // Mobile navigation toggle
         document.addEventListener("DOMContentLoaded", () => {
+            const hamburgerMenu = document.getElementById("hamburger-menu");
+            const nav = document.querySelector(".nav");
+            
+            if (hamburgerMenu) {
+                hamburgerMenu.addEventListener("click", () => {
+                    nav.classList.toggle("mobile-open");
+                });
+                
+                // Close mobile menu when clicking a navigation link
+                document.querySelectorAll(".nav a").forEach(link => {
+                    link.addEventListener("click", () => {
+                        nav.classList.remove("mobile-open");
+                    });
+                });
+            }
+            
             // Initialize vertical name
             const verticalName = document.querySelector(".vertical-name");
             if (!verticalName) return;
