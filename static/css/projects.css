@@ -1202,9 +1202,13 @@
         padding-top: var(--space-lg);
     }
     
-    /* Hide details panel on mobile - show only cards */
+    /* Show project cards, hide project details panel */
     .project-details-panel {
         display: none;
+    }
+        
+    .default-project-view, .selected-project-view {
+        display: none !important;
     }
     
     /* ===== PROJECT CARDS LIST ===== */
@@ -1217,6 +1221,7 @@
         max-height: none;
         width: 100%;
         position: relative;
+        order: 1;
     }
     
     /* ===== PROJECT CARDS ===== */
@@ -1238,6 +1243,18 @@
         opacity: 1 !important;
         visibility: visible !important;
         margin-top: 0;
+    }
+    
+    /* Mobile card style class added by JS */
+    .mobile-card-style {
+        background-color: rgba(255, 0, 0, 0.2) !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
+        border-radius: var(--border-radius) !important;
+        margin-bottom: var(--space-md) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
     
     /* Add subtle cyberpunk accent to cards */

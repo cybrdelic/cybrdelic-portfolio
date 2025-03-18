@@ -855,14 +855,15 @@ document.addEventListener("DOMContentLoaded", function() {
         
         if (!projectsList || projectItems.length === 0) return;
         
-        // Force all items to be visible in mobile view
+        // Force all items to be visible in mobile view and ensure they look like cards
         projectItems.forEach(item => {
             item.style.display = 'flex';
             item.style.opacity = '1';
             item.style.visibility = 'visible';
+            item.classList.add('mobile-card-style');
         });
         
-        // Hide details panel on mobile
+        // Keep the cards visible, hide the details panel on mobile
         if (detailsPanel && window.innerWidth <= 768) {
             detailsPanel.style.display = 'none';
         }
@@ -1297,9 +1298,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 maxVisibility = visibilityRatio;
                 currentSectionId = section.id;
                 
-                // Hide details panel on mobile in projects section
-                if (detailsPanel && window.innerWidth <= 768 && section.id === 'projects') {
-                    detailsPanel.style.display = 'none';
+                // Hide details panel and ensure cards are shown on mobile in projects section
+                if (window.innerWidth <= 768 && section.id === 'projects') {
+                    if (detailsPanel) {
+                        detailsPanel.style.display = 'none';
+                    }
+                    
+                    // Make sure all project list items are visible
+                    document.querySelectorAll('.project-list-item').forEach(item => {
+                        item.style.display = 'flex';
+                        item.style.opacity = '1';
+                        item.style.visibility = 'visible';
+                    });
                 }
             }
         });
